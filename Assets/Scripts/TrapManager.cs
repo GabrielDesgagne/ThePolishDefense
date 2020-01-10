@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrapManager : Flow
 {
+
     #region Singleton
     static private TrapManager instance = null;
 
