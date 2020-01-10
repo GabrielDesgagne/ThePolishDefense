@@ -16,9 +16,15 @@ public class TrapManager : Flow
 
     #endregion
 
+    public float timerStart = 2f;
+    public float currentTime;
+    GameObject newTrap;
+    public GameObject trapHolder;
+    public List<Trap> listTrap;
+
     override public void PreInitialize()
     {
-
+        newTrap = Resources.Load<GameObject>("Prefabs/AsterBig3");
     }
 
     override public void Initialize()
@@ -35,4 +41,5 @@ public class TrapManager : Flow
     {
 
     }
+
 }
