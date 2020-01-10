@@ -6,14 +6,16 @@ public class TowerManager : Flow {
     private static TowerManager instance = null;
     public static TowerManager Instance { get { return instance ?? (instance = new TowerManager()); } }
 
-    public Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+    public Dictionary<TowerType, GameObject> prefabs = new Dictionary<TowerType, GameObject>();
 
     List<Tower> towerList = new List<Tower>();
 
     override public void PreInitialize() {
-        prefabs.Add("basic", GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Basic_Tower")));
+        prefabs.Add(TowerType.BASIC, Resources.Load<GameObject>("Prefabs /Basic_Tower"));
+        prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Basic_Tower"));
+        prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Basic_Tower"));
 
-        towerList.Add(new BasicTower(new Vector3(100, 0, 10), 5, 50, 3)); //test tower will be removed
+        towerList.Add(new HeavyTower(new Vector3(10, 0, 10), 5, 50, 3)); //test tower will be removed
 
         foreach (Tower tower in towerList) {
             tower.PreInitialize();

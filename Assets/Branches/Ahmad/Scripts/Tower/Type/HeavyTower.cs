@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeavyTower : Tower {
+    public BombFeeder Feeder { get; private set; }
+
     public HeavyTower() {
         this.Position = new Vector3(0, 0, 0);
         this.Type = TowerType.HEAVY;
@@ -21,11 +23,13 @@ public class HeavyTower : Tower {
     }
 
     public override void Initialize() {
-
+        this.Object = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
+        Feeder = new BombFeeder(Position + new Vector3(0, 43.75f, 0));
+        Feeder.SpawnBombs();
     }
 
     public override void PhysicsRefresh() {
-
+        
     }
 
     public override void PreInitialize() {
@@ -33,6 +37,9 @@ public class HeavyTower : Tower {
     }
 
     public override void Refresh() {
-
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Feeder.Pickup();
+        }
+        Feeder.Move();
     }
 }

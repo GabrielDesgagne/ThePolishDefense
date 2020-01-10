@@ -8,6 +8,8 @@ public class Main : MonoBehaviour
     static public Main instance { get; private set; }
 
     private Game game;
+    //private Room room;
+    //Flow currentFlow;
 
     private void Awake()
     {
@@ -20,6 +22,9 @@ public class Main : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //Instead of game.PreInitialize....
+        //currenFlow.PreInitialize
 
         game = Game.Instance;
         game.PreInitialize();
