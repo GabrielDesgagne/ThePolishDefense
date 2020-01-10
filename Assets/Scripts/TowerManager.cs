@@ -2,58 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerManager : MonoBehaviour {
-    private static TowerManager instance;
-    private TowerManager() { }
+public class TowerManager : Flow {
+    private static TowerManager instance = null;
     public static TowerManager Instance { get { return instance ?? (instance = new TowerManager()); } }
 
     public Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
 
     List<Tower> towerList = new List<Tower>();
 
-    public void PreInitialize() {
-        GameObject basicTowerObject = Resources.Load<GameObject>("Prefabs/Basic_Tower");
-        prefabs.Add("basic", GameObject.Instantiate<GameObject>(basicTowerObject));
+    override public void PreInitialize() {
+        prefabs.Add("basic", GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Basic_Tower")));
 
-        towerList.Add(new BasicTower(new Vector3(100, 0, 10), 5, 50, 3));
+        towerList.Add(new BasicTower(new Vector3(100, 0, 10), 5, 50, 3)); //test tower will be removed
 
         foreach (Tower tower in towerList) {
             tower.PreInitialize();
         }
     }
 
-    public void Initialize() {
+    override public void Initialize() {
         foreach (Tower tower in towerList) {
             tower.Initialize();
         }
     }
 
-    public void PhysicsRefresh() {
+    override public void PhysicsRefresh() {
         foreach (Tower tower in towerList) {
             tower.PhysicsRefresh();
         }
     }
 
-    public void Refresh() {
+    override public void Refresh() {
         foreach (Tower tower in towerList) {
             tower.Refresh();
         }
-    }
-
-    void Awake() {
-        PreInitialize();
-    }
-
-    void Start() {
-        Initialize();
-    }
-
-    void Update() {
-        Refresh();
-    }
-
-    void FixedUpdate() {
-        PhysicsRefresh();
     }
 
     //Test fonctions that need to be moved into EnemyManager

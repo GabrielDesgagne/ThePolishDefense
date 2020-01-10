@@ -22,7 +22,7 @@ public class BasicTower : Tower {
     }
 
     public override void Initialize() {
-        GameObject.Instantiate(TowerManager.Instance.prefabs["basic"], Position, Quaternion.identity);
+        this.Object = GameObject.Instantiate(TowerManager.Instance.prefabs["basic"], Position, Quaternion.identity);
     }
 
     public override void PhysicsRefresh() {
