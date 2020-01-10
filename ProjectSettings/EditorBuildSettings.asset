@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Branches/Samuel/Scene/SamTest.unity
+    guid: 37546715f7d881b488ecb374be098373
+  - enabled: 1
+    path: Assets/Branches/Samuel/Scene/SceneTest2.unity
+    guid: ea3eec8351e375747855d621f93e1f7f
   m_configObjects: {}
