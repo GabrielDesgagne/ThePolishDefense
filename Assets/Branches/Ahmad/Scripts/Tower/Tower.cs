@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Tower {
+    public GameObject Object { get; protected set; }
     public Vector3 Position { get; protected set; }
     public GameObject TpButtonPos { get; protected set; }
     public TowerType Type { get; protected set; }
