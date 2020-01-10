@@ -4,6 +4,7 @@
 \copyright Copyright 2015 Oculus VR, LLC All Rights reserved.
 ************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -185,6 +186,7 @@ namespace OVRTouchSample
             // Flex
             // blend between open hand and fully closed fist
             float flex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
+            flex = Mathf.Clamp(flex, 0, 0.15f);
             m_animator.SetFloat(m_animParamIndexFlex, flex);
 
             // Point
