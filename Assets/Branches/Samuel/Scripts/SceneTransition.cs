@@ -9,42 +9,27 @@ public class SceneTransition : MonoBehaviour
 {
     public string nameSceneAction;
     public string nameBarScene;
-    public GameObject canvas;
-    public TMP_InputField cheats;
 
     void Start()
     {
-        canvas.SetActive(false);
+      
        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.BackQuote))
-        {
-            canvas.SetActive(true);
-        }
+       
 
     }
-    private void loadActionScene()
+    public void loadActionScene()
     {
         SceneManager.LoadScene(nameSceneAction);
     }
 
-    public void checkCheat()
-    {
-        if (cheats.text.Equals("action"))
-        {
-            loadActionScene();
-        }
-        if (cheats.text.Equals("bar"))
-        {
-            loadBarScene();
-        }
-    }
+   
 
-    private void loadBarScene()
+    public void loadBarScene()
     {
         SceneManager.LoadScene(nameBarScene);
     }
