@@ -5,9 +5,10 @@ using UnityEngine;
 public class BombFeeder {
     public GameObject Object { get; private set; }
     public Vector3 Position { get; set; }
+    public bool IsReady { get { return BombList[0].transform.position.y >= Position.y + topY; } }
     public List<GameObject> BombList = new List<GameObject>();//temporary list
 
-    private float topY;
+    public float topY { get; private set; }
 
     public BombFeeder() {
         Position = new Vector3(0, 0, 0);
