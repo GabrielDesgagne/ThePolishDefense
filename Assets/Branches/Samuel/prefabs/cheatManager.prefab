@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameSceneAction: SamTest
-  nameBarScene: SceneTest2
+  nameBarScene: Tavern
+  nameTowersScene: AhmadScene
+  nameTrapScene: TrapScene
+  enemySceneName: sampleOnesin
+  uiSceneName: sceneRaphael
+  mapSceneName: GabDesg
 --- !u!114 &7283064724005523562
 MonoBehaviour:
   m_ObjectHideFlags: 0

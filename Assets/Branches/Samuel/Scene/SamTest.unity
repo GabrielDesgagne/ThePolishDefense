@@ -572,6 +572,41 @@ PrefabInstance:
       propertyPath: cheats
       value: 
       objectReference: {fileID: 893758300}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: nameBarScene
+      value: Tavern
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: nameTowersScnes
+      value: AhmadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: nameTowersScene
+      value: AhmadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: nameTrapScene
+      value: TrapScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: enemySceneName
+      value: SampleOnesin
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: uiSceneName
+      value: SceneRaphael
+      objectReference: {fileID: 0}
+    - target: {fileID: 201532003564814667, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: mapSceneName
+      value: GabDesg
+      objectReference: {fileID: 0}
     - target: {fileID: 7283064724005523562, guid: eea78e29ff347b2478862c0940ee3567,
         type: 3}
       propertyPath: scene

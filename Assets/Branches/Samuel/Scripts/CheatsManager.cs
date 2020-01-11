@@ -23,7 +23,7 @@ public class CheatsManager : MonoBehaviour
         }
     }
 
-     public void checkCheat()
+    public void checkCheat()
     {
         if (cheats.text.Equals("action"))
         {
@@ -32,6 +32,26 @@ public class CheatsManager : MonoBehaviour
         if (cheats.text.Equals("bar"))
         {
             scene.loadBarScene();
+        }
+        if (cheats.text.Equals("Towers"))
+        {
+            scene.loadTowerScene();
+        }
+        if (cheats.text.Equals("traps"))
+        {
+            scene.loadTrapScene();
+        }
+        if (cheats.text.Equals("baddies"))
+        {
+            scene.loadEnemyScene();
+        }
+        if (cheats.text.Equals("ui"))
+        {
+            scene.loadUiScene();
+        }
+        if (cheats.text.Equals("map"))
+        {
+            scene.loadMapScene();
         }
     }
 }
