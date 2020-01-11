@@ -185,6 +185,12 @@ namespace OVRTouchSample
             // Flex
             // blend between open hand and fully closed fist
             float flex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
+
+            ///Need to add check to add our restrictions for the hand closing movement (ie.hand closing around tower)
+            ///**check if something is grabbed, if so get its flex restriction ammount and "Clamp" flex to it**
+
+            flex = Mathf.Clamp(flex, 0, .15f);
+
             m_animator.SetFloat(m_animParamIndexFlex, flex);
 
             // Point
