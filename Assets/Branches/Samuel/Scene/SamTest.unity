@@ -227,6 +227,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &916480312 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7283064724005523562, guid: eea78e29ff347b2478862c0940ee3567,
+    type: 3}
+  m_PrefabInstance: {fileID: 201532003113919980}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bee721dd94ca0a4b857302e4285c8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1080048707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7605138852295187186, guid: d40cba910aa40744488ea519440f494a,
@@ -560,6 +572,21 @@ PrefabInstance:
       propertyPath: cheats
       value: 
       objectReference: {fileID: 893758300}
+    - target: {fileID: 7283064724005523562, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: scene
+      value: 
+      objectReference: {fileID: 455140519}
+    - target: {fileID: 7283064724005523562, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1080048707}
+    - target: {fileID: 7283064724005523562, guid: eea78e29ff347b2478862c0940ee3567,
+        type: 3}
+      propertyPath: cheats
+      value: 
+      objectReference: {fileID: 893758300}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea78e29ff347b2478862c0940ee3567, type: 3}
 --- !u!1001 &2792324712205788379
@@ -623,6 +650,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2792324714024225290, guid: 3b87a9ada6216be478f22b39a856efd2,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2792324714024225290, guid: 3b87a9ada6216be478f22b39a856efd2,
         type: 3}
@@ -762,6 +794,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 455140519}
+      objectReference: {fileID: 916480312}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d40cba910aa40744488ea519440f494a, type: 3}
