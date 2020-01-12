@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Room : Flow
 {
+
     #region Singleton
     static private Room instance = null;
 
