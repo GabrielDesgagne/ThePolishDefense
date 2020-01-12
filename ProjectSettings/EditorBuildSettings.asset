@@ -27,6 +27,6 @@ EditorBuildSettings:
     path: Assets/Branches/Raphael/Scene/SceneRaphael.unity
     guid: 509e6febd59ad2a4996600587bbdc35d
   - enabled: 1
-    path: Assets/Scenes/GabDesg/GabDesg.unity
+    path: Assets/Branches/GabDesg/GabDesg.unity
     guid: 12fe42264cabf2946a551155e7b39a0e
   m_configObjects: {}
