@@ -11,10 +11,11 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
 
-    private bool isInRoomScene = true;
+    public bool startsInRoomScene = true;
 
     private void Awake()
     {
+        //Singleton
         if (instance == null)
         {
             instance = this;
@@ -25,14 +26,12 @@ public class Main : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //Instead of game.PreInitialize....
-        //currenFlow.PreInitialize
-
+        //Initialize
         game = Game.Instance;
         room = Room.Instance;
 
-        //Starting Instance
-        currentFlow = room;
+        //Load Flow
+        ChangeCurrentFlow();
         currentFlow.PreInitialize();
     }
 
@@ -53,13 +52,13 @@ public class Main : MonoBehaviour
 
     public void ChangeCurrentFlow()
     {
-        if (isInRoomScene)
+        if (startsInRoomScene)
         {
             currentFlow = game;
             currentFlow.PreInitialize();
             currentFlow.Initialize();
         }
-        else if (!isInRoomScene)
+        else if (!startsInRoomScene)
         {
             currentFlow = room;
             currentFlow.PreInitialize();

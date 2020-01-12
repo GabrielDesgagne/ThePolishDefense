@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : Flow
+public class BoardManager : Flow
 {
     #region Singleton
-    static private PlayerManager instance = null;
+    static private BoardManager instance = null;
 
-    static public PlayerManager Instance
+    static public BoardManager Instance
     {
         get {
-            return instance ?? (instance = new PlayerManager());
+            return instance ?? (instance = new BoardManager());
         }
     }
-
-    #endregion
+    #endregion 
 
     override public void PreInitialize()
     {
-        //TODO PLayer...
+
     }
 
     override public void Initialize()
@@ -40,5 +39,4 @@ public class PlayerManager : Flow
     {
 
     }
-
 }

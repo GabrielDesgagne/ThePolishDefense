@@ -2,33 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : Flow
+public class GrabbableManager : Flow
 {
     #region Singleton
-    static private PlayerManager instance = null;
+    static private GrabbableManager instance = null;
 
-    static public PlayerManager Instance
+    static public GrabbableManager Instance
     {
         get {
-            return instance ?? (instance = new PlayerManager());
+            return instance ?? (instance = new GrabbableManager());
         }
     }
-
-    #endregion
+    #endregion 
 
     override public void PreInitialize()
     {
-        //TODO PLayer...
+
     }
 
     override public void Initialize()
     {
-
+      
     }
 
     override public void Refresh()
     {
-
+        
     }
 
     override public void PhysicsRefresh()
@@ -40,5 +39,4 @@ public class PlayerManager : Flow
     {
 
     }
-
 }
