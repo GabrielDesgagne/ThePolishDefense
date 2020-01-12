@@ -11,6 +11,8 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
 
+    private bool isInRoomScene = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -27,23 +29,41 @@ public class Main : MonoBehaviour
         //currenFlow.PreInitialize
 
         game = Game.Instance;
-        game.PreInitialize();
+        room = Room.Instance;
 
+        //Starting Instance
+        currentFlow = room;
+        currentFlow.PreInitialize();
     }
 
     private void Start()
     {
-        game.Initialize();
+        currentFlow.Initialize();
     }
 
     private void Update()
     {
-        game.Refresh();
+        currentFlow.Refresh();
     }
 
     private void FixedUpdate()
     {
-        game.PhysicsRefresh();
+        currentFlow.PhysicsRefresh();
     }
 
+    public void ChangeCurrentFlow()
+    {
+        if (isInRoomScene)
+        {
+            currentFlow = game;
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+        }
+        else if (!isInRoomScene)
+        {
+            currentFlow = room;
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+        }
+    }
 }

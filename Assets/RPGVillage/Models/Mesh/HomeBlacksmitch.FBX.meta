@@ -1,91 +1,274 @@
 fileFormatVersion: 2
-guid: 3276b075abcc36b42b6ed131583f78e7
+guid: 363c4dd32a79b6943b15e9256710d4b7
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: Box035
-    100002: Box036
-    100004: Box037
-    100006: Box038
-    100008: Box039
-    100010: Box040
-    100012: Box042
-    100014: Box063
-    100016: Box064
-    100018: Box065
-    100020: //RootNode
-    400000: Box035
-    400002: Box036
-    400004: Box037
-    400006: Box038
-    400008: Box039
-    400010: Box040
-    400012: Box042
-    400014: Box063
-    400016: Box064
-    400018: Box065
-    400020: //RootNode
-    2300000: Box035
-    2300002: Box036
-    2300004: Box037
-    2300006: Box038
-    2300008: Box039
-    2300010: Box040
-    2300012: Box042
-    2300014: Box063
-    2300016: Box064
-    2300018: Box065
-    3300000: Box035
-    3300002: Box036
-    3300004: Box037
-    3300006: Box038
-    3300008: Box039
-    3300010: Box040
-    3300012: Box042
-    3300014: Box063
-    3300016: Box064
-    3300018: Box065
-    4300000: Box035
-    4300002: Box036
-    4300004: Box037
-    4300006: Box038
-    4300008: Box039
-    4300010: Box040
-    4300012: Box042
-    4300014: Box063
-    4300016: Box064
-    4300018: Box065
-    6400000: Box035
-    6400002: Box036
-    6400004: Box037
-    6400006: Box038
-    6400008: Box039
-    6400010: Box040
-    6400012: Box042
-    6400014: Box063
-    6400016: Box064
-    6400018: Box065
-    9500000: //RootNode
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Box035
+  - first:
+      1: 100002
+    second: Box036
+  - first:
+      1: 100004
+    second: Box037
+  - first:
+      1: 100006
+    second: Box038
+  - first:
+      1: 100008
+    second: Box039
+  - first:
+      1: 100010
+    second: Box040
+  - first:
+      1: 100012
+    second: Box042
+  - first:
+      1: 100014
+    second: Box063
+  - first:
+      1: 100016
+    second: Box064
+  - first:
+      1: 100018
+    second: Box065
+  - first:
+      1: 100020
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Box035
+  - first:
+      4: 400002
+    second: Box036
+  - first:
+      4: 400004
+    second: Box037
+  - first:
+      4: 400006
+    second: Box038
+  - first:
+      4: 400008
+    second: Box039
+  - first:
+      4: 400010
+    second: Box040
+  - first:
+      4: 400012
+    second: Box042
+  - first:
+      4: 400014
+    second: Box063
+  - first:
+      4: 400016
+    second: Box064
+  - first:
+      4: 400018
+    second: Box065
+  - first:
+      4: 400020
+    second: //RootNode
+  - first:
+      23: 2300000
+    second: Box035
+  - first:
+      23: 2300002
+    second: Box036
+  - first:
+      23: 2300004
+    second: Box037
+  - first:
+      23: 2300006
+    second: Box038
+  - first:
+      23: 2300008
+    second: Box039
+  - first:
+      23: 2300010
+    second: Box040
+  - first:
+      23: 2300012
+    second: Box042
+  - first:
+      23: 2300014
+    second: Box063
+  - first:
+      23: 2300016
+    second: Box064
+  - first:
+      23: 2300018
+    second: Box065
+  - first:
+      33: 3300000
+    second: Box035
+  - first:
+      33: 3300002
+    second: Box036
+  - first:
+      33: 3300004
+    second: Box037
+  - first:
+      33: 3300006
+    second: Box038
+  - first:
+      33: 3300008
+    second: Box039
+  - first:
+      33: 3300010
+    second: Box040
+  - first:
+      33: 3300012
+    second: Box042
+  - first:
+      33: 3300014
+    second: Box063
+  - first:
+      33: 3300016
+    second: Box064
+  - first:
+      33: 3300018
+    second: Box065
+  - first:
+      43: 4300000
+    second: Box035
+  - first:
+      43: 4300002
+    second: Box036
+  - first:
+      43: 4300004
+    second: Box037
+  - first:
+      43: 4300006
+    second: Box038
+  - first:
+      43: 4300008
+    second: Box039
+  - first:
+      43: 4300010
+    second: Box040
+  - first:
+      43: 4300012
+    second: Box042
+  - first:
+      43: 4300014
+    second: Box063
+  - first:
+      43: 4300016
+    second: Box064
+  - first:
+      43: 4300018
+    second: Box065
+  - first:
+      64: 6400000
+    second: Box035
+  - first:
+      64: 6400002
+    second: Box036
+  - first:
+      64: 6400004
+    second: Box037
+  - first:
+      64: 6400006
+    second: Box038
+  - first:
+      64: 6400008
+    second: Box039
+  - first:
+      64: 6400010
+    second: Box040
+  - first:
+      64: 6400012
+    second: Box042
+  - first:
+      64: 6400014
+    second: Box063
+  - first:
+      64: 6400016
+    second: Box064
+  - first:
+      64: 6400018
+    second: Box065
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02___Default
+    second: {fileID: 2100000, guid: d5650b49e81ecda48af88d9bb34e710a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03___Default
+    second: {fileID: 2100000, guid: ee538a0cdd9973446a30b2f831e7444a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07___Default
+    second: {fileID: 2100000, guid: e149c3cf30fce224b93bfe87d6ff8e0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08___Default
+    second: {fileID: 2100000, guid: c151a02fb7c930f49a4a12ff4bcde172, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 09___Default
+    second: {fileID: 2100000, guid: 74c25a2dcb15ff049a7398e0e01febd0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: 30974a3ef87965d45884932bc714869b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11 - Default
+    second: {fileID: 2100000, guid: 9860d5b2df4628a43b6506c006fc9a0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13___Default
+    second: {fileID: 2100000, guid: 01745baf640bff14fb9220d8cd2f4796, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 14___Default
+    second: {fileID: 2100000, guid: 20472fcd2e2e64c4fb10f4dd3012c021, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 19___Default
+    second: {fileID: 2100000, guid: cda20a2221e4a4141bc2da51402937b0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -93,13 +276,23 @@ ModelImporter:
     globalScale: 0.12
     meshCompression: 0
     addColliders: 1
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -109,10 +302,15 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -122,8 +320,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.12
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
