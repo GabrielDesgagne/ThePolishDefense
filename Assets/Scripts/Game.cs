@@ -17,7 +17,6 @@ public class Game : Flow
     #endregion 
 
     //Managers
-    //TODO Rearange TowerManager
     TowerManager towerManager;
     PlayerManager playerManager;
     WaveManager waveManager;
@@ -73,6 +72,11 @@ public class Game : Flow
         trapManager.PhysicsRefresh();
         projectileManager.PhysicsRefresh();
         logicManager.PhysicsRefresh();
+    }
+
+    override public void EndFlow()
+    {
+
     }
 
 }

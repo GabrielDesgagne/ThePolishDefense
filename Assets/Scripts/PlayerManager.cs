@@ -35,4 +35,10 @@ public class PlayerManager : Flow
     {
 
     }
+
+    override public void EndFlow()
+    {
+
+    }
+
 }

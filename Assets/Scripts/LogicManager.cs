@@ -35,4 +35,9 @@ public class LogicManager : Flow
     {
 
     }
+
+    override public void EndFlow()
+    {
+
+    }
 }

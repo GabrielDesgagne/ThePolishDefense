@@ -6,11 +6,7 @@ TagManager:
   tags:
   - Interact
   - Enemy
-  - Item
-  - Wall
-  - Terrain
-  - Material
-  - Tree
+  - Trigger
   layers:
   - Default
   - TransparentFX

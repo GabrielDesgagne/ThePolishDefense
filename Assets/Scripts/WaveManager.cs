@@ -37,4 +37,9 @@ public class WaveManager : Flow
 
     }
 
+    override public void EndFlow()
+    {
+
+    }
+
 }
