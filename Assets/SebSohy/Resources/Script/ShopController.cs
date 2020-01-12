@@ -13,7 +13,7 @@ public class ShopController : MonoBehaviour
     private int spawnType=0;
     public GameObject TowerBoard;
     public GameObject TrapBoard;
-
+    private string spawnName;
     private bool spawn = false;
     private float spawnTimer = 3f;
     private bool timeStart = false;
@@ -40,26 +40,13 @@ public class ShopController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        if (timeStart)
-        {
-            spawnTimer -= Time.deltaTime;
-        }
 
-        if (spawnTimer<0&&spawn)
+        if (spawn)
         {
-            timeStart = false;
             spawn = false;
-            spawnTimer = 3f;
-            if(spawnType == 1)
-            {
-                Instantiate(towerPrefab, spawnPos.position, TowerBoard.transform.rotation);
-            }
-            else
-            {
-                Instantiate(trapPrefab, spawnPos.position, TowerBoard.transform.rotation);
-            }
+            StartCoroutine(spawnItem(spawnType, spawnPos, spawnName));
         } 
-        
+      
     }
 
 
@@ -153,12 +140,40 @@ public class ShopController : MonoBehaviour
                     if(prefab.Key.name == other.name)
                     {
                         spawnType = prefab.Value;
+                        spawnName = other.name;
                     }
                 }
                 spawnPos = obj.Value;
                 spawn = true;
-                timeStart = true;
             }
         }
+    }
+
+    private IEnumerator spawnItem(int type, Transform pos, string name)
+    {
+        yield return new WaitForSeconds(3);
+        int index=-1;
+        for(int i = 0; i < 8; i++)
+        {
+            if(shopInventory[i].name == name)
+            {
+                index = i;
+            }
+        }
+        if (type == 1 && index>=0)
+        {
+            shopInventory[index] = Instantiate(towerPrefab, pos.position, TowerBoard.transform.rotation);
+            shopInventory[index].name = name;
+            spawningDict.Add(shopInventory[index], spawnPoints[index]);
+            prefabTypeDict.Add(shopInventory[index], type);
+        }
+        else if(type == 2 && index >= 0)
+        {
+            shopInventory[index] = Instantiate(trapPrefab, pos.position, TowerBoard.transform.rotation);
+            shopInventory[index].name = name;
+            spawningDict.Add(shopInventory[index], spawnPoints[index]);
+            prefabTypeDict.Add(shopInventory[index], type);
+        }
+
     }
 }
