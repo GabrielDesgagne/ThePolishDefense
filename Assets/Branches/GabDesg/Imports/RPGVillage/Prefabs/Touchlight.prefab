@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448142860862190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18825985, z: 0.005587367}
+  m_LocalPosition: {x: 0, y: 1.4375, z: 0.005587367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011263937688964}
@@ -286,7 +286,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
+      scalar: 0.75
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4712,7 +4712,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4278193215
-  m_Size: 0.5
+  m_Size: 0.37
 --- !u!1 &1498618011841776
 GameObject:
   m_ObjectHideFlags: 0
