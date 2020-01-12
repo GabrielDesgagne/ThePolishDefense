@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeavyTower : Tower {
+    public Cannon Canon { get; private set; }
     public BombFeeder Feeder { get; private set; }
     public bool AutoShoot { get; set; }//if true, no wait timer, if false, has to wait until the feeder is ready
     private List<Bomb> enabledBombs = new List<Bomb>();
@@ -29,6 +30,7 @@ public class HeavyTower : Tower {
     public override void Initialize() {
         this.Object = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
         Feeder = new BombFeeder(Position + new Vector3(0, 43.75f, 0));
+        Canon = new Cannon(Position + new Vector3(0, 47.9f, 14));
         Feeder.SpawnBombs();
         for (int i = 0; i < 10; i++) {
             Bomb bomb = new Bomb(GameObject.Instantiate(Feeder.BombList[0]));
@@ -39,7 +41,7 @@ public class HeavyTower : Tower {
     }
 
     public override void PhysicsRefresh() {
-
+        Canon.Move(Position);
     }
 
     public override void PreInitialize() {
@@ -47,38 +49,51 @@ public class HeavyTower : Tower {
     }
 
     public override void Refresh() {
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Vector3 target = new Vector3(100, 10, 0);//test vector, will later get closest enemy
             if (AutoShoot && disabledBombs.Count > 0) {
-                BasicShoot();
+                BasicShoot(target);
             } else if (!AutoShoot && Feeder.IsReady) {
-                BasicShoot();
+                BasicShoot(target);
             }
         }
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            Feeder.Pickup();
+            enabledBombs.Add(disabledBombs[0]);
+            Canon.LoadCannon(enabledBombs[enabledBombs.Count - 1]);
+            disabledBombs.RemoveAt(0);
+        }
         Feeder.Move();
-        Vector3 target = new Vector3(100, 10, 0);//test vector, will later get closest enemy
-        BombMoveToTarget(target);
+        Canon.CannonInput();
+        BombsMoveToTarget();
     }
 
-    public void BasicShoot() {
+    public void BasicShoot(Vector3 target) {
         Feeder.Pickup();
         enabledBombs.Add(disabledBombs[0]);
+        enabledBombs[enabledBombs.Count - 1].StartPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
+        enabledBombs[enabledBombs.Count - 1].TargetPos = target;
         enabledBombs[enabledBombs.Count - 1].Object.SetActive(true);
         disabledBombs.RemoveAt(0);
     }
 
-    public void BombMoveToTarget(Vector3 target) {
+    public void BombsMoveToTarget() {
         for (int i = 0; i < enabledBombs.Count; i++) {
             if (enabledBombs[i].SlerpPct < 1) {
-
-                enabledBombs[i].Object.transform.position = Vector3.Slerp(Feeder.Position + new Vector3(0, Feeder.topY, 0), target, enabledBombs[i].SlerpPct);
-                enabledBombs[i].SlerpPct += 0.01f;
+                if (enabledBombs[i].Object.activeSelf) {
+                    enabledBombs[i].BombMoveToTarget();
+                }
             } else {
-                enabledBombs[i].Object.SetActive(false);
-                enabledBombs[i].Object.transform.position = Feeder.Position;
-                enabledBombs[i].SlerpPct = 0;
-                disabledBombs.Add(enabledBombs[i]);
-                enabledBombs.Remove(enabledBombs[i]);
+                ResetBomb(enabledBombs[i]);
             }
         }
+    }
+
+    public void ResetBomb(Bomb bomb) {
+        bomb.Object.SetActive(false);
+        bomb.Object.transform.position = Feeder.Position;
+        bomb.SlerpPct = 0;
+        disabledBombs.Add(bomb);
+        enabledBombs.Remove(bomb);
     }
 }
