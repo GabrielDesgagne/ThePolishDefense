@@ -8,8 +8,10 @@ public class Main : MonoBehaviour
     static public Main instance { get; private set; }
 
     private Game game;
-    //private Room room;
-    //Flow currentFlow;
+    private Room room;
+    private Flow currentFlow;
+
+    private bool isInRoomScene = true;
 
     private void Awake()
     {
@@ -27,23 +29,41 @@ public class Main : MonoBehaviour
         //currenFlow.PreInitialize
 
         game = Game.Instance;
-        game.PreInitialize();
+        room = Room.Instance;
 
+        //Starting Instance
+        currentFlow = room;
+        currentFlow.PreInitialize();
     }
 
     private void Start()
     {
-        game.Initialize();
+        currentFlow.Initialize();
     }
 
     private void Update()
     {
-        game.Refresh();
+        currentFlow.Refresh();
     }
 
     private void FixedUpdate()
     {
-        game.PhysicsRefresh();
+        currentFlow.PhysicsRefresh();
     }
 
+    public void ChangeCurrentFlow()
+    {
+        if (isInRoomScene)
+        {
+            currentFlow = game;
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+        }
+        else if (!isInRoomScene)
+        {
+            currentFlow = room;
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+        }
+    }
 }

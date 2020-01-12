@@ -21,6 +21,8 @@ abstract public class Flow
     {
     }
 
-    //TODO : End Flow
+    virtual public void EndFlow()
+    {
+    }
 
 }

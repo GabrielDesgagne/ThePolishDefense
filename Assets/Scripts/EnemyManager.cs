@@ -35,4 +35,9 @@ public class EnemyManager : Flow
     {
 
     }
+
+    override public void EndFlow()
+    {
+
+    }
 }

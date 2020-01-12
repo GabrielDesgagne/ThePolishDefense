@@ -35,4 +35,9 @@ public class ProjectileManager : Flow
     {
 
     }
+
+    override public void EndFlow()
+    {
+
+    }
 }

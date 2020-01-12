@@ -12,7 +12,7 @@ public class TowerManager : Flow {
 
     override public void PreInitialize() {
         prefabs.Add(TowerType.BASIC, Resources.Load<GameObject>("Prefabs /Basic_Tower"));
-        prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Basic_Tower"));
+        prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Heavy_Tower"));
         prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Basic_Tower"));
 
         towerList.Add(new HeavyTower(new Vector3(10, 0, 10), 5, 50, 3)); //test tower will be removed
@@ -38,6 +38,11 @@ public class TowerManager : Flow {
         foreach (Tower tower in towerList) {
             tower.Refresh();
         }
+    }
+
+    override public void EndFlow()
+    {
+
     }
 
     //Test fonctions that need to be moved into EnemyManager
