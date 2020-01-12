@@ -7,6 +7,12 @@ using System;
 
 public class SceneTransition : MonoBehaviour
 {
+
+    [Header("Main Scene")]
+    public string roomScene = "RoomScene";
+    public string mapScene = "MapScene";
+
+    [Header("Alt Scenes")]
     public string nameSceneAction;
     public string nameBarScene;
     public string nameTowersScene;
@@ -15,6 +21,15 @@ public class SceneTransition : MonoBehaviour
     public string uiSceneName;
     public string mapSceneName;
 
+    public void loadMainRoomScene()
+    {
+        SceneManager.LoadScene(roomScene);
+    }
+
+    public void loadMainBarScene()
+    {
+        SceneManager.LoadScene(mapScene);
+    }
 
     public void loadActionScene()
     {

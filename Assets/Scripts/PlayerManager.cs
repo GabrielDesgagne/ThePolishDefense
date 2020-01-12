@@ -18,7 +18,7 @@ public class PlayerManager : Flow
 
     override public void PreInitialize()
     {
-
+        //TODO PLayer...
     }
 
     override public void Initialize()
