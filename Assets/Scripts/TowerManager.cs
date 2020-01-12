@@ -13,9 +13,9 @@ public class TowerManager : Flow {
     override public void PreInitialize() {
         prefabs.Add(TowerType.BASIC, Resources.Load<GameObject>("Prefabs /Basic_Tower"));
         prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Heavy_Tower"));
-        prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Basic_Tower"));
+        prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Ice_Tower"));
 
-        towerList.Add(new HeavyTower(new Vector3(10, 0, 10), 5, 50, 3)); //test tower will be removed
+        towerList.Add(new IceTower(new Vector3(10, 0, 10), 5, 50, 3)); //test tower will be removed
 
         foreach (Tower tower in towerList) {
             tower.PreInitialize();
