@@ -40,6 +40,11 @@ public class TowerManager : Flow {
         }
     }
 
+    override public void EndFlow()
+    {
+
+    }
+
     //Test fonctions that need to be moved into EnemyManager
     List<Vector3> enemyList = new List<Vector3>();
     /* Retrieve the closest enemy from the base within range of a position */

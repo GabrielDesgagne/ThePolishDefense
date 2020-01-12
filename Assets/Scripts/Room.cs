@@ -2,27 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManager : Flow
+public class Room : Flow
 {
-
     #region Singleton
-    static private WaveManager instance = null;
+    static private Room instance = null;
 
-    static public WaveManager Instance
+    static public Room Instance
     {
         get {
-            return instance ?? (instance = new WaveManager());
+            return instance ?? (instance = new Room());
         }
     }
-
     #endregion
 
     override public void PreInitialize()
-    {
-
-    }
-
-    override public void Initialize()
     {
 
     }

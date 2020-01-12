@@ -8,8 +8,8 @@ public class Main : MonoBehaviour
     static public Main instance { get; private set; }
 
     private Game game;
-    //private Room room;
-    //Flow currentFlow;
+    private Room room;
+    private Flow currentFlow;
 
     private void Awake()
     {

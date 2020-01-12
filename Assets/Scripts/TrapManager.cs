@@ -43,4 +43,9 @@ public class TrapManager : Flow
 
     }
 
+    override public void EndFlow()
+    {
+
+    }
+
 }
