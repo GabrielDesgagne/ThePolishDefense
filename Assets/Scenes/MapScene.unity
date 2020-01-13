@@ -210,6 +210,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4064038149478942513, guid: ce80747f453e66b448f02ffd037223fa,
+        type: 3}
+      propertyPath: showGrid
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4064038149478942514, guid: ce80747f453e66b448f02ffd037223fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -283,6 +288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GridStuff
+      objectReference: {fileID: 0}
+    - target: {fileID: 50729047616257924, guid: c60caa23091adf14b8e72a7fa6b000c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 50729047616257925, guid: c60caa23091adf14b8e72a7fa6b000c2,
         type: 3}

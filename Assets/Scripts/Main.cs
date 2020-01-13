@@ -18,7 +18,7 @@ public class Main : MonoBehaviour
 
     public SceneTransition sceneTransition;
 
-    private bool isInRoomScene = false;
+    private bool isInRoomScene = true;
 
     private void Awake()
     {
