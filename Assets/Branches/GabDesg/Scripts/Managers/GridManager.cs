@@ -31,7 +31,7 @@ public class GridManager : Flow
         this.tileSelected = this.tileUnselected;
 
         InitializeGridHolder();
-        InitialiseGrids();
+        InitializeGrids();
     }
 
     override public void Refresh() {

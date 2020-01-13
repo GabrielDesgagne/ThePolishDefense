@@ -9,9 +9,8 @@ public class HeavyTower : Tower {
     private List<Bomb> enabledBombs = new List<Bomb>();
     private List<Bomb> disabledBombs = new List<Bomb>();
 
-
     public HeavyTower() {
-        this.Position = new Vector3(0, 0, 0);
+        this.Position = Vector3.zero;
         this.Type = TowerType.HEAVY;
         this.IsPlayerActive = false;
         this.Range = 50;
@@ -48,9 +47,13 @@ public class HeavyTower : Tower {
 
     }
 
+    private Vector3 GetTarget() {
+        return new Vector3(100, 10, -50);
+    }
+
     public override void Refresh() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Vector3 target = new Vector3(100, 10, 0);//test vector, will later get closest enemy
+            Vector3 target = GetTarget();//test vector, will later get closest enemy
             if (AutoShoot && disabledBombs.Count > 0) {
                 BasicShoot(target);
             } else if (!AutoShoot && Feeder.IsReady) {

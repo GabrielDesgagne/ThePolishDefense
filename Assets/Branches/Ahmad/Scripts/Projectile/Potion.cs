@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : MonoBehaviour {
+public class Potion {
     public GameObject Object { get; set; }
     public Vector3 StartPos { get; set; }
     public Vector3 TargetPos { get; set; }
