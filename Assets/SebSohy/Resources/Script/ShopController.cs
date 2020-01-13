@@ -169,7 +169,7 @@ public class ShopController : MonoBehaviour
         }
         else if(type == 2 && index >= 0)
         {
-            shopInventory[index] = Instantiate(trapPrefab, pos.position, TowerBoard.transform.rotation);
+            shopInventory[index] = Instantiate(trapPrefab, pos.position, TrapBoard.transform.rotation);
             shopInventory[index].name = name;
             spawningDict.Add(shopInventory[index], spawnPoints[index]);
             prefabTypeDict.Add(shopInventory[index], type);
