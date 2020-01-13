@@ -14,6 +14,7 @@ public class GridManager {
     #endregion
 
     public GameVariables gameVariables;
+    public GameObject gridsHolder;
 
     private Grid hiddenGrid;
     private Vector3 tileSelected;
@@ -28,6 +29,7 @@ public class GridManager {
         this.hiddenGrid = this.gameVariables.hiddenGrid;
         this.tileSelected = this.tileUnselected;
 
+        InitializeGridHolder();
         InitialiseGrids();
     }
 
@@ -37,6 +39,11 @@ public class GridManager {
 
     public void PhysicRefresh() {
 
+    }
+
+    private void InitializeGridHolder() {
+        this.gridsHolder = new GameObject("GridsHolder");
+        this.gridsHolder.transform.position = new Vector3();
     }
 
     private void InitialiseGrids() {
@@ -65,6 +72,7 @@ public class GridManager {
             }
         }
         else {
+            //TODO deactivate
             this.tileSelected = this.tileUnselected;
 
             //Dont display turret on grid anymore
