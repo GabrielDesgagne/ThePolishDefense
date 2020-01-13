@@ -18,7 +18,7 @@ namespace HWREfx
 
 		void Update ()
 		{
-			this.transform.Rotate (Vector3.up, Time.time * 0.2f);
+			//this.transform.Rotate (Vector3.up, Time.time * 0.2f);
 
 			if (Input.GetButtonDown ("Fire1")) {
 				var ray = GameObject.Find ("Main Camera").GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
