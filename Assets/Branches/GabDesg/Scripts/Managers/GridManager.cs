@@ -32,7 +32,6 @@ public class GridManager : Flow
 
         InitializeGridHolder();
         InitializeGrids();
-        
     }
 
     override public void Refresh() {
@@ -74,6 +73,7 @@ public class GridManager : Flow
             }
         }
         else {
+            //TODO deactivate
             this.tileSelected = this.tileUnselected;
 
             //Dont display turret on grid anymore
