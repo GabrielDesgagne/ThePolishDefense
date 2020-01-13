@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TestCommand : MonoBehaviour
 {
-     public RoundOver round;
+    public RoundOver round;
+    public TMP_InputField input;
+    public GameObject canvas;
+    public TextUI textUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,18 +27,37 @@ public class TestCommand : MonoBehaviour
     }
     void Refresh()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            canvas.SetActive(true);
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            canvas.SetActive(false);
+        }
+
+        if (input.text == "win")
         {
             round.showVictory();
         }
-        if (Input.GetKey(KeyCode.E))
-        {
-            round.hideUI();
-        }
-        if (Input.GetKey(KeyCode.R))
+        if (input.text == "lose")
         {
             round.showDefeat();
         }
+        if (input.text == "hide")
+        {
+            round.hideUI();
+        }
+        if (input.text == "all clear")
+        {
+            textUI.clearStats();
+        }
+        if (input.text == "kill clear")
+        {
+            textUI.clearKills();
+        }
+
+        /*
         if (Input.GetKey(KeyCode.Z))
         {
             round.addScore();
@@ -83,5 +106,6 @@ public class TestCommand : MonoBehaviour
         {
             round.clearKills();
         }
+        */
     }
 }
