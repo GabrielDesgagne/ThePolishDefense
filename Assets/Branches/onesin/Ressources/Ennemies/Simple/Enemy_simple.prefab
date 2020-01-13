@@ -110,7 +110,7 @@ MonoBehaviour:
   startSpeed: 14
   speed: 0
   startHealth: 100
-  worth: 50
+  value: 50
   deathEffect: {fileID: 1573940579407090, guid: 8a46890e477bb244c83b488e34905d14,
     type: 3}
   healthbar: {fileID: 114117680382687328}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 197ca4b751b0acc47ba95ffea0fa7dfd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8530a0cd53347024582c64ec006285ed, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

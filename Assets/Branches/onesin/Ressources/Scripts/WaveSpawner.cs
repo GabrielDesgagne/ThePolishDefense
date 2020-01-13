@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour {
 
     public static int EnemiesAlive = 0;
 
-    //public GameManager gameManager;
 
     public Wave[] waves;
 
+    // 
     [SerializeField]
     private Transform spawnPoint;
 
@@ -19,7 +18,6 @@ public class WaveSpawner : MonoBehaviour {
     private float countdown = 5f;
 
     [SerializeField]
-    //private Text waveCountdownTimer;
 
     private int waveIndex = 0;
 
