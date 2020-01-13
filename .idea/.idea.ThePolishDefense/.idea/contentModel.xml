@@ -15,14 +15,15 @@
               </e>
             </e>
             <e p="Scripts" t="Include">
-              <e p="Bomb" t="Include">
-                <e p="Bomb.cs" t="Include" />
-              </e>
               <e p="Cannon" t="Include">
                 <e p="Cannon.cs" t="Include" />
               </e>
               <e p="Feeder" t="Include">
                 <e p="BombFeeder.cs" t="Include" />
+              </e>
+              <e p="Projectile" t="Include">
+                <e p="Bomb.cs" t="Include" />
+                <e p="Potion.cs" t="Include" />
               </e>
               <e p="TestManager.cs" t="Include" />
               <e p="Tower" t="Include">
@@ -85,6 +86,7 @@
             <e p="Script" t="Include">
               <e p="RoundOver.cs" t="Include" />
               <e p="TestCommand.cs" t="Include" />
+              <e p="TextUI.cs" t="Include" />
             </e>
           </e>
           <e p="Samuel" t="Include">
@@ -98,6 +100,17 @@
             <e p="README.txt" t="Include" />
           </e>
         </e>
+        <e p="CartoonBloodFX" t="Include">
+          <e p="Source" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="AnimationUV.cs" t="Include" />
+              <e p="Explosion.cs" t="Include" />
+              <e p="ParticleSetting.cs" t="Include" />
+              <e p="UI.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Global.cs" t="Include" />
         <e p="JeamPhilippeBrien" t="Include">
           <e p="Script" t="Include">
             <e p="Arrow.cs" t="Include" />
@@ -1094,17 +1107,23 @@
         </e>
         <e p="rotatecam.cs" t="Include" />
         <e p="Scripts" t="Include">
-          <e p="EnemyManager.cs" t="Include" />
           <e p="Flow.cs" t="Include" />
           <e p="Game.cs" t="Include" />
-          <e p="LogicManager.cs" t="Include" />
           <e p="Main.cs" t="Include" />
-          <e p="PlayerManager.cs" t="Include" />
-          <e p="ProjectileManager.cs" t="Include" />
+          <e p="MainPlayerController.cs" t="Include" />
+          <e p="Managers" t="Include">
+            <e p="BoardManager.cs" t="Include" />
+            <e p="EnemyManager.cs" t="Include" />
+            <e p="GrabbableManager.cs" t="Include" />
+            <e p="LogicManager.cs" t="Include" />
+            <e p="PlayerManager.cs" t="Include" />
+            <e p="ProjectileManager.cs" t="Include" />
+            <e p="TowerManager.cs" t="Include" />
+            <e p="TrapManager.cs" t="Include" />
+            <e p="WaveManager.cs" t="Include" />
+          </e>
           <e p="Room.cs" t="Include" />
-          <e p="TowerManager.cs" t="Include" />
-          <e p="TrapManager.cs" t="Include" />
-          <e p="WaveManager.cs" t="Include" />
+          <e p="RoomPrefabsHolder.cs" t="Include" />
         </e>
         <e p="SebSohy" t="Include">
           <e p="Resources" t="Include">
