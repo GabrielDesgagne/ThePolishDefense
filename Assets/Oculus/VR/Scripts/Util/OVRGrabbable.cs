@@ -22,7 +22,7 @@ using UnityEngine;
 /// </summary>
 public class OVRGrabbable : MonoBehaviour
 {
-    [SerializeField]
+	[SerializeField]
     protected bool m_allowOffhandGrab = true;
     [SerializeField]
     protected bool m_snapPosition = false;
