@@ -18,6 +18,9 @@
               <e p="Bomb" t="Include">
                 <e p="Bomb.cs" t="Include" />
               </e>
+              <e p="Cannon" t="Include">
+                <e p="Cannon.cs" t="Include" />
+              </e>
               <e p="Feeder" t="Include">
                 <e p="BombFeeder.cs" t="Include" />
               </e>
@@ -30,6 +33,28 @@
                   <e p="HeavyTower.cs" t="Include" />
                   <e p="IceTower.cs" t="Include" />
                 </e>
+              </e>
+            </e>
+          </e>
+          <e p="GabDesg" t="Include">
+            <e p="Imports" t="Include">
+              <e p="Cliffs" t="Include">
+                <e p="Rocky Hills Environment - Light Pack" t="Include">
+                  <e p="Legacy Project" t="Include">
+                    <e p="Legacy Project_Read Me!.txt" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="Entities" t="Include">
+                <e p="GridEntity.cs" t="Include" />
+                <e p="Tile.cs" t="Include" />
+              </e>
+              <e p="GameFlow.cs" t="Include" />
+              <e p="GameVariables.cs" t="Include" />
+              <e p="Managers" t="Include">
+                <e p="GridManager.cs" t="Include" />
               </e>
             </e>
           </e>
@@ -65,6 +90,8 @@
           <e p="Samuel" t="Include">
             <e p="Scripts" t="Include">
               <e p="ActivateVFX.cs" t="Include" />
+              <e p="CheatsManager.cs" t="Include" />
+              <e p="SceneTransition.cs" t="Include" />
             </e>
           </e>
           <e p="StoneKeep" t="Include">
@@ -1066,21 +1093,6 @@
           </e>
         </e>
         <e p="rotatecam.cs" t="Include" />
-        <e p="Scenes" t="Include">
-          <e p="GabDesg" t="Include">
-            <e p="Scripts" t="Include">
-              <e p="Entities" t="Include">
-                <e p="GridEntity.cs" t="Include" />
-                <e p="Tile.cs" t="Include" />
-              </e>
-              <e p="GameFlow.cs" t="Include" />
-              <e p="GameVariables.cs" t="Include" />
-              <e p="Managers" t="Include">
-                <e p="GridManager.cs" t="Include" />
-              </e>
-            </e>
-          </e>
-        </e>
         <e p="Scripts" t="Include">
           <e p="EnemyManager.cs" t="Include" />
           <e p="Flow.cs" t="Include" />
@@ -1089,6 +1101,7 @@
           <e p="Main.cs" t="Include" />
           <e p="PlayerManager.cs" t="Include" />
           <e p="ProjectileManager.cs" t="Include" />
+          <e p="Room.cs" t="Include" />
           <e p="TowerManager.cs" t="Include" />
           <e p="TrapManager.cs" t="Include" />
           <e p="WaveManager.cs" t="Include" />
@@ -1096,7 +1109,9 @@
         <e p="SebSohy" t="Include">
           <e p="Resources" t="Include">
             <e p="Script" t="Include">
-              <e p="MainEntry.cs" t="Include" />
+              <e p="BeginningTrigger.cs" t="Include" />
+              <e p="ShopController.cs" t="Include" />
+              <e p="StatsBoardController.cs" t="Include" />
             </e>
           </e>
         </e>

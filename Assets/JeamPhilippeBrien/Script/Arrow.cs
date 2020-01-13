@@ -5,9 +5,11 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour
 {
+	private const float timeBeforeDelete = 10;
 	public bool isLeft;
 	private bool isAttached = false;
 	private bool isFired = false;
+	public float startDisapearTime = 0;
 	void OnTriggerEnter(Collider other) 
 	{
 		if(other.transform.CompareTag("Bow"))
@@ -27,6 +29,14 @@ public class Arrow : MonoBehaviour
 	{
 		if (isFired && transform.GetComponent<Rigidbody> ().velocity.magnitude > 5f) {
 			transform.LookAt (transform.position + transform.GetComponent<Rigidbody> ().velocity);
+		}
+
+		if (startDisapearTime != 0)
+		{
+			if (startDisapearTime + timeBeforeDelete <= Time.time)
+			{
+				Destroy(this.gameObject);
+			}
 		}
 	}
 	public void Fired() 

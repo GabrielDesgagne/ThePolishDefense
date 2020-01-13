@@ -38,6 +38,7 @@ public class ArrowManager : MonoBehaviour
                 currentArrowLeft.transform.parent = null;
                 currentArrowLeft.GetComponent<Rigidbody>().useGravity = true;
                 currentArrowLeft.GetComponent<Rigidbody>().isKinematic = false;
+                currentArrowLeft.GetComponent<Arrow>().startDisapearTime = Time.time;
                 currentArrowLeft = null;
             }
         }
@@ -49,6 +50,7 @@ public class ArrowManager : MonoBehaviour
                 currentArrowRight.transform.parent = null;
                 currentArrowRight.GetComponent<Rigidbody>().useGravity = true;
                 currentArrowRight.GetComponent<Rigidbody>().isKinematic = false;
+                currentArrowRight.GetComponent<Arrow>().startDisapearTime = Time.time;
                 currentArrowRight = null;
             }
         }

@@ -13,7 +13,7 @@ public class PodManager : MonoBehaviour
     public bool rightHandHaveBow;
     void Update()
     {
-        /*if (leftHandHaveBow)
+        if (leftHandHaveBow)
         {
             if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
             {
@@ -30,7 +30,7 @@ public class PodManager : MonoBehaviour
                 Destroy(bowRight.gameObject);
                 bowRight = null;
             }
-        }*/
+        }
     }
     private void OnTriggerStay(Collider other)
     {
