@@ -11,13 +11,14 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
 
-    public Global GlobalVariables { get; private set; }
-    public GameObject RoomSetupPrefab { get; private set; }
-    public GameObject GameSetupPrefab { get; private set; }
+    public Global GlobalVariables;
+    public GameObject RoomSetupPrefab;
+    public GameObject GameSetupPrefab;
+    public GameObject VRPlayerCharacter;
 
     public SceneTransition sceneTransition;
 
-    public bool isInRoomScene = false;
+    private bool isInRoomScene = false;
 
     private void Awake()
     {
@@ -39,14 +40,15 @@ public class Main : MonoBehaviour
         room = Room.Instance;
 
         //Loads
-        RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
-        GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
+        //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
+        //GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
 
         //Get/Set
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
         currentFlow = room;
+        currentFlow.PreInitialize();
     }
 
     private void Start()
