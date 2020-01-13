@@ -1,44 +1,125 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
 
-    static public Main instance { get; private set; }
+    static public Main Instance { get; private set; }
 
     private Game game;
+    private Room room;
+    private Flow currentFlow;
+
+    public Global GlobalVariables;
+    public GameObject RoomSetupPrefab;
+    public GameObject GameSetupPrefab;
+    public GameObject VRPlayerCharacter;
+
+    public SceneTransition sceneTransition;
+
+    public bool isInRoomScene { get; private set; }
+
+    private string currentSceneName;
+    private string lastSceneName;
 
     private void Awake()
     {
-        if (instance == null)
+
+        #region Singleton
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        #endregion
 
+        //Vars
+        isInRoomScene = true;
+
+        //Initialize
         game = Game.Instance;
-        game.PreInitialize();
+        room = Room.Instance;
 
+        //Loads
+        //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
+        //GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
+
+        //Get/Set
+        GlobalVariables = gameObject.GetComponent<Global>();
+        sceneTransition = gameObject.GetComponent<SceneTransition>();
+
+        //Scene Loading Delegate
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        currentFlow = room;
+        //currentFlow.PreInitialize();
     }
 
     private void Start()
     {
-        game.Initialize();
+        currentFlow.Initialize();
     }
 
     private void Update()
     {
-        game.Refresh();
+        currentFlow.Refresh();
     }
 
     private void FixedUpdate()
     {
-        game.PhysicsRefresh();
+        currentFlow.PhysicsRefresh();
     }
 
+    private void EndFlow()
+    {
+        currentFlow.EndFlow();
+    }
+
+    public void ChangeCurrentFlow()
+    {
+        EndFlow();
+
+        if (!isInRoomScene)
+        {
+            sceneTransition.loadMainRoomScene();
+            
+            isInRoomScene = true;
+        }
+        else 
+        {
+            sceneTransition.loadMainMapScene();
+            
+            isInRoomScene = false;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+
+        currentSceneName = scene.name;  
+
+        if (!isInRoomScene)
+        {
+            currentFlow = game;
+        }
+        else
+        {
+            currentFlow = room;
+        }
+        //Make sure this is called only once.
+        if(currentSceneName != lastSceneName)
+        {
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+            lastSceneName = currentSceneName;
+        }
+    }
 }

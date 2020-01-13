@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2012843952397624324}
   - component: {fileID: 2012843952397624325}
   m_Layer: 0
-  m_Name: trap1
+  m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73d60da6de90b234089c67e4657f1e8f, type: 2}
+  - {fileID: 2100000, guid: 6740094280bc92b4b91a2ed32cf3d0e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
