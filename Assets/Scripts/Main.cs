@@ -58,7 +58,6 @@ public class Main : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         currentFlow = room;
-        //currentFlow.PreInitialize();
     }
 
     private void Start()

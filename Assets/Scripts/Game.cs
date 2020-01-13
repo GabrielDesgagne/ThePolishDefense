@@ -21,6 +21,7 @@ public class Game : Flow
     PlayerManager playerManager;
     GridManager gridManager;
 
+    //TODO Managers :
     TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
@@ -99,10 +100,10 @@ public class Game : Flow
         enemyManager.EndFlow();
         trapManager.EndFlow();
         projectileManager.EndFlow();
-        logicManager.EndFlow();
-        //TODO Save variables in main variables holder.
-        GameObject.Destroy(gameSetup);
+        logicManager.EndFlow();        
 
         gridManager.EndFlow();
+
+        GameObject.Destroy(gameSetup);
     }
 }
