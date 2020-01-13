@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class Main : MonoBehaviour
 
     public SceneTransition sceneTransition;
 
-    private bool isInRoomScene = true;
+    public bool isInRoomScene { get; private set; }
+
+    private string currentSceneName;
+    private string lastSceneName;
 
     private void Awake()
     {
@@ -35,6 +39,9 @@ public class Main : MonoBehaviour
         }
         #endregion
 
+        //Vars
+        isInRoomScene = true;
+
         //Initialize
         game = Game.Instance;
         room = Room.Instance;
@@ -47,8 +54,11 @@ public class Main : MonoBehaviour
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
+        //Scene Loading Delegate
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         currentFlow = room;
-        currentFlow.PreInitialize();
+        //currentFlow.PreInitialize();
     }
 
     private void Start()
@@ -78,17 +88,38 @@ public class Main : MonoBehaviour
         if (!isInRoomScene)
         {
             sceneTransition.loadMainRoomScene();
-            currentFlow = room;
+            
             isInRoomScene = true;
         }
         else 
         {
             sceneTransition.loadMainMapScene();
-            currentFlow = game;
+            
             isInRoomScene = false;
         }
+    }
 
-        currentFlow.PreInitialize();
-        currentFlow.Initialize();
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+
+        currentSceneName = scene.name;  
+
+        if (!isInRoomScene)
+        {
+            currentFlow = game;
+        }
+        else
+        {
+            currentFlow = room;
+        }
+        //Make sure this is called only once.
+        if(currentSceneName != lastSceneName)
+        {
+            currentFlow.PreInitialize();
+            currentFlow.Initialize();
+            lastSceneName = currentSceneName;
+        }
     }
 }

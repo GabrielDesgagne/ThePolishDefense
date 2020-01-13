@@ -20,9 +20,6 @@ public class Room : Flow
     BoardManager boardManager;
     GrabbableManager grabbableManager;
 
-    //Room Setup has a reference to everything in the scene.
-    public GameObject roomSetup;
-
     override public void PreInitialize()
     {
         //Grab instances
@@ -31,7 +28,6 @@ public class Room : Flow
         grabbableManager = GrabbableManager.Instance;
 
         //Setup Variables
-        roomSetup = GameObject.Instantiate(Main.Instance.RoomSetupPrefab);
 
         //First Initialize
         playerManager.PreInitialize();
@@ -62,6 +58,6 @@ public class Room : Flow
 
     override public void EndFlow()
     {
-        GameObject.Destroy(roomSetup);
+        //GameObject.Destroy(roomSetup);
     }
 }

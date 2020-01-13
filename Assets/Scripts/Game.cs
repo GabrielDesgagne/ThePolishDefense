@@ -15,11 +15,13 @@ public class Game : Flow
             return instance ?? (instance = new Game());
         }
     }
-    #endregion 
+    #endregion
 
     //Managers
-    TowerManager towerManager;
     PlayerManager playerManager;
+    GridManager gridManager;
+
+    TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
     TrapManager trapManager;
@@ -38,6 +40,8 @@ public class Game : Flow
         trapManager = TrapManager.Instance;
         projectileManager = ProjectileManager.Instance;
         logicManager = LogicManager.Instance;
+        gridManager = GridManager.Instance;
+
 
         //Setup Variables
         gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
@@ -59,6 +63,9 @@ public class Game : Flow
         trapManager.Initialize();
         projectileManager.Initialize();
         logicManager.Initialize();
+
+        gridManager.Initialize();
+
     }
 
     override public void Refresh()
@@ -69,6 +76,8 @@ public class Game : Flow
         trapManager.Refresh();
         projectileManager.Refresh();
         logicManager.Refresh();
+
+        gridManager.Refresh();
     }
 
     override public void PhysicsRefresh()
@@ -79,6 +88,8 @@ public class Game : Flow
         trapManager.PhysicsRefresh();
         projectileManager.PhysicsRefresh();
         logicManager.PhysicsRefresh();
+
+        gridManager.PhysicsRefresh();
     }
 
     override public void EndFlow()
@@ -91,5 +102,7 @@ public class Game : Flow
         logicManager.EndFlow();
         //TODO Save variables in main variables holder.
         GameObject.Destroy(gameSetup);
+
+        gridManager.EndFlow();
     }
 }

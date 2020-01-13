@@ -23,12 +23,12 @@ public class SceneTransition : MonoBehaviour
 
     public void loadMainRoomScene()
     {
-        SceneManager.LoadScene(roomScene);
+        SceneManager.LoadSceneAsync(roomScene);
     }
 
     public void loadMainMapScene()
     {
-        SceneManager.LoadScene(mapScene);
+        SceneManager.LoadSceneAsync(mapScene);
     }
 
     public void loadActionScene()

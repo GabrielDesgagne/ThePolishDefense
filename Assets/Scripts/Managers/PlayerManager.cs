@@ -24,8 +24,11 @@ public class PlayerManager : Flow
 
     override public void PreInitialize()
     {
-        roomHolder = Room.Instance.roomSetup.GetComponent<RoomPrefabsHolder>();
-
+        if (Main.Instance.isInRoomScene)
+        {
+            roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
+        }
+        
         mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
         characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
 
@@ -56,10 +59,7 @@ public class PlayerManager : Flow
 
     override public void EndFlow()
     {
-        //Is this ok?
-        mainPlayerController = null;
-        characterController = null;
-        roomHolder = null;
+       
     }
 
 }

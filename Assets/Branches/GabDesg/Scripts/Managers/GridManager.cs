@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager {
+public class GridManager : Flow
+{
 
     #region Singleton
     private static GridManager instance;
@@ -14,6 +15,7 @@ public class GridManager {
     #endregion
 
     public GameVariables gameVariables;
+    public GameObject gridsHolder;
 
     private Grid hiddenGrid;
     private Vector3 tileSelected;
@@ -22,24 +24,31 @@ public class GridManager {
     private GridEntity map;
     private GridEntity shop;
 
-    public void Initialise() {
-        this.gameVariables = GameObject.Find("GameLogic").GetComponent<GameVariables>();
+    override public void Initialize() {
+        this.gameVariables = Main.Instance.GetComponent<GameVariables>();
 
         this.hiddenGrid = this.gameVariables.hiddenGrid;
         this.tileSelected = this.tileUnselected;
 
-        InitialiseGrids();
+        InitializeGridHolder();
+        InitializeGrids();
+        
     }
 
-    public void Refresh() {
-        DisplayObjectOnGrid(this.gameVariables.randomPrefab);
+    override public void Refresh() {
+        //DisplayObjectOnGrid(this.gameVariables.randomPrefab);
     }
 
-    public void PhysicRefresh() {
+    override public void PhysicsRefresh() {
 
     }
+    private void InitializeGridHolder()
+    {
+        this.gridsHolder = new GameObject("GridsHolder");
+        this.gridsHolder.transform.position = new Vector3();
+    }
 
-    private void InitialiseGrids() {
+    private void InitializeGrids() {
         this.map = new GridEntity("Map", GridType.MAP, new Vector3(0, 0, 0), 15, 15, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
         //this.shop = new GridEntity("Shop", GridType.SHOP, new Vector3(-50, 0, 0), 3, 9, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
     }
@@ -131,4 +140,11 @@ public class GridManager {
 
         return hits[indexSmallestDistance];
     }
+
+    override public void EndFlow()
+    {
+        //TODO Free memory
+        Debug.Log("TODO : End Flow / Free Memory");
+    }
+
 }

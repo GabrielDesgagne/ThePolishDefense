@@ -28,7 +28,7 @@ public class GridEntity {
     private void CreateTilesHolder(string name) {
         this.tilesHolder = new GameObject(name);
         this.tilesHolder.transform.position = new Vector3();
-        this.tilesHolder.transform.SetParent(GridManager.Instance.gameVariables.gridsParent.transform);
+        this.tilesHolder.transform.SetParent(GridManager.Instance.gridsHolder.transform);
     }
 
     private void InitLaserHitBox(Vector3 position, Vector2 tileSize, ushort width, ushort height) {
