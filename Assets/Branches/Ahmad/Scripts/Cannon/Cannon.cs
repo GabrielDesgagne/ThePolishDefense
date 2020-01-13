@@ -42,6 +42,7 @@ public class Cannon : MonoBehaviour {
             IsLoaded = false;
         }
     }
+
     public void LoadCannon(Bomb bomb) {
         Bomb = bomb;
         IsLoaded = true;

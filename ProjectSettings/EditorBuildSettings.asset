@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Branches/GabDesg/GabDesg.unity
     guid: 12fe42264cabf2946a551155e7b39a0e
+  - enabled: 1
+    path: Assets/Scenes/RoomScene.unity
+    guid: 3fd01413bb4c92a42aaa6b809cfbd0fa
+  - enabled: 1
+    path: Assets/Scenes/MapScene.unity
+    guid: 310262ab9db08714baaa567324054b90
   m_configObjects: {}

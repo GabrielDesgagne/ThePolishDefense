@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Interact
-  - Enemy
-  - Trigger
+  - Item
+  - Wall
+  - Terrain
+  - Material
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -16,11 +18,11 @@ TagManager:
   - UI
   - 
   - 
-  - Decorations
   - 
   - 
   - 
-  - GameBoard
+  - 
+  - 
   - 
   - 
   - 
@@ -43,10 +45,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Bow
-    uniqueID: 2514497239
-    locked: 0
-  - name: Youwin
-    uniqueID: 2105303675
     locked: 0

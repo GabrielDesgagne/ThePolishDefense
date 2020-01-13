@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : Flow
 {
@@ -14,16 +15,21 @@ public class Game : Flow
             return instance ?? (instance = new Game());
         }
     }
-    #endregion 
+    #endregion
 
     //Managers
-    TowerManager towerManager;
     PlayerManager playerManager;
+    GridManager gridManager;
+
+    TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
     TrapManager trapManager;
     ProjectileManager projectileManager;
     LogicManager logicManager;
+
+    //Game Setup has a reference to everything in the scene.
+    public GameObject gameSetup;
 
     override public void PreInitialize()
     {
@@ -34,7 +40,12 @@ public class Game : Flow
         trapManager = TrapManager.Instance;
         projectileManager = ProjectileManager.Instance;
         logicManager = LogicManager.Instance;
+        gridManager = GridManager.Instance;
 
+
+        //Setup Variables
+        gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
+        
         //First Initialize
         playerManager.PreInitialize();
         waveManager.PreInitialize();
@@ -52,6 +63,9 @@ public class Game : Flow
         trapManager.Initialize();
         projectileManager.Initialize();
         logicManager.Initialize();
+
+        gridManager.Initialize();
+
     }
 
     override public void Refresh()
@@ -62,6 +76,8 @@ public class Game : Flow
         trapManager.Refresh();
         projectileManager.Refresh();
         logicManager.Refresh();
+
+        gridManager.Refresh();
     }
 
     override public void PhysicsRefresh()
@@ -72,11 +88,21 @@ public class Game : Flow
         trapManager.PhysicsRefresh();
         projectileManager.PhysicsRefresh();
         logicManager.PhysicsRefresh();
+
+        gridManager.PhysicsRefresh();
     }
 
     override public void EndFlow()
     {
+        playerManager.EndFlow();
+        waveManager.EndFlow();
+        enemyManager.EndFlow();
+        trapManager.EndFlow();
+        projectileManager.EndFlow();
+        logicManager.EndFlow();
+        //TODO Save variables in main variables holder.
+        GameObject.Destroy(gameSetup);
 
+        gridManager.EndFlow();
     }
-
 }
