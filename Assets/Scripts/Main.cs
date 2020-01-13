@@ -5,34 +5,48 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
 
-    static public Main instance { get; private set; }
+    static public Main Instance { get; private set; }
 
     private Game game;
     private Room room;
     private Flow currentFlow;
 
-    public bool startsInRoomScene = true;
+    public Global GlobalVariables { get; private set; }
+    public GameObject RoomSetupPrefab { get; private set; }
+    public GameObject GameSetupPrefab { get; private set; }
+
+    public SceneTransition sceneTransition;
+
+    public bool isInRoomScene = false;
 
     private void Awake()
     {
-        //Singleton
-        if (instance == null)
+
+        #region Singleton
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        #endregion
 
         //Initialize
         game = Game.Instance;
         room = Room.Instance;
 
-        //Load Flow
-        ChangeCurrentFlow();
-        currentFlow.PreInitialize();
+        //Loads
+        RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
+        GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
+
+        //Get/Set
+        GlobalVariables = gameObject.GetComponent<Global>();
+        sceneTransition = gameObject.GetComponent<SceneTransition>();
+
+        currentFlow = room;
     }
 
     private void Start()
@@ -50,19 +64,29 @@ public class Main : MonoBehaviour
         currentFlow.PhysicsRefresh();
     }
 
+    private void EndFlow()
+    {
+        currentFlow.EndFlow();
+    }
+
     public void ChangeCurrentFlow()
     {
-        if (startsInRoomScene)
+        EndFlow();
+
+        if (!isInRoomScene)
         {
-            currentFlow = game;
-            currentFlow.PreInitialize();
-            currentFlow.Initialize();
-        }
-        else if (!startsInRoomScene)
-        {
+            sceneTransition.loadMainRoomScene();
             currentFlow = room;
-            currentFlow.PreInitialize();
-            currentFlow.Initialize();
+            isInRoomScene = true;
         }
+        else 
+        {
+            sceneTransition.loadMainMapScene();
+            currentFlow = game;
+            isInRoomScene = false;
+        }
+
+        currentFlow.PreInitialize();
+        currentFlow.Initialize();
     }
 }

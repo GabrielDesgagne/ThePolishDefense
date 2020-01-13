@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30767043a51af47449c1c5b1cab62561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cheatManager: {fileID: 0}
+  vrPlayerCharacterPrefab: {fileID: 0}
   building: {fileID: 5066595888108656650, guid: 4a4590a522263bf4eada8f82e6e1b410,
     type: 3}
   canvas: {fileID: 8732662124800041098, guid: a571ca765e8b8fc4b85576263327771a, type: 3}

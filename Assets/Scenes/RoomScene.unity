@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9432224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 823500001051366323, guid: 4b98fdcd4e3b8b64f8b74bcf9466880a,
+    type: 3}
+  m_PrefabInstance: {fileID: 65772111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &65772111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006393445}
   - component: {fileID: 1006393444}
+  - component: {fileID: 1006393446}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: Untagged
@@ -638,6 +645,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006393446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006393443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ed627c95733c1468a0ae0c823aee4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1117352277
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +684,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.956945, b: 0.8443396, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1062,41 +1081,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1535056656222156818, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: _trackingOriginType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656222156818, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: resetTrackerOnLoad
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656222156826, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: HmdResetsY
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656222156826, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: SnapRotation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656222350424, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: fadeInTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656223680560, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656223680560, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_StepOffset
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 1535056656228127190, guid: ff9b0f8f62e682d45bb28ecc55369a27,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1152,47 +1136,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1535056656228127190, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1535056656228158968, guid: ff9b0f8f62e682d45bb28ecc55369a27,
         type: 3}
       propertyPath: m_Name
       value: VRPlayerCharacterPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1535056656482466365, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: EnableCollision
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6981826352481277435, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_player
-      value: 
-      objectReference: {fileID: 1700615485}
-    - target: {fileID: 6981826354213852350, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_player
-      value: 
-      objectReference: {fileID: 1700615485}
-    - target: {fileID: 6981826354213852350, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-        type: 3}
-      propertyPath: m_parentHeldObject
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff9b0f8f62e682d45bb28ecc55369a27, type: 3}
 --- !u!20 &1700615484 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6981826352386268645, guid: ff9b0f8f62e682d45bb28ecc55369a27,
-    type: 3}
-  m_PrefabInstance: {fileID: 1700615483}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1700615485 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1535056656228158968, guid: ff9b0f8f62e682d45bb28ecc55369a27,
     type: 3}
   m_PrefabInstance: {fileID: 1700615483}
   m_PrefabAsset: {fileID: 0}
@@ -1588,6 +1541,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &2130621562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1535056656228158968, guid: ff9b0f8f62e682d45bb28ecc55369a27,
+    type: 3}
+  m_PrefabInstance: {fileID: 1700615483}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &528789013573085471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1733,6 +1692,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 126096472073014524, guid: 309fd926e4bd3f540b32013490700871,
+        type: 3}
+      propertyPath: cheatManager
+      value: 
+      objectReference: {fileID: 9432224}
+    - target: {fileID: 126096472073014524, guid: 309fd926e4bd3f540b32013490700871,
+        type: 3}
+      propertyPath: vrPlayerCharacterPrefab
+      value: 
+      objectReference: {fileID: 2130621562}
     - target: {fileID: 3804106981965542709, guid: 309fd926e4bd3f540b32013490700871,
         type: 3}
       propertyPath: m_LocalPosition.x
