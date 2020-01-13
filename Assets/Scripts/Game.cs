@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : Flow
 {
@@ -25,6 +26,9 @@ public class Game : Flow
     ProjectileManager projectileManager;
     LogicManager logicManager;
 
+    //Game Setup has a reference to everything in the scene.
+    public GameObject gameSetup;
+
     override public void PreInitialize()
     {
         //Grab instances
@@ -35,6 +39,9 @@ public class Game : Flow
         projectileManager = ProjectileManager.Instance;
         logicManager = LogicManager.Instance;
 
+        //Setup Variables
+        gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
+        
         //First Initialize
         playerManager.PreInitialize();
         waveManager.PreInitialize();
@@ -76,7 +83,13 @@ public class Game : Flow
 
     override public void EndFlow()
     {
-
+        playerManager.EndFlow();
+        waveManager.EndFlow();
+        enemyManager.EndFlow();
+        trapManager.EndFlow();
+        projectileManager.EndFlow();
+        logicManager.EndFlow();
+        //TODO Save variables in main variables holder.
+        GameObject.Destroy(gameSetup);
     }
-
 }

@@ -6,6 +6,8 @@ public class RoomPrefabsHolder : MonoBehaviour
 {
 
     [Header("Scene Prefabs Settings")]
+    public GameObject cheatManager;
+    public GameObject vrPlayerCharacterPrefab;
     public GameObject building;
     public GameObject canvas;
     public GameObject grabbables;

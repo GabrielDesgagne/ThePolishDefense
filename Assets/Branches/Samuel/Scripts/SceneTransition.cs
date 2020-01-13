@@ -26,7 +26,7 @@ public class SceneTransition : MonoBehaviour
         SceneManager.LoadScene(roomScene);
     }
 
-    public void loadMainBarScene()
+    public void loadMainMapScene()
     {
         SceneManager.LoadScene(mapScene);
     }
