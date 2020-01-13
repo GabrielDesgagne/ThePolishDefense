@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8544200579582105285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3804106981965542709}
+  - component: {fileID: 126096472073014524}
+  m_Layer: 0
+  m_Name: RoomSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3804106981965542709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544200579582105285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25.43376, y: 3.2697413, z: -75.54826}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &126096472073014524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544200579582105285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30767043a51af47449c1c5b1cab62561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheatManager: {fileID: 0}
+  vrPlayerCharacterPrefab: {fileID: 4261581801780231571, guid: dbf4bf4e01fbaaf4caceaaddff12d343,
+    type: 3}
+  building: {fileID: 5066595888108656650, guid: 4a4590a522263bf4eada8f82e6e1b410,
+    type: 3}
+  canvas: {fileID: 8732662124800041098, guid: a571ca765e8b8fc4b85576263327771a, type: 3}
+  grabbables: {fileID: 2678909311213682597, guid: e501729f8882c77428c28be7f8d0b24a,
+    type: 3}
+  grabManager: {fileID: 5305949624616490762, guid: 688b9cf5d8fee6447aa2d750ca5708db,
+    type: 3}
+  plane: {fileID: 8008434017565500601, guid: a2c1b12add0a7f940b73a21ffa065120, type: 3}
+  props: {fileID: 1780405997531271074, guid: 753957593a81a404baf08687fb9d7e16, type: 3}
+  roomSetup: {fileID: 8544200579582105285}
+  shopController: {fileID: 528789012369134975, guid: e25bd6bcab18aa74e8fdc5f654a3a6a1,
+    type: 3}
+  statsBoard: {fileID: 7913857234906319079, guid: 535889e76f0ba7d478b96b988388c3bd,
+    type: 3}
+  table: {fileID: 3946051067397724892, guid: 215f0752f31816847b11d982e0e0573b, type: 3}

@@ -8,7 +8,7 @@ public class GameFlow : MonoBehaviour {
 
     void Start() {
         if (showGrid)
-            GridManager.Instance.Initialise();
+            GridManager.Instance.Initialize();
     }
 
     void Update() {
@@ -18,6 +18,6 @@ public class GameFlow : MonoBehaviour {
 
     void FixedUpdate() {
         if (showGrid)
-            GridManager.Instance.PhysicRefresh();
+            GridManager.Instance.PhysicsRefresh();
     }
 }
