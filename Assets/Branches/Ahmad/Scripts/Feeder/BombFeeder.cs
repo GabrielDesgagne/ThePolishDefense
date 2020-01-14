@@ -19,8 +19,9 @@ public class BombFeeder {
         Object = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BombFeeder"), Position, Quaternion.identity);
     }
 
-    GameObject bombPrefab;//ProjectileManager will have the prefab
+    GameObject bombPrefab;
     public void SpawnBombs() {
+        bombPrefab = ProjectileManager.Instance.projectilePrefab[ProjectileType.BOMB];
         bombPrefab = Resources.Load<GameObject>("Prefabs/Bomb");
         float offSet = bombPrefab.transform.localScale.y * 0.25f;
         topY = bombPrefab.transform.localScale.y * 2 + offSet;
