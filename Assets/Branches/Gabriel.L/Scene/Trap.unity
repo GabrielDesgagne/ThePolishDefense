@@ -555,6 +555,9 @@ MonoBehaviour:
   inDetonate: 0
   mineTest: {fileID: 1739367794011077303, guid: 516e6a227f582884c8f1e3013b178e32,
     type: 3}
+  mineB: {fileID: 0}
+  triggerTrapClick: {fileID: 8300000, guid: d1c53249bcf1eef4b9502d2299ece958, type: 3}
+  boomSound: {fileID: 8300000, guid: 932c0b56cfd5ca94b842aa52b624912e, type: 3}
 --- !u!4 &1868623953
 Transform:
   m_ObjectHideFlags: 0
