@@ -2,30 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GridType { NONE, MAP, SHOP }
+public enum GridType { MAP, SHOP }
 
 public class GridEntity {
-    private static ushort nextId = 1;
+    private static ushort nextGridId = 0;
+    private static ushort nextTileId = 0;
 
     public ushort Id { get; private set; }
     public GridType Type { get; private set; }
 
     //Keep start point to remember the Y
     public Vector3 StartPoint { get; private set; }
+    private ushort gridWidth, gridHeight;
+    private Vector2 tileSize;
 
-    private Dictionary<Vector3, Tile> tiles = new Dictionary<Vector3, Tile>();
-    private List<Vector3> pathCorners = new List<Vector3>();
-
+    private Dictionary<ushort, Tile> tiles = new Dictionary<ushort, Tile>();
     private GameObject tilesHolder;
 
+    private List<Vector2> pathCorners = new List<Vector2>();
+
     public GridEntity(string name, GridType type, Vector3 _StartPoint, ushort width, ushort height, Vector2 _TileSize) {
-        this.Id = nextId;
-        nextId++;
+        nextTileId = 0;
+        this.Id = GetNextGridId();
+
         this.Type = type;
         this.StartPoint = _StartPoint;
+        this.gridWidth = width;
+        this.gridHeight = height;
+        this.tileSize = _TileSize;
+
         CreateTilesHolder(name);
         InitGridHitBox(_StartPoint, _TileSize, width, height);
-        InitPath(_TileSize);
+        if (this.Type == GridType.MAP)
+            InitPath(_TileSize);
         InitTiles(StartPoint, width, height, _TileSize);
     }
 
@@ -48,34 +57,49 @@ public class GridEntity {
     }
 
     private void InitPath(Vector2 tileSize) {
-        //Create path here (hardcode for now)
-        //TODO make path easier with a view tool (not hardcoded)
-        this.pathCorners.Add(new Vector3(3 * tileSize.x + tileSize.x / 2, 0, 0 * tileSize.y + tileSize.y / 2));
-        this.pathCorners.Add(new Vector3(3 * tileSize.x + tileSize.x / 2, 0, 9 * tileSize.y + tileSize.y / 2));
-        this.pathCorners.Add(new Vector3(7 * tileSize.x + tileSize.x / 2, 0, 9 * tileSize.y + tileSize.y / 2));
-        this.pathCorners.Add(new Vector3(7 * tileSize.x + tileSize.x / 2, 0, 3 * tileSize.y + tileSize.y / 2));
-        this.pathCorners.Add(new Vector3(11 * tileSize.x + tileSize.x / 2, 0, 3 * tileSize.y + tileSize.y / 2));
-        this.pathCorners.Add(new Vector3(11 * tileSize.x + tileSize.x / 2, 0, 14 * tileSize.y + tileSize.y / 2));
+        //Create path here (hardcoded for now)
+        this.pathCorners.Add(new Vector2(3, 8));
+        this.pathCorners.Add(new Vector2(13, 8));
+        this.pathCorners.Add(new Vector2(8, 3));
+        this.pathCorners.Add(new Vector2(8, 13));
+        this.pathCorners.Add(new Vector2(3, 8));
+        this.pathCorners.Add(new Vector2(3, 13));
+        this.pathCorners.Add(new Vector2(13, 8));
+        this.pathCorners.Add(new Vector2(13, 3));
+        this.pathCorners.Add(new Vector2(8, 13));
+        this.pathCorners.Add(new Vector2(13, 13));
+        this.pathCorners.Add(new Vector2(8, 3));
+        this.pathCorners.Add(new Vector2(3, 3));
+
+//         this.pathCorners.Add(new Vector2(4, 1));
+//         this.pathCorners.Add(new Vector2(4, 10));
+//         this.pathCorners.Add(new Vector2(8, 10));
+//         this.pathCorners.Add(new Vector2(8, 4));
+//         this.pathCorners.Add(new Vector2(12, 4));
+//         this.pathCorners.Add(new Vector2(12, 15));
     }
 
     private void InitTiles(Vector3 startPoint, ushort width, ushort height, Vector2 tileSize) {
         //Init tile into array
 
+        ushort tileId;
+        //Start at center of the startpoint
         Vector3 tilePosition;
         float x = startPoint.x + tileSize.x / 2;
         float z = startPoint.z + tileSize.y / 2;
 
         for (ushort i = 0; i < width; i++) {
             for (ushort j = 0; j < height; j++) {
+                tileId = GetNextTileId();
                 tilePosition = new Vector3(x, StartPoint.y, z);
 
                 //If grid isnt a shop, check what tile it is (path or terrain)
                 if (this.Type == GridType.SHOP)
-                    this.tiles.Add(tilePosition, new Tile(tilePosition, TileType.SHOP, GridManager.Instance.gridVisualSides));
+                    this.tiles.Add(tileId, new Tile(tileId, tilePosition, TileType.SHOP, GridManager.Instance.gridVisualSides));
                 else
-                    this.tiles.Add(tilePosition, new Tile(tilePosition, GetTileTypeAtPositionToCreatePath(tilePosition), GridManager.Instance.gridVisualSides));
+                    this.tiles.Add(tileId, new Tile(tileId, tilePosition, GetTileTypeAtPositionToCreatePath(tilePosition), GridManager.Instance.gridVisualSides));
 
-                this.tiles[tilePosition].Initialize(this.tilesHolder.transform);
+                this.tiles[tileId].Initialize(this.tilesHolder.transform, tileSize);
 
                 z += tileSize.y;
             }
@@ -94,42 +118,46 @@ public class GridEntity {
                 break;
             }
         }
-        return isPathTile ? TileType.PATH : TileType.EMPTY;
+        return isPathTile ? TileType.PATH : TileType.MAP;
     }
 
-    public TileType GetTileTypeAtPosition(Vector3 position) {
-        TileType type = TileType.EMPTY;
-
-        if (IsTileInGrid(position)) {
-            type = this.tiles[position].Type;
-        }
-
-        return type;
+    private ushort GetNextGridId() {
+        nextGridId++;
+        return nextGridId;
     }
 
-    public Tile GetTileAtPosition(Vector3 position) {
-        Tile tile = null;
-
-        if (IsTileInGrid(position)) {
-            tile = this.tiles[position];
-        }
-
-        return tile;
+    private ushort GetNextTileId() {
+        nextTileId++;
+        return nextTileId;
     }
 
-    private bool IsVectorBetweenBounds(Vector3 point, Vector3 a, Vector3 b) {
-        if (a.x == b.x) {
-            if (point.x == a.x) {
-                return IsNumberBetweenBounds(point.z, a.z, b.z);
+    private bool IsVectorBetweenBounds(Vector3 point, Vector2 a, Vector2 b) {
+        //Find position of a
+        Vector3 aPosition = GetPathTilePosition(a);
+        //Find position of b
+        Vector3 bPosition = GetPathTilePosition(b);
+
+        //Look if point is between a and b
+        if (aPosition.x == bPosition.x) {
+            if (point.x == aPosition.x) {
+                return IsNumberBetweenBounds(point.z, aPosition.z, bPosition.z);
             }
         }
-        else if (a.z == b.z) {
-            if (point.z == a.z) {
-                return IsNumberBetweenBounds(point.x, a.x, b.x);
+        else if (aPosition.z == bPosition.z) {
+            if (point.z == aPosition.z) {
+                return IsNumberBetweenBounds(point.x, aPosition.x, bPosition.x);
             }
         }
 
         return false;
+    }
+
+    private Vector3 GetPathTilePosition(Vector2 vec) {
+        Vector3 tilePosition = new Vector3(this.StartPoint.x + (vec.x - 1) * this.tileSize.x, 0, this.StartPoint.z + (vec.y - 1) * this.tileSize.y);
+        //Get Center of the tile
+        tilePosition.x += this.tileSize.x / 2;
+        tilePosition.z += this.tileSize.y / 2;
+        return tilePosition;
     }
 
     private bool IsNumberBetweenBounds(float a, float boundA, float boundB) {
@@ -144,6 +172,55 @@ public class GridEntity {
     }
 
     public bool IsTileInGrid(Vector3 tileCenter) {
-        return this.tiles.ContainsKey(tileCenter);
+        bool tileIsInGrid = false;
+
+        //Check all tiles to see if tileCenter is found
+        foreach (Tile tile in this.tiles.Values) {
+            if (tile.CenterPosition == tileCenter)
+                tileIsInGrid = true;
+        }
+        return tileIsInGrid;
     }
+    public TileType? GetTileTypeAtPosition(Vector3 tileCenter) {
+        TileType? type = null;
+
+        //Check all tiles to see if tileCenter is found
+        foreach (Tile tile in this.tiles.Values) {
+            if (tile.CenterPosition == tileCenter)
+                type = tile.Type;
+        }
+
+        return type;
+    }
+
+    public Tile GetTileAtPosition(Vector3 tileCenter) {
+        Tile tileResult = null;
+
+        //Check all tiles to see if tileCenter is found
+        foreach (Tile tile in this.tiles.Values) {
+            if (tile.CenterPosition == tileCenter)
+                tileResult = tile;
+        }
+
+        return tileResult;
+    }
+
+    public Vector3? GetTileCenterPositionFromId(ushort id) {
+        Vector3? tileCenter = null;
+        if (this.tiles.ContainsKey(id))
+            tileCenter = this.tiles[id].CenterPosition;
+        return tileCenter;
+    }
+
+    public ushort? GetTileId(Vector3 tileCenter) {
+        ushort? id = null;
+
+        foreach (Tile tile in this.tiles.Values) {
+            if (tile.CenterPosition == tileCenter)
+                id = tile.Id;
+        }
+
+        return id;
+    }
+
 }

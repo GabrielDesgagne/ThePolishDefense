@@ -19,4 +19,6 @@ public class GameVariables : MonoBehaviour {
     #endregion
 
     [SerializeField] public GameObject randomPrefab;
+    [SerializeField] public ushort gridWidth;
+    [SerializeField] public ushort gridHeight;
 }

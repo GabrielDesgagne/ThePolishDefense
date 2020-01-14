@@ -12,7 +12,9 @@ public class GridManager : Flow {
         }
     }
     #endregion
+
     //TODO remove turn off obj instead
+
 
     public GameObject gridStuffHolder { get; private set; }
     public GameObject gridsHolder { get; private set; }
@@ -78,53 +80,13 @@ public class GridManager : Flow {
         string mapGridName = "Map";
         Vector3 mapPosition = new Vector3();
         GridType mapGridType = GridType.MAP;
-        ushort mapWidth = 15, mapHeight = 15;
 
-        this.map = new GridEntity(mapGridName, mapGridType, mapPosition, mapWidth, mapHeight, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
+        this.map = new GridEntity(mapGridName, mapGridType, mapPosition, MapInfoPck.Instance.gameVariables.gridWidth, MapInfoPck.Instance.gameVariables.gridHeight, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
         this.gridsList.Add(this.map.Id, this.map);
 
 
         //this.shop = new GridEntity("Shop", GridType.SHOP, new Vector3(-50, 0, 0), 3, 9, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
     }
-
-    //     public void DisplayObjectOnGrid(GameObject objectToDisplay) {
-    //         //Check if table hit by laser
-    //         Vector3 targetPointInWorld = new Vector3();
-    //         if (LookForHitOnTables(ref targetPointInWorld)) {
-    //             //Get tile position targetPoint is in
-    //             Vector3 tileCenter = GetTilePositionFromWorldPoint(targetPointInWorld);
-    // 
-    //             //Update position to center of the tile
-    //             tileCenter.x += this.hiddenGrid.cellSize.x / 2;
-    //             tileCenter.z -= this.hiddenGrid.cellSize.y / 2;
-    // 
-    //             //Get table height
-    //             tileCenter.y = targetPointInWorld.y;
-    // 
-    //             if (HasTileSelectedChanged(tileCenter)) {
-    //                 //Display prefab at new position
-    //                 objectToDisplay.transform.position = tileCenter;
-    //                 //TODO Start event tile changed -> make sound change lighing position etc...
-    //             }
-    //         }
-    //         else {
-    //             //TODO deactivate obj
-    // 
-    //             //Dont display turret on grid anymore
-    //             //objectToDisplay.transform.position = this.tileSelected;
-    //         }
-    //     }
-
-    //     public bool HasTileSelectedChanged(Vector3 newTileSelected) {
-    //         bool changedTile = false;
-    // 
-    //         if (newTileSelected != this.tileSelected) {
-    //             changedTile = true;
-    //             this.tileSelected = newTileSelected;
-    //         }
-    // 
-    //         return changedTile;
-    //     }
 
     public Vector3 GetTileCenterFromWorldPoint(Vector3 pointInWorld) {
         //Get position in grid
@@ -151,8 +113,8 @@ public class GridManager : Flow {
     }
 
     //If tile isnt find in any grid, returns EMPTY
-    public TileType GetTileTypeInGrid(Vector3 tileCenter) {
-        TileType type = TileType.EMPTY;
+    public TileType? GetTileTypeInGrid(Vector3 tileCenter) {
+        TileType? type = null;
 
         foreach (GridEntity grid in this.gridsList.Values) {
             if (grid.IsTileInGrid(tileCenter)) {
@@ -163,6 +125,7 @@ public class GridManager : Flow {
         return type;
     }
 
+    //If tile doesnt exist in any grid, returns null
     public Tile GetTileFromGrid(Vector3 tileCenter) {
         Tile tile = null;
 
@@ -175,8 +138,8 @@ public class GridManager : Flow {
         return tile;
     }
 
-    public GridType GetGridType(Vector3 tileCenter) {
-        GridType type = GridType.NONE;
+    public GridType? GetGridType(Vector3 tileCenter) {
+        GridType? type = null;
 
         foreach (GridEntity grid in this.gridsList.Values) {
             if (grid.IsTileInGrid(tileCenter)) {
@@ -187,11 +150,35 @@ public class GridManager : Flow {
         return type;
     }
 
+    public Vector3? GetTileCenterPositionFromId(ushort id) {
+        Vector3? centerPosition = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            centerPosition = grid.GetTileCenterPositionFromId(id);
+            if (centerPosition != null)
+                break;
+        }
+
+        return centerPosition;
+    }
+
+    public ushort? GetTileId(Vector3 tileCenter) {
+        ushort? id = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter)) {
+                id = grid.GetTileId(tileCenter);
+            }
+        }
+
+        return id;
+    }
+
 
     //Returns the hit position in world
-    private bool LookForHitOnTables(out Vector3 hitPointInWorld) {
+    public bool LookForHitOnTables(out Vector3? hitPointInWorld) {
         bool tableHasBeenHit = false;
-        hitPointInWorld = new Vector3();
+        hitPointInWorld = null;
 
         //Create a ray from Camera -> Mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
