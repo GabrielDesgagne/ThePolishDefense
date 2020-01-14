@@ -33,8 +33,7 @@ namespace OVRTouchSample
         public const float TRIGGER_DEBOUNCE_TIME = 0.05f;
         public const float THUMB_DEBOUNCE_TIME = 0.15f;
 
-        [SerializeField]
-        private OVRInput.Controller m_controller = OVRInput.Controller.None;
+        protected OVRInput.Controller m_controller = OVRInput.Controller.None;
         [SerializeField]
         private Animator m_animator = null;
         [SerializeField]
@@ -42,7 +41,7 @@ namespace OVRTouchSample
 
         private Collider[] m_colliders = null;
         private bool m_collisionEnabled = true;
-        private OVRGrabber m_grabber;
+        protected OVRGrabber m_grabber;
 
         List<Renderer> m_showAfterInputFocusAcquired;
 
@@ -63,7 +62,7 @@ namespace OVRTouchSample
             m_grabber = GetComponent<OVRGrabber>();
         }
 
-        private void Start()
+        protected void Start()
         {
             m_showAfterInputFocusAcquired = new List<Renderer>();
 
@@ -84,7 +83,7 @@ namespace OVRTouchSample
 #endif
         }
 
-        private void Update()
+        protected void Update()
         {
             UpdateCapTouchStates();
 
@@ -107,7 +106,7 @@ namespace OVRTouchSample
             m_isGivingThumbsUp = !OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons, m_controller);
         }
 
-        private void LateUpdate()
+        protected void LateUpdate()
         {
             // Hand's collision grows over a short amount of time on enable, rather than snapping to on, to help somewhat with interpenetration issues.
             if (m_collisionEnabled && m_collisionScaleCurrent + Mathf.Epsilon < COLLIDER_SCALE_MAX)

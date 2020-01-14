@@ -19,10 +19,12 @@ public class Room : Flow
     PlayerManager playerManager;
     BoardManager boardManager;
     GrabbableManager grabbableManager;
+    InputManager inputManager;
 
     override public void PreInitialize()
     {
         //Grab instances
+        inputManager = InputManager.Instance;
         playerManager = PlayerManager.Instance;
         boardManager = BoardManager.Instance;
         grabbableManager = GrabbableManager.Instance;
@@ -30,6 +32,7 @@ public class Room : Flow
         //Setup Variables
 
         //First Initialize
+        inputManager.PreInitialize();
         playerManager.PreInitialize();
         boardManager.PreInitialize();
         grabbableManager.PreInitialize();
@@ -37,6 +40,7 @@ public class Room : Flow
 
     override public void Initialize()
     {
+        inputManager.Initialize();
         playerManager.Initialize();
         boardManager.Initialize();
         grabbableManager.Initialize();
@@ -44,6 +48,7 @@ public class Room : Flow
 
     override public void Refresh()
     {
+        inputManager.Refresh();
         playerManager.Refresh();
         boardManager.Refresh();
         grabbableManager.Refresh();
@@ -51,6 +56,7 @@ public class Room : Flow
 
     override public void PhysicsRefresh()
     {
+        inputManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
         boardManager.PhysicsRefresh();
         grabbableManager.PhysicsRefresh();

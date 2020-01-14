@@ -267,10 +267,10 @@ public class OVRGrabber : MonoBehaviour
 
         if (closestGrabbable != null)
         {
-            if (closestGrabbable.isGrabbed)
-            {
-                closestGrabbable.grabbedBy.OffhandGrabbed(closestGrabbable);
-            }
+            //if (closestGrabbable.isGrabbed)
+            //{
+            //    closestGrabbable.grabbedBy.OffhandGrabbed(closestGrabbable);
+            //}
 
             m_grabbedObj = closestGrabbable;
             m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
@@ -395,13 +395,13 @@ public class OVRGrabber : MonoBehaviour
         }
     }
 
-	protected virtual void OffhandGrabbed(OVRGrabbable grabbable)
-    {
-        if (m_grabbedObj == grabbable)
-        {
-            GrabbableRelease(Vector3.zero, Vector3.zero);
-        }
-    }
+	//protected virtual void OffhandGrabbed(OVRGrabbable grabbable)
+ //   {
+ //       if (m_grabbedObj == grabbable)
+ //       {
+ //           GrabbableRelease(Vector3.zero, Vector3.zero);
+ //       }
+ //   }
 
 	protected void SetPlayerIgnoreCollision(GameObject grabbable, bool ignore)
 	{
