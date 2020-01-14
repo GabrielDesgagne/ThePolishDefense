@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private float health;
     public int value = 50;
 
-    public GameObject deathEffect;
+    //public GameObject deathEffect;
 
     public Image healthBar;
 
@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     private GameObject uiDied;
     private float speedMoveUi = 2f;
     public GameObject bloodEffect;
+    private float timeForHitAnimation=0.8f;
 
     private void Start() { Initialize(); }
     void Initialize()
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
             hitTime += Time.deltaTime;
             speed = 0;
         }
-        if (hitTime > 0.8)
+        if (hitTime >= timeForHitAnimation)
         {
             hitTime = 0;
             speed = startSpeed;
