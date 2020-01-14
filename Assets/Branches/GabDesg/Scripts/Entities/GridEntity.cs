@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GridType { MAP, SHOP }
+public enum GridType { NONE, MAP, SHOP }
 
 public class GridEntity {
+    private static ushort nextId = 1;
 
+    public ushort Id { get; private set; }
     public GridType Type { get; private set; }
 
     //Keep start point to remember the Y
@@ -17,10 +19,12 @@ public class GridEntity {
     private GameObject tilesHolder;
 
     public GridEntity(string name, GridType type, Vector3 _StartPoint, ushort width, ushort height, Vector2 _TileSize) {
+        this.Id = nextId;
+        nextId++;
         this.Type = type;
         this.StartPoint = _StartPoint;
         CreateTilesHolder(name);
-        InitLaserHitBox(_StartPoint, _TileSize, width, height);
+        InitGridHitBox(_StartPoint, _TileSize, width, height);
         InitPath(_TileSize);
         InitTiles(StartPoint, width, height, _TileSize);
     }
@@ -31,9 +35,9 @@ public class GridEntity {
         this.tilesHolder.transform.SetParent(GridManager.Instance.gridsHolder.transform);
     }
 
-    private void InitLaserHitBox(Vector3 position, Vector2 tileSize, ushort width, ushort height) {
+    private void InitGridHitBox(Vector3 position, Vector2 tileSize, ushort width, ushort height) {
         //Instantiate prefab inside parent
-        GameObject hitbox = GameObject.Instantiate<GameObject>(GridManager.Instance.gameVariables.gridLaserHitBoxPrefab, this.tilesHolder.transform);
+        GameObject hitbox = GameObject.Instantiate<GameObject>(GridManager.Instance.hiddenGridHitBoxPrefab, this.tilesHolder.transform);
 
         //Set at position
         hitbox.transform.position = position;
@@ -67,11 +71,11 @@ public class GridEntity {
 
                 //If grid isnt a shop, check what tile it is (path or terrain)
                 if (this.Type == GridType.SHOP)
-                    this.tiles.Add(tilePosition, new Tile(tilePosition, TileType.SHOP, GridManager.Instance.gameVariables.gridContourPrefab));
+                    this.tiles.Add(tilePosition, new Tile(tilePosition, TileType.SHOP, GridManager.Instance.gridVisualSides));
                 else
-                    this.tiles.Add(tilePosition, new Tile(tilePosition, GetTileTypeAtPosition(tilePosition), GridManager.Instance.gameVariables.gridContourPrefab));
+                    this.tiles.Add(tilePosition, new Tile(tilePosition, GetTileTypeAtPositionToCreatePath(tilePosition), GridManager.Instance.gridVisualSides));
 
-                this.tiles[tilePosition].Initialise(this.tilesHolder.transform);
+                this.tiles[tilePosition].Initialize(this.tilesHolder.transform);
 
                 z += tileSize.y;
             }
@@ -81,7 +85,7 @@ public class GridEntity {
         }
     }
 
-    private TileType GetTileTypeAtPosition(Vector3 position) {
+    private TileType GetTileTypeAtPositionToCreatePath(Vector3 position) {
         //Get if its a path tile or not
         bool isPathTile = false;
         for (int i = 0; i < this.pathCorners.Count - 1; i++) {
@@ -91,6 +95,26 @@ public class GridEntity {
             }
         }
         return isPathTile ? TileType.PATH : TileType.EMPTY;
+    }
+
+    public TileType GetTileTypeAtPosition(Vector3 position) {
+        TileType type = TileType.EMPTY;
+
+        if (IsTileInGrid(position)) {
+            type = this.tiles[position].Type;
+        }
+
+        return type;
+    }
+
+    public Tile GetTileAtPosition(Vector3 position) {
+        Tile tile = null;
+
+        if (IsTileInGrid(position)) {
+            tile = this.tiles[position];
+        }
+
+        return tile;
     }
 
     private bool IsVectorBetweenBounds(Vector3 point, Vector3 a, Vector3 b) {
@@ -117,5 +141,9 @@ public class GridEntity {
     }
     private float GetBiggest(float a, float b) {
         return a > b ? a : b;
+    }
+
+    public bool IsTileInGrid(Vector3 tileCenter) {
+        return this.tiles.ContainsKey(tileCenter);
     }
 }

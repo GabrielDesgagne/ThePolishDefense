@@ -23,7 +23,7 @@ public class Tile {
         this.prefab = _prefab;
     }
 
-    public void Initialise(Transform parent) {
+    public void Initialize(Transform parent) {
         //Instantiate and add to parent grid
         this.tileContour = GameObject.Instantiate<GameObject>(this.prefab);
         this.tileContour.transform.SetParent(parent);
