@@ -20,6 +20,7 @@ public class Mine : Trap
 
     public float boomLength;
     public float currentExplosionTime;
+    bool isTrigger;
 
     private void Start()
     {
@@ -34,6 +35,7 @@ public class Mine : Trap
             Debug.Log("audio source not loaded");
         }
         boomLength = boomSound.length;
+        isTrigger = false;
     }
 
     private void Update()
@@ -87,6 +89,7 @@ public class Mine : Trap
     {
         if (other)
         {
+            isTrigger = true;
             Debug.Log("name of the collision : " + other.name);
             onTrigger();
         }
