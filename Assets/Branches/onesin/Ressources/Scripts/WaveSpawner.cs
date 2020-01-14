@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour {
 
@@ -8,18 +9,18 @@ public class WaveSpawner : MonoBehaviour {
 
     public Wave[] waves;
 
-    // 
     [SerializeField]
     private Transform spawnPoint;
 
     [SerializeField]
     private float timeBetweenWaves = 5f;
 
-    private float countdown = 5f;
+    [SerializeField]
+    private int waveIndex = 0;
 
     [SerializeField]
-
-    private int waveIndex = 0;
+    private GameObject countdown;
+    private Countdown waveCountdownTimer;
 
     private void Start() { Initialize(); }
     private void Update() { Refresh(); }
@@ -27,28 +28,28 @@ public class WaveSpawner : MonoBehaviour {
     void Initialize()
     {
         EnemiesAlive = 0;
+        waveCountdownTimer = countdown.GetComponent<Countdown>();
+        waveCountdownTimer.countdown = timeBetweenWaves;
 
     }
 
     void Refresh() {
-
-        if(EnemiesAlive > 0)
+        //condition to restart countdown
+        if (EnemiesAlive > 0)
         {
             return;
         }
 
-        if (countdown <= 0f)
+        if (waveCountdownTimer.countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
+            waveCountdownTimer.countdown = timeBetweenWaves;
             return;
         }
+        waveCountdownTimer.Deduct();
+        
 
-        countdown -= Time.deltaTime;
-
-        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
-
-	}
+    }
 
     IEnumerator SpawnWave()
     {
