@@ -15,10 +15,12 @@ public class Room : Flow
         }
     }
     #endregion
-
+    
     PlayerManager playerManager;
     BoardManager boardManager;
     GrabbableManager grabbableManager;
+    ArrowManager arrowManager;
+    PodManager podManager;
 
     public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
 
@@ -28,6 +30,8 @@ public class Room : Flow
         playerManager = PlayerManager.Instance;
         boardManager = BoardManager.Instance;
         grabbableManager = GrabbableManager.Instance;
+        arrowManager = ArrowManager.Instance;
+        podManager = PodManager.Instance;
 
         //Setup Variables
         roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
@@ -48,6 +52,8 @@ public class Room : Flow
     override public void Refresh()
     {
         playerManager.Refresh();
+        arrowManager.Refresh();
+        podManager.Refresh();
         boardManager.Refresh();
         grabbableManager.Refresh();
     }

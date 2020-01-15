@@ -20,6 +20,8 @@ public class Game : Flow
     //Managers
     PlayerManager playerManager;
     GridManager gridManager;
+
+    PodManager podManager;
     TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
@@ -35,6 +37,7 @@ public class Game : Flow
     override public void PreInitialize()
     {
         //Grab instances
+        podManager = PodManager.Instance;
         playerManager = PlayerManager.Instance;
         waveManager = WaveManager.Instance;
         enemyManager = EnemyManager.Instance;
@@ -73,7 +76,8 @@ public class Game : Flow
 
     override public void Refresh()
     {
-        playerManager.Refresh();
+        //playerManager.Refresh();
+        podManager.Refresh();
         waveManager.Refresh();
         enemyManager.Refresh();
         trapManager.Refresh();
