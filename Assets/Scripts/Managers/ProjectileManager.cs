@@ -21,6 +21,8 @@ public class ProjectileManager : Flow {
     override public void PreInitialize() {
         enabledProjectiles = new Dictionary<ProjectileType, List<Projectile>>();
         disabledProjectiles = new Dictionary<ProjectileType, List<Projectile>>();
+        InitDictionaries();
+
         projectilePrefab = new Dictionary<ProjectileType, GameObject>();
 
         projectilePrefab.Add(ProjectileType.BOMB, Resources.Load<GameObject>("Prefabs/Bomb"));
@@ -32,7 +34,7 @@ public class ProjectileManager : Flow {
             Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB]));
             bomb.Object.SetActive(false);
             disabledProjectiles[bomb.Type].Add(bomb);
-            
+
             Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION]));
             potion.Object.SetActive(false);
             disabledProjectiles[potion.Type].Add(potion);
@@ -82,5 +84,12 @@ public class ProjectileManager : Flow {
 
     public bool IsReadyToShoot(ProjectileType type) {
         return this.disabledProjectiles[type].Count > 0;
+    }
+
+    private void InitDictionaries() {
+        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType))) {
+            enabledProjectiles.Add(type, new List<Projectile>());
+            disabledProjectiles.Add(type, new List<Projectile>());
+        }
     }
 }

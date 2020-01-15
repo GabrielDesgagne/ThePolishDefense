@@ -8,5 +8,6 @@ public class Bomb : Projectile {
     public Bomb(GameObject ob) {
         Object = ob;
         SlerpPct = 0;
+        Type = ProjectileType.BOMB;
     }
 }

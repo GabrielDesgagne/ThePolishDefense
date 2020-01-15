@@ -6,5 +6,6 @@ public class Potion : Projectile {
     public Potion(GameObject ob) {
         Object = ob;
         SlerpPct = 0;
+        Type = ProjectileType.POTION;
     }
 }
