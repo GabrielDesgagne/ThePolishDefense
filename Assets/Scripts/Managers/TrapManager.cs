@@ -17,15 +17,34 @@ public class TrapManager : Flow
 
     #endregion
 
-    public float timerStart = 2f;
-    public float currentTime;
-    GameObject newTrap;
+    //Prefabs Paths
+    const string SPIKE = "Prefabs/Spikes";
+    const string MINE = "Prefabs/Mine";
+    const string GLUE = "Prefabs/Glue";
+
+    //GameObject List
     public GameObject trapHolder;
     public List<Trap> listTrap;
+    public Dictionary<TrapType, GameObject> trapPrefabs;
+
 
     override public void PreInitialize()
     {
-        newTrap = Resources.Load<GameObject>("Prefabs/AsterBig3");
+        //init dictionnary
+        trapPrefabs = new Dictionary<TrapType, GameObject>();
+
+        //add all trap in dictionnary
+        trapPrefabs.Add(TrapType.MINE, Resources.Load<GameObject>(MINE));
+        trapPrefabs.Add(TrapType.SPIKE, Resources.Load<GameObject>(SPIKE));
+        trapPrefabs.Add(TrapType.GLUE, Resources.Load<GameObject>(GLUE));
+
+        //init list of trap
+        listTrap = new List<Trap>();
+
+        foreach (Trap trap in listTrap)
+        {
+            trap.PreInitialize();
+        }
     }
 
     override public void Initialize()
