@@ -46,7 +46,6 @@ public class IceTower : Tower {
     }
 
     public override void Refresh() {
-        Vector3 target = new Vector3(100, 10, -50);//test vector, will later get closest enemy
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3 startPos = Position + new Vector3(Random.Range(-1.5f, 1.5f), 47.61f);
             if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.POTION)) {

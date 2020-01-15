@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Mine : Trap
 {
-    public GameObject mineTest;
+    //public GameObject mineTest;
     GameObject mine;
     public MineBehaviour mineB;
     UnityAction action;
@@ -14,18 +14,30 @@ public class Mine : Trap
     public AudioClip triggerTrapClick;
     public AudioClip boomSound;
 
+    public GameObject explosionEffect;
+    public float radius = 5f;
+    public float force = 700;
 
     bool canDetonate = false;
+    public bool canRemove = false;
+
+    public float boomLength;
+    public float currentExplosionTime;
+    bool isTrigger = false;
 
     private void Start()
     {
-        mineTest = Instantiate(mineTest);
-        mineB = mineTest.GetComponent<MineBehaviour>();
-        action += onTrigger;
+        // mineTest = Instantiate(mineTest);
+        //mineB = mineTest.GetComponent<MineBehaviour>();
+        //action += onTrigger;
         //actionOnAction += onAction;
-        mineB.onTrigger(action);
+        //mineB.onTrigger(action);
         //mineB.onAction(actionOnAction);
-        
+        if (audioSource == null)
+        {
+            Debug.Log("audio source not loaded");
+        }
+        boomLength = boomSound.length;
     }
 
     private void Update()
@@ -35,18 +47,35 @@ public class Mine : Trap
             currentTime -= Time.deltaTime;
             canDetonate = true;
         }
-        if(canDetonate)
+        if (canDetonate)
         {
-            // currentTime = 0;
+            onAction();
         }
     }
 
     public override void onAction()
     {
-        if(currentTime <= 0)
+        if (currentTime <= 0)
         {
-            Debug.Log("boom");
+            //Debug.Log("boom");
+            gameObject.AddComponent<Rigidbody>();
+            Instantiate(explosionEffect, transform.position, transform.rotation);
+            Collider[] colliders =  Physics.OverlapSphere(transform.position, radius);
+
+            foreach(Collider nearByGO in colliders)
+            {
+                Rigidbody rb = nearByGO.GetComponent<Rigidbody>();
+                if(rb != null)
+                {
+                    rb.AddExplosionForce(force, transform.position, radius);
+                }
+                //add damage
+            }
+
             PlaySound(boomSound);
+            inDetonate = false;
+            canDetonate = false;
+            onRemove();
         }
     }
 
@@ -57,7 +86,9 @@ public class Mine : Trap
 
     public override void onRemove()
     {
-        mineTest.SetActive(false);
+        GameObject.Destroy(gameObject, boomLength);
+
+        //mineTest.SetActive(false);
     }
 
     public override void onTrigger()
@@ -68,10 +99,28 @@ public class Mine : Trap
         PlaySound(triggerTrapClick);
     }
 
-    public void PlaySound(AudioClip audio)
+    protected override void OnTriggerEnter(Collider other)
     {
-        GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.PlayOneShot(audio);
+        if (!isTrigger)
+        {
+            isTrigger = true;
+            if (other)
+            {
+                isTrigger = true;
+                Debug.Log("name of the collision : " + other.name);
+                onTrigger();
+            }
+        }
+        
+    }
+
+    protected override void OnTriggerStay(Collider other)
+    {
+        Debug.Log("this gameobject : " + other.name + " still in the range of the trap");
+    }
+
+    protected override void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name + " left the range of the trap");
     }
 }

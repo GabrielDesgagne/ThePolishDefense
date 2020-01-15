@@ -26,7 +26,7 @@ public class HeavyTower : Tower {
     public override void Initialize() {
         this.Object = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
         Feeder = new BombFeeder(Position + new Vector3(0, 43.75f, 0));
-        Canon = new Cannon(Position + new Vector3(0, 47.9f, 14));
+        Canon = new Cannon(this, Position + new Vector3(0, 47.9f, 14));
         Feeder.SpawnBombs();
         AutoShoot = true;//will be set through upgrades or something like that
     }
