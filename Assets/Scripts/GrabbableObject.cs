@@ -70,7 +70,7 @@ public class GrabbableObject : InteractObject
     /// <summary>
     /// Returns the OVRGrabber currently grabbing this object.
     /// </summary>
-    public OVRGrabber grabbedBy
+    public Grabber grabbedBy
     {
         get { return m_grabbedBy; }
     }
@@ -147,7 +147,7 @@ public class GrabbableObject : InteractObject
         }
 
     }
-    //public void grabBegin(OVRGrabber grabber)
+    //public void grabBegin(GrabbableObject grabber)
     //{
     //    grabbable.GrabBegin(grabber, collider);
     //}

@@ -10,7 +10,6 @@ using System.Linq;
 using UnityEngine;
 using OVRTouchSample;
 #if UNITY_EDITOR
-using UnityEngine.SceneManagement;
 #endif
 
 

@@ -59,7 +59,6 @@ public class Main : MonoBehaviour
 
         currentFlow = room;
 
-        currentFlow.PreInitialize();
     }
 
     private void Start()
