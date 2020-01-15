@@ -14,14 +14,14 @@ public class EnemyMovement : MonoBehaviour
     private void Update() { Refresh(); }
     private void FixedUpdate() { PhysicsRefresh(); }
 
-    void Initialize()
+    public void Initialize()
     {
         enemy = GetComponent<Enemy>();
         target = Waypoints.points[0];
         anim = GetComponent<Animator>();
     }
 
-    void PhysicsRefresh()
+    public void PhysicsRefresh()
     {
         Vector3 dir = target.position - transform.position;
         transform.LookAt(target);
@@ -31,13 +31,14 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    void Refresh()
+    public void Refresh()
     {
         if (Vector3.Distance(transform.position, target.position) <= 0.3f)
         {
             //check the next way point
             if (waypointIndex >= Waypoints.points.Length - 1)
             {
+                enemy.isHittable = false;
                 WaveSpawner.EnemiesAlive--;
                 Destroy(gameObject);
                 return;
@@ -48,6 +49,14 @@ public class EnemyMovement : MonoBehaviour
         }
 
         enemy.speed = enemy.startSpeed;
+
+        /*if (Vector3.Distance(transform.position, EnemyManager.Instance.spawnPoint.position)<=0.3f){
+            enemy.isHittable = false;
+        }
+        else
+        {
+            enemy.isHittable = true;
+        }*/
     }
 
 

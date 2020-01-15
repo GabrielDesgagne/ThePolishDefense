@@ -18,15 +18,26 @@ public class EnemyManager : Flow
     #endregion
 
 
-    /*Transform spawnPoint;
-    public Transform rootNodeParent;
-    public HashSet<Enemy> enemies;
+    //public Transform spawnPoint;
+    public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
-    public List<Enemy> toAdd;
-    readonly float initialEggSpawnHeight = 50;
-    public static GameObject rootPrefab;
-
+    public Stack<Enemy> toAdd;
+   
     Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
+
+
+    //public static int EnemiesAlive = 0;//number of enemy alive
+
+    private GameObject waveSpawner;
+    private WaveSpawner spawner;
+
+    //public Wave[] waves;
+    //private float timeBetweenWaves = 5f;
+
+    //private int waveIndex = 0;
+
+    //private GameObject countdown;
+    //private Countdown waveCountdownTimer;
 
     override public void PreInitialize()
     {
@@ -37,33 +48,45 @@ public class EnemyManager : Flow
     {
         toRemove = new Stack<Enemy>();
         toAdd = new Stack<Enemy>();
-        enemies = new HashSet<Enemy>();
-        rootPrefab = Resources.Load<GameObject>("Prefabs/RootNode");
-        spawnPoint = new GameObject("EnemyParent").transform;
-        rootNodeParent = new GameObject("RootNodeParent").transform;
+        enemies = new List<Enemy>();
+        //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
+        waveSpawner= Resources.Load<GameObject>("Prefabs/WaveSpawner");
+        spawner.GetComponent<WaveSpawner>();
+        //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
         }
-
-        SpawnInitialSkyEggs();
-
+        //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
+        //EnemiesAlive = 0;
+        //waveCountdownTimer = countdown.GetComponent<Countdown>();
+        //waveCountdownTimer.countdown = timeBetweenWaves;
     }
 
     override public void Refresh()
     {
         foreach (Enemy e in enemies)
-            if (e.isAlive)
-                e.PhysicRefresh();
+            e.Refresh();
+
+       /* spawner.Refresh();
+        if (EnemiesAlive > 0)
+        {
+            return;
+        }
+
+        if (waveCountdownTimer.countdown <= 0f)
+        {
+            MonoBehaviour mono = new MonoBehaviour();
+            mono.StartCoroutine(SpawnWave());
+            waveCountdownTimer.countdown = timeBetweenWaves;
+            return;
+        }
+        waveCountdownTimer.Deduct();*/
     }
 
     override public void PhysicsRefresh()
     {
-        foreach (Enemy e in enemies)
-            if (e.isAlive)
-                e.Refresh();
-
-
+       
         while (toRemove.Count > 0) //remove all dead ones
         {
             try
@@ -88,23 +111,34 @@ public class EnemyManager : Flow
 
     }
 
-    public Enemy SpawnEnemy(EnemyType eType, Vector3 spawnLoc, float startingEnergy)
+   /* IEnumerator SpawnWave()
     {
-        if (eType == EnemyType.Egg)
+        Wave wave = waves[waveIndex];
+
+        EnemiesAlive = wave.count;
+
+        for (int i = 0; i < wave.count; i++)
         {
-            Debug.LogError("Do not use SpawnEnemy to spawn an egg, use CreateEnemyEgg instead, eggs require more parmeters");
-            return CreateEnemyEgg(spawnLoc, new Vector3(), 0, startingEnergy);
+            System.Random rnd = new System.Random();
+            EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
+            GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
+            Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
+            e.Initialize();               
+            toAdd.Push(e);                              
+            yield return new WaitForSeconds(1f / wave.rate);
         }
 
-        GameObject newEnemy = GameObject.Instantiate(enemyPrefabDict[eType], spawnPoint);       //create from prefab
-        newEnemy.transform.position = spawnLoc;     //set the position
-        Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-        e.Initialize(startingEnergy);               //initialize the enemy
-        toAdd.Push(e);                              //add to update list
-        return e;
-    }
+        waveIndex++;
+
+       
+    }*/
+
+    /*GameObject SpawnEnemy(GameObject enemy)
+    {
+        return GameObject.Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+    }*/
     override public void EndFlow()
     {
 
-    }*/
+    }
 }
