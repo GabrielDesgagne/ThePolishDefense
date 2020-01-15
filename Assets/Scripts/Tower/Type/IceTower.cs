@@ -25,11 +25,11 @@ public class IceTower : Tower {
         this.DefaultAttackCooldown = attackCooldown;
     }
 
+    Transform positionPos = null;
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
         GameObject potionPrefab = ProjectileManager.Instance.projectilePrefab[ProjectileType.POTION];
-        Transform positionPos = null;
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
         foreach (Transform tf in tfList)
         {
@@ -63,7 +63,7 @@ public class IceTower : Tower {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector3 startPos = Position + new Vector3(Random.Range(-1.5f, 1.5f), 47.61f);
+            Vector3 startPos = Position + new Vector3(0, positionPos.position.y, 0);
             if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.POTION))
             {
                 ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, GetTarget());
