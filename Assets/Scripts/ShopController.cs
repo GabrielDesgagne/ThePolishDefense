@@ -53,10 +53,11 @@ public class ShopController : MonoBehaviour
 
     void PreInit()
     {
-
+        //TODO Fix path!
         towerPrefab = Resources.Load<GameObject>("Prefabs/Tower");
         trapPrefab = Resources.Load<GameObject>("Prefabs/Trap");
 
+        if(towerPrefab == null || trapPrefab == null) { Debug.LogError("Tower/Trap prefab not Found! Please make sure the path is correct. "); return; }
 
         shopInventory[0] = Instantiate(towerPrefab, spawnPoints[0].position, TowerBoard.transform.rotation);
         shopInventory[0].name = "Tower1";
