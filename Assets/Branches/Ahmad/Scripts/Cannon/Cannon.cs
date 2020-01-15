@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour {
-
     public GameObject Object { get; set; }
+    public Tower Tower { get; set; }
     public bool IsLoaded { get; set; }
     public float Angle { get; set; }
     public Bomb Bomb { get; set; }
 
-    public Cannon(Vector3 position) {
+    public Cannon(Tower tower, Vector3 position) {
         Object = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Cannon"), position, Quaternion.identity);
+        Tower = tower;
         Angle = 0;
     }
 
@@ -46,5 +47,9 @@ public class Cannon : MonoBehaviour {
     public void LoadCannon(Bomb bomb) {
         Bomb = bomb;
         IsLoaded = true;
+    }
+
+    public void FindAngleToFireAt(Vector3 towerCenter, Vector3 target) {
+
     }
 }
