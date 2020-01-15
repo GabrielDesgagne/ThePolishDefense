@@ -24,6 +24,7 @@ sound
 
 
     public GameObject prefab;
+    protected AudioSource audioSource;
     public TrapName nameTrap;
     [TextArea(15, 20)]
     public string description;
@@ -37,8 +38,11 @@ sound
     public bool isOutTrap = false;
     public bool timerOn = false;
     public bool inDetonate = false;
-   
- 
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public abstract void onTrigger();
    
@@ -48,4 +52,13 @@ sound
 
     public abstract void onRemove();
 
+    protected abstract void OnTriggerEnter(Collider other);
+
+    protected abstract void OnTriggerStay(Collider other);
+
+    protected abstract void OnTriggerExit(Collider other);
+    protected void PlaySound(AudioClip audio)
+    {
+        audioSource.PlayOneShot(audio);
+    }
 }
