@@ -20,14 +20,14 @@ public class Game : Flow
     //Managers
     PlayerManager playerManager;
     GridManager gridManager;
-
-    //TODO Managers :
     TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
     TrapManager trapManager;
     ProjectileManager projectileManager;
     LogicManager logicManager;
+
+    public Dictionary<GameObject, IGrabbable> gameGrabbablesDict;
 
     //Game Setup has a reference to everything in the scene.
     public GameObject gameSetup;
@@ -43,8 +43,10 @@ public class Game : Flow
         logicManager = LogicManager.Instance;
         gridManager = GridManager.Instance;
 
-
         //Setup Variables
+        gameGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
+
+        //Instantiates
         gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
         
         //First Initialize

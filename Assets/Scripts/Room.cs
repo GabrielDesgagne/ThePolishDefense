@@ -20,6 +20,8 @@ public class Room : Flow
     BoardManager boardManager;
     GrabbableManager grabbableManager;
 
+    public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
+
     override public void PreInitialize()
     {
         //Grab instances
@@ -28,6 +30,7 @@ public class Room : Flow
         grabbableManager = GrabbableManager.Instance;
 
         //Setup Variables
+        roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
         playerManager.PreInitialize();
