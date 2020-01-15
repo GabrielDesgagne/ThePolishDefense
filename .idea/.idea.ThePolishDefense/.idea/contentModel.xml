@@ -132,6 +132,7 @@
             </e>
           </e>
         </e>
+        <e p="GarbageTrigger.cs" t="Include" />
         <e p="Global.cs" t="Include" />
         <e p="JeamPhilippeBrien" t="Include">
           <e p="Script" t="Include">
@@ -243,15 +244,6 @@
                 <e p="RFX4_RealtimeReflection.cs" t="Include" />
               </e>
             </e>
-          </e>
-        </e>
-        <e p="Laterns and candles" t="Include">
-          <e p="Scripts" t="Include">
-            <e p="CameraFacing.cs" t="Include" />
-            <e p="ExtendedFlycam.cs" t="Include" />
-          </e>
-          <e p="Shaders" t="Include">
-            <e p="GlassStainedBumpDistort.shader" t="Include" />
           </e>
         </e>
         <e p="Oculus" t="Include">
@@ -1128,6 +1120,7 @@
         </e>
         <e p="Resources" t="Include">
           <e p="Shaders" t="Include">
+            <e p="GlassStainedBumpDistort.shader" t="Include" />
             <e p="portalShader.shader" t="Include" />
           </e>
         </e>
@@ -1137,6 +1130,7 @@
           <e p="BeginningTrigger.cs" t="Include" />
           <e p="BlockRotation.cs" t="Include" />
           <e p="BowManager.cs" t="Include" />
+          <e p="CameraFacing.cs" t="Include" />
           <e p="Flow.cs" t="Include" />
           <e p="Game.cs" t="Include" />
           <e p="Main.cs" t="Include" />
