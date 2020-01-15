@@ -419,6 +419,12 @@ PrefabInstance:
       propertyPath: coldownEffect
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8728211223141749829, guid: 516e6a227f582884c8f1e3013b178e32,
+        type: 3}
+      propertyPath: explosionEffect
+      value: 
+      objectReference: {fileID: 2742295642334328329, guid: ff00b7de56f9cd242986d2ee2849f228,
+        type: 3}
     - target: {fileID: 1259237906024642107, guid: 516e6a227f582884c8f1e3013b178e32,
         type: 3}
       propertyPath: m_IsTrigger
@@ -437,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 8115203842908904266, guid: 516e6a227f582884c8f1e3013b178e32,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0.104
       objectReference: {fileID: 0}
     - target: {fileID: 8115203842908904266, guid: 516e6a227f582884c8f1e3013b178e32,
         type: 3}
@@ -484,7 +490,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6286057390571269389, guid: 516e6a227f582884c8f1e3013b178e32, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 516e6a227f582884c8f1e3013b178e32, type: 3}
 --- !u!1 &1290641967
 GameObject:

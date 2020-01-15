@@ -14,13 +14,16 @@ public class Mine : Trap
     public AudioClip triggerTrapClick;
     public AudioClip boomSound;
 
+    public GameObject explosionEffect;
+    public float radius = 5f;
+    public float force = 700;
 
     bool canDetonate = false;
     public bool canRemove = false;
 
     public float boomLength;
     public float currentExplosionTime;
-    bool isTrigger;
+    bool isTrigger = false;
 
     private void Start()
     {
@@ -35,7 +38,6 @@ public class Mine : Trap
             Debug.Log("audio source not loaded");
         }
         boomLength = boomSound.length;
-        isTrigger = false;
     }
 
     private void Update()
@@ -49,10 +51,6 @@ public class Mine : Trap
         {
             onAction();
         }
-        if (canRemove)
-        {
-            onRemove();
-        }
     }
 
     public override void onAction()
@@ -60,9 +58,24 @@ public class Mine : Trap
         if (currentTime <= 0)
         {
             //Debug.Log("boom");
+            gameObject.AddComponent<Rigidbody>();
+            Instantiate(explosionEffect, transform.position, transform.rotation);
+            Collider[] colliders =  Physics.OverlapSphere(transform.position, radius);
+
+            foreach(Collider nearByGO in colliders)
+            {
+                Rigidbody rb = nearByGO.GetComponent<Rigidbody>();
+                if(rb != null)
+                {
+                    rb.AddExplosionForce(force, transform.position, radius);
+                }
+                //add damage
+            }
+
             PlaySound(boomSound);
             inDetonate = false;
             canDetonate = false;
+            onRemove();
         }
     }
 
@@ -74,6 +87,7 @@ public class Mine : Trap
     public override void onRemove()
     {
         GameObject.Destroy(gameObject, boomLength);
+
         //mineTest.SetActive(false);
     }
 
@@ -87,12 +101,17 @@ public class Mine : Trap
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other)
+        if (!isTrigger)
         {
             isTrigger = true;
-            Debug.Log("name of the collision : " + other.name);
-            onTrigger();
+            if (other)
+            {
+                isTrigger = true;
+                Debug.Log("name of the collision : " + other.name);
+                onTrigger();
+            }
         }
+        
     }
 
     protected override void OnTriggerStay(Collider other)
