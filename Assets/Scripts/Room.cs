@@ -23,6 +23,8 @@ public class Room : Flow
     ArrowManager arrowManager;
     PodManager podManager;
 
+    public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
+
     override public void PreInitialize()
     {
         //Grab instances
@@ -34,6 +36,7 @@ public class Room : Flow
         podManager = PodManager.Instance;
 
         //Setup Variables
+        roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
         inputManager.PreInitialize();

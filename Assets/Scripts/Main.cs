@@ -63,7 +63,7 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
-        currentFlow.Initialize();
+        //currentFlow.Initialize();
     }
 
     private void Update()
@@ -104,7 +104,7 @@ public class Main : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
 
-        currentSceneName = scene.name;  
+        currentSceneName = scene.name;
 
         if (!isInRoomScene)
         {

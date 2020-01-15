@@ -5,43 +5,65 @@ using UnityEngine.Events;
 
 public class Mine : Trap
 {
-    //public GameObject mineTest;
-    GameObject mine;
-    public MineBehaviour mineB;
-    UnityAction action;
-    UnityAction actionOnAction;
 
+    //AUDIO
     public AudioClip triggerTrapClick;
     public AudioClip boomSound;
 
+    //Particul Effect Setting
     public GameObject explosionEffect;
+    GameObject explosionRef;
+    public float explosionDuration;
+    public float boomLength;
+
+    //Explosion Setting
     public float radius = 5f;
     public float force = 700;
 
+    //Bool toggle Action
     bool canDetonate = false;
-    public bool canRemove = false;
-
-    public float boomLength;
-    public float currentExplosionTime;
     bool isTrigger = false;
+
+    public Mine()
+    {
+        this.type = TrapType.MINE;
+        this.TrapPosition = new Vector3(0, 0, 0);
+        this.attackDamage = 50;
+        this.lifeSpawn = 1;
+        this.price = 100;
+        this.trapRadius = 7;
+        this.coldownEffect = 2;
+        this.force = 700;
+    }
+
+    public Mine(Vector3 position, float damage,float radius, float coldown, float force)
+    {
+        this.TrapPosition = position;
+        this.type = TrapType.MINE;
+        this.attackDamage = damage;
+        this.trapRadius = radius;
+        this.coldownEffect = coldown;
+        this.force = force;
+    }
+
+
 
     private void Start()
     {
-        // mineTest = Instantiate(mineTest);
-        //mineB = mineTest.GetComponent<MineBehaviour>();
-        //action += onTrigger;
-        //actionOnAction += onAction;
-        //mineB.onTrigger(action);
-        //mineB.onAction(actionOnAction);
+        //NULL CHECK
         if (audioSource == null)
         {
-            Debug.Log("audio source not loaded");
+            //Debug.Log("audio source not loaded");
         }
+
+        //Set action time--- use as a timer to delete object
         boomLength = boomSound.length;
+        explosionDuration = explosionEffect.GetComponent<ParticleSystem>().main.duration;
     }
 
     private void Update()
     {
+        //Toggle mine Action
         if (inDetonate)
         {
             currentTime -= Time.deltaTime;
@@ -50,6 +72,7 @@ public class Mine : Trap
         if (canDetonate)
         {
             onAction();
+            canDetonate = false;
         }
     }
 
@@ -58,14 +81,15 @@ public class Mine : Trap
         if (currentTime <= 0)
         {
             //Debug.Log("boom");
+            //TODO explosion move enemy qui va perturber le chmin des enemy
             gameObject.AddComponent<Rigidbody>();
-            Instantiate(explosionEffect, transform.position, transform.rotation);
-            Collider[] colliders =  Physics.OverlapSphere(transform.position, radius);
+            explosionRef = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
-            foreach(Collider nearByGO in colliders)
+            foreach (Collider nearByGO in colliders)
             {
                 Rigidbody rb = nearByGO.GetComponent<Rigidbody>();
-                if(rb != null)
+                if (rb != null)
                 {
                     rb.AddExplosionForce(force, transform.position, radius);
                 }
@@ -74,7 +98,7 @@ public class Mine : Trap
 
             PlaySound(boomSound);
             inDetonate = false;
-            canDetonate = false;
+
             onRemove();
         }
     }
@@ -87,13 +111,12 @@ public class Mine : Trap
     public override void onRemove()
     {
         GameObject.Destroy(gameObject, boomLength);
-
-        //mineTest.SetActive(false);
+        GameObject.Destroy(explosionRef, explosionDuration);
     }
 
     public override void onTrigger()
     {
-        Debug.Log("on trigger trigger timer");
+        //Debug.Log("on trigger trigger timer");
         inDetonate = true;
         currentTime = detonate;
         PlaySound(triggerTrapClick);
@@ -107,20 +130,40 @@ public class Mine : Trap
             if (other)
             {
                 isTrigger = true;
-                Debug.Log("name of the collision : " + other.name);
+                // Debug.Log("name of the collision : " + other.name);
                 onTrigger();
             }
         }
-        
+
     }
 
     protected override void OnTriggerStay(Collider other)
     {
-        Debug.Log("this gameobject : " + other.name + " still in the range of the trap");
+        //  Debug.Log("this gameobject : " + other.name + " still in the range of the trap");
     }
 
     protected override void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.name + " left the range of the trap");
+        //  Debug.Log(other.name + " left the range of the trap");
+    }
+
+    public override void PreInitialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Initialize()
+    {
+        this.prefab = GameObject.Instantiate(TrapManager.Instance.trapPrefabs[TrapType.MINE]);
+    }
+
+    public override void Refresh()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PhysicsRefresh()
+    {
+        throw new System.NotImplementedException();
     }
 }
