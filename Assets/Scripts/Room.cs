@@ -15,11 +15,13 @@ public class Room : Flow
         }
     }
     #endregion
-
+    
     PlayerManager playerManager;
     BoardManager boardManager;
     GrabbableManager grabbableManager;
     InputManager inputManager;
+    ArrowManager arrowManager;
+    PodManager podManager;
 
     override public void PreInitialize()
     {
@@ -28,6 +30,8 @@ public class Room : Flow
         playerManager = PlayerManager.Instance;
         boardManager = BoardManager.Instance;
         grabbableManager = GrabbableManager.Instance;
+        arrowManager = ArrowManager.Instance;
+        podManager = PodManager.Instance;
 
         //Setup Variables
 
@@ -50,6 +54,8 @@ public class Room : Flow
     {
         inputManager.Refresh();
         playerManager.Refresh();
+        arrowManager.Refresh();
+        podManager.Refresh();
         boardManager.Refresh();
         grabbableManager.Refresh();
     }

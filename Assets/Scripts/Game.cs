@@ -22,6 +22,7 @@ public class Game : Flow
     GridManager gridManager;
     InputManager inputManager;
     //TODO Managers :
+    PodManager podManager;
     TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
@@ -36,6 +37,7 @@ public class Game : Flow
     {
         //Grab instances
         inputManager = InputManager.Instance;
+        podManager = PodManager.Instance;
         playerManager = PlayerManager.Instance;
         waveManager = WaveManager.Instance;
         enemyManager = EnemyManager.Instance;
@@ -76,6 +78,8 @@ public class Game : Flow
     {
         inputManager.Refresh();
         playerManager.Refresh();
+        //playerManager.Refresh();
+        podManager.Refresh();
         waveManager.Refresh();
         enemyManager.Refresh();
         trapManager.Refresh();

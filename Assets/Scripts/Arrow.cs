@@ -5,6 +5,8 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour
 {
+	public float startToCurve = 5f;
+	public float forceToApplyMax = 30f;
 	private Rigidbody rb;
 	private const float timeBeforeDelete = 10;
 	private bool isAttached = false;
@@ -35,7 +37,7 @@ public class Arrow : MonoBehaviour
 	}
 	void Update() 
 	{
-		if (isFired && rb.velocity.magnitude > 5f) {
+		if (isFired && rb.velocity.magnitude > startToCurve) {
 			transform.LookAt (transform.position + rb.velocity);
 		}
 
@@ -52,7 +54,7 @@ public class Arrow : MonoBehaviour
 		isFired =  true;
 		transform.parent = null;
 		rb.isKinematic = false;
-		rb.velocity = transform.forward * 30f * veloToApply;
+		rb.velocity = transform.forward * forceToApplyMax * veloToApply;
 		rb.useGravity = true;
 		collider.isTrigger = true;
 		startDisapearTime = Time.time;

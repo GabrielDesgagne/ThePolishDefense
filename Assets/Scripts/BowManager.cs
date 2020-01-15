@@ -22,6 +22,10 @@ public class BowManager : MonoBehaviour
     public float yHandOffsetPos;
     Vector3 rotation;
     // Start is called before the first frame update
+    public void DestroyBow()
+    {
+        Destroy(this.gameObject);
+    }
     private void Awake()
     {
         rotation = Vector3.zero;
@@ -68,7 +72,7 @@ public class BowManager : MonoBehaviour
                 temp.y -= 2.8f * pourcentString / 100f;
                 stringAttachPoint.transform.localPosition = temp;
             }
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) == 0 || OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) < 0.1f || OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) < 0.1f)
             {
                 Fire();
                 pourcentString = 0;
