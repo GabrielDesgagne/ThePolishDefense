@@ -15,6 +15,9 @@ public class Mine : Trap
     public AudioClip boomSound;
 
     public GameObject explosionEffect;
+    GameObject explosionRef;
+    public float explosionDuration;
+
     public float radius = 5f;
     public float force = 700;
 
@@ -38,6 +41,7 @@ public class Mine : Trap
             Debug.Log("audio source not loaded");
         }
         boomLength = boomSound.length;
+        explosionDuration = explosionEffect.GetComponent<ParticleSystem>().duration;
     }
 
     private void Update()
@@ -59,7 +63,7 @@ public class Mine : Trap
         {
             //Debug.Log("boom");
             gameObject.AddComponent<Rigidbody>();
-            Instantiate(explosionEffect, transform.position, transform.rotation);
+            explosionRef = Instantiate(explosionEffect, transform.position, transform.rotation);
             Collider[] colliders =  Physics.OverlapSphere(transform.position, radius);
 
             foreach(Collider nearByGO in colliders)
@@ -87,7 +91,7 @@ public class Mine : Trap
     public override void onRemove()
     {
         GameObject.Destroy(gameObject, boomLength);
-
+        GameObject.Destroy(explosionRef, explosionDuration);
         //mineTest.SetActive(false);
     }
 
