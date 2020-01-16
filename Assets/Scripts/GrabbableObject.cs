@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OVRTouchSample;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,12 @@ public class GrabbableObject : InteractObject
     public bool distanceGrab;
     public bool flip;
     public Transform snap;
-    OVRGrabbable grabbable;
-    Rigidbody rb;
+    public Collider thisCollider;
+    public HandPose pose;
+    public float distanceRange = 10;
+    public Rigidbody rb;
 
 
-    [SerializeField]
-    protected bool m_allowOffhandGrab = true;
     [SerializeField]
     protected bool m_snapPosition = false;
     [SerializeField]
@@ -23,16 +24,12 @@ public class GrabbableObject : InteractObject
     protected Transform m_snapOffset;
     [SerializeField]
     protected Collider[] m_grabPoints = null;
-
+    public bool allowOffhandGrab = true;
     protected bool m_grabbedKinematic = false;
     protected Collider m_grabbedCollider = null;
     protected Grabber m_grabbedBy = null;
 
     #region Facebook Nightmare
-    public bool allowOffhandGrab
-    {
-        get { return m_allowOffhandGrab; }
-    }
 
 
     /// <summary>
@@ -106,26 +103,25 @@ public class GrabbableObject : InteractObject
         {
             snap = transform;
         }
-        //collider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-        grabbable = GetComponent<OVRGrabbable>();
 
         if (m_grabPoints.Length == 0)
         {
             // Get the collider from the grabbable
-            Collider collider = this.GetComponent<Collider>();
-            if (collider == null)
+            thisCollider = this.GetComponent<Collider>();
+            if (thisCollider == null)
             {
                 throw new ArgumentException("Grabbables cannot have zero grab points and no collider -- please add a grab point or collider.");
             }
 
             // Create a default grab point
-            m_grabPoints = new Collider[1] { collider };
+            m_grabPoints = new Collider[1] { thisCollider };
         }
+        
+        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
     private void Update()
     {
-
     }
     private bool selected;
     public bool Selected { get { return selected; }
@@ -147,16 +143,14 @@ public class GrabbableObject : InteractObject
         }
 
     }
-    //public void grabBegin(GrabbableObject grabber)
-    //{
-    //    grabbable.GrabBegin(grabber, collider);
-    //}
+
 
     virtual public void GrabBegin(Grabber hand, Collider grabPoint)
     {
         m_grabbedBy = hand;
+        Debug.Log(grabPoint);
         m_grabbedCollider = grabPoint;
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        rb.isKinematic = true;
     }
 
     /// <summary>
@@ -164,7 +158,6 @@ public class GrabbableObject : InteractObject
     /// </summary>
     virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.isKinematic = m_grabbedKinematic;
         rb.velocity = linearVelocity;
         rb.angularVelocity = angularVelocity;
@@ -174,7 +167,9 @@ public class GrabbableObject : InteractObject
 
     protected virtual void Start()
     {
-        m_grabbedKinematic = GetComponent<Rigidbody>().isKinematic;
+        m_grabbedKinematic = rb.isKinematic;
+        Main.Instance.grabbableObjects.Add(this.gameObject, this);
+
     }
 
     void OnDestroy()

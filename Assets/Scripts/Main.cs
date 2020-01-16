@@ -17,6 +17,8 @@ public class Main : MonoBehaviour
     public GameObject GameSetupPrefab;
     public GameObject VRPlayerCharacter;
 
+    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
+
     public SceneTransition sceneTransition;
 
     public bool isInRoomScene { get; private set; }
@@ -45,6 +47,7 @@ public class Main : MonoBehaviour
         //Initialize
         game = Game.Instance;
         room = Room.Instance;
+        grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
 
         //Loads
         //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
@@ -54,10 +57,13 @@ public class Main : MonoBehaviour
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
+
         //Scene Loading Delegate
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         currentFlow = room;
+
+
 
     }
 

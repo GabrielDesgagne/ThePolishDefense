@@ -30,7 +30,6 @@ public class Game : Flow
     ProjectileManager projectileManager;
     LogicManager logicManager;
 
-    public Dictionary<GameObject, IGrabbable> gameGrabbablesDict;
 
     //Game Setup has a reference to everything in the scene.
     public GameObject gameSetup;
@@ -49,7 +48,6 @@ public class Game : Flow
         gridManager = GridManager.Instance;
 
         //Setup Variables
-        gameGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //Instantiates
         gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
