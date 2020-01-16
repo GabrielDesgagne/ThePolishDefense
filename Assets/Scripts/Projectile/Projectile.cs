@@ -8,6 +8,8 @@ public abstract class Projectile {
     public Vector3 StartPos { get; set; }
     public Vector3 TargetPos { get; set; }
     public float SlerpPct { get; set; }
+    public float Damage { get; set; }
+    public float Radius { get; set; }
 
     public void MoveToTarget()
     {
@@ -17,11 +19,13 @@ public abstract class Projectile {
             SlerpPct += 0.01f;
         }
     }
-
+    
     public void Reset()
     {
         Obj.SetActive(false);
         Obj.transform.position = StartPos;
         SlerpPct = 0;
     }
+
+    public abstract void CollisionHit();
 }

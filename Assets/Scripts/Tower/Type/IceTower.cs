@@ -36,10 +36,11 @@ public class IceTower : Tower {
             if (tf.name == "PotionPos")
                 positionPos = tf;
         }
+        GameObject potionParent = new GameObject("ThrowablePotion");
         for (int i = 0; i < 10; i++)
         {
             Vector3 potionPos = Position + new Vector3(Random.Range(-1.5f, 1.5f), positionPos.position.y, Random.Range(-1.5f, 1.5f));
-            Potion throawablePotion = new Potion(GameObject.Instantiate(potionPrefab, potionPos, potionPrefab.transform.rotation));
+            Potion throawablePotion = new Potion(GameObject.Instantiate(potionPrefab, potionPos, potionPrefab.transform.rotation, potionParent.transform));
             throwablePotions.Add(throawablePotion);
         }
     }
@@ -54,11 +55,6 @@ public class IceTower : Tower {
 
     }
 
-    private Vector3 GetTarget()
-    {
-        return new Vector3(100, 10, -50);//test vector, will later get closest enemy
-    }
-
     public override void Refresh()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -66,11 +62,11 @@ public class IceTower : Tower {
             Vector3 startPos = Position + new Vector3(0, positionPos.position.y, 0);
             if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.POTION))
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, TowerManager.Instance.GetTarget());
             }
             else if (!AutoShoot)
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, TowerManager.Instance.GetTarget());
             }
         }
     }
