@@ -13,11 +13,12 @@ public class PlacingObjectManager : Flow {
     }
     #endregion
 
-    ShopManager shopManager;
-    GridManager gridManager;
-    MapInfoPck mapInfoPck;
+    private ShopManager shopManager;
+    private GridManager gridManager;
+    private MapInfoPck mapInfoPck;
 
-    Vector3 tileSelected, oldTileSelected;
+    public Vector3 tileSelected;
+    private Vector3 oldTileSelected;
 
     public override void EndFlow() {
         base.EndFlow();
@@ -47,7 +48,6 @@ public class PlacingObjectManager : Flow {
         //Check if ray cast hits game board
         Vector3? tileHitOnTable;
         if (this.gridManager.LookForHitOnTables(out tileHitOnTable)) {
-            Debug.Log("Totching Table...");
             //Make sure obj is activated
             if (!obj.activeSelf)
                 obj.SetActive(true);
@@ -60,7 +60,6 @@ public class PlacingObjectManager : Flow {
             }
         }
         else {
-            Debug.Log("NOOOOOOOOT Totching Table...");
             //Make sure obj isnt deactivated already
             if (obj.activeSelf)
                 //If item in hands + not aiming at table, deactivate obj
@@ -91,16 +90,19 @@ public class PlacingObjectManager : Flow {
 
         //Check in the MapInfoPck if tile is already taken
         ushort? tileSelectedId = this.gridManager.GetTileId(this.tileSelected);
-        if (tileSelected != null)
-            if (this.mapInfoPck.TileInfos.ContainsKey(this.gridManager.GetTileCoordsFromTileId("MapRoom", (ushort)tileSelectedId)))
+        if (tileSelected != null) {
+            Vector2 tileCoords = this.gridManager.GetTileCoordsFromTileId("MapRoom", (ushort)tileSelectedId);
+            if (this.mapInfoPck.TileTowerInfos.ContainsKey(tileCoords))
                 tileIsTaken = false;
-
+            else if (this.mapInfoPck.TileTrapInfos.ContainsKey(tileCoords))
+                tileIsTaken = false;
+        }
         return tileIsTaken;
     }
 
     private void UpdateTileSelected(Vector3 hitPointInWorld) {
-        this.tileSelected = this.gridManager.GetTileCenterFromWorldPoint(hitPointInWorld);
-        this.tileSelected.y = hitPointInWorld.y;
+        this.tileSelected = this.gridManager.GetTileCenterFromCoords(this.gridManager.GetTileCoords(hitPointInWorld));
+        this.tileSelected.y = this.gridManager.GetGrid("ShopRoom").StartPoint.y;
     }
 
     private bool HasTileChanged() {
