@@ -17,6 +17,7 @@ public class PlayerManager : Flow
     #endregion
 
     RoomPrefabsHolder roomHolder;
+    
     //TODO GamePrefabsHolder
 
     MainPlayerController mainPlayerController;
@@ -26,7 +27,7 @@ public class PlayerManager : Flow
     {
         if (Main.Instance.isInRoomScene)
         {
-            roomHolder = Main.Instance.roomSetupPrefab.GetComponent<RoomPrefabsHolder>();
+            roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
         }
         
         mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
