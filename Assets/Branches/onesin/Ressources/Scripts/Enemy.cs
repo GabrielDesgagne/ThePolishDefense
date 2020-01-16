@@ -14,10 +14,11 @@ public class Enemy : MonoBehaviour
     public int value = 50;
 
     //public GameObject deathEffect;
+    public EnemyType type;
 
     public Image healthBar;
-
-    private bool isDead = false;
+    [HideInInspector]
+    public bool isDead = false;
 
 
     private Animator anim;
@@ -26,15 +27,17 @@ public class Enemy : MonoBehaviour
     private EnemyMovement mvt;
     private AudioSource walk;
     private AudioSource dead;
-    private float hitTime = 0;
+    //private float hitTime = 0;
     public GameObject uiDiedEffectPrefabs;
     private GameObject uiDied;
     private float speedMoveUi = 2f;
     public GameObject bloodEffect;
-    private float timeForHitAnimation=0.8f;
+    //private float timeForHitAnimation=0.8f;
+    [HideInInspector]
+    public bool isHittable=false;
 
     private void Start() { Initialize(); }
-    void Initialize()
+    public void Initialize()
     {
         speed = startSpeed;
         health = startHealth;
@@ -46,30 +49,15 @@ public class Enemy : MonoBehaviour
 
     private void Update() { Refresh(); }
 
-    void Refresh()
+    public void Refresh()
     {
-
-        if (anim.GetBool("isHit"))
-        {
-            anim.SetFloat("time", anim.GetFloat("time") + Time.deltaTime);
-            hitTime += Time.deltaTime;
-            speed = 0;
-        }
-        if (hitTime >= timeForHitAnimation)
-        {
-            hitTime = 0;
-            speed = startSpeed;
-            anim.SetBool("isWalk", true);
-            anim.SetBool("isHit", false);
-
-        }
 
         //for test the take damage function. we can delete it after
         if (Input.GetKeyDown(KeyCode.A))
         {
             TakeDamage(50);
         }
-
+        //
         if (isDead)
         {
             uiDied.transform.Translate(Vector3.up * speedMoveUi * Time.fixedDeltaTime, Space.World);
@@ -80,7 +68,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
-
+        speed = 0;
         healthBar.fillAmount = health / startHealth;
 
         anim.SetBool("isWalk", false);
@@ -111,16 +99,20 @@ public class Enemy : MonoBehaviour
         walk.Stop();
         dead.PlayOneShot(soundDead);
 
-        //uiDiedEffectPrefabs.SetActive(true);
-        //GameObject deathParticles = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
-        //Destroy(deathParticles, 2f);
-
-        uiDied = (GameObject)Instantiate(uiDiedEffectPrefabs, transform.position, Quaternion.identity);
+        uiDied = Instantiate(uiDiedEffectPrefabs, transform.position, Quaternion.identity);
 
 
         WaveSpawner.EnemiesAlive--;
-
+        //EnemyManager.Instance.EnemyDied(this);
+        //will be do by enemyManager
         Destroy(gameObject, 10);
+    }
+
+    public void ExitHitState()
+    {
+        speed = startSpeed;
+        anim.SetBool("isWalk", true);
+        anim.SetBool("isHit", false);
     }
 
 }

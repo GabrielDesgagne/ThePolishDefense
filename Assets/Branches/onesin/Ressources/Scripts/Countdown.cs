@@ -21,7 +21,7 @@ public class Countdown : MonoBehaviour
     private bool showTime=true;
 
     private void Start() { Initialize(); }
-    void Initialize()
+    public void Initialize()
     {
         startTime = countdown;
     }

@@ -6,7 +6,7 @@ public class WaveSpawner : MonoBehaviour {
 
     public static int EnemiesAlive = 0;
 
-
+    //[SerializeField]
     public Wave[] waves;
 
     [SerializeField]
@@ -25,15 +25,19 @@ public class WaveSpawner : MonoBehaviour {
     private void Start() { Initialize(); }
     private void Update() { Refresh(); }
    
-    void Initialize()
+    public void Initialize()
     {
         EnemiesAlive = 0;
         waveCountdownTimer = countdown.GetComponent<Countdown>();
         waveCountdownTimer.countdown = timeBetweenWaves;
+        foreach (Wave w in waves)
+        {
+            w.Load();
+        }
 
     }
 
-    void Refresh() {
+    public void Refresh() {
         //condition to restart countdown
         if (EnemiesAlive > 0)
         {
@@ -56,11 +60,11 @@ public class WaveSpawner : MonoBehaviour {
         
         Wave wave = waves[waveIndex];
 
-        EnemiesAlive = wave.count;
+        EnemiesAlive = wave.enemy.Count;
 
-        for (int i = 0; i < wave.count; i++)
+        for (int i = 0; i < wave.enemy.Count; i++)
         {
-            SpawnEnemy(wave.enemy);
+            SpawnEnemy(wave.enemy[i]);
             yield return new WaitForSeconds(1f / wave.rate);
         }
 
@@ -74,7 +78,7 @@ public class WaveSpawner : MonoBehaviour {
     }
 }
 
-[System.Serializable]
+/*[System.Serializable]
 public class Wave
 {
 
@@ -82,4 +86,4 @@ public class Wave
     public int count;
     public float rate;
 
-}
+}*/

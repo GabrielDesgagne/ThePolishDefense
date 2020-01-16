@@ -12,10 +12,11 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
 
-    public Global GlobalVariables;
-    public GameObject RoomSetupPrefab;
-    public GameObject GameSetupPrefab;
-    public GameObject VRPlayerCharacter;
+    public Global globalVariables;
+    public GameObject roomSetupPrefab;
+    public GameObject gameSetupPrefab;
+    public GameObject vrPlayerCharacter;
+    public PlayerStats playerStats;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
 
@@ -54,7 +55,7 @@ public class Main : MonoBehaviour
         //GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
 
         //Get/Set
-        GlobalVariables = gameObject.GetComponent<Global>();
+        globalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
 
