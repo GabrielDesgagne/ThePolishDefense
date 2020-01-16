@@ -19,7 +19,8 @@ public class MapInfoPck {
     //Variables
     public ushort GridWidth { get; private set; }
     public ushort GridHeight { get; private set; }
-    public Dictionary<Vector2, ItemValue> TileInfos { get; private set; }
+    public Dictionary<Vector2, TowerType> TileTowerInfos { get; private set; } = new Dictionary<Vector2, TowerType>();
+    public Dictionary<Vector2, TrapType> TileTrapInfos { get; private set; } = new Dictionary<Vector2, TrapType>();
 
 
     private MapInfoPck() {
@@ -33,12 +34,18 @@ public class MapInfoPck {
     }
 
     private void DeleteItemIfExist(Vector2 tileCoords) {
-        if (this.TileInfos.ContainsKey(tileCoords))
-            this.TileInfos.Remove(tileCoords);
+        if (this.TileTowerInfos.ContainsKey(tileCoords))
+            this.TileTowerInfos.Remove(tileCoords);
+        else if (this.TileTrapInfos.ContainsKey(tileCoords))
+            this.TileTrapInfos.Remove(tileCoords);
     }
 
-    public void SetTileInfo(Vector2 tileCoords, ItemValue itemValue) {
-        DeleteItemIfExist(tileCoords);
-        this.TileInfos.Add(tileCoords, itemValue);
+    public void AddTower(Vector2 tileCoord, TowerType type) {
+        DeleteItemIfExist(tileCoord);
+        this.TileTowerInfos.Add(tileCoord, type);
+    }
+    public void AddTower(Vector2 tileCoord, TrapType type) {
+        DeleteItemIfExist(tileCoord);
+        this.TileTrapInfos.Add(tileCoord, type);
     }
 }

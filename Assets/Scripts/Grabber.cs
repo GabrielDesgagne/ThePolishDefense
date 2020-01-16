@@ -132,7 +132,7 @@ public class Grabber : Hand
         currentGrabbableObject = null;
 
         //Get/Set
-        //CollisionEnable(false);
+        CollisionEnable(false);
 
         //Events
         OVRManager.InputFocusAcquired += OnInputFocusAcquired;
@@ -153,35 +153,29 @@ public class Grabber : Hand
 
     public void DistanceGrabBegin()
     {
-        ray.origin = transform.position;
-        ray.direction = transform.forward;
         RaycastHit rayHit;
-
-        if (Physics.SphereCast(transform.position, 1f, transform.forward, out rayHit, 10, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+        if (Physics.SphereCast(transform.position, 1f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
-            Debug.Log("ASDASDASDaSDASDaSD");
             //Check if the gameObject is a GrabbableObject
             if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
 
             //Check if the gameObject wants to be distance grabbed
-            Debug.Log(Main.Instance.grabbableObjects[rayHit.transform.gameObject].distanceGrab);
             if (Main.Instance.grabbableObjects[rayHit.transform.gameObject].distanceGrab != true) return;
 
             //Check if the gameObject is not in the distance grab range
-            Debug.Log(Vector3.Distance(headAnchor.transform.position, rayHit.transform.position));
-            Debug.Log(Vector3.Distance(headAnchor.transform.position, rayHit.transform.position ) < DISTANCE_GRAB_RANGE_MIN);
             if (Vector3.Distance(headAnchor.transform.position, rayHit.transform.position) < DISTANCE_GRAB_RANGE_MIN) return;
+
             //Check if the gameObject is too far
             if (Vector3.Distance(headAnchor.transform.position, rayHit.transform.position) > Main.Instance.grabbableObjects[rayHit.transform.gameObject].distanceRange) return;
 
+            //Add Object in the hand
             m_grabbedObj = Main.Instance.grabbableObjects[rayHit.transform.gameObject];
             m_grabbedObj.GrabBegin(this, handCollider[0]);
 
+            SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
+
         }
-
-
     }
-
 
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor.
     // This is done instead of parenting to achieve workable physics. If you don't require physics on
@@ -303,7 +297,7 @@ public class Grabber : Hand
             m_lastRot = transform.rotation;
 
             // Set up offsets for grabbed object desired position relative to hand.
-            if (m_grabbedObj.snapPosition)
+            if (m_grabbedObj.UseSnapPosition)
             {
                 m_grabbedObjectPosOff = m_gripTransform.localPosition;
                 if (m_grabbedObj.snapOffset)
@@ -364,7 +358,7 @@ public class Grabber : Hand
         else
         {
             grabbedRigidbody.MovePosition(grabbablePosition);
-            grabbedRigidbody.MoveRotation(grabbableRotation);
+            grabbedRigidbody.MoveRotation(grabbableRotation.normalized);
         }
     }
 

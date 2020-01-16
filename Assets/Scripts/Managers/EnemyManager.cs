@@ -29,7 +29,7 @@ public class EnemyManager : Flow
     //public static int EnemiesAlive = 0;//number of enemy alive
 
     private GameObject waveSpawner;
-    private WaveSpawner spawner;
+    public WaveSpawner spawner;
 
     //public Wave[] waves;
     //private float timeBetweenWaves = 5f;
@@ -52,7 +52,7 @@ public class EnemyManager : Flow
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
         waveSpawner= Resources.Load<GameObject>("Prefabs/WaveSpawner");
         spawner.GetComponent<WaveSpawner>();
-        //spawner.Initialize();
+        spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
@@ -68,8 +68,8 @@ public class EnemyManager : Flow
         foreach (Enemy e in enemies)
             e.Refresh();
 
-       /* spawner.Refresh();
-        if (EnemiesAlive > 0)
+        spawner.Refresh(enemyPrefabDict);
+       /* if (EnemiesAlive > 0)
         {
             return;
         }

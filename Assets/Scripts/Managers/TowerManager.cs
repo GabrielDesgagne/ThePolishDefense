@@ -77,4 +77,11 @@ public class TowerManager : Flow {
         towerList.Add(tower);
         return tower;
     }
+
+    public Vector3? target;
+    public Vector3 GetTarget()
+    {
+        GridManager.Instance.LookForHitOnTables(out target);
+        return target.GetValueOrDefault();
+    }
 }

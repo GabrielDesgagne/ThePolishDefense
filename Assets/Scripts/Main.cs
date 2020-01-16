@@ -18,7 +18,6 @@ public class Main : MonoBehaviour
     public GameObject VRPlayerCharacter;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
-    public Dictionary<GameObject, GrabbableObject> irabbableObjects;
 
     public SceneTransition sceneTransition;
 

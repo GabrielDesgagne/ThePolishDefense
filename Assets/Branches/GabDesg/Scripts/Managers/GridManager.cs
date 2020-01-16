@@ -66,6 +66,17 @@ public class GridManager : Flow {
         this.gridsHolder.transform.SetParent(this.gridStuffHolder.transform);
     }
 
+    public Vector3 GetTileCoords(Vector3 pointInWorld) {
+        Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
+        return new Vector3(tileCoords.x, this.hiddenGrid.transform.position.y, tileCoords.y);
+    }
+
+    public Vector3 GetTileCenterFromCoords(Vector3 tileCoords) {
+        tileCoords.x += this.hiddenGrid.cellSize.x / 2;
+        tileCoords.z -= this.hiddenGrid.cellSize.y / 2;
+        return tileCoords;
+    }
+
     public Vector3 GetTileCenterFromWorldPoint(Vector3 pointInWorld) {
         //Get position in grid
         Vector3Int tile = this.hiddenGrid.WorldToCell(pointInWorld);
@@ -210,14 +221,7 @@ public class GridManager : Flow {
     }
 
     private void InitializeItemsOnGrid() {
-        //Get items list
-        Dictionary<Vector2, ItemValue> items = MapInfoPck.Instance.TileInfos;
 
-        foreach (KeyValuePair<Vector2, ItemValue> item in items) {
-            //Figure out which enum it is (turret/trap)
-
-            //Instantiate obj with managers
-        }
     }
 
     public void InitializeGridShop() {

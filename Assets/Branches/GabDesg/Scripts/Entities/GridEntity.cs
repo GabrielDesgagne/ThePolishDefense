@@ -29,9 +29,10 @@ public class GridEntity {
         this.tileSize = _TileSize;
 
         CreateTilesHolder(name);
-        InitGridHitBox(_StartPoint, _TileSize, width, height);
-        if (this.Type == GridType.MAP)
+        if (this.Type == GridType.MAP) {
+            InitGridHitBox(_StartPoint, _TileSize, width, height);
             InitPath(_TileSize);
+        }
         InitTiles(StartPoint, width, height, _TileSize);
     }
 
@@ -76,7 +77,7 @@ public class GridEntity {
         this.pathCorners.Add(new Vector2(12, 15));
     }
 
-    private void InitTiles(Vector3 startPoint, ushort width, ushort height, Vector2 tileSize) {
+    private void InitTiles(Vector3 startPoint, ushort rows, ushort columns, Vector2 tileSize) {
         //Init tile into array
 
         ushort tileId;
@@ -85,8 +86,8 @@ public class GridEntity {
         float x = startPoint.x + tileSize.x / 2;
         float z = startPoint.z + tileSize.y / 2;
 
-        for (ushort i = 0; i < width; i++) {
-            for (ushort j = 0; j < height; j++) {
+        for (ushort i = 0; i < rows; i++) {
+            for (ushort j = 0; j < columns; j++) {
                 tileId = GetNextTileId();
                 tilePosition = new Vector3(x, StartPoint.y, z);
 
@@ -125,9 +126,9 @@ public class GridEntity {
 
     private bool IsVectorBetweenBounds(Vector3 point, Vector2 a, Vector2 b) {
         //Find position of a
-        Vector3 aPosition = GetPathTilePosition(a);
+        Vector3 aPosition = GetCenterTileFromCoords(a);
         //Find position of b
-        Vector3 bPosition = GetPathTilePosition(b);
+        Vector3 bPosition = GetCenterTileFromCoords(b);
 
         //Look if point is between a and b
         if (aPosition.x == bPosition.x) {
@@ -144,7 +145,7 @@ public class GridEntity {
         return false;
     }
 
-    public Vector3 GetPathTilePosition(Vector2 vec) {
+    public Vector3 GetCenterTileFromCoords(Vector2 vec) {
         Vector3 tilePosition = new Vector3(this.StartPoint.x + (vec.x - 1) * this.tileSize.x, 0, this.StartPoint.z + (vec.y - 1) * this.tileSize.y);
         //Get Center of the tile
         tilePosition.x += this.tileSize.x / 2;

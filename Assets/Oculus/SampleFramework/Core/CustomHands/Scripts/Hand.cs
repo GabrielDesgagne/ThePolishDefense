@@ -67,6 +67,8 @@ public class Hand : MonoBehaviour
         m_animLayerIndexThumb = m_animator.GetLayerIndex(ANIM_LAYER_NAME_THUMB);
         m_animParamIndexFlex = Animator.StringToHash(ANIM_PARAM_NAME_FLEX);
         m_animParamIndexPose = Animator.StringToHash(ANIM_PARAM_NAME_POSE);
+
+        //Set the current pose as the default pose
         currentPose = defaultHandPose;
 
 
@@ -77,6 +79,7 @@ public class Hand : MonoBehaviour
 
     protected void Update()
     {
+        //Update animation parameter's value
         flex = inputs[controller].HandTrigger;
         index = inputs[controller].IndexTrigger;
         m_isPointing = !inputs[controller].NearPrimaryIndexTrigger;
@@ -89,6 +92,8 @@ public class Hand : MonoBehaviour
 
         UpdateAnimStates();
     }
+
+
 
     private float InputValueRateChange(bool isDown, float value)
     {

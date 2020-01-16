@@ -20,6 +20,9 @@ public class ProjectileManager : Flow {
     public Dictionary<ProjectileType, List<Projectile>> disabledProjectiles;
     public Dictionary<ProjectileType, GameObject> projectilePrefab;
 
+    public ParticleSystem explosionParticle;
+    public ParticleSystem sparkParticle;
+
     override public void PreInitialize()
     {
         enabledProjectiles = new Dictionary<ProjectileType, List<Projectile>>();
@@ -30,17 +33,24 @@ public class ProjectileManager : Flow {
 
         projectilePrefab.Add(ProjectileType.BOMB, Resources.Load<GameObject>("Prefabs/Tower/Bomb"));
         projectilePrefab.Add(ProjectileType.POTION, Resources.Load<GameObject>("Prefabs/Tower/Ice_Potion"));
+
+        explosionParticle = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tower/Particles/ExplosionEffect")).GetComponent<ParticleSystem>();
+        explosionParticle.Stop();
+        sparkParticle = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tower/Particles/SparkEffect")).GetComponent<ParticleSystem>();
+        sparkParticle.Stop();
     }
 
     override public void Initialize()
     {
+        GameObject bombParent = new GameObject("BombParent");
+        GameObject potionParent = new GameObject("PotionParent");
         for (int i = 0; i < 10; i++)
         {
-            Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB]));
+            Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
             bomb.Obj.SetActive(false);
             disabledProjectiles[bomb.Type].Add(bomb);
 
-            Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION]));
+            Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], potionParent.transform));
             potion.Obj.SetActive(false);
             disabledProjectiles[potion.Type].Add(potion);
         }
@@ -86,6 +96,7 @@ public class ProjectileManager : Flow {
                 }
                 else
                 {
+                    enabledProjectiles[type][i].CollisionHit();
                     ResetProjectile(enabledProjectiles[type][i]);
                 }
             }
