@@ -20,7 +20,8 @@ public class Game : Flow
     //Managers
     PlayerManager playerManager;
     GridManager gridManager;
-
+    InputManager inputManager;
+    //TODO Managers :
     PodManager podManager;
     TowerManager towerManager;
     WaveManager waveManager;
@@ -29,7 +30,6 @@ public class Game : Flow
     ProjectileManager projectileManager;
     LogicManager logicManager;
 
-    public Dictionary<GameObject, IGrabbable> gameGrabbablesDict;
 
     //Game Setup has a reference to everything in the scene.
     public GameObject gameSetup;
@@ -37,6 +37,7 @@ public class Game : Flow
     override public void PreInitialize()
     {
         //Grab instances
+        inputManager = InputManager.Instance;
         podManager = PodManager.Instance;
         playerManager = PlayerManager.Instance;
         waveManager = WaveManager.Instance;
@@ -47,12 +48,12 @@ public class Game : Flow
         gridManager = GridManager.Instance;
 
         //Setup Variables
-        gameGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //Instantiates
         gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
-        
+
         //First Initialize
+        inputManager.PreInitialize();
         playerManager.PreInitialize();
         waveManager.PreInitialize();
         enemyManager.PreInitialize();
@@ -63,6 +64,7 @@ public class Game : Flow
 
     override public void Initialize()
     {
+        inputManager.Initialize();
         playerManager.Initialize();
         waveManager.Initialize();
         enemyManager.Initialize();
@@ -76,6 +78,8 @@ public class Game : Flow
 
     override public void Refresh()
     {
+        inputManager.Refresh();
+        playerManager.Refresh();
         //playerManager.Refresh();
         podManager.Refresh();
         waveManager.Refresh();
@@ -89,6 +93,7 @@ public class Game : Flow
 
     override public void PhysicsRefresh()
     {
+        inputManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
         waveManager.PhysicsRefresh();
         enemyManager.PhysicsRefresh();
@@ -101,6 +106,7 @@ public class Game : Flow
 
     override public void EndFlow()
     {
+        inputManager.EndFlow();
         playerManager.EndFlow();
         waveManager.EndFlow();
         enemyManager.EndFlow();
