@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemValue : MonoBehaviour{
     public TowerType? towerType { get; set; }
-    public TrapName? trapType { get; set; }
+    public TrapType? trapType { get; set; }
     public bool itemWasPlacedOnMap { get; set; }
     public Vector2 positionOnMap { get; set; }
 

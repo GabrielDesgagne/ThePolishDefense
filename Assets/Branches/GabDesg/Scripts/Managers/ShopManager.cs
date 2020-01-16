@@ -36,7 +36,7 @@ public class ShopManager : Flow {
     public ItemValue objValue;
 
     private Dictionary<TowerType, ObjInfo> towerSpawnInfo = new Dictionary<TowerType, ObjInfo>();
-    private Dictionary<TrapName, ObjInfo> trapSpawnInfo = new Dictionary<TrapName, ObjInfo>();
+    private Dictionary<TrapType, ObjInfo> trapSpawnInfo = new Dictionary<TrapType, ObjInfo>();
 
     private GameObject shopItemsHolder;
 
@@ -155,7 +155,7 @@ public class ShopManager : Flow {
             this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTurretInShop((TowerType)this.objValue.towerType); }, 3f));
         }
         else if (this.objValue.trapType != null) {
-            this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTrapInShop((TrapName)this.objValue.trapType); }, 3f));
+            this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTrapInShop((TrapType)this.objValue.trapType); }, 3f));
         }
     }
 
@@ -165,7 +165,7 @@ public class ShopManager : Flow {
             this.objSelected = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[(TowerType)itemValue.towerType].objPrefab);
         }
         else if (itemValue.trapType != null) {
-            this.objSelected = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[(TrapName)itemValue.trapType].objPrefab);
+            this.objSelected = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[(TrapType)itemValue.trapType].objPrefab);
         }
 
         //Set item to inactive
@@ -181,7 +181,7 @@ public class ShopManager : Flow {
         this.lol.transform.position = spawnPosition;
     }
 
-    private void SpawnTrapInShop(TrapName type) {
+    private void SpawnTrapInShop(TrapType type) {
         //Get trap spawn position
         Vector3 spawnPosition = this.trapSpawnInfo[type].spawnPosition;
         //---------------------TODO-----------------
