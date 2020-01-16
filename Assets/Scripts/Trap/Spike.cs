@@ -4,44 +4,48 @@ using UnityEngine;
 
 public class Spike : Trap
 {
+    //AUDIO
+    public AudioSource slashAudio;
+
+    //Particul Effect Setting
+    public GameObject slashParticul;
+    GameObject slashRef;
+
+    public Spike(GameObject gameObject)
+    {
+        this.prefab = gameObject;
+    }
+
     public override void PreInitialize()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Initialize()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Refresh()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void PhysicsRefresh()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void onAction()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void onExitTrigger()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void onRemove()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void onTrigger()
     {
-        throw new System.NotImplementedException();
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -52,12 +56,10 @@ public class Spike : Trap
 
     protected override void OnTriggerExit(Collider other)
     {
-        throw new System.NotImplementedException();
         isInTrap = false;
     }
 
     protected override void OnTriggerStay(Collider other)
     {
-        throw new System.NotImplementedException();
     }
 }

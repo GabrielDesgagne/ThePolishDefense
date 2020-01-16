@@ -32,6 +32,9 @@ graphics
     public float trapRadius { get; protected set; }
     public float coldownEffect { get; protected set; }
 
+    
+
+
     public bool isInTrap = false;
     public bool isOutTrap = false;
     public bool timerOn = false;
@@ -41,6 +44,14 @@ graphics
     {
         audioSource = GetComponent<AudioSource>();
     }
+
+
+    //use to test if my manager create trap and trap have is behaviours!!
+    /*private void Start()
+    {
+        TrapManager.Instance.PreInitialize();
+        TrapManager.Instance.CreateTrap(TrapType.MINE, new Vector3(0,10,0));
+    }*/
 
     public abstract void PreInitialize();
     public abstract void Initialize();

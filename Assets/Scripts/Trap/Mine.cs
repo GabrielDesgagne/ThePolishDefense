@@ -24,9 +24,9 @@ public class Mine : Trap
     bool canDetonate = false;
     bool isTrigger = false;
 
-    public Mine(TrapType t)
+    public Mine(GameObject go)
     {
-        this.type = t; //remove
+        this.prefab = go;
         this.type = TrapType.MINE;
         this.TrapPosition = new Vector3(0, 0, 0);
         this.attackDamage = 50;
