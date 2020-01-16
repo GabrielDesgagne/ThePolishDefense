@@ -163,27 +163,18 @@ public class Grabber : Hand
         if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
             //Check if the gameObject is a GrabbableObject
-            Debug.Log("0");
-            Debug.Log(Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject));
-            foreach (KeyValuePair<GameObject, GrabbableObject> entry in Main.Instance.grabbableObjects)
-            {
-                Debug.Log(entry.Key + " " + rayHit.transform.gameObject);
-            }
             if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
-            Debug.Log("1");
 
             //Check if the gameObject wants to be distance grabbed
             if (Main.Instance.grabbableObjects[rayHit.transform.gameObject].distanceGrab != true) return;
-            Debug.Log("2");
 
             //Check if the gameObject is not in the distance grab range
             if (Vector3.Distance(headAnchor.transform.position, rayHit.transform.position) < DISTANCE_GRAB_RANGE_MIN) return;
-            Debug.Log("3");
 
             //Check if the gameObject is too far
             if (Vector3.Distance(headAnchor.transform.position, rayHit.transform.position) > Main.Instance.grabbableObjects[rayHit.transform.gameObject].distanceRange) return;
-            Debug.Log("4");
 
+            //Add Object in the hand
             m_grabbedObj = Main.Instance.grabbableObjects[rayHit.transform.gameObject];
             m_grabbedObj.GrabBegin(this, handCollider[0]);
 
@@ -315,7 +306,7 @@ public class Grabber : Hand
             m_lastRot = transform.rotation;
 
             // Set up offsets for grabbed object desired position relative to hand.
-            if (m_grabbedObj.snapPosition)
+            if (m_grabbedObj.UseSnapPosition)
             {
                 m_grabbedObjectPosOff = m_gripTransform.localPosition;
                 if (m_grabbedObj.snapOffset)
