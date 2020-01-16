@@ -169,8 +169,10 @@ public class GridEntity {
 
         //Check all tiles to see if tileCenter is found
         foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter)
+            if (tile.CenterPosition == tileCenter) {
                 tileIsInGrid = true;
+                break;
+            }
         }
         return tileIsInGrid;
     }
@@ -179,8 +181,10 @@ public class GridEntity {
 
         //Check all tiles to see if tileCenter is found
         foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter)
+            if (tile.CenterPosition == tileCenter) {
                 type = tile.Type;
+                break;
+            }
         }
 
         return type;

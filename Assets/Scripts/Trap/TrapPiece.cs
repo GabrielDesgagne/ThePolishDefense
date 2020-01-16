@@ -29,8 +29,8 @@ public class TrapPiece : MonoBehaviour, IGrabbable {
         switch (currentType) {
             case TrapType.GLUE:
                 if (Input.GetKeyDown(KeyCode.Alpha4)) {
+                    Grabbed();
                 }
-                Grabbed();
                 if (Input.GetKeyDown(KeyCode.R)) {
                     Dropped();
                 }

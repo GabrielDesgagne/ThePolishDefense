@@ -68,7 +68,7 @@ public class GridManager : Flow {
 
     public Vector3 GetTileCoords(Vector3 pointInWorld) {
         Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
-        return new Vector3(tileCoords.x, this.hiddenGrid.transform.position.y, tileCoords.y);
+        return new Vector3(tileCoords.x, this.hiddenGrid.transform.position.y, -tileCoords.y);
     }
 
     public Vector3 GetTileCenterFromCoords(Vector3 tileCoords) {
