@@ -18,6 +18,7 @@ public class Room : Flow
     
     PlayerManager playerManager;
     GrabbableManager grabbableManager;
+    InputManager inputManager;
     ShopManager shopManager;
     GridManager gridManager;
     TimeManager timeManager;
@@ -29,6 +30,7 @@ public class Room : Flow
     override public void PreInitialize()
     {
         //Grab instances
+        inputManager = InputManager.Instance;
         playerManager = PlayerManager.Instance;
         grabbableManager = GrabbableManager.Instance;
         shopManager = ShopManager.Instance;
@@ -41,6 +43,7 @@ public class Room : Flow
         roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
+        inputManager.PreInitialize();
         gridManager.PreInitialize();
         playerManager.PreInitialize();
         grabbableManager.PreInitialize();
@@ -50,6 +53,7 @@ public class Room : Flow
 
     override public void Initialize()
     {
+        inputManager.Initialize();
         gridManager.Initialize();
         playerManager.Initialize();
         grabbableManager.Initialize();
@@ -59,6 +63,7 @@ public class Room : Flow
 
     override public void Refresh()
     {
+        inputManager.Refresh();
         gridManager.Refresh();
         playerManager.Refresh();
         arrowManager.Refresh();
@@ -70,6 +75,7 @@ public class Room : Flow
 
     override public void PhysicsRefresh()
     {
+        inputManager.PhysicsRefresh();
         gridManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
         grabbableManager.PhysicsRefresh();
