@@ -8,69 +8,21 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Branches" t="Include">
-          <e p="Ahmad" t="Include">
-            <e p="Resources" t="Include">
-              <e p="StoneKeep" t="Include">
-                <e p="README.txt" t="Include" />
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="Cannon" t="Include">
-                <e p="Cannon.cs" t="Include" />
-              </e>
-              <e p="Feeder" t="Include">
-                <e p="BombFeeder.cs" t="Include" />
-              </e>
-              <e p="Projectile" t="Include">
-                <e p="Bomb.cs" t="Include" />
-                <e p="Potion.cs" t="Include" />
-                <e p="Projectile.cs" t="Include" />
-                <e p="ProjectileType.cs" t="Include" />
-              </e>
-              <e p="TestManager.cs" t="Include" />
-              <e p="Tower" t="Include">
-                <e p="Tower.cs" t="Include" />
-                <e p="TowerType.cs" t="Include" />
-                <e p="Type" t="Include">
-                  <e p="BasicTower.cs" t="Include" />
-                  <e p="HeavyTower.cs" t="Include" />
-                  <e p="IceTower.cs" t="Include" />
-                </e>
-              </e>
-            </e>
-          </e>
           <e p="GabDesg" t="Include">
-            <e p="Imports" t="Include">
-              <e p="3DForge" t="Include">
-                <e p="Blueprints" t="Include">
-                  <e p="PremiumBlueprints" t="Include">
-                    <e p="PB_VIK_VEK" t="Include">
-                      <e p="Sword&amp;ShieldInn" t="Include">
-                        <e p="Documentation" t="Include">
-                          <e p="PB Sword &amp; Shield Inn user guide.txt" t="Include" />
-                        </e>
-                      </e>
-                    </e>
-                  </e>
-                </e>
-              </e>
-              <e p="Cliffs" t="Include">
-                <e p="Rocky Hills Environment - Light Pack" t="Include">
-                  <e p="Legacy Project" t="Include">
-                    <e p="Legacy Project_Read Me!.txt" t="Include" />
-                  </e>
-                </e>
-              </e>
-            </e>
             <e p="Scripts" t="Include">
               <e p="Entities" t="Include">
                 <e p="GridEntity.cs" t="Include" />
+                <e p="ItemValue.cs" t="Include" />
+                <e p="MapInfoPck.cs" t="Include" />
                 <e p="Tile.cs" t="Include" />
               </e>
               <e p="GameFlow.cs" t="Include" />
               <e p="GameVariables.cs" t="Include" />
               <e p="Managers" t="Include">
                 <e p="GridManager.cs" t="Include" />
+                <e p="PlacingObjectManager.cs" t="Include" />
+                <e p="ShopManager.cs" t="Include" />
+                <e p="TimeManager.cs" t="Include" />
               </e>
             </e>
           </e>
@@ -82,9 +34,6 @@
                   <e p="Mine.cs" t="Include" />
                   <e p="Trap.cs" t="Include" />
                 </e>
-                <e p="Managers" t="Include">
-                  <e p="TrapManager.cs" t="Include" />
-                </e>
                 <e p="MineBehaviour.cs" t="Include" />
                 <e p="Sound.cs" t="Include" />
               </e>
@@ -92,13 +41,12 @@
           </e>
           <e p="onesin" t="Include">
             <e p="Ressources" t="Include">
-              <e p="Scriptable object" t="Include">
-                <e p="Wav.cs" t="Include" />
-              </e>
               <e p="Scripts" t="Include">
                 <e p="Countdown.cs" t="Include" />
                 <e p="Enemy.cs" t="Include" />
                 <e p="EnemyMovement.cs" t="Include" />
+                <e p="HitBehavior.cs" t="Include" />
+                <e p="Wave.cs" t="Include" />
                 <e p="WaveSpawner.cs" t="Include" />
                 <e p="Waypoints.cs" t="Include" />
               </e>
@@ -117,9 +65,6 @@
               <e p="CheatsManager.cs" t="Include" />
               <e p="SceneTransition.cs" t="Include" />
             </e>
-          </e>
-          <e p="StoneKeep" t="Include">
-            <e p="README.txt" t="Include" />
           </e>
         </e>
         <e p="CartoonBloodFX" t="Include">
@@ -757,6 +702,7 @@
               <e p="DistanceGrab" t="Include">
                 <e p="Materials" t="Include">
                   <e p="CrosshairZCheat.shader" t="Include" />
+                  <e p="HighLightShader.shader" t="Include" />
                   <e p="ToyCubeWithOutline.shader" t="Include" />
                 </e>
                 <e p="Scripts" t="Include">
@@ -1119,6 +1065,22 @@
           </e>
         </e>
         <e p="Resources" t="Include">
+          <e p="Prefabs" t="Include">
+            <e p="Room" t="Include">
+              <e p="Packs for Map Village" t="Include">
+                <e p="3D Cartoon Village" t="Include">
+                  <e p="Materials" t="Include">
+                    <e p="OutlineDiffuseShader.shader" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="Tower" t="Include">
+              <e p="StoneKeep" t="Include">
+                <e p="README.txt" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="Shaders" t="Include">
             <e p="GlassStainedBumpDistort.shader" t="Include" />
             <e p="portalShader.shader" t="Include" />
@@ -1133,6 +1095,12 @@
           <e p="CameraFacing.cs" t="Include" />
           <e p="Flow.cs" t="Include" />
           <e p="Game.cs" t="Include" />
+          <e p="GrabbableObject.cs" t="Include" />
+          <e p="Grabber.cs" t="Include" />
+          <e p="InteractObject.cs" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="IGrabbable.cs" t="Include" />
+          </e>
           <e p="Main.cs" t="Include" />
           <e p="MainPlayerController.cs" t="Include" />
           <e p="Managers" t="Include">
@@ -1140,6 +1108,7 @@
             <e p="BoardManager.cs" t="Include" />
             <e p="EnemyManager.cs" t="Include" />
             <e p="GrabbableManager.cs" t="Include" />
+            <e p="InputManager.cs" t="Include" />
             <e p="LogicManager.cs" t="Include" />
             <e p="PlayerManager.cs" t="Include" />
             <e p="PodManager.cs" t="Include" />
@@ -1148,12 +1117,44 @@
             <e p="TrapManager.cs" t="Include" />
             <e p="WaveManager.cs" t="Include" />
           </e>
+          <e p="Player" t="Include">
+            <e p="PlayerStats.cs" t="Include" />
+          </e>
+          <e p="Player.cs" t="Include" />
           <e p="Pod.cs" t="Include" />
+          <e p="Projectile" t="Include">
+            <e p="Bomb.cs" t="Include" />
+            <e p="Potion.cs" t="Include" />
+            <e p="Projectile.cs" t="Include" />
+            <e p="ProjectileType.cs" t="Include" />
+          </e>
           <e p="Quiver.cs" t="Include" />
           <e p="Room.cs" t="Include" />
           <e p="RoomPrefabsHolder.cs" t="Include" />
           <e p="ShopController.cs" t="Include" />
           <e p="StatsBoardController.cs" t="Include" />
+          <e p="Tower" t="Include">
+            <e p="Extension" t="Include">
+              <e p="Cannon" t="Include">
+                <e p="Cannon.cs" t="Include" />
+              </e>
+              <e p="Feeder" t="Include">
+                <e p="BombFeeder.cs" t="Include" />
+              </e>
+            </e>
+            <e p="TestManager.cs" t="Include" />
+            <e p="Tower.cs" t="Include" />
+            <e p="TowerPiece.cs" t="Include" />
+            <e p="TowerType.cs" t="Include" />
+            <e p="Type" t="Include">
+              <e p="BasicTower.cs" t="Include" />
+              <e p="HeavyTower.cs" t="Include" />
+              <e p="IceTower.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Trap" t="Include">
+            <e p="TrapPiece.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Examples &amp; Extras" t="Include">
