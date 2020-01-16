@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
     private float health;
     public int value = 50;
 
-    //public GameObject deathEffect;
     public EnemyType type;
 
     public Image healthBar;
@@ -27,12 +26,10 @@ public class Enemy : MonoBehaviour
     private EnemyMovement mvt;
     private AudioSource walk;
     private AudioSource dead;
-    //private float hitTime = 0;
     public GameObject uiDiedEffectPrefabs;
     private GameObject uiDied;
     private float speedMoveUi = 2f;
     public GameObject bloodEffect;
-    //private float timeForHitAnimation=0.8f;
     [HideInInspector]
     public bool isHittable=false;
 
@@ -53,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
 
         //for test the take damage function. we can delete it after
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
             TakeDamage(50);
         }
@@ -103,6 +100,8 @@ public class Enemy : MonoBehaviour
 
 
         WaveSpawner.EnemiesAlive--;
+
+        PlayerStats.addCurrency(value);
         //EnemyManager.Instance.EnemyDied(this);
         //will be do by enemyManager
         Destroy(gameObject, 10);

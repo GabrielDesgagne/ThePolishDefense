@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Enemy enemy;
 
-    private Animator anim;
+    //private Animator anim;
     private void Start() { Initialize(); }
     private void Update() { Refresh(); }
     private void FixedUpdate() { PhysicsRefresh(); }
@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemy = GetComponent<Enemy>();
         target = Waypoints.points[0];
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
     }
 
     public void PhysicsRefresh()
@@ -38,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
             //check the next way point
             if (waypointIndex >= Waypoints.points.Length - 1)
             {
+                PlayerStats.decrementHp();
                 enemy.isHittable = false;
                 WaveSpawner.EnemiesAlive--;
                 Destroy(gameObject);
@@ -48,9 +49,9 @@ public class EnemyMovement : MonoBehaviour
             target = Waypoints.points[waypointIndex];
         }
 
-        enemy.speed = enemy.startSpeed;
+        //enemy.speed = enemy.startSpeed;
 
-        /*if (Vector3.Distance(transform.position, EnemyManager.Instance.spawnPoint.position)<=0.3f){
+        /*if (Vector3.Distance(transform.position, EnemyManager.Instance.spawner.spawnPoint.position)<=0.3f){
             enemy.isHittable = false;
         }
         else
