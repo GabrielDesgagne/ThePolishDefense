@@ -36,13 +36,8 @@ public class IceTower : Tower {
             if (tf.name == "PotionPos")
                 positionPos = tf;
         }
-        GameObject potionParent = new GameObject("ThrowablePotion");
-        for (int i = 0; i < 10; i++)
-        {
-            Vector3 potionPos = Position + new Vector3(Random.Range(-1.5f, 1.5f), positionPos.position.y, Random.Range(-1.5f, 1.5f));
-            Potion throawablePotion = new Potion(GameObject.Instantiate(potionPrefab, potionPos, potionPrefab.transform.rotation, potionParent.transform));
-            throwablePotions.Add(throawablePotion);
-        }
+        //method should be called when teleporting to tower that has towerType.ICE
+        ProjectileManager.Instance.MoveThrowablePotions(Position + new Vector3(0, positionPos.position.y, 0));
     }
 
     public override void PhysicsRefresh()
@@ -67,6 +62,17 @@ public class IceTower : Tower {
             else if (!AutoShoot)
             {
                 ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, TowerManager.Instance.GetTarget());
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (ProjectileManager.Instance.enabledProjectiles[ProjectileType.THROWABLE_POTION].Count > 0)
+            {
+                ProjectileManager.Instance.PickupThrowablePotion();
+                TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+                {
+                    ProjectileManager.Instance.SpawnThrowablePotion(Position + new Vector3(0, positionPos.position.y, 0));
+                }, 5));
             }
         }
     }
