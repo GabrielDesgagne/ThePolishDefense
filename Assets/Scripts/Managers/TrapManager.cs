@@ -10,7 +10,8 @@ public class TrapManager : Flow
 
     static public TrapManager Instance
     {
-        get {
+        get
+        {
             return instance ?? (instance = new TrapManager());
         }
     }
@@ -30,6 +31,9 @@ public class TrapManager : Flow
 
     override public void PreInitialize()
     {
+        //trap holder
+        trapHolder = new GameObject("Trap Holder");
+
         //init dictionnary
         trapPrefabs = new Dictionary<TrapType, GameObject>();
 
@@ -69,17 +73,23 @@ public class TrapManager : Flow
 
     public Trap CreateTrap(TrapType type, Vector3 position)
     {
+        //TODO
         Trap trap = null;
         switch (type)
         {
             case TrapType.MINE:
-                //trap = new Mine(GameObject.Instantiate(MINE));
-                    break;
-            case TrapType.GLUE:
-                //trap = new Glue(GameObject.Instantiate(GLUE));
+                trap = new Mine(GameObject.Instantiate(trapPrefabs[TrapType.MINE], trapHolder.transform));
+                trap.transform.position = position;
                 break;
             case TrapType.SPIKE:
-                //trap = new Spike(GameObject.Instantiate(SPIKE));
+                trap = new Spike(GameObject.Instantiate(trapPrefabs[TrapType.SPIKE], trapHolder.transform));
+                trap.transform.position = position;
+
+                break;
+            case TrapType.GLUE:
+                trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], trapHolder.transform));
+                trap.transform.position = position;
+
                 break;
         }
         return null;
