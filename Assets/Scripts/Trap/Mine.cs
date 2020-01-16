@@ -24,7 +24,7 @@ public class Mine : Trap
     bool canDetonate = false;
     bool isTrigger = false;
 
-    public Mine()
+    public Mine(TrapType t)
     {
         this.type = TrapType.MINE;
         this.TrapPosition = new Vector3(0, 0, 0);
