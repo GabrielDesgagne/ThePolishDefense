@@ -14,6 +14,8 @@ public class PlacingObjectManager : Flow {
     #endregion
 
     ShopManager shopManager;
+    GridManager gridManager;
+    MapInfoPck mapInfoPck;
 
     Vector3 tileSelected, oldTileSelected;
 
@@ -24,6 +26,8 @@ public class PlacingObjectManager : Flow {
         base.PreInitialize();
 
         this.shopManager = ShopManager.Instance;
+        this.gridManager = GridManager.Instance;
+        this.mapInfoPck = MapInfoPck.Instance;
     }
 
     public override void Initialize() {
@@ -39,10 +43,11 @@ public class PlacingObjectManager : Flow {
         base.Refresh();
     }
 
-    public void MoveObj(GameObject obj, System.Enum type) {
+    public void MoveObj(GameObject obj) {
         //Check if ray cast hits game board
         Vector3? tileHitOnTable;
-        if (GridManager.Instance.LookForHitOnTables(out tileHitOnTable)) {
+        if (this.gridManager.LookForHitOnTables(out tileHitOnTable)) {
+            Debug.Log("Totching Table...");
             //Make sure obj is activated
             if (!obj.activeSelf)
                 obj.SetActive(true);
@@ -55,6 +60,7 @@ public class PlacingObjectManager : Flow {
             }
         }
         else {
+            Debug.Log("NOOOOOOOOT Totching Table...");
             //Make sure obj isnt deactivated already
             if (obj.activeSelf)
                 //If item in hands + not aiming at table, deactivate obj
@@ -63,16 +69,19 @@ public class PlacingObjectManager : Flow {
     }
 
     private void TileHasChanged() {
+        //-----------------TODO--------------------------
         //Play sounds
 
         //Move obj selected
-        ShopManager.Instance.MoveSelectedObj(this.tileSelected);
+        this.shopManager.MoveSelectedObj(this.tileSelected);
 
         //Check if obj is placeable there
         bool isTileTaken = !IsObjectPlaceableThere();
         if (isTileTaken) {
+            //-----------------TODO--------------------------
             //Make obj red
 
+            //-----------------TODO--------------------------
             SetTileSidesColor(isTileTaken);
         }
     }
@@ -81,16 +90,16 @@ public class PlacingObjectManager : Flow {
         bool tileIsTaken = true;
 
         //Check in the MapInfoPck if tile is already taken
-        ushort? tileSelectedId = GridManager.Instance.GetTileId(this.tileSelected);
+        ushort? tileSelectedId = this.gridManager.GetTileId(this.tileSelected);
         if (tileSelected != null)
-            if (MapInfoPck.Instance.TileInfos.ContainsKey((ushort)tileSelectedId))
+            if (this.mapInfoPck.TileInfos.ContainsKey(this.gridManager.GetTileCoordsFromTileId("MapRoom", (ushort)tileSelectedId)))
                 tileIsTaken = false;
 
         return tileIsTaken;
     }
 
     private void UpdateTileSelected(Vector3 hitPointInWorld) {
-        this.tileSelected = GridManager.Instance.GetTileCenterFromWorldPoint(hitPointInWorld);
+        this.tileSelected = this.gridManager.GetTileCenterFromWorldPoint(hitPointInWorld);
         this.tileSelected.y = hitPointInWorld.y;
     }
 

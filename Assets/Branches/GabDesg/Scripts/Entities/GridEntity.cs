@@ -8,7 +8,6 @@ public class GridEntity {
     private static ushort nextGridId = 0;
     private static ushort nextTileId = 0;
 
-    public ushort Id { get; private set; }
     public GridType Type { get; private set; }
 
     //Keep start point to remember the Y
@@ -16,14 +15,12 @@ public class GridEntity {
     private ushort gridWidth, gridHeight;
     private Vector2 tileSize;
 
-    private Dictionary<ushort, Tile> tiles = new Dictionary<ushort, Tile>();
+    public Dictionary<ushort, Tile> tiles { get; private set; } = new Dictionary<ushort, Tile>();
     private GameObject tilesHolder;
 
     private List<Vector2> pathCorners = new List<Vector2>();
 
     public GridEntity(string name, GridType type, Vector3 _StartPoint, ushort width, ushort height, Vector2 _TileSize) {
-        nextTileId = 0;
-        this.Id = GetNextGridId();
 
         this.Type = type;
         this.StartPoint = _StartPoint;
@@ -58,25 +55,25 @@ public class GridEntity {
 
     private void InitPath(Vector2 tileSize) {
         //Create path here (hardcoded for now)
-        this.pathCorners.Add(new Vector2(3, 8));
-        this.pathCorners.Add(new Vector2(13, 8));
-        this.pathCorners.Add(new Vector2(8, 3));
-        this.pathCorners.Add(new Vector2(8, 13));
-        this.pathCorners.Add(new Vector2(3, 8));
-        this.pathCorners.Add(new Vector2(3, 13));
-        this.pathCorners.Add(new Vector2(13, 8));
-        this.pathCorners.Add(new Vector2(13, 3));
-        this.pathCorners.Add(new Vector2(8, 13));
-        this.pathCorners.Add(new Vector2(13, 13));
-        this.pathCorners.Add(new Vector2(8, 3));
-        this.pathCorners.Add(new Vector2(3, 3));
+//         this.pathCorners.Add(new Vector2(3, 8));
+//         this.pathCorners.Add(new Vector2(13, 8));
+//         this.pathCorners.Add(new Vector2(8, 3));
+//         this.pathCorners.Add(new Vector2(8, 13));
+//         this.pathCorners.Add(new Vector2(3, 8));
+//         this.pathCorners.Add(new Vector2(3, 13));
+//         this.pathCorners.Add(new Vector2(13, 8));
+//         this.pathCorners.Add(new Vector2(13, 3));
+//         this.pathCorners.Add(new Vector2(8, 13));
+//         this.pathCorners.Add(new Vector2(13, 13));
+//         this.pathCorners.Add(new Vector2(8, 3));
+//         this.pathCorners.Add(new Vector2(3, 3));
 
-//         this.pathCorners.Add(new Vector2(4, 1));
-//         this.pathCorners.Add(new Vector2(4, 10));
-//         this.pathCorners.Add(new Vector2(8, 10));
-//         this.pathCorners.Add(new Vector2(8, 4));
-//         this.pathCorners.Add(new Vector2(12, 4));
-//         this.pathCorners.Add(new Vector2(12, 15));
+        this.pathCorners.Add(new Vector2(4, 1));
+        this.pathCorners.Add(new Vector2(4, 10));
+        this.pathCorners.Add(new Vector2(8, 10));
+        this.pathCorners.Add(new Vector2(8, 4));
+        this.pathCorners.Add(new Vector2(12, 4));
+        this.pathCorners.Add(new Vector2(12, 15));
     }
 
     private void InitTiles(Vector3 startPoint, ushort width, ushort height, Vector2 tileSize) {
@@ -121,11 +118,6 @@ public class GridEntity {
         return isPathTile ? TileType.PATH : TileType.MAP;
     }
 
-    private ushort GetNextGridId() {
-        nextGridId++;
-        return nextGridId;
-    }
-
     private ushort GetNextTileId() {
         nextTileId++;
         return nextTileId;
@@ -152,7 +144,7 @@ public class GridEntity {
         return false;
     }
 
-    private Vector3 GetPathTilePosition(Vector2 vec) {
+    public Vector3 GetPathTilePosition(Vector2 vec) {
         Vector3 tilePosition = new Vector3(this.StartPoint.x + (vec.x - 1) * this.tileSize.x, 0, this.StartPoint.z + (vec.y - 1) * this.tileSize.y);
         //Get Center of the tile
         tilePosition.x += this.tileSize.x / 2;
@@ -221,6 +213,13 @@ public class GridEntity {
         }
 
         return id;
+    }
+
+    public Vector2 TileIdToCoord(ushort tileId) {
+        float x = tileId % this.gridWidth;
+        float z = (tileId - x) / this.gridWidth;
+
+        return new Vector2(this.StartPoint.x + (x - 1) * this.tileSize.x, this.StartPoint.z + (z - 1) * this.tileSize.y);
     }
 
 }

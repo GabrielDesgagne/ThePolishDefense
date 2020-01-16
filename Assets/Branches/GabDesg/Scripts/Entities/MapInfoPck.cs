@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MapInfoPck {
     //Moves only the infos on the map (not any other grid)
 
@@ -20,13 +19,12 @@ public class MapInfoPck {
     //Variables
     public ushort GridWidth { get; private set; }
     public ushort GridHeight { get; private set; }
-    public Dictionary<ushort, System.Enum> TileInfos { get; private set; }
-    public KeyValuePair<GameObject, System.Enum> test;
+    public Dictionary<Vector2, ItemValue> TileInfos { get; private set; }
 
 
     private MapInfoPck() {
-        this.gameVariables = GameObject.Find("GameLogic").GetComponent<GameVariables>();
-        SetBoundsGrid(this.gameVariables.gridWidth, this.gameVariables.gridHeight);
+        this.gameVariables = GameObject.Find("MainEntry").GetComponent<GameVariables>();
+        SetBoundsGrid(this.gameVariables.mapGridWidth, this.gameVariables.mapGridHeight);
     }
 
     private void SetBoundsGrid(ushort width, ushort height) {
@@ -34,13 +32,13 @@ public class MapInfoPck {
         this.GridHeight = height;
     }
 
-    private void DeleteItemIfExist(ushort tileId) {
-        if (this.TileInfos.ContainsKey(tileId))
-            this.TileInfos.Remove(tileId);
+    private void DeleteItemIfExist(Vector2 tileCoords) {
+        if (this.TileInfos.ContainsKey(tileCoords))
+            this.TileInfos.Remove(tileCoords);
     }
 
-    public void SetTileInfo(ushort tileId, System.Enum itemType) {
-        DeleteItemIfExist(tileId);
-        this.TileInfos.Add(tileId, itemType);
+    public void SetTileInfo(Vector2 tileCoords, ItemValue itemValue) {
+        DeleteItemIfExist(tileCoords);
+        this.TileInfos.Add(tileCoords, itemValue);
     }
 }

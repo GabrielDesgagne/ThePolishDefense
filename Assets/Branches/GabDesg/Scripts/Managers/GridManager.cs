@@ -22,7 +22,7 @@ public class GridManager : Flow {
     private Grid hiddenGrid;
 
     //Grids
-    private Dictionary<ushort, GridEntity> gridsList = new Dictionary<ushort, GridEntity>();
+    private Dictionary<string, GridEntity> gridsList = new Dictionary<string, GridEntity>();
     private GridEntity map;
     private GridEntity shop;
 
@@ -30,6 +30,7 @@ public class GridManager : Flow {
     public GameObject gridVisualSides { get; private set; }
     public GameObject hiddenGridHitBoxPrefab { get; private set; }
     private GameObject hiddenGridPrefab;
+    private GameObject hiddenShopGridPrefab;
 
 
 
@@ -40,19 +41,15 @@ public class GridManager : Flow {
     private void LoadResourcesPath() {
         this.gridVisualSides = Resources.Load<GameObject>("Prefabs/Grid/Grid_VisualSides");
         this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGrid");
+        this.hiddenShopGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGridShop");
         this.hiddenGridHitBoxPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_HitBox");
     }
 
     override public void Initialize() {
         InitializeHolders();
-
-        InitializeHiddenGrid();
-
-        InitializeGrids();
     }
 
     override public void Refresh() {
-        //DisplayObjectOnGrid(this.gameVariables.randomPrefab);
     }
 
     override public void PhysicsRefresh() {
@@ -67,25 +64,6 @@ public class GridManager : Flow {
         //Init GridsHolder
         this.gridsHolder = new GameObject("GridsHolder");
         this.gridsHolder.transform.SetParent(this.gridStuffHolder.transform);
-    }
-
-    private void InitializeHiddenGrid() {
-        this.hiddenGrid = GameObject.Instantiate<GameObject>(this.hiddenGridPrefab).GetComponent<Grid>();
-        this.hiddenGrid.transform.SetParent(this.gridStuffHolder.transform);
-    }
-
-    private void InitializeGrids() {
-
-        //TODO get those outside of here RIGHT NOOOOOOWWW
-        string mapGridName = "Map";
-        Vector3 mapPosition = new Vector3();
-        GridType mapGridType = GridType.MAP;
-
-        this.map = new GridEntity(mapGridName, mapGridType, mapPosition, MapInfoPck.Instance.gameVariables.gridWidth, MapInfoPck.Instance.gameVariables.gridHeight, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
-        this.gridsList.Add(this.map.Id, this.map);
-
-
-        //this.shop = new GridEntity("Shop", GridType.SHOP, new Vector3(-50, 0, 0), 3, 9, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
     }
 
     public Vector3 GetTileCenterFromWorldPoint(Vector3 pointInWorld) {
@@ -174,6 +152,16 @@ public class GridManager : Flow {
         return id;
     }
 
+    public GridEntity GetGrid(string name) {
+        GridEntity grid = null;
+        if (this.gridsList.ContainsKey(name))
+            grid = this.gridsList[name];
+        return grid;
+    }
+
+    public Vector2 GetTileCoordsFromTileId(string gridName, ushort tileId) {
+        return this.gridsList[gridName].TileIdToCoord(tileId);
+    }
 
     //Returns the hit position in world
     public bool LookForHitOnTables(out Vector3? hitPointInWorld) {
@@ -182,7 +170,7 @@ public class GridManager : Flow {
 
         //Create a ray from Camera -> Mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray, 200, 1 << LayerMask.NameToLayer("GameBoard"));
+        RaycastHit[] hits = Physics.RaycastAll(ray, 300, 1 << LayerMask.NameToLayer("GameBoard"));
 
         RaycastHit closestHit;
         if (hits.Length > 0) {
@@ -219,6 +207,49 @@ public class GridManager : Flow {
 
     override public void EndFlow() {
         //TODO Free memory
+    }
+
+    private void InitializeItemsOnGrid() {
+        //Get items list
+        Dictionary<Vector2, ItemValue> items = MapInfoPck.Instance.TileInfos;
+
+        foreach (KeyValuePair<Vector2, ItemValue> item in items) {
+            //Figure out which enum it is (turret/trap)
+
+            //Instantiate obj with managers
+        }
+    }
+
+    public void InitializeGridShop() {
+        InitHiddenShopGrid();
+        InitGridShopRoom();
+        InitGridMapRoom();
+    }
+
+    private void InitGridShopRoom() {
+        string gridName = "ShopRoom";
+        Vector3 position = GameVariables.instance.shopRoomPosition.position;
+        ushort shopRows = GameVariables.instance.shopGridHeight, shopColumns = GameVariables.instance.shopGridWidth;
+
+        this.shop = new GridEntity(gridName, GridType.SHOP, position, shopColumns, shopRows, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
+        this.gridsList.Add(gridName, this.shop);
+    }
+    private void InitGridMapRoom() {
+        string gridName = "MapRoom";
+        Vector3 position = GameVariables.instance.mapRoomPosition.position;
+        ushort shopRows = GameVariables.instance.mapGridHeight, shopColumns = GameVariables.instance.mapGridWidth;
+
+        this.map = new GridEntity(gridName, GridType.MAP, position, shopColumns, shopRows, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
+        this.gridsList.Add(gridName, this.map);
+    }
+
+    private void InitHiddenShopGrid() {
+        this.hiddenGrid = GameObject.Instantiate<GameObject>(this.hiddenShopGridPrefab).GetComponent<Grid>();
+        this.hiddenGrid.transform.SetParent(this.gridStuffHolder.transform);
+    }
+    private void InitHiddenMapGrid() {
+        this.hiddenGrid = GameObject.Instantiate<GameObject>(this.hiddenGridPrefab).GetComponent<Grid>();
+        this.hiddenGrid.transform.SetParent(this.gridStuffHolder.transform);
     }
 
 }

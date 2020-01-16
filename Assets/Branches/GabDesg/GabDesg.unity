@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomPrefab: {fileID: 1669490582}
+  gridWidth: 15
+  gridHeight: 15
+  turretBasicPrefab: {fileID: 2648828151460218938, guid: 04663a84639deef41afea74d07245cb5,
+    type: 3}
 --- !u!114 &739784285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58b6c39e4dcf954595aef1aa55461cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showGrid: 1
 --- !u!4 &739784286
 Transform:
   m_ObjectHideFlags: 0

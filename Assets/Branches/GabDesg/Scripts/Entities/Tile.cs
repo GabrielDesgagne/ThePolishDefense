@@ -25,15 +25,13 @@ public class Tile {
     }
 
     public void Initialize(Transform parent, Vector2 tileSize) {
-        //Update prefab size
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
-        this.prefab.transform.localScale = scale;
-
         //Instantiate and add to parent grid
         this.tileContour = GameObject.Instantiate<GameObject>(this.prefab);
         this.tileContour.transform.SetParent(parent);
         this.tileContour.transform.position = this.CenterPosition;
         this.tileContourMeshs = this.tileContour.GetComponentsInChildren<MeshRenderer>().ToList();
+        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+        this.tileContour.transform.localScale = scale;
         
         //Set color depending on type
         if (this.Type == TileType.PATH)
