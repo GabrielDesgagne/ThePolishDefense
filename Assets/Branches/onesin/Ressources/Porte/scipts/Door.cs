@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
     Animator anim;
     Animator enemiAnim;
     private float openDoorTime = 0;
-    float stateDuration=2f;
+    float stateDuration=3f;
     Enemy e;
     // Start is called before the first frame update
     void Start()
