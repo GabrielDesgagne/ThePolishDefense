@@ -43,7 +43,7 @@ public class HeavyTower : Tower {
         Feeder.SpawnBombs();
         AutoShoot = true;//will be set through upgrades or something like that
     }
-
+    
     public override void PhysicsRefresh()
     {
         Cannon.Move(Position);
@@ -54,11 +54,6 @@ public class HeavyTower : Tower {
 
     }
 
-    private Vector3 GetTarget()
-    {
-        return new Vector3(100, 10, -50);//test vector, will later get closest enemy
-    }
-
     public override void Refresh()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -67,11 +62,11 @@ public class HeavyTower : Tower {
             Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
             if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.BOMB))
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, TowerManager.Instance.GetTarget());
             }
             else if (!AutoShoot && Feeder.IsReady)
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, TowerManager.Instance.GetTarget());
             }
         }
         /*

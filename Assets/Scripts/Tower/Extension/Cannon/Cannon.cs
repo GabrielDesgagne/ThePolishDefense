@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : MonoBehaviour {
+public class Cannon {
     public GameObject Obj { get; set; }
     public Tower Tower { get; set; }
     public bool IsLoaded { get; set; }
@@ -25,13 +25,13 @@ public class Cannon : MonoBehaviour {
         if (Input.GetKey(KeyCode.D))
             Angle -= 1f;
         if (Input.GetKeyDown(KeyCode.S))
-            Fire(new Vector3(100, 10, 0));//target value magic number
+            Fire(TowerManager.Instance.GetTarget());
         if (Angle > 360)
             Angle = 0;
         if (Angle < 0)
             Angle = 360;
     }
-
+    
     public void Move(Vector3 towerCenter)
     {
         float radian = Angle * Mathf.PI / 180;

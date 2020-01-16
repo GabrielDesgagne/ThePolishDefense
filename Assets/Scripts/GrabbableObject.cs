@@ -43,7 +43,7 @@ public class GrabbableObject : InteractObject
     /// <summary>
     /// If true, the object's position will snap to match snapOffset when grabbed.
     /// </summary>
-    public bool snapPosition
+    public bool UseSnapPosition
     {
         get { return m_snapPosition; }
     }

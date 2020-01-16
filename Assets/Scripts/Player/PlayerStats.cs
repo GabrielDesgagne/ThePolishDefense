@@ -7,13 +7,13 @@ public class PlayerStats : MonoBehaviour
 
     public int initialCurrency = 100;
     public int initialHp = 10;
-    public int startingLevel = 1;
+    public int startingLevel = 0;
 
-    public bool IsPlayerDead { get; set; }
+    public static bool IsPlayerDead { get; set; }
 
-    private int currency;
-    private int hp;
-    private int currentLevel;
+    private static int currency;
+    private static int hp;
+    private static int currentLevel;
 
     //No need to implement init for now... resetAllStats() does it.
 
@@ -25,30 +25,30 @@ public class PlayerStats : MonoBehaviour
         CurrentLevel = startingLevel;
     }
 
-    public int Currency
+    public static int Currency
     {
         get { return currency; }
         private set { currency = value; }
     }
 
-    public int Hp
+    public static int Hp
     {
         get { return hp; }
         private set { hp = value; }
     }
 
-    public int CurrentLevel
+    public static int CurrentLevel
     {
         get { return currentLevel; }
         private set { currentLevel = value; }
     }
 
-    public void addCurrency(int amount)
+    public static void addCurrency(int amount)
     {
         Currency += amount;
     }
 
-    public bool subtractCurrency(int amount)
+    public static bool subtractCurrency(int amount)
     {
         if(Currency - amount < 0)
         {
@@ -61,12 +61,12 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void addHp(int amount)
+    public static void addHp(int amount)
     {
         Hp += amount;
     }
 
-    public void decrementHp()
+    public static void decrementHp()
     {
         if(--Hp == 0)
         {
@@ -87,7 +87,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void nextLevel()
+    public static void nextLevel()
     {
         CurrentLevel++;
     }

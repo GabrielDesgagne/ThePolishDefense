@@ -32,7 +32,7 @@ public class InteractObject : MonoBehaviour
         } 
     }
 
-    private void SetHighlight(bool active)
+    public void SetHighlight(bool active)
     {
         if (useHighlight)
         {

@@ -30,18 +30,19 @@ public class ShopManager : Flow {
     TrapManager trapManager;
     TimeManager timeManager;
     GameVariables gameVariables;
+    MapInfoPck mapInfoPck;
 
     private GameObject objInMyHand;
     public GameObject objSelected;
-    public ItemValue objValue;
+
+    private TowerPiece towerPiece;
+    private TrapPiece trapPiece;
 
     private Dictionary<TowerType, ObjInfo> towerSpawnInfo = new Dictionary<TowerType, ObjInfo>();
     private Dictionary<TrapType, ObjInfo> trapSpawnInfo = new Dictionary<TrapType, ObjInfo>();
 
     private GameObject shopItemsHolder;
 
-
-    private GameObject lol;
 
     private ShopManager() {
         //TODO add ListenForItemPickedUp to Anthony actions
@@ -58,6 +59,7 @@ public class ShopManager : Flow {
         this.trapManager = TrapManager.Instance;
         this.timeManager = TimeManager.Instance;
         this.gameVariables = GameVariables.instance;
+        this.mapInfoPck = MapInfoPck.Instance;
 
         this.placingObjectManager.PreInitialize();
     }
@@ -79,46 +81,75 @@ public class ShopManager : Flow {
     public override void Refresh() {
         base.Refresh();
 
-        if (this.objSelected == null) {
-            if (Input.GetKeyDown(KeyCode.Q))
-                //TODO change param for item picked up
-                ListenForItemPickedUp(this.lol);
-        }
-        else {
+        if (this.objSelected != null) {
             ListenForBuyingInput();
-            ListenForItemDropped();
             this.placingObjectManager.MoveObj(this.objSelected);
         }
     }
 
     //If it comes here, its because its a shop item for sure!!!
-    private void ListenForItemPickedUp(GameObject obj) {
+    public void ListenForItemPickedUp(GameObject obj, TowerPiece towerPiece) {
         //Make sure hand is empty
         if (this.objInMyHand == null) {
-            //TODO remove
+            //-----------------------------TODO remove-------------------------
             obj.transform.position = new Vector3(0, 10, 0);
 
             this.objInMyHand = obj;
-            this.objValue = obj.GetComponent<ItemValue>();
+            this.towerPiece = towerPiece;
 
             //Spawn ghost obj
-            SpawnObjGrabbed(this.objValue);
+            SpawnObjGrabbed(towerPiece.currentType);
 
-            if (this.objValue != null) {
+            if (!towerPiece.itemWasPlacedOnMap) {
                 //Check if item was pickup from shop or map
-                if (!this.objValue.itemWasPlacedOnMap)
+                if (!towerPiece.itemWasPlacedOnMap)
                     //Respawn the right obj
-                    SpawnTheRightObj();
+                    SpawnTheRightObj(towerPiece);
+            }
+        }
+    }
+    public void ListenForItemPickedUp(GameObject obj, TrapPiece trapPiece) {
+        //Make sure hand is empty
+        if (this.objInMyHand == null) {
+            //-----------------------------TODO remove-------------------------
+            obj.transform.position = new Vector3(0, 10, 0);
+
+            this.objInMyHand = obj;
+            this.trapPiece = trapPiece;
+
+            //Spawn ghost obj
+            SpawnObjGrabbed(trapPiece.currentType);
+
+            if (!trapPiece.itemWasPlacedOnMap) {
+                //Check if item was pickup from shop or map
+                if (!trapPiece.itemWasPlacedOnMap)
+                    //Respawn the right obj
+                    SpawnTheRightObj(trapPiece);
             }
         }
     }
 
-    private void ListenForItemDropped() {
+    public void ListenForItemDropped(GameObject obj, TowerPiece towerPiece) {
+        if (towerPiece.itemWasPlacedOnMap) {
+            //Place back to where it was
+            PlaceObjBackWhereItWas(this.objInMyHand, towerPiece);
+        }
+        else {
+            //Remove from map
+            RemoveObjWithAnimation(this.objSelected);
+
+            this.objInMyHand = null;
+            this.objSelected = null;
+            this.towerPiece = null;
+        }
+    }
+
+    public void ListenForItemDropped(GameObject obj, TrapPiece trapPiece) {
         //TODO implement real inputs
         if (Input.GetButtonDown("Jump")) {
-            if (this.objValue.itemWasPlacedOnMap) {
+            if (trapPiece.itemWasPlacedOnMap) {
                 //Place back to where it was
-                PlaceObjBackWhereItWas(this.objInMyHand, this.objValue);
+                PlaceObjBackWhereItWas(this.objInMyHand, trapPiece);
             }
             else {
                 //Remove from map
@@ -126,14 +157,14 @@ public class ShopManager : Flow {
 
                 this.objInMyHand = null;
                 this.objSelected = null;
-                this.objValue = null;
+                this.trapPiece = null;
             }
         }
     }
 
     private void ListenForBuyingInput() {
         //TODO implement real buying inputs
-        if (Input.GetMouseButton(1)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             //Make sure tile is available
             if (this.placingObjectManager.IsObjectPlaceableThere()) {
                 //Save obj in MapInfoPck
@@ -146,28 +177,42 @@ public class ShopManager : Flow {
     }
 
     private void SaveObjPositionInMapPck() {
+        if (this.towerPiece != null) {
+            //Update obj info
+            Vector3 tileSelected = this.placingObjectManager.tileSelected;
+            this.towerPiece.itemWasPlacedOnMap = true;
+            this.towerPiece.positionOnMap = tileSelected;
 
+            //Update MapInfoPck
+            this.mapInfoPck.AddTower(this.gridManager.GetTileCoords(tileSelected), this.towerPiece.currentType);
+        }
+        else if (this.trapPiece != null) {
+            //Update obj info
+            Vector3 tileSelected = this.placingObjectManager.tileSelected;
+            this.trapPiece.itemWasPlacedOnMap = true;
+            this.trapPiece.positionOnMap = tileSelected;
+
+            //Update MapInfoPck
+            this.mapInfoPck.AddTower(this.gridManager.GetTileCoords(tileSelected), this.towerPiece.currentType);
+        }
     }
 
-    private void SpawnTheRightObj() {
-        //Test if turret or trap
-        if(this.objValue.towerType != null) {
-            this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTurretInShop((TowerType)this.objValue.towerType); }, 3f));
-        }
-        else if (this.objValue.trapType != null) {
-            this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTrapInShop((TrapType)this.objValue.trapType); }, 3f));
-        }
+    private void SpawnTheRightObj(TowerPiece towerPiece) {
+        this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTurretInShop(towerPiece.currentType); }, 3f));
+    }
+    private void SpawnTheRightObj(TrapPiece trapPiece) {
+        this.timeManager.AddTimedAction(new TimedAction(() => { SpawnTrapInShop(trapPiece.currentType); }, 3f));
     }
 
-    private void SpawnObjGrabbed(ItemValue itemValue) {
+    private void SpawnObjGrabbed(TowerType type) {
         //Instantiate obj
-        if(itemValue.towerType != null) {
-            this.objSelected = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[(TowerType)itemValue.towerType].objPrefab);
-        }
-        else if (itemValue.trapType != null) {
-            this.objSelected = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[(TrapType)itemValue.trapType].objPrefab);
-        }
-
+        this.objSelected = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].objPrefab);
+        //Set item to inactive
+        this.objSelected.SetActive(false);
+    }
+    private void SpawnObjGrabbed(TrapType type) {
+        //Instantiate obj
+        this.objSelected = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab);
         //Set item to inactive
         this.objSelected.SetActive(false);
     }
@@ -175,17 +220,17 @@ public class ShopManager : Flow {
     private void SpawnTurretInShop(TowerType type) {
         //Get turret spawn position
         Vector3 spawnPosition = this.towerSpawnInfo[type].spawnPosition;
-        //---------------------TODO-----------------
         //Spawn turret
-        this.lol = GameObject.Instantiate<GameObject>(this.gameVariables.turretBasicPrefab, this.shopItemsHolder.transform);
-        this.lol.transform.position = spawnPosition;
+        GameObject obj = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        obj.transform.position = spawnPosition;
     }
 
     private void SpawnTrapInShop(TrapType type) {
-        //Get trap spawn position
+        //Get turret spawn position
         Vector3 spawnPosition = this.trapSpawnInfo[type].spawnPosition;
-        //---------------------TODO-----------------
-        //Spawn trap
+        //Spawn turret
+        GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        obj.transform.position = spawnPosition;
     }
 
     private void RemoveObjWithAnimation(GameObject obj) {
@@ -205,28 +250,34 @@ public class ShopManager : Flow {
         InitSpawnPositions();
 
         SpawnTurretInShop(TowerType.BASIC);
-//         SpawnTurretInShop(TowerType.HEAVY);
-//         SpawnTurretInShop(TowerType.ICE);
-// 
-//         SpawnTrapInShop(TrapName.MINE);
-//         SpawnTrapInShop(TrapName.GLUE);
-//         SpawnTrapInShop(TrapName.SPIKE);
+        SpawnTurretInShop(TowerType.HEAVY);
+        SpawnTurretInShop(TowerType.ICE);
+        // 
+        SpawnTrapInShop(TrapType.MINE);
+        SpawnTrapInShop(TrapType.GLUE);
+        SpawnTrapInShop(TrapType.SPIKE);
     }
 
     private void InitSpawnPositions() {
         //Get all positions available in shop
         Dictionary<ushort, Tile> tiles = GridManager.Instance.GetGrid("ShopRoom").tiles;
 
+        GameObject obj;
         //Init turrets
-        this.towerSpawnInfo.Add(TowerType.BASIC, new ObjInfo(this.gameVariables.turretBasicPrefab, tiles[1].CenterPosition));
-//         this.towerSpawnPositions.Add(TowerType.BASIC, tiles[1].CenterPosition);
-//         this.towerSpawnPositions.Add(TowerType.HEAVY, tiles[2].CenterPosition);
-//         this.towerSpawnPositions.Add(TowerType.ICE, tiles[3].CenterPosition);
-// 
-//         //Init traps
-//         this.trapSpawnPositions.Add(TrapName.GLUE, tiles[14].CenterPosition);
-//         this.trapSpawnPositions.Add(TrapName.MINE, tiles[15].CenterPosition);
-//         this.trapSpawnPositions.Add(TrapName.SPIKE, tiles[16].CenterPosition);
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic");
+        this.towerSpawnInfo.Add(TowerType.BASIC, new ObjInfo(obj, tiles[1].CenterPosition));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy");
+        this.towerSpawnInfo.Add(TowerType.HEAVY, new ObjInfo(obj, tiles[2].CenterPosition));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice");
+        this.towerSpawnInfo.Add(TowerType.ICE, new ObjInfo(obj, tiles[3].CenterPosition));
+
+        //Init traps
+        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
+        this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, tiles[14].CenterPosition));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
+        this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, tiles[15].CenterPosition));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
+        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, tiles[16].CenterPosition));
     }
 
     public void TrashObj(GameObject obj) {
@@ -240,9 +291,19 @@ public class ShopManager : Flow {
         RemoveObjWithAnimation(obj);
     }
 
-    private void PlaceObjBackWhereItWas(GameObject obj, ItemValue itemValue) {
+    private void PlaceObjBackWhereItWas(GameObject obj, TowerPiece towerPiece) {
         //Get old position
-        Vector3 position = this.gridManager.GetGrid("MapRoom").GetPathTilePosition(itemValue.positionOnMap);
+        Vector3 position = this.gridManager.GetGrid("MapRoom").GetCenterTileFromCoords(towerPiece.positionOnMap);
+
+        //Set position to item in my hand
+        this.objInMyHand.transform.position = position;
+
+        //Remove ghost item
+        RemoveObjWithAnimation(obj);
+    }
+    private void PlaceObjBackWhereItWas(GameObject obj, TrapPiece trapPiece) {
+        //Get old position
+        Vector3 position = this.gridManager.GetGrid("MapRoom").GetCenterTileFromCoords(trapPiece.positionOnMap);
 
         //Set position to item in my hand
         this.objInMyHand.transform.position = position;

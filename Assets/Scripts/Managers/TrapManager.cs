@@ -18,9 +18,9 @@ public class TrapManager : Flow
     #endregion
 
     //Prefabs Paths
-    const string SPIKE = "Prefabs/Spikes";
-    const string MINE = "Prefabs/Mine";
-    const string GLUE = "Prefabs/Glue";
+    const string SPIKE = "Prefabs/TrapsAndWeapons/Spiketrap";
+    const string MINE = "Prefabs/TrapsAndWeapons/Mine";
+    const string GLUE = "Prefabs/TrapsAndWeapons/GlueTrap";
 
     //GameObject List
     public GameObject trapHolder;
@@ -65,6 +65,24 @@ public class TrapManager : Flow
     override public void EndFlow()
     {
 
+    }
+
+    public Trap CreateTrap(TrapType type, Vector3 position)
+    {
+        Trap trap = null;
+        switch (type)
+        {
+            case TrapType.MINE:
+                //trap = new Mine(GameObject.Instantiate(MINE));
+                    break;
+            case TrapType.GLUE:
+                //trap = new Glue(GameObject.Instantiate(GLUE));
+                break;
+            case TrapType.SPIKE:
+                //trap = new Spike(GameObject.Instantiate(SPIKE));
+                break;
+        }
+        return null;
     }
 
 }
