@@ -132,7 +132,7 @@ public class Grabber : Hand
         currentGrabbableObject = null;
 
         //Get/Set
-        //CollisionEnable(false);
+        CollisionEnable(false);
 
         //Events
         OVRManager.InputFocusAcquired += OnInputFocusAcquired;
@@ -153,14 +153,8 @@ public class Grabber : Hand
 
     public void DistanceGrabBegin()
     {
-        ray.origin = transform.position;
-        ray.direction = transform.forward;
         RaycastHit rayHit;
-        Debug.Log(Physics.SphereCast(transform.position, 3f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact")));
-        Debug.Log("overlap" + Physics.OverlapSphere(transform.position,3f,LayerMask.GetMask("Interact")).Length);
-        Debug.Log("In Distance Grab");
-
-        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+        if (Physics.SphereCast(transform.position, 1f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
             //Check if the gameObject is a GrabbableObject
             if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
@@ -181,10 +175,7 @@ public class Grabber : Hand
             SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
 
         }
-
-
     }
-
 
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor.
     // This is done instead of parenting to achieve workable physics. If you don't require physics on
