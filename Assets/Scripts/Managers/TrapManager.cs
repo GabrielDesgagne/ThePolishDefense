@@ -76,10 +76,10 @@ public class TrapManager : Flow
                 //trap = new Mine(GameObject.Instantiate(MINE));
                     break;
             case TrapType.GLUE:
-                //trap = GameObject.Instantiate(GLUE);
+                //trap = new Glue(GameObject.Instantiate(GLUE));
                 break;
             case TrapType.SPIKE:
-                //trap = GameObject.Instantiate(SPIKE);
+                //trap = new Spike(GameObject.Instantiate(SPIKE));
                 break;
         }
         return null;

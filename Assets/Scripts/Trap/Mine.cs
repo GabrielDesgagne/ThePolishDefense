@@ -26,6 +26,7 @@ public class Mine : Trap
 
     public Mine(TrapType t)
     {
+        this.type = t; //remove
         this.type = TrapType.MINE;
         this.TrapPosition = new Vector3(0, 0, 0);
         this.attackDamage = 50;
