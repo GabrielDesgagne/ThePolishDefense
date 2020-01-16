@@ -50,7 +50,7 @@ public class Game : Flow
         gameGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //Instantiates
-        gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
+        gameSetup = GameObject.Instantiate(Main.Instance.gameSetupPrefab);
         
         //First Initialize
         playerManager.PreInitialize();
