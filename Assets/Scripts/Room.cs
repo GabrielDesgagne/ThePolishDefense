@@ -17,8 +17,10 @@ public class Room : Flow
     #endregion
     
     PlayerManager playerManager;
-    BoardManager boardManager;
     GrabbableManager grabbableManager;
+    ShopManager shopManager;
+    GridManager gridManager;
+    TimeManager timeManager;
     ArrowManager arrowManager;
     PodManager podManager;
 
@@ -28,8 +30,10 @@ public class Room : Flow
     {
         //Grab instances
         playerManager = PlayerManager.Instance;
-        boardManager = BoardManager.Instance;
         grabbableManager = GrabbableManager.Instance;
+        shopManager = ShopManager.Instance;
+        gridManager = GridManager.Instance;
+        timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
         podManager = PodManager.Instance;
 
@@ -37,32 +41,40 @@ public class Room : Flow
         roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
+        gridManager.PreInitialize();
         playerManager.PreInitialize();
-        boardManager.PreInitialize();
         grabbableManager.PreInitialize();
+        shopManager.PreInitialize();
+        timeManager.PreInitialize();
     }
 
     override public void Initialize()
     {
+        gridManager.Initialize();
         playerManager.Initialize();
-        boardManager.Initialize();
         grabbableManager.Initialize();
+        shopManager.Initialize();
+        timeManager.Initialize();
     }
 
     override public void Refresh()
     {
+        gridManager.Refresh();
         playerManager.Refresh();
         arrowManager.Refresh();
         podManager.Refresh();
-        boardManager.Refresh();
         grabbableManager.Refresh();
+        shopManager.Refresh();
+        timeManager.Refresh();
     }
 
     override public void PhysicsRefresh()
     {
+        gridManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
-        boardManager.PhysicsRefresh();
         grabbableManager.PhysicsRefresh();
+        shopManager.PhysicsRefresh();
+        timeManager.PhysicsRefresh();
     }
 
     override public void EndFlow()
