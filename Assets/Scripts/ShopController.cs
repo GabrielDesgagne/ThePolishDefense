@@ -23,29 +23,29 @@ public class ShopController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PreInit();
-        Init();
+        //PreInit();
+        //Init();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if (OVRInput.Get(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.R))
-        {
-            restart = true;
-        }
-        if (restart)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-
-        if (spawn)
-        {
-            spawn = false;
-            StartCoroutine(spawnItem(spawnType, spawnPos, spawnName));
-        } 
+//         if (OVRInput.Get(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.R))
+//         {
+//             restart = true;
+//         }
+//         if (restart)
+//         {
+//             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+//         }
+// 
+// 
+//         if (spawn)
+//         {
+//             spawn = false;
+//             StartCoroutine(spawnItem(spawnType, spawnPos, spawnName));
+//         } 
       
     }
 

@@ -46,7 +46,6 @@ public class Spike : Trap
 
     protected override void OnTriggerEnter(Collider other)
     {
-
         Debug.Log("do i trigger ?");
         isInTrap = true;
     }
