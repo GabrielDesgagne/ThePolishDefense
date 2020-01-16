@@ -423,7 +423,7 @@ PrefabInstance:
         type: 3}
       propertyPath: explosionEffect
       value: 
-      objectReference: {fileID: 2742295642334328329, guid: ff00b7de56f9cd242986d2ee2849f228,
+      objectReference: {fileID: 1656587814566251057, guid: 79688636fa714784a905576f0ee83f41,
         type: 3}
     - target: {fileID: 1259237906024642107, guid: 516e6a227f582884c8f1e3013b178e32,
         type: 3}

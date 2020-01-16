@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TrapName
+public enum TrapType
 {
     SPIKE,
     MINE,
@@ -10,30 +10,28 @@ public enum TrapName
 }
 public abstract class Trap : MonoBehaviour
 {
-    public float detonate = 2f;
-    public float currentTime;
-    /* to ADD
+    /* TODO ADD
 graphics
-sound
-     */
-    const string SPIKE = "Prefabs/Spikes";
-    const string MINE = "Prefabs/Mine";
-    const string GLUE = "Prefabs/Glue";
+ */
 
-    //public AudioClip triggerTrapClick;
-
+    //Timer
+    public float currentTime;
+    public float detonate = 2f;
 
     public GameObject prefab;
     protected AudioSource audioSource;
-    public TrapName nameTrap;
+
+    public TrapType type { get; protected set; }
     [TextArea(15, 20)]
     public string description;
-    public Vector3 trapPosition;
-    public float attackDamage;
-    public float lifeSpawn;
-    public float price;
-    public float trapRangeEffect;
-    public float coldownEffect;
+
+    public Vector3 TrapPosition { get; protected set; }
+    public float attackDamage { get; protected set; }
+    public float lifeSpawn { get; protected set; }
+    public float price { get; protected set; }
+    public float trapRadius { get; protected set; }
+    public float coldownEffect { get; protected set; }
+
     public bool isInTrap = false;
     public bool isOutTrap = false;
     public bool timerOn = false;
@@ -43,6 +41,11 @@ sound
     {
         audioSource = GetComponent<AudioSource>();
     }
+
+    public abstract void PreInitialize();
+    public abstract void Initialize();
+    public abstract void Refresh();
+    public abstract void PhysicsRefresh();
 
     public abstract void onTrigger();
    

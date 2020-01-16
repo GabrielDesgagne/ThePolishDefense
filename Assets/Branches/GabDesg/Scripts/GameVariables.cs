@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,13 +20,15 @@ public class GameVariables : MonoBehaviour {
     #endregion
 
     [SerializeField] public GameObject randomPrefab;
+    [SerializeField] public ushort mapGridWidth;
+    [SerializeField] public ushort mapGridHeight;
+    [SerializeField] public ushort shopGridWidth;
+    [SerializeField] public ushort shopGridHeight;
 
-    //Grid variables
-    [Header("Grid Variables")]
-    [SerializeField] public ushort hiddenGridWidth;
-    [SerializeField] public ushort hiddenGridHeight;
-    [SerializeField] public Grid hiddenGrid;
-    [SerializeField] public GameObject gridsParent;
-    [SerializeField] public GameObject gridContourPrefab;
-    [SerializeField] public GameObject gridLaserHitBoxPrefab;
+    [SerializeField] public Transform shopRoomPosition;
+    [SerializeField] public Transform mapRoomPosition;
+
+    [Header("Shop Prefabs")]
+    [SerializeField] public GameObject turretBasicPrefab;
+
 }

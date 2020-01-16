@@ -17,6 +17,9 @@ public class Main : MonoBehaviour
     public GameObject GameSetupPrefab;
     public GameObject VRPlayerCharacter;
 
+    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
+    public Dictionary<GameObject, GrabbableObject> irabbableObjects;
+
     public SceneTransition sceneTransition;
 
     public bool isInRoomScene { get; private set; }
@@ -45,6 +48,7 @@ public class Main : MonoBehaviour
         //Initialize
         game = Game.Instance;
         room = Room.Instance;
+        grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
 
         //Loads
         //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
@@ -54,15 +58,19 @@ public class Main : MonoBehaviour
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
+
         //Scene Loading Delegate
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         currentFlow = room;
+
+
+
     }
 
     private void Start()
     {
-        currentFlow.Initialize();
+        //currentFlow.Initialize();
     }
 
     private void Update()
@@ -103,7 +111,7 @@ public class Main : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
 
-        currentSceneName = scene.name;  
+        currentSceneName = scene.name;
 
         if (!isInRoomScene)
         {

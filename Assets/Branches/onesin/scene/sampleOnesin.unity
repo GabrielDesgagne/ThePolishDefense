@@ -479,7 +479,6 @@ MonoBehaviour:
   countdownSound: {fileID: 1247314712}
   soundTimer: {fileID: 8300000, guid: 25460bde594acec44b1c60ceb0b9c7fd, type: 3}
   countdownTimer: {fileID: 1610773067}
-  start: 1
 --- !u!82 &1247314712
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1187,7 +1186,7 @@ GameObject:
   - component: {fileID: 2092892169}
   - component: {fileID: 2092892170}
   m_Layer: 0
-  m_Name: GameMain
+  m_Name: WaveSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1220,15 +1219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemy: {fileID: 184386, guid: 5e945802992ea0143bb1d708ab28e08c, type: 3}
-    count: 3
-    rate: 2
-  - enemy: {fileID: 163616, guid: e3b7d5fd23953de4f98fe5394d539f0e, type: 3}
-    count: 2
-    rate: 2
-  - enemy: {fileID: 193996, guid: c515c2ea93871a549aec388975417df6, type: 3}
-    count: 4
-    rate: 2
+  - {fileID: 11400000, guid: 72da3da0296a7f54597bb7b5809f1c45, type: 2}
+  - {fileID: 11400000, guid: 95e2227d631a74243a472ffb74d95c96, type: 2}
   spawnPoint: {fileID: 331039748}
   timeBetweenWaves: 5
   waveIndex: 0
