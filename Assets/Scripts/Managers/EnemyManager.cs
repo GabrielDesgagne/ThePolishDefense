@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType { FAST, SIMPLE, SLOW }
 public class EnemyManager : Flow
 {
     #region Singleton
@@ -16,6 +17,28 @@ public class EnemyManager : Flow
 
     #endregion
 
+
+    //public Transform spawnPoint;
+    public List<Enemy> enemies;
+    public Stack<Enemy> toRemove;
+    public Stack<Enemy> toAdd;
+   
+    Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
+
+
+    //public static int EnemiesAlive = 0;//number of enemy alive
+
+    private GameObject waveSpawner;
+    private WaveSpawner spawner;
+
+    //public Wave[] waves;
+    //private float timeBetweenWaves = 5f;
+
+    //private int waveIndex = 0;
+
+    //private GameObject countdown;
+    //private Countdown waveCountdownTimer;
+
     override public void PreInitialize()
     {
 
@@ -23,19 +46,97 @@ public class EnemyManager : Flow
 
     override public void Initialize()
     {
-
+        toRemove = new Stack<Enemy>();
+        toAdd = new Stack<Enemy>();
+        enemies = new List<Enemy>();
+        //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
+        waveSpawner= Resources.Load<GameObject>("Prefabs/WaveSpawner");
+        spawner.GetComponent<WaveSpawner>();
+        //spawner.Initialize();
+        foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
+        {
+            enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
+        }
+        //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
+        //EnemiesAlive = 0;
+        //waveCountdownTimer = countdown.GetComponent<Countdown>();
+        //waveCountdownTimer.countdown = timeBetweenWaves;
     }
 
     override public void Refresh()
     {
+        foreach (Enemy e in enemies)
+            e.Refresh();
 
+       /* spawner.Refresh();
+        if (EnemiesAlive > 0)
+        {
+            return;
+        }
+
+        if (waveCountdownTimer.countdown <= 0f)
+        {
+            MonoBehaviour mono = new MonoBehaviour();
+            mono.StartCoroutine(SpawnWave());
+            waveCountdownTimer.countdown = timeBetweenWaves;
+            return;
+        }
+        waveCountdownTimer.Deduct();*/
     }
 
     override public void PhysicsRefresh()
     {
+       
+        while (toRemove.Count > 0) //remove all dead ones
+        {
+            try
+            {
+                Enemy e = toRemove.Pop();
+                enemies.Remove(e);
+                GameObject.Destroy(e.gameObject);
+            }
+            catch
+            {
+                Debug.Log("hey this happened");
+            }
+        }
+
+        while (toAdd.Count > 0) //Add new ones
+            enemies.Add(toAdd.Pop());
+    }
+
+    public void EnemyDied(Enemy enemyDied)
+    {
+        toRemove.Push(enemyDied);
 
     }
 
+   /* IEnumerator SpawnWave()
+    {
+        Wave wave = waves[waveIndex];
+
+        EnemiesAlive = wave.count;
+
+        for (int i = 0; i < wave.count; i++)
+        {
+            System.Random rnd = new System.Random();
+            EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
+            GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
+            Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
+            e.Initialize();               
+            toAdd.Push(e);                              
+            yield return new WaitForSeconds(1f / wave.rate);
+        }
+
+        waveIndex++;
+
+       
+    }*/
+
+    /*GameObject SpawnEnemy(GameObject enemy)
+    {
+        return GameObject.Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+    }*/
     override public void EndFlow()
     {
 

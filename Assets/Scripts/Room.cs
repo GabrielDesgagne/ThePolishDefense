@@ -15,12 +15,16 @@ public class Room : Flow
         }
     }
     #endregion
-
+    
     PlayerManager playerManager;
     GrabbableManager grabbableManager;
     ShopManager shopManager;
     GridManager gridManager;
     TimeManager timeManager;
+    ArrowManager arrowManager;
+    PodManager podManager;
+
+    public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
 
     override public void PreInitialize()
     {
@@ -30,8 +34,11 @@ public class Room : Flow
         shopManager = ShopManager.Instance;
         gridManager = GridManager.Instance;
         timeManager = TimeManager.Instance;
+        arrowManager = ArrowManager.Instance;
+        podManager = PodManager.Instance;
 
         //Setup Variables
+        roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
         gridManager.PreInitialize();
@@ -54,6 +61,9 @@ public class Room : Flow
     {
         gridManager.Refresh();
         playerManager.Refresh();
+        arrowManager.Refresh();
+        podManager.Refresh();
+        boardManager.Refresh();
         grabbableManager.Refresh();
         shopManager.Refresh();
         timeManager.Refresh();

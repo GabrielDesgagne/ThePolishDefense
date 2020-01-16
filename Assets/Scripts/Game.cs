@@ -21,7 +21,7 @@ public class Game : Flow
     PlayerManager playerManager;
     GridManager gridManager;
 
-    //TODO Managers :
+    PodManager podManager;
     TowerManager towerManager;
     WaveManager waveManager;
     EnemyManager enemyManager;
@@ -29,12 +29,15 @@ public class Game : Flow
     ProjectileManager projectileManager;
     LogicManager logicManager;
 
+    public Dictionary<GameObject, IGrabbable> gameGrabbablesDict;
+
     //Game Setup has a reference to everything in the scene.
     public GameObject gameSetup;
 
     override public void PreInitialize()
     {
         //Grab instances
+        podManager = PodManager.Instance;
         playerManager = PlayerManager.Instance;
         waveManager = WaveManager.Instance;
         enemyManager = EnemyManager.Instance;
@@ -43,8 +46,10 @@ public class Game : Flow
         logicManager = LogicManager.Instance;
         gridManager = GridManager.Instance;
 
-
         //Setup Variables
+        gameGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
+
+        //Instantiates
         gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
         
         //First Initialize
@@ -71,7 +76,8 @@ public class Game : Flow
 
     override public void Refresh()
     {
-        playerManager.Refresh();
+        //playerManager.Refresh();
+        podManager.Refresh();
         waveManager.Refresh();
         enemyManager.Refresh();
         trapManager.Refresh();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TrapName
+public enum TrapType
 {
     SPIKE,
     MINE,
@@ -10,79 +10,42 @@ public enum TrapName
 }
 public abstract class Trap : MonoBehaviour
 {
-    public float detonate = 2f;
-    public float currentTime;
-    /* to ADD
+    /* TODO ADD
 graphics
-sound
-     */
-    const string SPIKE = "Prefabs/Spikes";
-    const string MINE = "Prefabs/Mine";
-    const string GLUE = "Prefabs/Glue";
+ */
+
+    //Timer
+    public float currentTime;
+    public float detonate = 2f;
 
     public GameObject prefab;
-    public TrapName nameTrap;
+    protected AudioSource audioSource;
+
+    public TrapType type { get; protected set; }
     [TextArea(15, 20)]
     public string description;
-    public Vector3 trapPosition;
-    public float attackDamage;
-    public float lifeSpawn;
-    public float price;
-    public float trapRangeEffect;
-    public float coldownEffect;
+
+    public Vector3 TrapPosition { get; protected set; }
+    public float attackDamage { get; protected set; }
+    public float lifeSpawn { get; protected set; }
+    public float price { get; protected set; }
+    public float trapRadius { get; protected set; }
+    public float coldownEffect { get; protected set; }
+
     public bool isInTrap = false;
     public bool isOutTrap = false;
     public bool timerOn = false;
-    bool inDetonate = false;
-    private void Start()
-    {
-       
-        //var boxCollider = gameObject.AddComponent<BoxCollider>();
-        //boxCollider.isTrigger = true;
-    }
-    private void Update()
-    {
-        if (inDetonate)
-        {
-            if(currentTime <= 0)
-            {
+    public bool inDetonate = false;
 
-            }
-            else
-            {
-
-        currentTime -= Time.deltaTime;
-            }
-        }
-    }
-    private void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        currentTime = detonate;
-        timerOn = true;
-        Debug.Log("something in : " + other.name);
-        if (other)
-        {
-            isInTrap = true;
-            Debug.Log("trigger timer");
-            if (currentTime == 0)
-            {
-                Detonate();
-                currentTime = detonate;
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (isInTrap)
-        {
-            Debug.Log("exit :" + other.name);
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
-    void Detonate()
-    {
-        Debug.Log("Boom");
-    }
+    public abstract void PreInitialize();
+    public abstract void Initialize();
+    public abstract void Refresh();
+    public abstract void PhysicsRefresh();
 
     public abstract void onTrigger();
    
@@ -92,4 +55,13 @@ sound
 
     public abstract void onRemove();
 
+    protected abstract void OnTriggerEnter(Collider other);
+
+    protected abstract void OnTriggerStay(Collider other);
+
+    protected abstract void OnTriggerExit(Collider other);
+    protected void PlaySound(AudioClip audio)
+    {
+        audioSource.PlayOneShot(audio);
+    }
 }

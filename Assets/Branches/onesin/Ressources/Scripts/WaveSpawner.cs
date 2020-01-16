@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEngine.UI;
+using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour {
 
     public static int EnemiesAlive = 0;
 
-    //public GameManager gameManager;
-
+    //[SerializeField]
     public Wave[] waves;
 
     [SerializeField]
@@ -16,52 +15,56 @@ public class WaveSpawner : MonoBehaviour {
     [SerializeField]
     private float timeBetweenWaves = 5f;
 
-    private float countdown = 5f;
+    [SerializeField]
+    private int waveIndex = 0;
 
     [SerializeField]
-    //private Text waveCountdownTimer;
-
-    private int waveIndex = 0;
+    private GameObject countdown;
+    private Countdown waveCountdownTimer;
 
     private void Start() { Initialize(); }
     private void Update() { Refresh(); }
    
-    void Initialize()
+    public void Initialize()
     {
         EnemiesAlive = 0;
+        waveCountdownTimer = countdown.GetComponent<Countdown>();
+        waveCountdownTimer.countdown = timeBetweenWaves;
+        foreach (Wave w in waves)
+        {
+            w.Load();
+        }
 
     }
 
-    void Refresh() {
-
-        if(EnemiesAlive > 0)
+    public void Refresh() {
+        //condition to restart countdown
+        if (EnemiesAlive > 0)
         {
             return;
         }
 
-        if (countdown <= 0f)
+        if (waveCountdownTimer.countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
+            waveCountdownTimer.countdown = timeBetweenWaves;
             return;
         }
+        waveCountdownTimer.Deduct();
+        
 
-        countdown -= Time.deltaTime;
-
-        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
-
-	}
+    }
 
     IEnumerator SpawnWave()
     {
         
         Wave wave = waves[waveIndex];
 
-        EnemiesAlive = wave.count;
+        EnemiesAlive = wave.enemy.Count;
 
-        for (int i = 0; i < wave.count; i++)
+        for (int i = 0; i < wave.enemy.Count; i++)
         {
-            SpawnEnemy(wave.enemy);
+            SpawnEnemy(wave.enemy[i]);
             yield return new WaitForSeconds(1f / wave.rate);
         }
 
@@ -75,7 +78,7 @@ public class WaveSpawner : MonoBehaviour {
     }
 }
 
-[System.Serializable]
+/*[System.Serializable]
 public class Wave
 {
 
@@ -83,4 +86,4 @@ public class Wave
     public int count;
     public float rate;
 
-}
+}*/

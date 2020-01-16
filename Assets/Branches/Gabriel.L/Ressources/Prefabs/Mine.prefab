@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8115203842908904266}
   - component: {fileID: 2528370624457070648}
   - component: {fileID: 7252312148555450028}
+  - component: {fileID: 6286057390571269389}
   - component: {fileID: 1259237906024642107}
+  - component: {fileID: -8728211223141749829}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -80,6 +82,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6286057390571269389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739367794011077303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e078c1058de1be141af1698c72b7d026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detonate: 2
+  currentTime: 0
+  prefab: {fileID: 0}
+  nameTrap: 0
+  description: 
+  trapPosition: {x: 0, y: 0, z: 0}
+  attackDamage: 0
+  lifeSpawn: 0
+  price: 0
+  trapRangeEffect: 0
+  coldownEffect: 0
+  isInTrap: 0
+  isOutTrap: 0
+  timerOn: 0
 --- !u!65 &1259237906024642107
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -93,6 +121,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4066728, y: 3.2837217, z: 1.2836843}
   m_Center: {x: 0.0054157376, y: 0.89186114, z: 0.018986434}
+--- !u!114 &-8728211223141749829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739367794011077303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e078c1058de1be141af1698c72b7d026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detonate: 2
+  currentTime: 0
+  prefab: {fileID: 1739367794011077303}
+  nameTrap: 0
+  description: 
+  trapPosition: {x: 0, y: 0, z: 0}
+  attackDamage: 0
+  lifeSpawn: 0
+  price: 0
+  trapRangeEffect: 0
+  coldownEffect: 0
+  isInTrap: 0
+  isOutTrap: 0
+  timerOn: 0
+  inDetonate: 0
+  mineTest: {fileID: 1739367794011077303}
+  mineB: {fileID: 0}
+  triggerTrapClick: {fileID: 8300000, guid: d1c53249bcf1eef4b9502d2299ece958, type: 3}
+  boomSound: {fileID: 8300000, guid: 932c0b56cfd5ca94b842aa52b624912e, type: 3}
 --- !u!1 &7187505727484156957
 GameObject:
   m_ObjectHideFlags: 0
