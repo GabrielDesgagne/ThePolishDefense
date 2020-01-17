@@ -5,19 +5,11 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour
 {
-	private Rigidbody rb;
 	private const float timeBeforeDelete = 10;
+	public bool isLeft;
 	private bool isAttached = false;
 	private bool isFired = false;
 	public float startDisapearTime = 0;
-	private Collider collider;
-
-	private void Start()
-	{
-		collider = GetComponent<Collider>();
-		rb = transform.GetComponent<Rigidbody>();
-	}
-
 	void OnTriggerEnter(Collider other) 
 	{
 		if(other.transform.CompareTag("Bow"))
@@ -35,11 +27,11 @@ public class Arrow : MonoBehaviour
 	}
 	void Update() 
 	{
-		if (isFired && rb.velocity.magnitude > 5f) {
-			transform.LookAt (transform.position + rb.velocity);
+		if (isFired && transform.GetComponent<Rigidbody> ().velocity.magnitude > 5f) {
+			transform.LookAt (transform.position + transform.GetComponent<Rigidbody> ().velocity);
 		}
 
-		if ((int)startDisapearTime != 0)
+		if (startDisapearTime != 0)
 		{
 			if (startDisapearTime + timeBeforeDelete <= Time.time)
 			{
@@ -47,15 +39,9 @@ public class Arrow : MonoBehaviour
 			}
 		}
 	}
-	public void Fired(float veloToApply) 
+	public void Fired() 
 	{
-		isFired =  true;
-		transform.parent = null;
-		rb.isKinematic = false;
-		rb.velocity = transform.forward * 30f * veloToApply;
-		rb.useGravity = true;
-		collider.isTrigger = true;
-		startDisapearTime = Time.time;
+		isFired =  true; 
 	}
 	private void AttachArrow(BowManager bow) 
 	{
@@ -64,13 +50,5 @@ public class Arrow : MonoBehaviour
 			bow.AttachBowToArrow (this);
 			isAttached = true;
 		}
-	}
-
-	public void setOffHand()
-	{
-		transform.parent = null;
-		rb.useGravity = true;
-		rb.isKinematic = false;
-		startDisapearTime = Time.time;
 	}
 }

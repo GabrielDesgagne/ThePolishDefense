@@ -35,7 +35,10 @@ public class ArrowManager : MonoBehaviour
         {
             if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
             {
-                currentArrowLeft.GetComponent<Arrow>().setOffHand();
+                currentArrowLeft.transform.parent = null;
+                currentArrowLeft.GetComponent<Rigidbody>().useGravity = true;
+                currentArrowLeft.GetComponent<Rigidbody>().isKinematic = false;
+                currentArrowLeft.GetComponent<Arrow>().startDisapearTime = Time.time;
                 currentArrowLeft = null;
             }
         }
@@ -44,7 +47,10 @@ public class ArrowManager : MonoBehaviour
         {
             if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) == 0)
             {
-                currentArrowRight.GetComponent<Arrow>().setOffHand();
+                currentArrowRight.transform.parent = null;
+                currentArrowRight.GetComponent<Rigidbody>().useGravity = true;
+                currentArrowRight.GetComponent<Rigidbody>().isKinematic = false;
+                currentArrowRight.GetComponent<Arrow>().startDisapearTime = Time.time;
                 currentArrowRight = null;
             }
         }
@@ -56,7 +62,8 @@ public class ArrowManager : MonoBehaviour
                 currentArrowLeft = Instantiate (arrowPrefab, other.parent.parent.parent.transform);
                 currentArrowLeft.transform.localPosition = new Vector3 (0f, 0f, .342f);
                 currentArrowLeft.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
-
+                currentArrowLeft.GetComponent<Arrow>().isLeft = true;
+                
             }
         }
         else
@@ -65,6 +72,7 @@ public class ArrowManager : MonoBehaviour
                 currentArrowRight = Instantiate (arrowPrefab, other.parent.parent.parent.transform);
                 currentArrowRight.transform.localPosition = new Vector3 (0f, 0f, .342f);
                 currentArrowRight.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+                currentArrowRight.GetComponent<Arrow>().isLeft = false;
             }
         }
         

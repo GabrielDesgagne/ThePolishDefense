@@ -34,7 +34,7 @@ public class PodManager : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("LeftHand") && leftHandHaveBow == false)
+        if (other.tag == "LeftHand" && leftHandHaveBow == false)
         {
             if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) != 0)
             {
@@ -43,7 +43,7 @@ public class PodManager : MonoBehaviour
                 leftHandHaveBow = true;
             }
         }
-        else if (other.CompareTag("RightHand") && rightHandHaveBow == false)
+        else if (other.tag == "RightHand" && rightHandHaveBow == false)
         {
             if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) != 0)
             {

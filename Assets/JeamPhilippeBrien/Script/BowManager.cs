@@ -49,6 +49,11 @@ public class BowManager : MonoBehaviour
         if (currentSnapArrow != null)
         {
             PullString();
+            /*if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) == 0 || OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
+            {
+                Fire();
+                currentSnapArrow = null;
+            }*/
         }
     }
     public void AttachBowToArrow(Arrow arrowToAttach) {
@@ -77,8 +82,18 @@ public class BowManager : MonoBehaviour
         }
     }
     private void Fire() {
-        currentSnapArrow.Fired ((forceArrowMaxShoot * pourcentString) / 100f);
+        float dist = (OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) - OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch)).magnitude;
+
+        currentSnapArrow.transform.parent = null;
+        currentSnapArrow.Fired ();
         
+        Rigidbody r = currentSnapArrow.GetComponent<Rigidbody> ();
+        r.isKinematic = false;
+        r.velocity = currentSnapArrow.transform.forward * 30f * ((forceArrowMaxShoot * pourcentString) / 100f);
+        r.useGravity = true;
+
+        currentSnapArrow.GetComponent<Collider> ().isTrigger = true;
+        currentSnapArrow.GetComponent<Arrow>().startDisapearTime = Time.time;
         stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition;
 
         currentSnapArrow = null;
