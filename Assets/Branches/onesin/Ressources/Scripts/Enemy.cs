@@ -31,8 +31,11 @@ public class Enemy : MonoBehaviour
     private float speedMoveUi = 2f;
     public GameObject bloodEffect;
     [HideInInspector]
-    public bool isHittable=false;
-
+    public bool isHittable;
+    [HideInInspector]
+    public bool canEnter = false;//to check if enemy is able to enter the player base
+    private float openDoorTime = 0;
+    float stateDuration = 4f;
     private void Start() { Initialize(); }
     public void Initialize()
     {
@@ -42,13 +45,32 @@ public class Enemy : MonoBehaviour
         mvt = GetComponent<EnemyMovement>();
         walk = audioEnnemi.GetComponent<AudioSource>();
         dead = audioEnnemi.GetComponent<AudioSource>();
+        isHittable = true;
     }
 
     private void Update() { Refresh(); }
 
     public void Refresh()
     {
+        
+        if (canEnter)
+        {
+            openDoorTime += Time.deltaTime;
+            if (isHittable)
+            {
+                anim.SetTrigger("idle");
+            }
+            //speed = 0;
+            isHittable = false;
+        }
+        if (openDoorTime > stateDuration)
+        {
+            openDoorTime = 0;
+            //speed = startSpeed;
+            anim.SetBool("isWalk", true);
+            
 
+        }
         //for test the take damage function. we can delete it after
         if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
@@ -65,7 +87,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
-        speed = 0;
+        //speed = 0;
         healthBar.fillAmount = health / startHealth;
 
         anim.SetBool("isWalk", false);
