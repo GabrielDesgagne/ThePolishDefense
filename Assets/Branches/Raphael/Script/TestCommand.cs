@@ -125,19 +125,19 @@ public class TestCommand : MonoBehaviour
         }
         else if (input.text == "attack by assassin")
         {
-            sfx.PlaySound(input.text);
+            sfx.Soundtrack(input.text);
         }
         else if (input.text == "skyrim")
         {
-            sfx.PlaySound(input.text);
+            sfx.Soundtrack(input.text);
         }
         else if (input.text == "grab1")
         {
-            sfx.PlaySound(input.text);
+            sfx.PlayerSound(input.text);
         }
         else if (input.text == "grab2")
         {
-            sfx.PlaySound(input.text);
+            sfx.PlayerSound(input.text);
         }
     }
 }
