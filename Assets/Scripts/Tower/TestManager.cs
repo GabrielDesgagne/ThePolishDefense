@@ -6,6 +6,7 @@ public class TestManager : MonoBehaviour
 {
     void Awake()
     {
+        TowerLink.tl = GameObject.FindObjectOfType<TowerLink>();
         ProjectileManager.Instance.PreInitialize();
         TowerManager.Instance.PreInitialize();
         TimeManager.Instance.PreInitialize();
