@@ -26,18 +26,38 @@ public class Cannon {
             Angle -= 1f;
         if (Input.GetKeyDown(KeyCode.S))
             Fire(TowerManager.Instance.GetTarget());
-        if (Angle > 360)
-            Angle = 0;
-        if (Angle < 0)
-            Angle = 360;
+        if (Angle > 180)
+            Angle = -180;
+        if (Angle < -180)
+            Angle = 180;
     }
-    
+
+    public float GetAngleToTarget(Vector3 target)
+    {
+        float angle = 0;
+        Vector3 towerCenter = Tower.Obj.transform.position;
+
+        float distA = target.x - towerCenter.x;
+        float distB = target.z - towerCenter.z;
+
+        angle = Mathf.Atan2(distB, distA) * Mathf.Rad2Deg;
+        return angle;
+    }
+
     public void Move(Vector3 towerCenter)
     {
         float radian = Angle * Mathf.PI / 180;
         Vector3 vec = Obj.transform.position;
+
         Obj.transform.position = new Vector3(towerCenter.x + (DistanceFromCenter * Mathf.Cos(radian)), vec.y, towerCenter.z + (DistanceFromCenter * Mathf.Sin(radian)));
         Obj.transform.rotation = Quaternion.Euler(0, -Angle, 0);
+    }
+
+    public void AngleMoveToTarget(Vector3 target)
+    {
+        float angleTo = Angle - GetAngleToTarget(target);
+        if (Mathf.Abs(angleTo) > 0)
+            Angle -= 1;
     }
 
     public void Fire(Vector3 target)
@@ -55,10 +75,5 @@ public class Cannon {
     {
         Bomb = bomb;
         IsLoaded = true;
-    }
-
-    public void FindAngleToFireAt(Vector3 towerCenter, Vector3 target)
-    {
-
     }
 }
