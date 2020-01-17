@@ -4,45 +4,62 @@ using UnityEngine;
 using System.Linq;
 
 
-public enum TileType { PATH, MAP, SHOP }
+public enum TileType { NONE, PATH, MAP }
 
 public class Tile {
-    public ushort Id { get; private set; }
-    public Vector3 CenterPosition { get; private set; }
+    private static ulong nextTileId = 0;
 
+
+    public ulong Id { get; private set; }
     public TileType Type { get; private set; }
-
-    private GameObject prefab;
+    public Vector3 TileCenter { get; private set; }
+    public Quaternion TileRotation { get; private set; }
+    public Vector3 TileScale { get; private set; }
 
     private GameObject tileContour;
-    private List<MeshRenderer> tileContourMeshs;
+    private List<MeshRenderer> meshes;
 
-    public Tile(ushort id, Vector3 centerPosition, TileType type, GameObject _prefab) {
-        this.Id = id;
-        this.CenterPosition = centerPosition;
+    public Tile(TileType type, Vector3 position, Quaternion rotation, Vector3 scale, GameObject prefab, Transform parent) {
+        this.Id = GetNextTileId();
         this.Type = type;
-        this.prefab = _prefab;
+        this.TileCenter = position;
+        this.TileRotation = rotation;
+        this.TileScale = scale;
+
+        InitPrefab(prefab, parent);
+        InitColor(this.Type);
     }
 
-    public void Initialize(Transform parent, Vector2 tileSize) {
-        //Instantiate and add to parent grid
-        this.tileContour = GameObject.Instantiate<GameObject>(this.prefab);
-        this.tileContour.transform.SetParent(parent);
-        this.tileContour.transform.position = this.CenterPosition;
-        this.tileContourMeshs = this.tileContour.GetComponentsInChildren<MeshRenderer>().ToList();
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
-        this.tileContour.transform.localScale = scale;
-        
-        //Set color depending on type
-        if (this.Type == TileType.PATH)
-            ChangeContourColor(new Color(255, 0, 0, 1));
-        else if (this.Type == TileType.SHOP)
-            ChangeContourColor(new Color(0, 0, 255, 1));
+    private void InitPrefab(GameObject prefab, Transform parent) {
+        this.tileContour = GameObject.Instantiate<GameObject>(prefab, parent);
+        this.tileContour.transform.position = this.TileCenter;
+        //this.tileContour.transform.rotation = this.TileRotation;
+        this.tileContour.transform.localScale = this.TileScale;
+
+        this.meshes = this.tileContour.GetComponentsInChildren<MeshRenderer>().ToList();
+    }
+
+    private void InitColor(TileType type) {
+        switch (type) {
+            case TileType.MAP:
+                ChangeContourColor(new Color(255, 255, 255));
+                break;
+            case TileType.PATH:
+                ChangeContourColor(new Color(255, 0, 0));
+                break;
+            default:
+                break;
+        }
     }
 
     private void ChangeContourColor(Color color) {
-        foreach (MeshRenderer mesh in this.tileContourMeshs) {
+        foreach (MeshRenderer mesh in this.meshes) {
             mesh.material.color = color;
         }
+    }
+
+    private ulong GetNextTileId() {
+        nextTileId++;
+        return nextTileId;
     }
 }

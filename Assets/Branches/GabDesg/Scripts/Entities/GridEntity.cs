@@ -2,229 +2,208 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GridType { MAP, SHOP }
+
+public class TileInfo {
+    public ushort Row { get; set; }
+    public ushort Column { get; set; }
+
+    public TileInfo() { }
+    public TileInfo(ushort row, ushort column) { this.Row = row; this.Column = column; }
+}
 
 public class GridEntity {
-    private static ushort nextGridId = 0;
-    private static ushort nextTileId = 0;
+    private static ulong nextGridId = 0;
 
-    public GridType Type { get; private set; }
+    public ulong Id { get; private set; }
+    public Dictionary<Vector2, Tile> Tiles { get; private set; } = new Dictionary<Vector2, Tile>();
 
-    //Keep start point to remember the Y
-    public Vector3 StartPoint { get; private set; }
-    private ushort gridWidth, gridHeight;
-    private Vector2 tileSize;
+    private readonly Grid hiddenGrid;
 
-    public Dictionary<ushort, Tile> tiles { get; private set; } = new Dictionary<ushort, Tile>();
     private GameObject tilesHolder;
+    private readonly Transform startPoint;
+    private readonly ushort rows, columns;
+    private readonly Vector2 tileSize;
+    private readonly List<Vector2> pathCorners;
 
-    private List<Vector2> pathCorners = new List<Vector2>();
+    private bool isHitBoxActive;
 
-    public GridEntity(string name, GridType type, Vector3 _StartPoint, ushort width, ushort height, Vector2 _TileSize) {
-
-        this.Type = type;
-        this.StartPoint = _StartPoint;
-        this.gridWidth = width;
-        this.gridHeight = height;
-        this.tileSize = _TileSize;
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _PathCorners, GameObject tilePrefab, GameObject hitBoxPrefab, bool _IsHitBoxActive = true) {
+        this.Id = GetNextGridId();
+        this.hiddenGrid = _HiddenGrid;
+        this.startPoint = _StartPoint;
+        this.rows = _Rows;
+        this.columns = _Columns;
+        this.tileSize = this.hiddenGrid.cellSize;
+        this.pathCorners = _PathCorners;
+        this.isHitBoxActive = _IsHitBoxActive;
 
         CreateTilesHolder(name);
-        if (this.Type == GridType.MAP) {
-            InitGridHitBox(_StartPoint, _TileSize, width, height);
-            InitPath(_TileSize);
-        }
-        InitTiles(StartPoint, width, height, _TileSize);
+
+        InitGridHitBox(hitBoxPrefab, this.startPoint, this.tileSize, this.rows, this.columns);
+
+        InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
+    }
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, GameObject tilePrefab) {
+        this.hiddenGrid = _HiddenGrid;
+        this.startPoint = _StartPoint;
+        this.rows = _Rows;
+        this.columns = _Columns;
+        this.tileSize = new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y);
+        this.isHitBoxActive = false;
+
+        CreateTilesHolder(name);
+
+        InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, tilePrefab);
     }
 
     private void CreateTilesHolder(string name) {
         this.tilesHolder = new GameObject(name);
         this.tilesHolder.transform.position = new Vector3();
-        this.tilesHolder.transform.SetParent(GridManager.Instance.gridsHolder.transform);
+        this.tilesHolder.transform.SetParent(GameVariables.instance.gridsHolder.transform);
     }
 
-    private void InitGridHitBox(Vector3 position, Vector2 tileSize, ushort width, ushort height) {
+    private void InitGridHitBox(GameObject hitBoxPrefab, Transform startPoint, Vector2 tileSize, ushort rows, ushort columns) {
         //Instantiate prefab inside parent
-        GameObject hitbox = GameObject.Instantiate<GameObject>(GridManager.Instance.hiddenGridHitBoxPrefab, this.tilesHolder.transform);
+        GameObject hitbox = GameObject.Instantiate<GameObject>(hitBoxPrefab, this.tilesHolder.transform);
 
         //Set at position
-        hitbox.transform.position = position;
+        hitbox.transform.position = startPoint.position;
+        //hitbox.transform.rotation = this.hiddenGrid.transform.rotation;
 
         //Resize depending on game board width/height
-        Vector3 size = new Vector3((tileSize.x * width) / 10, 0.2f, (tileSize.y * height) / 10);
+        Vector3 size = new Vector3((tileSize.x * rows) / 10, 0.2f, (tileSize.y * columns) / 10);        //Divide by 10 because its a plane I think lol
         hitbox.transform.localScale = size;
     }
 
-    private void InitPath(Vector2 tileSize) {
-        //Create path here (hardcoded for now)
-//         this.pathCorners.Add(new Vector2(3, 8));
-//         this.pathCorners.Add(new Vector2(13, 8));
-//         this.pathCorners.Add(new Vector2(8, 3));
-//         this.pathCorners.Add(new Vector2(8, 13));
-//         this.pathCorners.Add(new Vector2(3, 8));
-//         this.pathCorners.Add(new Vector2(3, 13));
-//         this.pathCorners.Add(new Vector2(13, 8));
-//         this.pathCorners.Add(new Vector2(13, 3));
-//         this.pathCorners.Add(new Vector2(8, 13));
-//         this.pathCorners.Add(new Vector2(13, 13));
-//         this.pathCorners.Add(new Vector2(8, 3));
-//         this.pathCorners.Add(new Vector2(3, 3));
+    //------------TODO----------- implement rotation on hiddenGrid
+    private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, List<Vector2> pathCorners, GameObject prefab) {
+        Quaternion rotation = this.hiddenGrid.transform.rotation;
+        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
 
-        this.pathCorners.Add(new Vector2(4, 1));
-        this.pathCorners.Add(new Vector2(4, 10));
-        this.pathCorners.Add(new Vector2(8, 10));
-        this.pathCorners.Add(new Vector2(8, 4));
-        this.pathCorners.Add(new Vector2(12, 4));
-        this.pathCorners.Add(new Vector2(12, 15));
-    }
-
-    private void InitTiles(Vector3 startPoint, ushort rows, ushort columns, Vector2 tileSize) {
-        //Init tile into array
-
-        ushort tileId;
         //Start at center of the startpoint
-        Vector3 tilePosition;
-        float x = startPoint.x + tileSize.x / 2;
-        float z = startPoint.z + tileSize.y / 2;
+        Vector2 tileCoords;
+        Vector3 tileCenter;
+        float xPos = startPoint.position.x;
+        float zPos = startPoint.position.z;
 
         for (ushort i = 0; i < rows; i++) {
             for (ushort j = 0; j < columns; j++) {
-                tileId = GetNextTileId();
-                tilePosition = new Vector3(x, StartPoint.y, z);
+                tileCoords.x = xPos;
+                tileCoords.y = zPos;
 
-                //If grid isnt a shop, check what tile it is (path or terrain)
-                if (this.Type == GridType.SHOP)
-                    this.tiles.Add(tileId, new Tile(tileId, tilePosition, TileType.SHOP, GridManager.Instance.gridVisualSides));
-                else
-                    this.tiles.Add(tileId, new Tile(tileId, tilePosition, GetTileTypeAtPositionToCreatePath(tilePosition), GridManager.Instance.gridVisualSides));
+                //Check if Path or Map
+                tileCenter = new Vector3(tileCoords.x + tileSize.x / 2, startPoint.position.y, tileCoords.y + tileSize.y / 2);
 
-                this.tiles[tileId].Initialize(this.tilesHolder.transform, tileSize);
+                if (this.pathCorners.Contains(new Vector2(i, j))) {
+                    //Add Path tile
+                    this.Tiles.Add(tileCoords, new Tile(TileType.PATH, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                }
+                else {
+                    //Add Map tile
+                    this.Tiles.Add(tileCoords, new Tile(TileType.MAP, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                }
 
-                z += tileSize.y;
+                zPos += tileSize.y;
             }
 
-            x += tileSize.x;
-            z = startPoint.z + tileSize.y / 2;
+            xPos += tileSize.x;
+            zPos = startPoint.position.z;
         }
     }
 
-    private TileType GetTileTypeAtPositionToCreatePath(Vector3 position) {
-        //Get if its a path tile or not
-        bool isPathTile = false;
-        for (int i = 0; i < this.pathCorners.Count - 1; i++) {
-            if (IsVectorBetweenBounds(position, this.pathCorners[i], this.pathCorners[i + 1])) {
-                isPathTile = true;
-                break;
+    //------------TODO----------- implement rotation on hiddenGrid
+    private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, GameObject prefab) {
+        Quaternion rotation = this.hiddenGrid.transform.rotation;
+        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+
+        //Start at center of the startpoint
+        Vector2 tileCoords;
+        Vector3 tileCenter;
+        float xPos = startPoint.position.x;
+        float zPos = startPoint.position.z;
+
+        for (ushort i = 0; i < rows; i++) {
+            for (ushort j = 0; j < columns; j++) {
+                tileCoords = new Vector2(xPos, zPos);
+
+                //Check if Path or Map
+                tileCenter = new Vector3(tileCoords.x + tileSize.x / 2, startPoint.position.y, tileCoords.y + tileSize.y / 2);
+                this.Tiles.Add(tileCoords, new Tile(TileType.NONE, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+
+                zPos += tileSize.y;
             }
+
+            xPos += tileSize.x;
+            zPos = startPoint.position.z;
         }
-        return isPathTile ? TileType.PATH : TileType.MAP;
     }
 
-    private ushort GetNextTileId() {
-        nextTileId++;
-        return nextTileId;
+    public Vector2 GetTileCoords(Vector3 pointInWorld) {
+        Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
+        return new Vector2(tileCoords.x, -tileCoords.y);        //NOT SURE IT SHOULD BE MINUS Y
+    }
+    public Vector2 GetTileCoords(TileInfo tileInfo) {
+        Vector2 coords = new Vector2();
+
+        coords.x = this.startPoint.position.x + tileInfo.Row * this.tileSize.x;
+        coords.y = this.startPoint.position.z + tileInfo.Column * this.tileSize.y;
+
+        return coords;
     }
 
-    private bool IsVectorBetweenBounds(Vector3 point, Vector2 a, Vector2 b) {
-        //Find position of a
-        Vector3 aPosition = GetCenterTileFromCoords(a);
-        //Find position of b
-        Vector3 bPosition = GetCenterTileFromCoords(b);
+    //--------------TODO-------------- Implement grid rotation
+    public TileInfo GetRowColumn(Vector2 coords) {
+        TileInfo tileInfo = null;
 
-        //Look if point is between a and b
-        if (aPosition.x == bPosition.x) {
-            if (point.x == aPosition.x) {
-                return IsNumberBetweenBounds(point.z, aPosition.z, bPosition.z);
-            }
+        //Test if tile in grid
+        if (IsTileInGrid(coords)) {
+            tileInfo = new TileInfo();
+
+            //Find starting tile coord
+            Vector2 startTileCoord = GetTileCoords(this.startPoint.position);
+
+            //Get distance between the two coords
+            ushort row = (ushort)((coords.x - startTileCoord.x) / this.tileSize.x);
+            ushort column = (ushort)((coords.y - startTileCoord.y) / this.tileSize.y);
+
+            tileInfo.Row = row;
+            tileInfo.Column = column;
         }
-        else if (aPosition.z == bPosition.z) {
-            if (point.z == aPosition.z) {
-                return IsNumberBetweenBounds(point.x, aPosition.x, bPosition.x);
-            }
-        }
 
-        return false;
+        return tileInfo;
     }
 
-    public Vector3 GetCenterTileFromCoords(Vector2 vec) {
-        Vector3 tilePosition = new Vector3(this.StartPoint.x + (vec.x - 1) * this.tileSize.x, 0, this.StartPoint.z + (vec.y - 1) * this.tileSize.y);
-        //Get Center of the tile
-        tilePosition.x += this.tileSize.x / 2;
-        tilePosition.z += this.tileSize.y / 2;
-        return tilePosition;
+    public Vector3 GetTileCenter(Vector2 tileCoords) {
+        return new Vector3(tileCoords.x + this.tileSize.x / 2, this.startPoint.position.y, tileCoords.y - this.tileSize.y / 2);
     }
 
-    private bool IsNumberBetweenBounds(float a, float boundA, float boundB) {
-        return (a >= GetSmallest(boundA, boundB) && a <= GetBiggest(boundA, boundB));
+    public TileType GetTileType(Vector2 tileCoords) {
+        return this.Tiles[tileCoords].Type;
     }
 
-    private float GetSmallest(float a, float b) {
-        return a < b ? a : b;
-    }
-    private float GetBiggest(float a, float b) {
-        return a > b ? a : b;
-    }
-
-    public bool IsTileInGrid(Vector3 tileCenter) {
+    public bool IsTileInGrid(Vector2 coords) {
         bool tileIsInGrid = false;
 
-        //Check all tiles to see if tileCenter is found
-        foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter) {
-                tileIsInGrid = true;
-                break;
-            }
-        }
+        if (this.Tiles.ContainsKey(coords))
+            tileIsInGrid = true;
+
         return tileIsInGrid;
     }
-    public TileType? GetTileTypeAtPosition(Vector3 tileCenter) {
-        TileType? type = null;
+    public bool IsTileInGrid(TileInfo tileInfo) {
+        bool tileIsInGrid = false;
 
-        //Check all tiles to see if tileCenter is found
-        foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter) {
-                type = tile.Type;
-                break;
-            }
-        }
+        if (this.Tiles.ContainsKey(GetTileCoords(tileInfo)))
+            tileIsInGrid = true;
 
-        return type;
+        return tileIsInGrid;
     }
 
-    public Tile GetTileAtPosition(Vector3 tileCenter) {
-        Tile tileResult = null;
-
-        //Check all tiles to see if tileCenter is found
-        foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter)
-                tileResult = tile;
-        }
-
-        return tileResult;
+    public void SetHitBoxActive(bool active) {
+        this.isHitBoxActive = active;
     }
 
-    public Vector3? GetTileCenterPositionFromId(ushort id) {
-        Vector3? tileCenter = null;
-        if (this.tiles.ContainsKey(id))
-            tileCenter = this.tiles[id].CenterPosition;
-        return tileCenter;
+    private ulong GetNextGridId() {
+        nextGridId++;
+        return nextGridId;
     }
-
-    public ushort? GetTileId(Vector3 tileCenter) {
-        ushort? id = null;
-
-        foreach (Tile tile in this.tiles.Values) {
-            if (tile.CenterPosition == tileCenter)
-                id = tile.Id;
-        }
-
-        return id;
-    }
-
-    public Vector2 TileIdToCoord(ushort tileId) {
-        float x = tileId % this.gridWidth;
-        float z = (tileId - x) / this.gridWidth;
-
-        return new Vector2(this.StartPoint.x + (x - 1) * this.tileSize.x, this.StartPoint.z + (z - 1) * this.tileSize.y);
-    }
-
 }
