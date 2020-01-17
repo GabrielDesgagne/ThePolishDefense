@@ -105,7 +105,7 @@ public class PlacingObjectManager : Flow {
         SetTileSidesColor(isTileTaken);
     }
 
-    private bool IsObjectPlaceableOnTileType(TileType tileType, TowerType towerType) {
+    public bool IsObjectPlaceableOnTileType(TileType tileType, TowerType towerType) {
         bool objIsPlaceable = false;
 
         switch (tileType) {
@@ -123,7 +123,7 @@ public class PlacingObjectManager : Flow {
         return objIsPlaceable;
     }
 
-    private bool IsObjectPlaceableOnTileType(TileType tileType, TrapType trapType) {
+    public bool IsObjectPlaceableOnTileType(TileType tileType, TrapType trapType) {
         bool objIsPlaceable = false;
 
         switch (tileType) {

@@ -83,7 +83,8 @@ public class ShopManager : Flow {
 
         if (this.objSelected != null) {
             ListenForBuyingInput();
-            this.placingObjectManager.MoveObj(this.objSelected);
+            if (this.objSelected != null)
+                this.placingObjectManager.MoveObj(this.objSelected);
         }
     }
 
@@ -166,9 +167,19 @@ public class ShopManager : Flow {
         //TODO implement real buying inputs
         if (Input.GetKeyDown(KeyCode.Space)) {
             //Make sure tile is available
-            if (this.placingObjectManager.IsObjectPlaceableThere()) {
+            bool tileIsEmpty = this.placingObjectManager.IsObjectPlaceableThere();
+            bool itemCanGoOnTileType = false;
+            if (this.towerPiece != null)
+                itemCanGoOnTileType = this.placingObjectManager.IsObjectPlaceableOnTileType((TileType)this.gridManager.GetTileTypeInGrid(this.placingObjectManager.tileSelected), this.towerPiece.currentType);
+            else if (this.trapPiece != null)
+                itemCanGoOnTileType = this.placingObjectManager.IsObjectPlaceableOnTileType((TileType)this.gridManager.GetTileTypeInGrid(this.placingObjectManager.tileSelected), this.trapPiece.currentType);
+            if (tileIsEmpty && itemCanGoOnTileType) {
                 //Save obj in MapInfoPck
                 SaveObjPositionInMapPck();
+
+                //Remove obj from hand
+                RemoveObjWithAnimation(this.objInMyHand);
+                this.objSelected = null;
 
                 //-----------------TODO--------------------------
                 //Take money from player
@@ -179,6 +190,7 @@ public class ShopManager : Flow {
     private void SaveObjPositionInMapPck() {
         if (this.towerPiece != null) {
             //Update obj info
+            Debug.Log("Saved tower position");
             Vector3 tileSelected = this.placingObjectManager.tileSelected;
             this.towerPiece.itemWasPlacedOnMap = true;
             this.towerPiece.positionOnMap = tileSelected;
@@ -188,6 +200,7 @@ public class ShopManager : Flow {
         }
         else if (this.trapPiece != null) {
             //Update obj info
+            Debug.Log("Saved trap position");
             Vector3 tileSelected = this.placingObjectManager.tileSelected;
             this.trapPiece.itemWasPlacedOnMap = true;
             this.trapPiece.positionOnMap = tileSelected;
