@@ -2335,6 +2335,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 950612737, guid: 12921f186c2542d4794df02929a791a4, type: 3}
+      propertyPath: headAnchor
+      value: 
+      objectReference: {fileID: 1636329155}
+    - target: {fileID: 1363509652, guid: 12921f186c2542d4794df02929a791a4, type: 3}
+      propertyPath: headAnchor
+      value: 
+      objectReference: {fileID: 1636329155}
     - target: {fileID: 5232227960490631103, guid: 12921f186c2542d4794df02929a791a4,
         type: 3}
       propertyPath: m_Name
@@ -11297,6 +11305,22 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   m_grabPoints: []
   allowOffhandGrab: 1
+--- !u!54 &963188346
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963188338}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &964157353
 Mesh:
   m_ObjectHideFlags: 0
@@ -11623,6 +11647,49 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1007763403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007763405}
+  - component: {fileID: 1007763404}
+  m_Layer: 0
+  m_Name: TowerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1007763404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007763403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941432b4e539f4e40a5d3297550ec08c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1007763405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007763403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 360.33426, y: 149.61378, z: 343.6537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1011117975
 Mesh:
   m_ObjectHideFlags: 0
@@ -16278,6 +16345,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1636329155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1864753918, guid: 12921f186c2542d4794df02929a791a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 253727150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1655110769
 Mesh:
   m_ObjectHideFlags: 0
@@ -20527,7 +20600,7 @@ GameObject:
   - component: {fileID: 2090911533}
   - component: {fileID: 2090911532}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
