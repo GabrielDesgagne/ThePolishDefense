@@ -190,7 +190,6 @@ public class ShopManager : Flow {
     private void SaveObjPositionInMapPck() {
         if (this.towerPiece != null) {
             //Update obj info
-            Debug.Log("Saved tower position");
             Vector3 tileSelected = this.placingObjectManager.tileSelected;
             this.towerPiece.itemWasPlacedOnMap = true;
             this.towerPiece.positionOnMap = tileSelected;
@@ -200,7 +199,6 @@ public class ShopManager : Flow {
         }
         else if (this.trapPiece != null) {
             //Update obj info
-            Debug.Log("Saved trap position");
             Vector3 tileSelected = this.placingObjectManager.tileSelected;
             this.trapPiece.itemWasPlacedOnMap = true;
             this.trapPiece.positionOnMap = tileSelected;
