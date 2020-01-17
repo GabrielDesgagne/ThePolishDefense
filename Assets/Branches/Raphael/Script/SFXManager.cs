@@ -16,7 +16,7 @@ public class SFXManager : MonoBehaviour
        
     }
 
-    public void PlaySound(string name)
+    public void Soundtrack(string name)
     {
         if (name == "skyrim")
         {
@@ -26,7 +26,12 @@ public class SFXManager : MonoBehaviour
         {
             sfx.attackByAssassin.Play();
         }
-        else if (name == "grab1")
+        
+    }
+
+    public void PlayerSound(string name)
+    {
+        if (name == "grab1")
         {
             sfx.grab1.Play();
         }
@@ -34,5 +39,47 @@ public class SFXManager : MonoBehaviour
         {
             sfx.grab2.Play();
         }
+        else if (name == "coin1")
+        {
+            sfx.coin1.Play();
+        }
+        else if (name == "coin2")
+        {
+            sfx.coin2.Play();
+        }
+        else if (name == "coin3")
+        {
+            sfx.coin3.Play();
+        }
+        else if (name == "force1")
+        {
+            sfx.force1.Play();
+        }
+        else if (name == "moveWood")
+        {
+            sfx.moveWood.Play();
+        }
     }
+    public void BowSound(string name)
+    {
+
+    }
+    public void EnemiesSound(string name)
+    {
+
+    }
+    public void RoomSound(string name)
+    {
+
+    }
+    public void TowerSound(string name)
+    {
+
+    }
+    public void WaveEndSound(string name)
+    {
+
+    }
+
+
 }
