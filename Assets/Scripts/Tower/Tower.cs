@@ -12,9 +12,17 @@ public abstract class Tower {
     public float Range { get; protected set; }
     public float Damage { get; protected set; }
     public float DefaultAttackCooldown { get; protected set; }
+    public TowerInfo Info { get; protected set; }
 
     public abstract void PreInitialize();
     public abstract void Initialize();
     public abstract void Refresh();
     public abstract void PhysicsRefresh();
+
+    protected void ChangeTowerStats()
+    {
+        Damage = Info.TowerDamage;
+        Range = Info.TowerRange;
+        DefaultAttackCooldown = Info.TowerAttackCooldown;
+    }
 }

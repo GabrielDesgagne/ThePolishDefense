@@ -171,7 +171,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 62.690777
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565184691}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 45.3, z: -102.2}
+  m_LocalPosition: {x: 1, y: 83.9, z: -129.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 658891288}
   - component: {fileID: 658891289}
+  - component: {fileID: 658891290}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -246,6 +247,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941432b4e539f4e40a5d3297550ec08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &658891290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658891287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9a5b1b92bdc2c4284371603e12896e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heavyTowerDamage: 5
+  heavyTowerRange: 50
+  heavyTowerAttackCooldown: 3
+  iceTowerDamage: 5
+  iceTowerRange: 50
+  iceTowerAttackCooldown: 3
+  bombDamage: 5
+  bombRadius: 3
+  potionDamage: 5
+  potionRadius: 3
 --- !u!1 &710781990
 GameObject:
   m_ObjectHideFlags: 0

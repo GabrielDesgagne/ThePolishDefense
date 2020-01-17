@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerManager : Flow {
+public class TowerManager : Flow
+{
     private static TowerManager instance = null;
     public static TowerManager Instance { get { return instance ?? (instance = new TowerManager()); } }
 
@@ -16,41 +17,31 @@ public class TowerManager : Flow {
         prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Tower/Heavy_Tower"));
         prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Tower/Ice_Tower"));
 
-
         foreach (Tower tower in towerList)
-        {
             tower.PreInitialize();
-        }
     }
 
     override public void Initialize()
     {
-
         //testing
         towerList.Add(new BasicTower(new Vector3(10, 0, 10), 5, 50, 3));
-        towerList.Add(new HeavyTower(new Vector3(60, 0, 10), 5, 50, 3));
-        towerList.Add(new IceTower(new Vector3(110, 0, 10), 5, 50, 3));
+        towerList.Add(new HeavyTower(new Vector3(60, 0, 10), TowerLink.tl.heavyTowerDamage, TowerLink.tl.heavyTowerRange, TowerLink.tl.heavyTowerAttackCooldown));
+        towerList.Add(new IceTower(new Vector3(110, 0, 10), TowerLink.tl.iceTowerDamage, TowerLink.tl.iceTowerRange, TowerLink.tl.iceTowerAttackCooldown));
 
         foreach (Tower tower in towerList)
-        {
             tower.Initialize();
-        }
     }
 
     override public void PhysicsRefresh()
     {
         foreach (Tower tower in towerList)
-        {
             tower.PhysicsRefresh();
-        }
     }
 
     override public void Refresh()
     {
         foreach (Tower tower in towerList)
-        {
             tower.Refresh();
-        }
     }
 
     override public void EndFlow()
@@ -68,10 +59,10 @@ public class TowerManager : Flow {
                 tower = new BasicTower(position, 5, 50, 5);
                 break;
             case TowerType.HEAVY:
-                tower = new HeavyTower(position, 5, 50, 5);
+                tower = new HeavyTower(position, TowerLink.tl.heavyTowerDamage, TowerLink.tl.heavyTowerRange, TowerLink.tl.heavyTowerAttackCooldown);
                 break;
             case TowerType.ICE:
-                tower = new IceTower(position, 5, 50, 5);
+                tower = new IceTower(position, TowerLink.tl.iceTowerDamage, TowerLink.tl.iceTowerRange, TowerLink.tl.iceTowerAttackCooldown);
                 break;
         }
         towerList.Add(tower);
