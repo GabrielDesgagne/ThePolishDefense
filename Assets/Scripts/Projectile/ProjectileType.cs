@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ProjectileType {
-    BOMB, POTION, ARROW
+    BOMB, POTION, ARROW, THROWABLE_POTION
 }

@@ -35,8 +35,8 @@ public class ShopManager : Flow {
     private GameObject objInMyHand;
     public GameObject objSelected;
 
-    private TowerPiece towerPiece;
-    private TrapPiece trapPiece;
+    public TowerPiece towerPiece;
+    public TrapPiece trapPiece;
 
     private Dictionary<TowerType, ObjInfo> towerSpawnInfo = new Dictionary<TowerType, ObjInfo>();
     private Dictionary<TrapType, ObjInfo> trapSpawnInfo = new Dictionary<TrapType, ObjInfo>();
@@ -83,7 +83,8 @@ public class ShopManager : Flow {
 
         if (this.objSelected != null) {
             ListenForBuyingInput();
-            this.placingObjectManager.MoveObj(this.objSelected);
+            if (this.objSelected != null)
+                this.placingObjectManager.MoveObj(this.objSelected);
         }
     }
 
@@ -166,9 +167,19 @@ public class ShopManager : Flow {
         //TODO implement real buying inputs
         if (Input.GetKeyDown(KeyCode.Space)) {
             //Make sure tile is available
-            if (this.placingObjectManager.IsObjectPlaceableThere()) {
+            bool tileIsEmpty = this.placingObjectManager.IsObjectPlaceableThere();
+            bool itemCanGoOnTileType = false;
+            if (this.towerPiece != null)
+                itemCanGoOnTileType = this.placingObjectManager.IsObjectPlaceableOnTileType((TileType)this.gridManager.GetTileTypeInGrid(this.placingObjectManager.tileSelected), this.towerPiece.currentType);
+            else if (this.trapPiece != null)
+                itemCanGoOnTileType = this.placingObjectManager.IsObjectPlaceableOnTileType((TileType)this.gridManager.GetTileTypeInGrid(this.placingObjectManager.tileSelected), this.trapPiece.currentType);
+            if (tileIsEmpty && itemCanGoOnTileType) {
                 //Save obj in MapInfoPck
                 SaveObjPositionInMapPck();
+
+                //Remove obj from hand
+                RemoveObjWithAnimation(this.objInMyHand);
+                this.objSelected = null;
 
                 //-----------------TODO--------------------------
                 //Take money from player
@@ -193,7 +204,7 @@ public class ShopManager : Flow {
             this.trapPiece.positionOnMap = tileSelected;
 
             //Update MapInfoPck
-            this.mapInfoPck.AddTower(this.gridManager.GetTileCoords(tileSelected), this.towerPiece.currentType);
+            this.mapInfoPck.AddTrap(this.gridManager.GetTileCoords(tileSelected), this.trapPiece.currentType);
         }
     }
 
@@ -226,9 +237,9 @@ public class ShopManager : Flow {
     }
 
     private void SpawnTrapInShop(TrapType type) {
-        //Get turret spawn position
+        //Get trap spawn position
         Vector3 spawnPosition = this.trapSpawnInfo[type].spawnPosition;
-        //Spawn turret
+        //Spawn trap
         GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
         obj.transform.position = spawnPosition;
     }
@@ -253,8 +264,8 @@ public class ShopManager : Flow {
         SpawnTurretInShop(TowerType.HEAVY);
         SpawnTurretInShop(TowerType.ICE);
         // 
-        SpawnTrapInShop(TrapType.MINE);
         SpawnTrapInShop(TrapType.GLUE);
+        SpawnTrapInShop(TrapType.MINE);
         SpawnTrapInShop(TrapType.SPIKE);
     }
 
@@ -273,11 +284,11 @@ public class ShopManager : Flow {
 
         //Init traps
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
-        this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, tiles[14].CenterPosition));
+        this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, tiles[9].CenterPosition));
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
-        this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, tiles[15].CenterPosition));
+        this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, tiles[10].CenterPosition));
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
-        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, tiles[16].CenterPosition));
+        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, tiles[11].CenterPosition));
     }
 
     public void TrashObj(GameObject obj) {

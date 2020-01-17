@@ -56,7 +56,7 @@ public class PlacingObjectManager : Flow {
             UpdateTileSelected((Vector3)tileHitOnTable);
             if (HasTileChanged()) {
                 //Update SFX/VFX/Object position
-                TileHasChanged();
+                TileHasChanged(obj);
             }
         }
         else {
@@ -67,22 +67,78 @@ public class PlacingObjectManager : Flow {
         }
     }
 
-    private void TileHasChanged() {
+    private void TileHasChanged(GameObject obj) {
         //-----------------TODO--------------------------
         //Play sounds
 
         //Move obj selected
         this.shopManager.MoveSelectedObj(this.tileSelected);
 
-        //Check if obj is placeable there
-        bool isTileTaken = !IsObjectPlaceableThere();
-        if (isTileTaken) {
+        //Check if obj is placeable on tile type
+        bool objIsPlaceableOnTileType = false;
+        bool isTileTaken = false;
+
+        if (this.shopManager.towerPiece != null) {
+            TileType? tileType = this.gridManager.GetTileTypeInGrid(this.tileSelected);
+            if (tileType != null)
+                objIsPlaceableOnTileType = IsObjectPlaceableOnTileType((TileType)tileType, this.shopManager.towerPiece.currentType);
+        }
+        else if (this.shopManager.trapPiece != null) {
+            TileType? tileType = this.gridManager.GetTileTypeInGrid(this.tileSelected);
+            if (tileType != null)
+                objIsPlaceableOnTileType = IsObjectPlaceableOnTileType((TileType)tileType, this.shopManager.trapPiece.currentType);
+        }
+
+        //Check if tile is already taken
+        if (objIsPlaceableOnTileType) {
+            isTileTaken = !IsObjectPlaceableThere();
+        }
+
+        //If tile isnt available -> change tower color + tile sides to red
+        if (isTileTaken || !objIsPlaceableOnTileType) {
             //-----------------TODO--------------------------
             //Make obj red
-
             //-----------------TODO--------------------------
-            SetTileSidesColor(isTileTaken);
+            //Change color to unavailable
+            Debug.Log("Cant place the obj there...");
         }
+        SetTileSidesColor(isTileTaken);
+    }
+
+    public bool IsObjectPlaceableOnTileType(TileType tileType, TowerType towerType) {
+        bool objIsPlaceable = false;
+
+        switch (tileType) {
+            case TileType.MAP:
+                objIsPlaceable = true;
+                break;
+            case TileType.SHOP:
+                objIsPlaceable = false;
+                break;
+            case TileType.PATH:
+                objIsPlaceable = false;
+                break;
+        }
+
+        return objIsPlaceable;
+    }
+
+    public bool IsObjectPlaceableOnTileType(TileType tileType, TrapType trapType) {
+        bool objIsPlaceable = false;
+
+        switch (tileType) {
+            case TileType.MAP:
+                objIsPlaceable = false;
+                break;
+            case TileType.SHOP:
+                objIsPlaceable = false;
+                break;
+            case TileType.PATH:
+                objIsPlaceable = true;
+                break;
+        }
+
+        return objIsPlaceable;
     }
 
     public bool IsObjectPlaceableThere() {

@@ -44,7 +44,7 @@ public class MapInfoPck {
         DeleteItemIfExist(tileCoord);
         this.TileTowerInfos.Add(tileCoord, type);
     }
-    public void AddTower(Vector2 tileCoord, TrapType type) {
+    public void AddTrap(Vector2 tileCoord, TrapType type) {
         DeleteItemIfExist(tileCoord);
         this.TileTrapInfos.Add(tileCoord, type);
     }

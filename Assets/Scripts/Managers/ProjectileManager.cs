@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : Flow {
+public class ProjectileManager : Flow
+{
     #region Singleton
     static private ProjectileManager instance = null;
 
@@ -44,6 +45,7 @@ public class ProjectileManager : Flow {
     {
         GameObject bombParent = new GameObject("BombParent");
         GameObject potionParent = new GameObject("PotionParent");
+        GameObject throwablePotionParent = new GameObject("ThrowablePotionParent");
         for (int i = 0; i < 10; i++)
         {
             Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
@@ -53,6 +55,9 @@ public class ProjectileManager : Flow {
             Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], potionParent.transform));
             potion.Obj.SetActive(false);
             disabledProjectiles[potion.Type].Add(potion);
+
+            Potion throwablePotion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], throwablePotionParent.transform));
+            enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(throwablePotion);
         }
     }
 
@@ -85,19 +90,22 @@ public class ProjectileManager : Flow {
     {
         foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))
         {
-            for (int i = 0; i < enabledProjectiles[type].Count; i++)
+            if (type != ProjectileType.THROWABLE_POTION)
             {
-                if (enabledProjectiles[type][i].SlerpPct < 1)
+                for (int i = 0; i < enabledProjectiles[type].Count; i++)
                 {
-                    if (enabledProjectiles[type][i].Obj.activeSelf)
+                    if (enabledProjectiles[type][i].SlerpPct < 1)
                     {
-                        enabledProjectiles[type][i].MoveToTarget();
+                        if (enabledProjectiles[type][i].Obj.activeSelf)
+                        {
+                            enabledProjectiles[type][i].MoveToTarget();
+                        }
                     }
-                }
-                else
-                {
-                    enabledProjectiles[type][i].CollisionHit();
-                    ResetProjectile(enabledProjectiles[type][i]);
+                    else
+                    {
+                        enabledProjectiles[type][i].CollisionHit();
+                        ResetProjectile(enabledProjectiles[type][i]);
+                    }
                 }
             }
         }
@@ -121,6 +129,29 @@ public class ProjectileManager : Flow {
         {
             enabledProjectiles.Add(type, new List<Projectile>());
             disabledProjectiles.Add(type, new List<Projectile>());
+        }
+    }
+
+    public void PickupThrowablePotion()
+    {
+        enabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.SetActive(false);
+        disabledProjectiles[ProjectileType.THROWABLE_POTION].Add(enabledProjectiles[ProjectileType.THROWABLE_POTION][0]);
+        enabledProjectiles[ProjectileType.THROWABLE_POTION].RemoveAt(0);
+    }
+
+    public void SpawnThrowablePotion(Vector3 tableLoc)
+    {
+        disabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.SetActive(true);
+        disabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.transform.position = tableLoc + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
+        enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(disabledProjectiles[ProjectileType.THROWABLE_POTION][0]);
+        disabledProjectiles[ProjectileType.THROWABLE_POTION].RemoveAt(0);
+    }
+
+    public void MoveThrowablePotions(Vector3 tableLoc)
+    {
+        foreach (Potion throwablePotion in enabledProjectiles[ProjectileType.THROWABLE_POTION])
+        {
+            throwablePotion.Obj.transform.position = tableLoc + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
         }
     }
 }
