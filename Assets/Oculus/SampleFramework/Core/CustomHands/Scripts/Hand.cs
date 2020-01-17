@@ -103,6 +103,7 @@ public class Hand : MonoBehaviour
     }
     private void UpdateAnimStates()
     {
+
         if (updateAnim)
         {
             m_animator.SetInteger(m_animParamIndexPose, (int)currentPose.PoseId);
