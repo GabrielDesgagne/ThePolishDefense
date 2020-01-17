@@ -9,9 +9,6 @@ TagManager:
   - Terrain
   - Material
   - Tree
-  - Trigger
-  - Enemy
-  - Bow
   layers:
   - Default
   - TransparentFX
@@ -21,7 +18,6 @@ TagManager:
   - UI
   - 
   - 
-  - Interact
   - 
   - 
   - 
@@ -44,7 +40,8 @@ TagManager:
   - 
   - 
   - 
-  - GameBoard
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -17,7 +17,6 @@ public class PlayerManager : Flow
     #endregion
 
     RoomPrefabsHolder roomHolder;
-    
     //TODO GamePrefabsHolder
 
     MainPlayerController mainPlayerController;

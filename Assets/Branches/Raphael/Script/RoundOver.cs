@@ -36,7 +36,7 @@ public class RoundOver : MonoBehaviour
     {
        
     }
-    public void ShowVictory()
+    public void showVictory()
     {
         canvas.SetActive(true);
         youLose.SetActive(false);
@@ -44,7 +44,7 @@ public class RoundOver : MonoBehaviour
         fireworks.SetActive(true);
         explosion.SetActive(false);
     }
-    public void ShowDefeat()
+    public void showDefeat()
     {
         canvas.SetActive(true);
         youWin.SetActive(false);
@@ -52,7 +52,7 @@ public class RoundOver : MonoBehaviour
         explosion.SetActive(true);
         fireworks.SetActive(false);
     }
-    public void HideUI()
+    public void hideUI()
     {
         canvas.SetActive(false);
         youWin.SetActive(false);

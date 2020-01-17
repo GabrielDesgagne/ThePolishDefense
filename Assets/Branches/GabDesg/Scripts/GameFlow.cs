@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class GameFlow : MonoBehaviour {
 
+    [SerializeField] private bool showGrid = true;
+
     void Start() {
-        GridManager.Instance.Initialize();
+        if (showGrid)
+            GridManager.Instance.Initialize();
     }
 
     void Update() {
-        GridManager.Instance.Refresh();        
+        if (showGrid)
+            GridManager.Instance.Refresh();
     }
 
     void FixedUpdate() {
-        GridManager.Instance.PhysicsRefresh();
+        if (showGrid)
+            GridManager.Instance.PhysicsRefresh();
     }
 }

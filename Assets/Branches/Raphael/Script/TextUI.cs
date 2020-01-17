@@ -6,70 +6,83 @@ using System;
 
 public class TextUI : MonoBehaviour
 {
-    [SerializeField] private UIVariables variables;
+    public TextMeshProUGUI scoreUI;
+    public TextMeshProUGUI cashUI;
+    public TextMeshProUGUI headshotUI;
+    public TextMeshProUGUI playerKillsUI;
+    public TextMeshProUGUI towerKillsUI;
+    public TextMeshProUGUI totalKillsUI;
 
-    private TextMeshProUGUI textMesh;
-    private string text;
-    public int number { get; private set; }
-    private int initialeValue = 0;
+    public int score;
+    public int cash;
+    public int headshot;
+    public int playerKills;
+    public int towerKills;
+    public int totalKills;
 
-    public TextUI(string text, int initialeValue, TextMeshProUGUI textMesh)
-    {
-        this.text = text;
-        this.number = initialeValue;
-        this.initialeValue = initialeValue;
-        this.textMesh = textMesh;
-        this.textMesh.text = this.text + this.number;
-    }
-
-
-    public void AddScore(int number)
-    {
-        this.variables.scoreUI.text = "Score : " + Convert.ToString(number);
-        this.variables.score = number;
-    }
-    public void AddCash(int number)
-    {
-        this.variables.cashUI.text = "Cash : " + Convert.ToString(number);
-        this.variables.cash = number;
-    }
-    public void AddHeadshot(int number)
-    {
-        this.variables.headshotUI.text = "Headshot : " + Convert.ToString(number);
-        this.variables.headshot = number;
-    }
-    public void AddPlayerKill(int number)
-    {
-        this.variables.playerKillsUI.text = "Player Kills : " + Convert.ToString(number);
-        this.variables.playerKills = number;
-
-    }
-    public void AddTowerKill(int number)
-    {
-        this.variables.towerKillsUI.text = "Tower Kills : " + Convert.ToString(number);
-        this.variables.towerKills = number;
-    }
-
-    public void AddTotalKill()
-    {
-        this.variables.totalKills = this.variables.playerKills + this.variables.towerKills;
-        this.variables.totalKillsUI.text = "Total Kills : " + Convert.ToString(this.variables.totalKills);
-    }
-
-    public void Reset()
-    {
-        this.number = this.initialeValue;
-        
-    }
-
-    public void SetActive(bool activate)
-    {
-        this.textMesh.gameObject.SetActive(activate);
-    }
-   
     
+    // Start is called before the first frame update
+    void Start()
+    {
+        Initialize();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Refresh();
+    }
+
+    public void Initialize()
+    {
+        score = 0;
+        cash = 0;
+        headshot = 0;
+        playerKills = 0;
+        towerKills = 0;
+
+    }
+    public void Refresh()
+    {
+        ReadStats();
+    }
+
+    public int Add(int number)
+    {
+        return number;
+    }
+
+    public void clearStats()
+    {
+        score = 0;
+        cash = 0;
+        headshot = 0;
+        playerKills = 0;
+        towerKills = 0;
+        totalKills = 0;
+
+    }
+
+    public void clearKills()
+    {
+        headshot = 0;
+        playerKills = 0;
+        towerKills = 0;
+    }
    
-   
+
+    public void ReadStats()
+    {
+        totalKills = playerKills + towerKills;
+        scoreUI.text = "Score : " + Convert.ToString(score);
+        cashUI.text = "Cash : " + Convert.ToString(cash);
+        headshotUI.text = "Head shot : " + Convert.ToString(headshot);
+        playerKillsUI.text = "Player kills : " + Convert.ToString(playerKills);
+        towerKillsUI.text = "Tower kills : " + Convert.ToString(towerKills);
+        totalKillsUI.text = "Total kills : " + Convert.ToString(totalKills);
+    }
+
+    
 
 
 }

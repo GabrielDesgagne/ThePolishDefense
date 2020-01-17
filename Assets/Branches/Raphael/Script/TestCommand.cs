@@ -8,136 +8,104 @@ public class TestCommand : MonoBehaviour
     public RoundOver round;
     public TMP_InputField input;
     public GameObject canvas;
-    public GameObject amountIN;
-    [SerializeField] TextUI textUI;
-    [SerializeField] TextManager textM;
-    [SerializeField] SFXManager sfx;
-    public int number;
-    int choice;
+    public TextUI textUI;
     // Start is called before the first frame update
-
-
-
-    private void Start()
+    void Start()
     {
         Initialize();
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         Refresh();
     }
-    public void Initialize()
-    {
 
+    void Initialize()
+    {
+       
     }
-    public void Refresh()
+    void Refresh()
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
             canvas.SetActive(true);
-            amountIN.SetActive(false);
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             canvas.SetActive(false);
         }
 
-    }
-    public void CheckAmount()
-    {
-        int num = int.Parse(amountIN.GetComponent<TMP_InputField>().text);
-        switch (choice)
-        {
-            case 1:
-                textUI.AddScore(num);
-                break;
-            case 2:
-                textUI.AddCash(num);
-                break;
-            case 3:
-                textUI.AddHeadshot(num);
-                break;
-            case 4:
-                textUI.AddPlayerKill(num);
-                break;
-            case 5:
-                textUI.AddTowerKill(num);
-                break;
-        }
-    }
-
-    public void CheckCheat()
-    {
-
         if (input.text == "win")
         {
-            round.ShowVictory();
+            round.showVictory();
         }
-        else if (input.text == "lose")
+        if (input.text == "lose")
         {
-            round.ShowDefeat();
+            round.showDefeat();
         }
-        else if (input.text == "hide")
+        if (input.text == "hide")
         {
-            round.HideUI();
+            round.hideUI();
         }
-        else if (input.text == "reset")
+        if (input.text == "all clear")
         {
-            textUI.Reset();
+            textUI.clearStats();
         }
-        else if (input.text == "turn on")
+        if (input.text == "kill clear")
         {
-            textM.TurningOn();
+            textUI.clearKills();
         }
-        else if (input.text == "turn off")
+
+        /*
+        if (Input.GetKey(KeyCode.Z))
         {
-            textM.TurningOff();
+            round.addScore();
         }
-        else if (input.text == "add score")
+        if (Input.GetKey(KeyCode.X))
         {
-            amountIN.SetActive(true);
-            choice = 1;
+            round.subtractScore();
         }
-        else if (input.text == "add cash")
+        if (Input.GetKey(KeyCode.C))
         {
-            amountIN.SetActive(true);
-            choice = 2;
+            round.addCash();
         }
-        else if (input.text == "add headshot")
+        if (Input.GetKey(KeyCode.V))
         {
-            amountIN.SetActive(true);
-            choice = 3;
+            round.subtractCash();
         }
-        else if (input.text == "add player kill")
+        if (Input.GetKey(KeyCode.B))
         {
-            amountIN.SetActive(true);
-            choice = 4;
+            round.addHeadshot();
         }
-        else if (input.text == "add tower kill")
+        if (Input.GetKey(KeyCode.N))
         {
-            amountIN.SetActive(true);
-            choice = 5;
+            round.subtractHeadshot();
         }
-        else if (input.text == "no amount")
+        if (Input.GetKey(KeyCode.F))
         {
-            amountIN.SetActive(false);
+            round.addPlayerKill();
         }
-        else if (input.text == "attack by assassin")
+        if (Input.GetKey(KeyCode.G))
         {
-            sfx.Soundtrack(input.text);
+            round.subtractPlayerKill();
         }
-        else if (input.text == "skyrim")
+        if (Input.GetKey(KeyCode.H))
         {
-            sfx.Soundtrack(input.text);
+            round.addTowerKill();
         }
-        else if (input.text == "grab1")
+        if (Input.GetKey(KeyCode.J))
         {
-            sfx.PlayerSound(input.text);
+            round.subtractTowerKill();
         }
-        else if (input.text == "grab2")
+        if (Input.GetKey(KeyCode.M))
         {
-            sfx.PlayerSound(input.text);
+            round.clearStats();
         }
+        if (Input.GetKey(KeyCode.L))
+        {
+            round.clearKills();
+        }
+        */
     }
 }

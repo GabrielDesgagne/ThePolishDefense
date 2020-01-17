@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2354030245692463230}
   - component: {fileID: 2354030245692463216}
   - component: {fileID: 2354030245692463231}
-  - component: {fileID: 1772628442932601852}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2354030245692463227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.426207, y: 31.070866, z: -20.170738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,14 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e4df723974b9f49a0dce9b998b1d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalVariables: {fileID: 2354030245692463230}
-  roomSetupPrefab: {fileID: 8711379309019227772, guid: 57a2af5ab36996342b3721876003ca3e,
+  GlobalVariables: {fileID: 2354030245692463230}
+  RoomSetupPrefab: {fileID: 8544200579582105285, guid: 309fd926e4bd3f540b32013490700871,
     type: 3}
-  gameSetupPrefab: {fileID: 8027072850541259594, guid: 3445d985476fd7e4196200f009322689,
+  GameSetupPrefab: {fileID: 4642847713714057637, guid: cafd996c56ab4d94cab1cf0ae9fa8a59,
     type: 3}
-  vrPlayerCharacter: {fileID: 1535056656228158968, guid: ff9b0f8f62e682d45bb28ecc55369a27,
+  VRPlayerCharacter: {fileID: 4261581801780231571, guid: dbf4bf4e01fbaaf4caceaaddff12d343,
     type: 3}
-  playerStats: {fileID: 1772628442932601852}
   sceneTransition: {fileID: 2354030245692463231}
 --- !u!114 &2354030245692463230
 MonoBehaviour:
@@ -82,13 +80,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomPrefab: {fileID: 3647869786120135176, guid: 4daaca73bf37cce4b8b62dc871b4780d,
     type: 3}
-  mapGridWidth: 15
-  mapGridHeight: 15
-  shopGridWidth: 2
-  shopGridHeight: 8
-  shopRoomPosition: {fileID: 0}
-  mapRoomPosition: {fileID: 0}
-  turretBasicPrefab: {fileID: 3647869786120135176, guid: 4daaca73bf37cce4b8b62dc871b4780d,
+  hiddenGridWidth: 10
+  hiddenGridHeight: 10
+  hiddenGrid: {fileID: 7920360453920305980, guid: d9dd0f1e87f83ed4db0cd99cfd87bfa5,
+    type: 3}
+  gridsParent: {fileID: 2980642330883832131, guid: a99e729f4f2d7cb4fb480b73114f290f,
+    type: 3}
+  gridContourPrefab: {fileID: 3663531814275384099, guid: 3a6eec6c32eecdf4eaf0baa2d011ec81,
+    type: 3}
+  gridLaserHitBoxPrefab: {fileID: 9085917131628075362, guid: d12639287f7638f45ba50fb05e36fb9c,
     type: 3}
 --- !u!114 &2354030245692463231
 MonoBehaviour:
@@ -111,18 +111,3 @@ MonoBehaviour:
   enemySceneName: sampleOnesin
   uiSceneName: sceneRaphael
   mapSceneName: GabDesg
---- !u!114 &1772628442932601852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354030245692463227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f296cd07b7f5043a74afb0c417a728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialCurrency: 100
-  initialHp: 10
-  startingLevel: 1
