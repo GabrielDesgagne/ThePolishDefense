@@ -81,13 +81,13 @@ public class Grabber : Hand
         }
     }
 
-    protected virtual void Awake()
+    public virtual void PreInitialize()
     {
         grabCandidates = new List<GrabbableObject>();
         m_showAfterInputFocusAcquired = new List<Renderer>();
     }
 
-    override protected void Start()
+    public void Initialize()
     {
         base.Start();
 
@@ -130,7 +130,7 @@ public class Grabber : Hand
 
     }
 
-    public void Update()
+    public void Refresh()
     {
         base.Update();
         alreadyUpdated = false;

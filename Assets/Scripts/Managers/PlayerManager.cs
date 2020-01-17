@@ -16,12 +16,13 @@ public class PlayerManager : Flow
 
     #endregion
 
+    public Player player;
     RoomPrefabsHolder roomHolder;
     
     //TODO GamePrefabsHolder
 
     MainPlayerController mainPlayerController;
-    CharacterController characterController;
+    //CharacterController characterController;
 
     override public void PreInitialize()
     {
@@ -29,22 +30,24 @@ public class PlayerManager : Flow
         {
             roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
         }
-        
+        player = new Player();
         mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
-        characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
+        //characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
 
         mainPlayerController.PreInitialize();
+        player.PreInitialize();
     }
 
     override public void Initialize()
     {
         mainPlayerController.Initialize();
+        player.Initialize();
     }
 
     override public void Refresh()
     {
         mainPlayerController.Refresh();
-
+        player.Refresh();
         //TODO Remove this in build version
         //Switch Scene. 
         if(Input.GetKeyDown(KeyCode.P))
@@ -55,12 +58,13 @@ public class PlayerManager : Flow
 
     override public void PhysicsRefresh()
     {
+        player.PhysicsRefresh();
         //mainPlayerController.PhysicsRefresh();
     }
 
     override public void EndFlow()
     {
-       
+       player.EndFlow();
     }
 
 }

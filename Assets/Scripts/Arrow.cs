@@ -22,9 +22,14 @@ public class Arrow : MonoBehaviour
 
 	void OnTriggerEnter(Collider other) 
 	{
-		if(other.transform.CompareTag("Bow"))
+		if(other.CompareTag("Bow"))
 		{
 			AttachArrow(other.GetComponent<BowManager>());
+		}
+
+		if (other.CompareTag("Enemy"))
+		{
+			other.GetComponent<Enemy>().TakeDamage(PlayerManager.Instance.player.playerStat.damage);
 		}
 	}
 	private void OnTriggerExit(Collider other)

@@ -39,6 +39,7 @@
                 <e p="Enemy.cs" t="Include" />
                 <e p="EnemyMovement.cs" t="Include" />
                 <e p="HitBehavior.cs" t="Include" />
+                <e p="LevelSystem.cs" t="Include" />
                 <e p="Logic.cs" t="Include" />
                 <e p="Wave.cs" t="Include" />
                 <e p="WaveSpawner.cs" t="Include" />
@@ -1069,6 +1070,15 @@
               </e>
             </e>
             <e p="Tower" t="Include">
+              <e p="Forest Pack" t="Include">
+                <e p="READ ME.txt" t="Include" />
+                <e p="Scripts" t="Include">
+                  <e p="ChestDemo.cs" t="Include" />
+                  <e p="MaterialMover.cs" t="Include" />
+                  <e p="Rotator.cs" t="Include" />
+                  <e p="WheelController.cs" t="Include" />
+                </e>
+              </e>
               <e p="Potion" t="Include">
                 <e p="Procedural fire" t="Include">
                   <e p="Shaders" t="Include">
@@ -1118,9 +1128,9 @@
             <e p="WaveManager.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
+            <e p="Player.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
           </e>
-          <e p="Player.cs" t="Include" />
           <e p="Pod.cs" t="Include" />
           <e p="Projectile" t="Include">
             <e p="Bomb.cs" t="Include" />
@@ -1144,6 +1154,8 @@
             </e>
             <e p="TestManager.cs" t="Include" />
             <e p="Tower.cs" t="Include" />
+            <e p="TowerInfo.cs" t="Include" />
+            <e p="TowerLink.cs" t="Include" />
             <e p="TowerPiece.cs" t="Include" />
             <e p="TowerType.cs" t="Include" />
             <e p="Type" t="Include">
@@ -1154,6 +1166,7 @@
           </e>
           <e p="Trap" t="Include">
             <e p="dummyTester.cs" t="Include" />
+            <e p="Glue.cs" t="Include" />
             <e p="Mine.cs" t="Include" />
             <e p="Spike.cs" t="Include" />
             <e p="Trap.cs" t="Include" />
