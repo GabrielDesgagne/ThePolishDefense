@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour
 
     public static bool IsPlayerDead { get; set; }
 
-    private static int currency;
+    private static int currency=100;
     private static int hp;
     private static int currentLevel;
 

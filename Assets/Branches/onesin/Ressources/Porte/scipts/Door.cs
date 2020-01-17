@@ -5,10 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     Animator anim;
-    Animator enemiAnim;
-    private float openDoorTime = 0;
-    float stateDuration=3f;
-    Enemy e;
+       
     // Start is called before the first frame update
     void Start()
     {
@@ -19,33 +16,34 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (anim.GetBool("openDoor"))
-        {
-            openDoorTime += Time.deltaTime;
-        }
-        if (openDoorTime > stateDuration)
-        {
-            openDoorTime = 0;
-            e.speed = e.startSpeed;
-            enemiAnim.SetBool("isWalk", true);
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
         {
+
+            Enemy e = other.gameObject.GetComponent<Enemy>();
+            e.canEnter = true;
             anim.SetBool("openDoor", true);
-            enemiAnim = other.gameObject.GetComponent<Animator>();
-            e=other.gameObject.GetComponent<Enemy>();
-            enemiAnim.SetTrigger("idle");
-            e.speed = 0;
+
+            //Animator enemiAnim = other.gameObject.GetComponent<Animator>();
+
+            //enemiAnim.SetTrigger("idle");
+            //e.speed = 0;
+            //e.isHittable = false;
+
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
+        {
             anim.SetBool("openDoor", false);
+
+        }
+            
     }
 }
