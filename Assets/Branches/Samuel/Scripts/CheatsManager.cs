@@ -53,9 +53,5 @@ public class CheatsManager : MonoBehaviour
         {
             scene.loadMapScene();
         }
-         if (cheats.text.Equals("blood"))
-        {
-            scene.loadBloodScene();
-        }
     }
 }

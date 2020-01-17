@@ -21,8 +21,6 @@ public class SceneTransition : MonoBehaviour
     public string uiSceneName;
     public string mapSceneName;
 
-    public string bloodSceneName;
-
     public void loadMainRoomScene()
     {
         SceneManager.LoadSceneAsync(roomScene);
@@ -63,10 +61,5 @@ public class SceneTransition : MonoBehaviour
     public void loadMapScene()
     {
         SceneManager.LoadScene(mapSceneName);
-    }
-
-    public void loadBloodScene()
-    {
-        SceneManager.LoadScene(bloodSceneName);
     }
 }

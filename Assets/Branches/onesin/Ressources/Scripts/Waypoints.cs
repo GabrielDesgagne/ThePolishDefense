@@ -2,6 +2,7 @@
 
 public class Waypoints : MonoBehaviour {
 
+    //the way is the same for all levels
     public static Transform[] points;
 
 	void Awake () {
