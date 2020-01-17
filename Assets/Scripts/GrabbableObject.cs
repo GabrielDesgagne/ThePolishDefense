@@ -13,15 +13,8 @@ public class GrabbableObject : InteractObject
     public Collider thisCollider;
     public HandPose pose;
     public float distanceRange = 10;
-    public Rigidbody rb;
+    public Rigidbody rigidBody;
 
-
-    [SerializeField]
-    protected bool m_snapPosition = false;
-    [SerializeField]
-    protected bool m_snapOrientation = false;
-    [SerializeField]
-    protected Transform m_snapOffset;
     [SerializeField]
     protected Collider[] m_grabPoints = null;
     public bool allowOffhandGrab = true;
@@ -30,8 +23,6 @@ public class GrabbableObject : InteractObject
     protected Grabber m_grabbedBy = null;
 
     #region Facebook Nightmare
-
-
     /// <summary>
     /// If true, the object is currently grabbed.
     /// </summary>
@@ -40,57 +31,25 @@ public class GrabbableObject : InteractObject
         get { return m_grabbedBy != null; }
     }
 
-    /// <summary>
-    /// If true, the object's position will snap to match snapOffset when grabbed.
-    /// </summary>
-    public bool UseSnapPosition
-    {
-        get { return m_snapPosition; }
-    }
-
-    /// <summary>
-    /// If true, the object's orientation will snap to match snapOffset when grabbed.
-    /// </summary>
-    public bool snapOrientation
-    {
-        get { return m_snapOrientation; }
-    }
-
-    /// <summary>
-    /// An offset relative to the OVRGrabber where this object can snap when grabbed.
-    /// </summary>
-    public Transform snapOffset
-    {
-        get { return m_snapOffset; }
-    }
-
-    /// <summary>
-    /// Returns the OVRGrabber currently grabbing this object.
-    /// </summary>
+    /// Returns the Grabber currently grabbing this object.
     public Grabber grabbedBy
     {
         get { return m_grabbedBy; }
     }
 
-    /// <summary>
     /// The transform at which this object was grabbed.
-    /// </summary>
     public Transform grabbedTransform
     {
         get { return m_grabbedCollider.transform; }
     }
 
-    /// <summary>
     /// The Rigidbody of the collider that was used to grab this object.
-    /// </summary>
     public Rigidbody grabbedRigidbody
     {
         get { return m_grabbedCollider.attachedRigidbody; }
     }
 
-    /// <summary>
     /// The contact point(s) where the object was grabbed.
-    /// </summary>
     public Collider[] grabPoints
     {
         get { return m_grabPoints; }
@@ -99,11 +58,7 @@ public class GrabbableObject : InteractObject
 
     private void Awake()
     {
-        if (!snap)
-        {
-            snap = transform;
-        }
-        rb = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
 
         if (m_grabPoints.Length == 0)
         {
@@ -128,29 +83,27 @@ public class GrabbableObject : InteractObject
         set
         {
             //collider.isTrigger = true;
-            rb.useGravity = false;
+            rigidBody.useGravity = false;
             selected = value;
         }
     }
 
-    private float startTime;
-    public void MoveToHand(Vector3 hand)
-    {
+    //public void MoveToHand(Vector3 hand)
+    //{
 
-        if (Selected)
-        {
-            transform.position = Vector3.MoveTowards(snap.position, hand, Time.deltaTime * 20); //TODO
-        }
+    //    if (Selected)
+    //    {
+    //        transform.position = Vector3.MoveTowards(snap.position, hand, Time.deltaTime * 20); //TODO
+    //    }
 
-    }
+    //}
 
 
     virtual public void GrabBegin(Grabber hand, Collider grabPoint)
     {
         m_grabbedBy = hand;
-        Debug.Log(grabPoint);
         m_grabbedCollider = grabPoint;
-        rb.isKinematic = true;
+        rigidBody.isKinematic = true;
     }
 
     /// <summary>
@@ -158,16 +111,16 @@ public class GrabbableObject : InteractObject
     /// </summary>
     virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        rb.isKinematic = m_grabbedKinematic;
-        rb.velocity = linearVelocity;
-        rb.angularVelocity = angularVelocity;
+        rigidBody.isKinematic = m_grabbedKinematic;
+        rigidBody.velocity = linearVelocity;
+        rigidBody.angularVelocity = angularVelocity;
         m_grabbedBy = null;
         m_grabbedCollider = null;
     }
 
     protected virtual void Start()
     {
-        m_grabbedKinematic = rb.isKinematic;
+        m_grabbedKinematic = rigidBody.isKinematic;
         Main.Instance.grabbableObjects.Add(this.gameObject, this);
 
     }
