@@ -1,0 +1,42 @@
+newmtl LogI_texture
+map_Kd -o -0.28 0.04 -s 0.14 0.67 LogI_texture.png
+bump -o 0 0 -s 1 1 LogI_norm.png
+Kd 1 1 1
+d 1
+
+newmtl wall_01_cast_ALBEDO
+map_Kd -o -0.36 0 -s 0.6 0.68 wall_01_cast_ALBEDO.png
+bump -o 0 0 -s 1 1 wall_01_cast_NORMAL.png
+Kd 1 1 1
+d 1
+
+newmtl Home_roof_Texture
+map_Kd -o 0.23 0.12 -s 0.07 -0.04 Home_roof_Texture.png
+bump -o 0 0 -s 1 1 Home_roof_Norm.png
+Kd 1 0.1367925 0.1367925
+d 1
+
+newmtl Home_fire_Texture_1
+map_Kd -o 0 0 -s 0.88 0.51 Home_fire_Texture.png
+bump -o 0 0 -s 1 1 Home_fire_Norm.png
+Kd 1 1 1
+d 1
+
+newmtl Home_roof_Texture2
+map_Kd -o -0.38 0.12 -s 0.07 -0.04 Home_roof_Texture2.png
+bump -o 0 0 -s 1 1 Home_roof_Norm2.png
+Kd 1 0.1367925 0.1367925
+d 1
+
+newmtl floor_02_ALBEDO
+map_Kd -o 0 0 -s 1 1 floor_02_ALBEDO.png
+bump -o 0 0 -s 1 1 floor_02_NORMAL.png
+Kd 1 1 1
+d 1
+
+newmtl LogWood
+map_Kd -o 0 0 -s 1 1 treelomp_Texture.png
+bump -o 0 0 -s 1 1 treelomp_Norm.png
+Kd 1 1 1
+d 1
+

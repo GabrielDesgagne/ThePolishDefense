@@ -15,45 +15,72 @@ public class Room : Flow
         }
     }
     #endregion
-
-    PlayerManager playerManager;
-    BoardManager boardManager;
+    
+    //PlayerManager playerManager;
     GrabbableManager grabbableManager;
+    InputManager inputManager;
+    ShopManager shopManager;
+    GridManager gridManager;
+    TimeManager timeManager;
+    ArrowManager arrowManager;
+    PodManager podManager;
+
+    public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
 
     override public void PreInitialize()
     {
         //Grab instances
-        playerManager = PlayerManager.Instance;
-        boardManager = BoardManager.Instance;
+        inputManager = InputManager.Instance;
+        //playerManager = PlayerManager.Instance;
         grabbableManager = GrabbableManager.Instance;
+        shopManager = ShopManager.Instance;
+        gridManager = GridManager.Instance;
+        timeManager = TimeManager.Instance;
+        arrowManager = ArrowManager.Instance;
+        podManager = PodManager.Instance;
 
         //Setup Variables
+        roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
 
         //First Initialize
-        playerManager.PreInitialize();
-        boardManager.PreInitialize();
+        inputManager.PreInitialize();
+        gridManager.PreInitialize();
+        //playerManager.PreInitialize();
         grabbableManager.PreInitialize();
+        shopManager.PreInitialize();
+        timeManager.PreInitialize();
     }
 
     override public void Initialize()
     {
-        playerManager.Initialize();
-        boardManager.Initialize();
+        inputManager.Initialize();
+        gridManager.Initialize();
+        //playerManager.Initialize();
         grabbableManager.Initialize();
+        shopManager.Initialize();
+        timeManager.Initialize();
     }
 
     override public void Refresh()
     {
-        playerManager.Refresh();
-        boardManager.Refresh();
+        inputManager.Refresh();
+        gridManager.Refresh();
+        //playerManager.Refresh();
+        arrowManager.Refresh();
+        podManager.Refresh();
         grabbableManager.Refresh();
+        shopManager.Refresh();
+        timeManager.Refresh();
     }
 
     override public void PhysicsRefresh()
     {
-        playerManager.PhysicsRefresh();
-        boardManager.PhysicsRefresh();
+        inputManager.PhysicsRefresh();
+        gridManager.PhysicsRefresh();
+        //playerManager.PhysicsRefresh();
         grabbableManager.PhysicsRefresh();
+        shopManager.PhysicsRefresh();
+        timeManager.PhysicsRefresh();
     }
 
     override public void EndFlow()

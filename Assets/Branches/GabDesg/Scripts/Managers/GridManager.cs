@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : Flow
-{
+public class GridManager : Flow {
 
     #region Singleton
     private static GridManager instance;
@@ -14,102 +13,178 @@ public class GridManager : Flow
     }
     #endregion
 
-    public GameVariables gameVariables;
-    public GameObject gridsHolder;
+    //TODO remove turn off obj instead
+
+
+    public GameObject gridStuffHolder { get; private set; }
+    public GameObject gridsHolder { get; private set; }
 
     private Grid hiddenGrid;
-    private Vector3 tileSelected;
-    private Vector3 tileUnselected = new Vector3(999, 999, 999);
 
+    //Grids
+    private Dictionary<string, GridEntity> gridsList = new Dictionary<string, GridEntity>();
     private GridEntity map;
     private GridEntity shop;
 
+    //Prefabs
+    public GameObject gridVisualSides { get; private set; }
+    public GameObject hiddenGridHitBoxPrefab { get; private set; }
+    private GameObject hiddenGridPrefab;
+    private GameObject hiddenShopGridPrefab;
+
+
+
+    private GridManager() {
+        LoadResourcesPath();
+    }
+
+    private void LoadResourcesPath() {
+        this.gridVisualSides = Resources.Load<GameObject>("Prefabs/Grid/Grid_VisualSides");
+        this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGrid");
+        this.hiddenShopGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGridShop");
+        this.hiddenGridHitBoxPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_HitBox");
+    }
+
     override public void Initialize() {
-        this.gameVariables = Main.Instance.GetComponent<GameVariables>();
-
-        this.hiddenGrid = this.gameVariables.hiddenGrid;
-        this.tileSelected = this.tileUnselected;
-
-        InitializeGridHolder();
-        InitializeGrids();
+        InitializeHolders();
     }
 
     override public void Refresh() {
-        //DisplayObjectOnGrid(this.gameVariables.randomPrefab);
     }
 
     override public void PhysicsRefresh() {
 
     }
-    private void InitializeGridHolder()
-    {
+
+    private void InitializeHolders() {
+        //Init Grid Stuff Holder
+        this.gridStuffHolder = new GameObject("GridStuff");
+        this.gridStuffHolder.transform.position = new Vector3();
+
+        //Init GridsHolder
         this.gridsHolder = new GameObject("GridsHolder");
-        this.gridsHolder.transform.position = new Vector3();
+        this.gridsHolder.transform.SetParent(this.gridStuffHolder.transform);
     }
 
-    private void InitializeGrids() {
-        this.map = new GridEntity("Map", GridType.MAP, new Vector3(0, 0, 0), 15, 15, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
-        //this.shop = new GridEntity("Shop", GridType.SHOP, new Vector3(-50, 0, 0), 3, 9, new Vector2(this.gameVariables.hiddenGridWidth, this.gameVariables.hiddenGridHeight));
+    public Vector3 GetTileCoords(Vector3 pointInWorld) {
+        Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
+        return new Vector3(tileCoords.x, this.hiddenGrid.transform.position.y, -tileCoords.y);
     }
 
-    public void DisplayObjectOnGrid(GameObject objectToDisplay) {
-        //Check if table hit by laser
-        Vector3 targetPointInWorld = new Vector3();
-        if (LookForHitOnTables(ref targetPointInWorld)) {
-            //Get tile position targetPoint is in
-            Vector3 tileCenter = GetTilePositionFromWorldPoint(targetPointInWorld);
-
-            //Update position to center of the tile
-            tileCenter.x += this.hiddenGrid.cellSize.x / 2;
-            tileCenter.z -= this.hiddenGrid.cellSize.y / 2;
-
-            //Get table height
-            tileCenter.y = targetPointInWorld.y;
-
-            if (HasTileSelectedChanged(tileCenter)) {
-                //Display prefab at new position
-                objectToDisplay.transform.position = tileCenter;
-                //TODO Start event tile changed -> make sound change lighing position etc...
-            }
-        }
-        else {
-            //TODO deactivate
-            this.tileSelected = this.tileUnselected;
-
-            //Dont display turret on grid anymore
-            objectToDisplay.transform.position = this.tileSelected;
-        }
+    public Vector3 GetTileCenterFromCoords(Vector3 tileCoords) {
+        tileCoords.x += this.hiddenGrid.cellSize.x / 2;
+        tileCoords.z -= this.hiddenGrid.cellSize.y / 2;
+        return tileCoords;
     }
 
-    public bool HasTileSelectedChanged(Vector3 newTileSelected) {
-        bool changedTile = false;
-
-        if (newTileSelected != this.tileSelected) {
-            changedTile = true;
-            this.tileSelected = newTileSelected;
-        }
-
-        return changedTile;
-    }
-
-    private Vector3 GetTilePositionFromWorldPoint(Vector3 pointInWorld) {
+    public Vector3 GetTileCenterFromWorldPoint(Vector3 pointInWorld) {
         //Get position in grid
         Vector3Int tile = this.hiddenGrid.WorldToCell(pointInWorld);
-        //Get tile center position in world
+        //Get tile position in world
         Vector3 tileCenterPosition = this.hiddenGrid.CellToWorld(tile);
+        //Add half of tile to get center
+        tileCenterPosition.x += this.hiddenGrid.cellSize.x / 2;
+        tileCenterPosition.z -= this.hiddenGrid.cellSize.y / 2;
 
         return tileCenterPosition;
     }
 
-    private bool LookForHitOnTables(ref Vector3 hitPointInWorld) {
+    public bool IsTileInGrid(Vector3 tileCenter) {
+        bool tileIsInGrid = false;
+
+        //Check in map if value exist
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter))
+                tileIsInGrid = true;
+        }
+
+        return tileIsInGrid;
+    }
+
+    //If tile isnt find in any grid, returns EMPTY
+    public TileType? GetTileTypeInGrid(Vector3 tileCenter) {
+        TileType? type = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter)) {
+                type = grid.GetTileTypeAtPosition(tileCenter);
+            }
+        }
+
+        return type;
+    }
+
+    //If tile doesnt exist in any grid, returns null
+    public Tile GetTileFromGrid(Vector3 tileCenter) {
+        Tile tile = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter)) {
+                tile = grid.GetTileAtPosition(tileCenter);
+            }
+        }
+
+        return tile;
+    }
+
+    public GridType? GetGridType(Vector3 tileCenter) {
+        GridType? type = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter)) {
+                type = grid.Type;
+            }
+        }
+
+        return type;
+    }
+
+    public Vector3? GetTileCenterPositionFromId(ushort id) {
+        Vector3? centerPosition = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            centerPosition = grid.GetTileCenterPositionFromId(id);
+            if (centerPosition != null)
+                break;
+        }
+
+        return centerPosition;
+    }
+
+    public ushort? GetTileId(Vector3 tileCenter) {
+        ushort? id = null;
+
+        foreach (GridEntity grid in this.gridsList.Values) {
+            if (grid.IsTileInGrid(tileCenter)) {
+                id = grid.GetTileId(tileCenter);
+            }
+        }
+
+        return id;
+    }
+
+    public GridEntity GetGrid(string name) {
+        GridEntity grid = null;
+        if (this.gridsList.ContainsKey(name))
+            grid = this.gridsList[name];
+        return grid;
+    }
+
+    public Vector2 GetTileCoordsFromTileId(string gridName, ushort tileId) {
+        return this.gridsList[gridName].TileIdToCoord(tileId);
+    }
+
+    //Returns the hit position in world
+    public bool LookForHitOnTables(out Vector3? hitPointInWorld) {
         bool tableHasBeenHit = false;
+        hitPointInWorld = null;
 
         //Create a ray from Camera -> Mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray, 200, 1 << LayerMask.NameToLayer("GameBoard"));
+        RaycastHit[] hits = Physics.RaycastAll(ray, 300, 1 << LayerMask.NameToLayer("GameBoard"));
 
         RaycastHit closestHit;
-        if(hits.Length > 0) {
+        if (hits.Length > 0) {
             tableHasBeenHit = true;
 
             closestHit = hits[0];
@@ -141,10 +216,44 @@ public class GridManager : Flow
         return hits[indexSmallestDistance];
     }
 
-    override public void EndFlow()
-    {
+    override public void EndFlow() {
         //TODO Free memory
-        Debug.Log("TODO : End Flow / Free Memory");
+    }
+
+    private void InitializeItemsOnGrid() {
+
+    }
+
+    public void InitializeGridShop() {
+        InitHiddenShopGrid();
+        InitGridShopRoom();
+        InitGridMapRoom();
+    }
+
+    private void InitGridShopRoom() {
+        string gridName = "ShopRoom";
+        Vector3 position = GameVariables.instance.shopRoomPosition.position;
+        ushort shopRows = GameVariables.instance.shopGridHeight, shopColumns = GameVariables.instance.shopGridWidth;
+
+        this.shop = new GridEntity(gridName, GridType.SHOP, position, shopColumns, shopRows, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
+        this.gridsList.Add(gridName, this.shop);
+    }
+    private void InitGridMapRoom() {
+        string gridName = "MapRoom";
+        Vector3 position = GameVariables.instance.mapRoomPosition.position;
+        ushort shopRows = GameVariables.instance.mapGridHeight, shopColumns = GameVariables.instance.mapGridWidth;
+
+        this.map = new GridEntity(gridName, GridType.MAP, position, shopColumns, shopRows, new Vector2(this.hiddenGrid.cellSize.x, this.hiddenGrid.cellSize.y));
+        this.gridsList.Add(gridName, this.map);
+    }
+
+    private void InitHiddenShopGrid() {
+        this.hiddenGrid = GameObject.Instantiate<GameObject>(this.hiddenShopGridPrefab).GetComponent<Grid>();
+        this.hiddenGrid.transform.SetParent(this.gridStuffHolder.transform);
+    }
+    private void InitHiddenMapGrid() {
+        this.hiddenGrid = GameObject.Instantiate<GameObject>(this.hiddenGridPrefab).GetComponent<Grid>();
+        this.hiddenGrid.transform.SetParent(this.gridStuffHolder.transform);
     }
 
 }
