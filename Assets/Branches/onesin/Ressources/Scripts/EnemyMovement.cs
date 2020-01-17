@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     private int waypointIndex = 0;
 
     private Enemy enemy;
+    private Rigidbody rb;
 
     //private Animator anim;
     private void Start() { Initialize(); }
@@ -18,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemy = GetComponent<Enemy>();
         target = Waypoints.points[0];
+        rb=GetComponent<Rigidbody>();
         //anim = GetComponent<Animator>();
     }
 
@@ -25,9 +27,13 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 dir = target.position - transform.position;
         transform.LookAt(target);
-        transform.Translate(dir.normalized * enemy.speed * Time.fixedDeltaTime, Space.World);
+        //transform.Translate(dir.normalized * enemy.speed * Time.fixedDeltaTime, Space.World);
         //Rigidbody rb;
-        //rb.MovePosition
+        if (!enemy.canEnter/*||!enemy.isHittable*/)
+        {
+            rb.MovePosition(dir.normalized * enemy.speed * Time.fixedDeltaTime + rb.position);
+        }
+        
 
     }
 
@@ -50,14 +56,14 @@ public class EnemyMovement : MonoBehaviour
         }
 
         //enemy.speed = enemy.startSpeed;
-
-        /*if (Vector3.Distance(transform.position, EnemyManager.Instance.spawner.spawnPoint.position)<=0.3f){
-            enemy.isHittable = false;
+        //enemy.isHittable = true;
+        /*if (Vector3.Distance(transform.position, EnemyManager.Instance.spawner.spawnPoint.position)>0.3f){
+            enemy.isHittable = true;
         }
         else
-        {
-            enemy.isHittable = true;
-        }*/
+        {*/
+
+        //}
     }
 
 
