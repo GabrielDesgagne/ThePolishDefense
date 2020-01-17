@@ -8,10 +8,11 @@ public class PlayerStats : MonoBehaviour
     public int initialCurrency = 100;
     public int initialHp = 10;
     public int startingLevel = 0;
-
+    public int damage = 5;
+    
     public static bool IsPlayerDead { get; set; }
 
-    private static int currency;
+    private static int currency=100;
     private static int hp;
     private static int currentLevel;
 

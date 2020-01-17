@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
-
+   
     static public Main Instance { get; private set; }
 
     private Game game;
     private Room room;
     private Flow currentFlow;
-
+    
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
     public GameObject GameSetupPrefab;
-    public GameObject VRPlayerCharacter;
+    public Player playerPrefab;
+    //public GameObject VRPlayerCharacter;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
 
@@ -25,7 +26,7 @@ public class Main : MonoBehaviour
 
     private string currentSceneName;
     private string lastSceneName;
-
+    
     private void Awake()
     {
 
@@ -60,11 +61,20 @@ public class Main : MonoBehaviour
 
         //Scene Loading Delegate
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        currentFlow = room;
-
-
-
+        if (SceneManager.GetActiveScene().name == "RoomScene")
+        {
+            currentFlow = room;
+            //isInRoomScene = true;
+        }
+        else if (SceneManager.GetActiveScene().name == "MapScene")
+        {
+            currentFlow = game;
+            //isInRoomScene = false;
+        }
+        else
+        {
+            Debug.Log("Not supposed to happen. Wrong scene name.");
+        }
     }
 
     private void Start()

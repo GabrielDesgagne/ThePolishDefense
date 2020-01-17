@@ -30,8 +30,8 @@ public class TextManager : MonoBehaviour
 
         
         this.variables = GameObject.Find("Script").GetComponent<UIVariables>();
-        this.score = new TextUI("Score : ", 0, variables.scoreUI);
-        this.cash = new TextUI("Cash : ", 0, variables.cashUI);
+        this.score = new TextUI("Score : ", PlayerStats.CurrentLevel, variables.scoreUI);
+        this.cash = new TextUI("Cash : ", PlayerStats.Currency, variables.cashUI);
         this.headshot = new TextUI("Headshot : ", 0, variables.headshotUI);
         this.playerKill = new TextUI("Player Kill : ", 0, variables.playerKillsUI);
         this.towerKill = new TextUI("Tower Kill : ", 0, variables.towerKillsUI);

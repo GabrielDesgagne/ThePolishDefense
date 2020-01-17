@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { FAST, SIMPLE, SLOW }
+public enum EnemyType { FAST, SIMPLE, SLOW,KNIGHT }
 public class EnemyManager : Flow
 {
     #region Singleton
@@ -111,32 +111,63 @@ public class EnemyManager : Flow
 
     }
 
-   /* IEnumerator SpawnWave()
-    {
-        Wave wave = waves[waveIndex];
+    /* IEnumerator SpawnWave()
+     {
+         Wave wave = waves[waveIndex];
 
-        EnemiesAlive = wave.count;
+         EnemiesAlive = wave.count;
 
-        for (int i = 0; i < wave.count; i++)
-        {
-            System.Random rnd = new System.Random();
-            EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
-            GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
-            Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-            e.Initialize();               
-            toAdd.Push(e);                              
-            yield return new WaitForSeconds(1f / wave.rate);
-        }
+         for (int i = 0; i < wave.count; i++)
+         {
+             System.Random rnd = new System.Random();
+             EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
+             GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
+             Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
+             e.Initialize();               
+             toAdd.Push(e);                              
+             yield return new WaitForSeconds(1f / wave.rate);
+         }
 
-        waveIndex++;
+         waveIndex++;
 
-       
-    }*/
+
+     }*/
 
     /*GameObject SpawnEnemy(GameObject enemy)
     {
         return GameObject.Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
     }*/
+
+    /* Retrieve the closest enemy from the base within range of a position */
+    public Enemy FindFirstTargetInRange(Vector3 position, float range)
+    {
+        List<Enemy> enemyInRange = EnemiesInRange(position, range);
+        Enemy enemy = null;
+        if (enemies.Count > 0)
+            enemy = enemyInRange[0];
+        return enemy;
+    }
+
+    /* Retrieve all enemies that are within range of a position */
+    public List<Enemy> EnemiesInRange(Vector3 position, float range)
+    {
+        List<Enemy> enemiesInRange = new List<Enemy>();
+
+        for (int i =0;i<enemies.Count; i++)
+        {
+            if (range >= Vector3.Distance(position, enemies[i].transform.position))
+                enemiesInRange.Add(enemies[i]);
+        }
+        return enemiesInRange;
+    }
+
+    public void DamageEnemiesInRange(Vector3 position, float range, int damage)
+    {
+        List<Enemy> enemyInRange = EnemiesInRange(position, range);
+        foreach (Enemy enemy in enemyInRange)
+            enemy.TakeDamage(damage);
+    }
+
     override public void EndFlow()
     {
 

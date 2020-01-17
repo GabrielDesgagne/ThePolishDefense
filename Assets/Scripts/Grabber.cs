@@ -81,15 +81,15 @@ public class Grabber : Hand
         }
     }
 
-    protected virtual void Awake()
+    public virtual void PreInitialize()
     {
         grabCandidates = new List<GrabbableObject>();
         m_showAfterInputFocusAcquired = new List<Renderer>();
     }
 
-    override protected void Start()
+    public void Initialize()
     {
-        base.Start();
+        base.Initialize();
 
         #region Awake
         controller = (OVRInput.Controller)handside;
@@ -130,13 +130,23 @@ public class Grabber : Hand
 
     }
 
-    public void Update()
+    public void Refresh()
     {
-        base.Update();
+        base.Refresh();
         alreadyUpdated = false;
         //TODO variable Grabber grabbedObject
         bool collisionEnabled = m_grabbedObj == null && flex >= THRESH_COLLISION_FLEX;
         CollisionEnable(collisionEnabled);
+        // Hand's collision grows over a short amount of time on enable, rather than snapping to on, to help somewhat with interpenetration issues.
+        if (m_collisionEnabled && m_collisionScaleCurrent + Mathf.Epsilon < COLLIDER_SCALE_MAX)
+        {
+            m_collisionScaleCurrent = Mathf.Min(COLLIDER_SCALE_MAX, m_collisionScaleCurrent + Time.deltaTime * COLLIDER_SCALE_PER_SECOND);
+            for (int i = 0; i < handCollider.Length; ++i)
+            {
+                Collider collider = handCollider[i];
+                collider.transform.localScale = new Vector3(m_collisionScaleCurrent, m_collisionScaleCurrent, m_collisionScaleCurrent);
+            }
+        }
     }
 
 
@@ -473,16 +483,7 @@ public class Grabber : Hand
     }
     protected void LateUpdate()
     {
-        // Hand's collision grows over a short amount of time on enable, rather than snapping to on, to help somewhat with interpenetration issues.
-        if (m_collisionEnabled && m_collisionScaleCurrent + Mathf.Epsilon < COLLIDER_SCALE_MAX)
-        {
-            m_collisionScaleCurrent = Mathf.Min(COLLIDER_SCALE_MAX, m_collisionScaleCurrent + Time.deltaTime * COLLIDER_SCALE_PER_SECOND);
-            for (int i = 0; i < handCollider.Length; ++i)
-            {
-                Collider collider = handCollider[i];
-                collider.transform.localScale = new Vector3(m_collisionScaleCurrent, m_collisionScaleCurrent, m_collisionScaleCurrent);
-            }
-        }
+        
     }
 
     //public void castRay()

@@ -28,6 +28,7 @@ public class Game : Flow
     TrapManager trapManager;
     ProjectileManager projectileManager;
     LogicManager logicManager;
+    TimeManager timeManager;
 
 
     //Game Setup has a reference to everything in the scene.
@@ -58,6 +59,8 @@ public class Game : Flow
         trapManager.PreInitialize();
         projectileManager.PreInitialize();
         logicManager.PreInitialize();
+        towerManager.PreInitialize();
+        timeManager.PreInitialize();
     }
 
     override public void Initialize()
@@ -69,6 +72,8 @@ public class Game : Flow
         trapManager.Initialize();
         projectileManager.Initialize();
         logicManager.Initialize();
+        towerManager.Initialize();
+        timeManager.Initialize();
 
 
     }
@@ -84,6 +89,8 @@ public class Game : Flow
         trapManager.Refresh();
         projectileManager.Refresh();
         logicManager.Refresh();
+        towerManager.Refresh();
+        timeManager.Refresh();
 
     }
 
@@ -96,6 +103,8 @@ public class Game : Flow
         trapManager.PhysicsRefresh();
         projectileManager.PhysicsRefresh();
         logicManager.PhysicsRefresh();
+        towerManager.PhysicsRefresh();
+        timeManager.PhysicsRefresh();
 
     }
 
@@ -107,7 +116,9 @@ public class Game : Flow
         enemyManager.EndFlow();
         trapManager.EndFlow();
         projectileManager.EndFlow();
-        logicManager.EndFlow();        
+        logicManager.EndFlow();
+        towerManager.EndFlow();
+        timeManager.EndFlow();
 
 
         GameObject.Destroy(gameSetup);
