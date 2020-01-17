@@ -68,7 +68,7 @@ MonoBehaviour:
   - {fileID: 2915839991034532364}
   - {fileID: 2915839991032713490}
   m_parentTransform: {fileID: 5232227960491069083}
-  m_player: {fileID: 1864753918}
+  m_player: {fileID: 5232227960490631103}
   headAnchor: {fileID: 0}
   m_grabbedObj: {fileID: 0}
 --- !u!114 &1363509652
@@ -94,7 +94,7 @@ MonoBehaviour:
   - {fileID: 2915839991338870161}
   - {fileID: 2915839991338870307}
   m_parentTransform: {fileID: 5232227960491073269}
-  m_player: {fileID: 1864753918}
+  m_player: {fileID: 5232227960490631103}
   headAnchor: {fileID: 0}
   m_grabbedObj: {fileID: 0}
 --- !u!1 &5231350794856234985
