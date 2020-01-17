@@ -24,11 +24,12 @@ public class HeavyTower : Tower {
         this.Damage = damage;
         this.DefaultAttackCooldown = attackCooldown;
     }
-
+    Vector3 position = Vector3.zero;
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
         //this.Info = Obj.GetComponent<TowerInfo>(); Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
+        position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         Transform feederPos = null;
         Transform cannonPos = null;
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
@@ -44,10 +45,16 @@ public class HeavyTower : Tower {
         Feeder.SpawnBombs();
         AutoShoot = true;//will be set through upgrades or something like that
     }
-    
+
     public override void PhysicsRefresh()
     {
         Cannon.Move(Position);
+        Cannon.AngleMoveToTarget(position);
+        if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
+        {
+            ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, Cannon.Obj.transform.position, position);
+            position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+        }
     }
 
     public override void PreInitialize()
