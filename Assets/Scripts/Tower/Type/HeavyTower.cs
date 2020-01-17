@@ -28,6 +28,7 @@ public class HeavyTower : Tower {
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
+        //this.Info = Obj.GetComponent<TowerInfo>(); Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
         Transform feederPos = null;
         Transform cannonPos = null;
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
@@ -78,5 +79,7 @@ public class HeavyTower : Tower {
         }*/
         Feeder.Move();
         Cannon.CannonInput();
+
+        //ChangeTowerStats();//takes stats from editor || Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
     }
 }
