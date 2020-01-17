@@ -21,7 +21,7 @@ public class PlayerManager : Flow
     
     //TODO GamePrefabsHolder
 
-    MainPlayerController mainPlayerController;
+    //MainPlayerController mainPlayerController;
     //CharacterController characterController;
 
     override public void PreInitialize()
@@ -30,30 +30,33 @@ public class PlayerManager : Flow
         {
             roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
         }
-        player = new Player();
-        mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
+
+        player = Main.Instance.playerPrefab;
+        
+        //mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
         //characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
 
-        mainPlayerController.PreInitialize();
+        //mainPlayerController.PreInitialize();
         player.PreInitialize();
     }
 
     override public void Initialize()
     {
-        mainPlayerController.Initialize();
+        //mainPlayerController.Initialize();
         player.Initialize();
     }
 
     override public void Refresh()
     {
-        mainPlayerController.Refresh();
-        player.Refresh();
+        //mainPlayerController.Refresh();
+        
         //TODO Remove this in build version
         //Switch Scene. 
         if(Input.GetKeyDown(KeyCode.P))
         {
             Main.Instance.ChangeCurrentFlow();
         }
+        player.Refresh();
     }
 
     override public void PhysicsRefresh()
