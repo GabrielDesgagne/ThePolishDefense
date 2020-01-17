@@ -28,7 +28,7 @@ public class BeginningTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("If (grabbed)  initiate launch game event, and render table NON kinematic");
+//        Debug.Log("If (grabbed)  initiate launch game event, and render table NON kinematic");
 
         //Debug.Log("TrigStay");
 

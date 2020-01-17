@@ -89,7 +89,7 @@ public class Grabber : Hand
 
     public void Initialize()
     {
-        base.Start();
+        base.Initialize();
 
         #region Awake
         controller = (OVRInput.Controller)handside;
@@ -132,7 +132,7 @@ public class Grabber : Hand
 
     public void Refresh()
     {
-        base.Update();
+        base.Refresh();
         alreadyUpdated = false;
         //TODO variable Grabber grabbedObject
         bool collisionEnabled = m_grabbedObj == null && flex >= THRESH_COLLISION_FLEX;

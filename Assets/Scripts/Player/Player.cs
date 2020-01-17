@@ -5,23 +5,17 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerStats playerStat;
-    MainPlayerController playerController;
-    public Grabber LeftHand { get; set; }
-    public Grabber RightHand { get; set; }
-    public HeadInfo Head { get; set; }
+    //public MainPlayerController playerController;
+    public Grabber LeftHand;
+    public Grabber RightHand;
+  //  public HeadInfo Head { get; set; }
     //Use this range for distance Grab
-    [SerializeField] private float range;
-    public float Range { get; set; }
-    public Player()
-    {
-        playerStat = new PlayerStats();
-        Head = new HeadInfo(OVRManager.tracker.GetPose());
-        LeftHand = new Grabber();
-        RightHand = new Grabber();
-    }
-
+    public float range = 1;
     public void PreInitialize()
     {
+        playerStat = gameObject.AddComponent<PlayerStats>();
+       // Head = new HeadInfo(OVRManager.tracker.GetPose());
+        
         LeftHand.PreInitialize();
         RightHand.PreInitialize();
     }
@@ -29,14 +23,14 @@ public class Player : MonoBehaviour
     {
         LeftHand.Initialize();
         RightHand.Initialize();
-        playerController.Initialize();
+        //playerController.Initialize();
     }
 
     public void Refresh()
     {
         LeftHand.Refresh();
         RightHand.Refresh();
-        playerController.Refresh();
+        //playerController.Refresh();
     }
 
     public void PhysicsRefresh()
@@ -49,7 +43,7 @@ public class Player : MonoBehaviour
     }
  
     
-    public class HeadInfo
+   /* public class HeadInfo
     {
         public HeadInfo(OVRPose headInfo)
         {
@@ -57,15 +51,6 @@ public class Player : MonoBehaviour
         }
 
 
-    }
-
-
-
-    void Update()
-    {
-
-    }
-
-    
+    }*/
 
 }
