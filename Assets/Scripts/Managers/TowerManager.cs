@@ -23,10 +23,7 @@ public class TowerManager : Flow
 
     override public void Initialize()
     {
-        //testing
-        towerList.Add(new BasicTower(new Vector3(10, 0, 10), 5, 50, 3));
-        towerList.Add(new HeavyTower(new Vector3(60, 0, 10), TowerLink.tl.heavyTowerDamage, TowerLink.tl.heavyTowerRange, TowerLink.tl.heavyTowerAttackCooldown));
-        towerList.Add(new IceTower(new Vector3(110, 0, 10), TowerLink.tl.iceTowerDamage, TowerLink.tl.iceTowerRange, TowerLink.tl.iceTowerAttackCooldown));
+        TowerLink.tl = GameObject.FindObjectOfType<TowerLink>();
 
         foreach (Tower tower in towerList)
             tower.Initialize();
@@ -65,6 +62,7 @@ public class TowerManager : Flow
                 tower = new IceTower(position, TowerLink.tl.iceTowerDamage, TowerLink.tl.iceTowerRange, TowerLink.tl.iceTowerAttackCooldown);
                 break;
         }
+        tower.Initialize();
         towerList.Add(tower);
         return tower;
     }

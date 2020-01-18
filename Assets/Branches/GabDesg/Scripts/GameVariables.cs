@@ -26,8 +26,9 @@ public class GameVariables : MonoBehaviour {
     [SerializeField] public ushort shopRows = 2;
     [SerializeField] public ushort shopColumns = 8;
 
-    [SerializeField] public Transform mapStartPoint;
-    [SerializeField] public Transform shopStartPoint;
+    [SerializeField] public Transform mapStartPointInMap;
+    [SerializeField] public Transform mapStartPointInShop;
+    [SerializeField] public Transform shopStartPointInShop;
 
     [HideInInspector] public GameObject gridsHolder;
     [HideInInspector] public List<Vector2> pathTilesCoords;

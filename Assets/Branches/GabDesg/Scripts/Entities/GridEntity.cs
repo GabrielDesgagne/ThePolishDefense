@@ -150,6 +150,9 @@ public class GridEntity {
 
         return coords;
     }
+    public Vector2 GetTileCoords(Vector2 row_column) {
+        return new Vector2(this.startPoint.position.x + (row_column.x * this.tileSize.x), this.startPoint.position.z + (row_column.y * this.tileSize.y));
+    }
 
     //--------------TODO-------------- Implement grid rotation
     public TileInfo GetRowColumn(Vector2 coords) {
@@ -175,6 +178,9 @@ public class GridEntity {
 
     public Vector3 GetTileCenter(Vector2 tileCoords) {
         return new Vector3(tileCoords.x + this.tileSize.x / 2, this.startPoint.position.y, (tileCoords.y - this.tileSize.y / 2) + 1);       // + 1 because needed a quick fix
+    }
+    public Vector3 GetTileCenterFixed(Vector2 tileCoords) {
+        return new Vector3(tileCoords.x + this.tileSize.x / 2, this.startPoint.position.y, (tileCoords.y + this.tileSize.y / 2));
     }
 
     public TileType GetTileType(Vector2 tileCoords) {

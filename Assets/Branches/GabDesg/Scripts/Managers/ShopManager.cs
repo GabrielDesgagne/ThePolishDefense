@@ -76,8 +76,8 @@ public class ShopManager : Flow {
 
     private void InitializeGrids() {
         //Init grids
-        this.Map = new GridEntity("MapShop", this.hiddenGrid, GameVariables.instance.mapStartPoint, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
-        this.shop = new GridEntity("ShopShop", this.hiddenGrid, GameVariables.instance.shopStartPoint, GameVariables.instance.shopRows, GameVariables.instance.shopColumns, this.tileSidesPrefab);
+        this.Map = new GridEntity("MapShop", this.hiddenGrid, GameVariables.instance.mapStartPointInShop, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
+        this.shop = new GridEntity("ShopShop", this.hiddenGrid, GameVariables.instance.shopStartPointInShop, GameVariables.instance.shopRows, GameVariables.instance.shopColumns, this.tileSidesPrefab);
     }
 
     private void InitializeHands() {

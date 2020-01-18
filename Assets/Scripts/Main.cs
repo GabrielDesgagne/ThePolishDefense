@@ -61,6 +61,7 @@ public class Main : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "MapScene")
         {
             currentFlow = game;
+            isInRoomScene = false;
         }
         else
         {
