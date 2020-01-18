@@ -18,7 +18,7 @@ public class Wave : ScriptableObject
         {
             for (int j = 0; j < types[i].number; j++)
             {
-                enemy.Add(Resources.Load<GameObject>("Prefabs/Enemy/" + types[i].type.ToString()));
+                enemy.Add(Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + types[i].type.ToString()));
             }
         }
     }

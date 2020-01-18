@@ -1453,7 +1453,7 @@ GameObject:
   - component: {fileID: 2164864876762340987}
   - component: {fileID: 8444678804019287746}
   m_Layer: 9
-  m_Name: FAST
+  m_Name: KNIGHT
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1490,7 +1490,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2acd5711be9608c42b28f87ca8f79d2f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1508,7 +1508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dcb4e4f21eae44881d035cadd153a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 20
+  startSpeed: 24
   speed: 0
   startHealth: 100
   value: 50
