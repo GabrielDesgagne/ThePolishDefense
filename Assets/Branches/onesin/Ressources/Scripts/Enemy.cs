@@ -75,8 +75,6 @@ public class Enemy : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
             TakeDamage(50);
-
-
         }
         //
         if (isDead)
