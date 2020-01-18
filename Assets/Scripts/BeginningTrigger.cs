@@ -21,7 +21,7 @@ public class BeginningTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-            Debug.Log("Check if Handle has been grabbed.");
+        //Debug.Log("Check if Handle has been grabbed.");
         
         //Debug.Log("TrigEnter");
     }
