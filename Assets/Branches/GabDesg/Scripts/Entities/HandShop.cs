@@ -78,6 +78,9 @@ public class HandShop {
 
             //Destroy ghost item
             GameObject.Destroy(this.objGhost);
+
+            //Reset hand infos
+            ResetHandInfo();
             Debug.Log("Object Dropped...");
         }
     }
@@ -93,9 +96,8 @@ public class HandShop {
     }
 
     private void UpdateTileSelected() {
-        if (this.hitPointOnBoard.HasValue) {
+        if (this.hitPointOnBoard != null) {
             this.tileCoordsSelected = shopManager.Map.GetTileCoords((Vector3)this.hitPointOnBoard);
-            Debug.Log(this.tileCoordsSelected.ToString());
         }
     }
 
@@ -172,7 +174,6 @@ public class HandShop {
 
                 if (objCanGoOnTileType && tileIsEmpty) {
                     this.onAvailableTile = true;
-                    Debug.Log("Ur good bro :)");
                 }
                 else {
                     this.onAvailableTile = false;
