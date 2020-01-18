@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\jean-\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jean-\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ThePolishDefense.-1523588253.00" t="ExcludeRecursive" />
-    <e p="D:\VrUnity\2\ThePolishDefense" t="IncludeRecursive">
+    <e p="C:\Users\ssohy\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ssohy\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ThePolishDefense.-1232157521.00" t="ExcludeRecursive" />
+    <e p="C:\Users\ssohy\Documents\dev\Unity\ThePolishDefense" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -13,15 +13,14 @@
             <e p="Scripts" t="Include">
               <e p="Entities" t="Include">
                 <e p="GridEntity.cs" t="Include" />
+                <e p="HandShop.cs" t="Include" />
                 <e p="ItemValue.cs" t="Include" />
                 <e p="MapInfoPck.cs" t="Include" />
                 <e p="Tile.cs" t="Include" />
               </e>
-              <e p="GameFlow.cs" t="Include" />
+              <e p="ExtensionMethods.cs" t="Include" />
               <e p="GameVariables.cs" t="Include" />
               <e p="Managers" t="Include">
-                <e p="GridManager.cs" t="Include" />
-                <e p="PlacingObjectManager.cs" t="Include" />
                 <e p="ShopManager.cs" t="Include" />
                 <e p="TimeManager.cs" t="Include" />
               </e>
