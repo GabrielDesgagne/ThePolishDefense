@@ -44,6 +44,7 @@ public class HandShop {
         if (this.objInHand == null) {
             objCanBeGrabbed = true;
             this.objInHand = obj;
+            this.towerInfo = type;
 
             //Create ghost item
             CreateGhostItem(type);
@@ -59,6 +60,7 @@ public class HandShop {
         if (this.objInHand == null) {
             objCanBeGrabbed = true;
             this.objInHand = obj;
+            this.trapInfo = type;
 
             //Create ghost item
             CreateGhostItem(type);
