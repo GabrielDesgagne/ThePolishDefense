@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4239798506175228160}
   m_Layer: 0
-  m_Name: Ninja_2
+  m_Name: Fast_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,12 +112,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f69b998891d9244d9b2013019ac726a, type: 2}
+      objectReference: {fileID: 2100000, guid: 43a76d54463befc478b8c1ce2bac8ab9, type: 2}
     - target: {fileID: -2416733968201007103, guid: 62e7963b14913f34798b098aaac03b82,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f69b998891d9244d9b2013019ac726a, type: 2}
+      objectReference: {fileID: 2100000, guid: b8a847f064ade5341bf3965d78bc8c2d, type: 2}
     - target: {fileID: -2416733968201007103, guid: 62e7963b14913f34798b098aaac03b82,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -241,7 +241,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: 53bdfe748e3ae514a8c8d8233dedfcf3, type: 2}
+      objectReference: {fileID: 2100000, guid: b8a847f064ade5341bf3965d78bc8c2d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c60801059e6d745ac6ca94a2cf1188, type: 3}
 --- !u!4 &7756595469844236155 stripped
@@ -343,12 +343,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f69b998891d9244d9b2013019ac726a, type: 2}
+      objectReference: {fileID: 2100000, guid: 43a76d54463befc478b8c1ce2bac8ab9, type: 2}
     - target: {fileID: -2416733968201007103, guid: 62e7963b14913f34798b098aaac03b82,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f69b998891d9244d9b2013019ac726a, type: 2}
+      objectReference: {fileID: 2100000, guid: b8a847f064ade5341bf3965d78bc8c2d, type: 2}
     - target: {fileID: -2416733968201007103, guid: 62e7963b14913f34798b098aaac03b82,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
