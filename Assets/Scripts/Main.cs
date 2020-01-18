@@ -12,18 +12,16 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
     
+    [Header("Internal Settings")]
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
     public GameObject GameSetupPrefab;
     public Player playerPrefab;
-    //public GameObject VRPlayerCharacter;
-
-    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
-
     public SceneTransition sceneTransition;
 
+    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
     public bool isInRoomScene { get; private set; }
-
+    
     private string currentSceneName;
     private string lastSceneName;
     
@@ -50,30 +48,24 @@ public class Main : MonoBehaviour
         room = Room.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
 
-        //Loads
-        //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
-        //GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
-
         //Get/Set
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
-
 
         //Scene Loading Delegate
         SceneManager.sceneLoaded += OnSceneLoaded;
         if (SceneManager.GetActiveScene().name == "RoomScene")
         {
             currentFlow = room;
-            //isInRoomScene = true;
         }
         else if (SceneManager.GetActiveScene().name == "MapScene")
         {
             currentFlow = game;
-            //isInRoomScene = false;
         }
         else
         {
-            Debug.Log("Not supposed to happen. Wrong scene name.");
+            Debug.LogWarning("Not supposed to happen. Wrong scene name. Loading Room Flow.");
+            currentFlow = room;
         }
     }
 
@@ -118,7 +110,7 @@ public class Main : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log(mode);
 
         currentSceneName = scene.name;
 
