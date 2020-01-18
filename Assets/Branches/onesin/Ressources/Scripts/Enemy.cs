@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private float health;
     public int value = 50;
 
-    public EnemyType type;
+    //public EnemyType type;
 
     public Image healthBar;
     [HideInInspector]

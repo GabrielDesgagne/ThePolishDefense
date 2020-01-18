@@ -72,7 +72,6 @@ public class TowerManager : Flow
     public Vector3? target;
     public Vector3 GetTarget()
     {
-        GridManager.Instance.LookForHitOnTables(out target);
-        return target.GetValueOrDefault();
+        return new Vector3();
     }
 }

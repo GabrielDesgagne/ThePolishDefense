@@ -19,7 +19,6 @@ public class Game : Flow
 
     //Managers
     PlayerManager playerManager;
-    GridManager gridManager;
     InputManager inputManager;
     //TODO Managers :
     PodManager podManager;
@@ -46,8 +45,6 @@ public class Game : Flow
         trapManager = TrapManager.Instance;
         projectileManager = ProjectileManager.Instance;
         logicManager = LogicManager.Instance;
-        gridManager = GridManager.Instance;
-        timeManager = TimeManager.Instance;
 
         //Setup Variables
 
@@ -78,7 +75,6 @@ public class Game : Flow
         towerManager.Initialize();
         timeManager.Initialize();
 
-        gridManager.Initialize();
 
     }
 
@@ -96,7 +92,6 @@ public class Game : Flow
         towerManager.Refresh();
         timeManager.Refresh();
 
-        gridManager.Refresh();
     }
 
     override public void PhysicsRefresh()
@@ -111,7 +106,6 @@ public class Game : Flow
         towerManager.PhysicsRefresh();
         timeManager.PhysicsRefresh();
 
-        gridManager.PhysicsRefresh();
     }
 
     override public void EndFlow()
@@ -126,7 +120,6 @@ public class Game : Flow
         towerManager.EndFlow();
         timeManager.EndFlow();
 
-        gridManager.EndFlow();
 
         GameObject.Destroy(gameSetup);
     }
