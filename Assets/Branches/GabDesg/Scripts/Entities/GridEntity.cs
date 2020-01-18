@@ -140,7 +140,7 @@ public class GridEntity {
 
     public Vector2 GetTileCoords(Vector3 pointInWorld) {
         Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
-        return new Vector2(tileCoords.x, -tileCoords.y);        //NOT SURE IT SHOULD BE MINUS Y
+        return new Vector2((int)tileCoords.x, (int)-tileCoords.y - 1);        //NOT SURE IT SHOULD BE MINUS Y
     }
     public Vector2 GetTileCoords(TileInfo tileInfo) {
         Vector2 coords = new Vector2();
@@ -174,7 +174,7 @@ public class GridEntity {
     }
 
     public Vector3 GetTileCenter(Vector2 tileCoords) {
-        return new Vector3(tileCoords.x + this.tileSize.x / 2, this.startPoint.position.y, tileCoords.y - this.tileSize.y / 2);
+        return new Vector3(tileCoords.x + this.tileSize.x / 2, this.startPoint.position.y, (tileCoords.y - this.tileSize.y / 2) + 1);       // + 1 because needed a quick fix
     }
 
     public TileType GetTileType(Vector2 tileCoords) {
