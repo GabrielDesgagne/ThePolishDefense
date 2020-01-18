@@ -82,6 +82,7 @@ public class TrapPiece : MonoBehaviour, IGrabbable {
             }
 
             hitPointInWorld = closestHit.point;
+            //Debug.Log("Closest Hit : " + closestHit.collider.gameObject.name);
         }
 
         return tableHasBeenHit;
