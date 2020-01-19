@@ -12,6 +12,8 @@ TagManager:
   - Trigger
   - Enemy
   - Bow
+  - LeftHand
+  - RightHand
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - 
   - Interact
   - Enemy
-  - 
+  - TpZone
   - 
   - 
   - 
