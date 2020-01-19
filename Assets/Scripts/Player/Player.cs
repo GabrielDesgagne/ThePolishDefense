@@ -10,11 +10,12 @@ public class Player : MonoBehaviour
     public LineRenderer lineRender;
     public GameObject tpZone;
     public float offSet;
-    
+    private bool onTeleport;
     public PlayerStats playerStat;
     //public MainPlayerController playerController;
     public Grabber LeftHand;
     public Grabber RightHand;
+    Vector3 positionTp;
   //  public HeadInfo Head { get; set; }
     //Use this range for distance Grab
     public float range = 1;
@@ -46,20 +47,25 @@ public class Player : MonoBehaviour
         if (InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].ButtonOne)
         {
             controllerUseToTp = OVRInput.Controller.LTouch;
+            onTeleport = true;
         }
         else if(InputManager.Instance.inputs.Touch[OVRInput.Controller.RTouch].ButtonOne)
         {
             controllerUseToTp = OVRInput.Controller.RTouch;
+            onTeleport = true;
         }
         else
         {
             controllerUseToTp = 0;
             teleportZonePrefab.SetActive(false);
+            endTeleport();
         }
-        if (controllerUseToTp != 0)
+
+        if (onTeleport)
         {
             beginTeleport();
         }
+
     }
 
     public void EndFlow()
@@ -69,7 +75,6 @@ public class Player : MonoBehaviour
 
     private void beginTeleport()
     {
-        RaycastHit bob;
         if (controllerUseToTp == OVRInput.Controller.LTouch)
         {
             RaycastHit rayHit;
@@ -78,19 +83,29 @@ public class Player : MonoBehaviour
                 //lineRender.gameObject.SetActive(true);
                 //lineRender.SetPosition(0, LeftHand.transform.position);
                 //lineRender.SetPosition(1, rayHit.point);
+                positionTp = rayHit.point;
                 teleportZonePrefab.SetActive(true);
-                Vector3 bob2 = new Vector3(rayHit.point.x, rayHit.point.y + offSet, rayHit.point.z);
-                teleportZonePrefab.transform.position = bob2;
+                positionTp.y += offSet;
+                teleportZonePrefab.transform.position = positionTp;
 
             }
             else
             {
-                lineRender.gameObject.SetActive(false);
+                //lineRender.gameObject.SetActive(false);
                 teleportZonePrefab.SetActive(false);
             }
             Debug.DrawRay(LeftHand.transform.position, LeftHand.transform.forward, Color.red);
         }
         //teleportZonePrefab.SetActive(true);
+    }
+
+    private void endTeleport()
+    {
+        if (onTeleport)
+        {
+            onTeleport = false;
+            transform.position = positionTp;
+        }
     }
    /* public class HeadInfo
     {

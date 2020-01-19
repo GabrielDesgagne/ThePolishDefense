@@ -331,7 +331,7 @@ public class Grabber : Hand
             {
                 continue;
             }
-
+            Debug.Log(grabbable.transform.name);
             for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
             {
                 Transform grabbableSnap = grabbable.GrabPoints[j];
