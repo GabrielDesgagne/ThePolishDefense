@@ -49,7 +49,7 @@ public class HeavyTower : Tower
     public override void PhysicsRefresh()
     {
         Enemy enemy;
-        if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, 1000)) != null)
+        if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, Range)) != null)
         {
             Vector3 position = enemy.transform.position;
             Cannon.Move(Position);

@@ -927,7 +927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerDamage: 5
   TowerRange: 50
-  TowerAttackCooldown: 1
+  TowerAttackCooldown: 0.5
 --- !u!1 &3482911609371878271
 GameObject:
   m_ObjectHideFlags: 0
