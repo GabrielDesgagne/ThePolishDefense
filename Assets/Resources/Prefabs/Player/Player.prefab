@@ -779,6 +779,9 @@ GameObject:
   - component: {fileID: 6462871216534854551}
   - component: {fileID: -2446790838031146208}
   - component: {fileID: -3533434228222905556}
+  - component: {fileID: 2870147692557120915}
+  - component: {fileID: -7714932209882620586}
+  - component: {fileID: 1239578306611069520}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -814,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95006d51c4ccb2e43a3f7c09bd567a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStat: {fileID: -3533434228222905556}
+  playerStat: {fileID: 1239578306611069520}
   LeftHand: {fileID: 1363509652}
   RightHand: {fileID: 950612737}
   range: 1
@@ -4635,6 +4638,54 @@ MonoBehaviour:
   initialHp: 10
   startingLevel: 0
   damage: 5
+--- !u!114 &2870147692557120915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232227960490631103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f296cd07b7f5043a74afb0c417a728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialCurrency: 100
+  initialHp: 10
+  startingLevel: 0
+  damage: 5
+--- !u!114 &-7714932209882620586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232227960490631103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f296cd07b7f5043a74afb0c417a728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialCurrency: 100
+  initialHp: 10
+  startingLevel: 0
+  damage: 5
+--- !u!114 &1239578306611069520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232227960490631103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f296cd07b7f5043a74afb0c417a728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialCurrency: 100
+  initialHp: 10
+  startingLevel: 0
+  damage: 5
 --- !u!1 &5232227960490691861
 GameObject:
   m_ObjectHideFlags: 0
@@ -4961,6 +5012,12 @@ PrefabInstance:
     - {fileID: 11427812, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
     - {fileID: 11438496, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+--- !u!1 &2915839991335857647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2915839991335722203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2915839991336126491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8,
@@ -4982,12 +5039,6 @@ CapsuleCollider:
 --- !u!136 &2915839991338870307 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 13646584, guid: e6ba3498ffa1e534b91a07264266e6b8,
-    type: 3}
-  m_PrefabInstance: {fileID: 2915839991335722203}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2915839991335857647 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8,
     type: 3}
   m_PrefabInstance: {fileID: 2915839991335722203}
   m_PrefabAsset: {fileID: 0}
