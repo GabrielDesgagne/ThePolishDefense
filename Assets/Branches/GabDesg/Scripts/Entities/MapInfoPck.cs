@@ -77,5 +77,11 @@ public class MapInfoPck
         }
         AddTower(new Vector2(2, 2), TowerType.HEAVY);
         AddTower(new Vector2(4, 12), TowerType.HEAVY);
+        AddTower(new Vector2(6, 6), TowerType.HEAVY);
+        AddTower(new Vector2(12, 8), TowerType.HEAVY);
+        AddTower(new Vector2(2, 6), TowerType.ICE);
+        AddTower(new Vector2(8, 9), TowerType.ICE);
+        AddTower(new Vector2(4, 8), TowerType.BASIC);
+        AddTower(new Vector2(2, 10), TowerType.BASIC);
     }
 }

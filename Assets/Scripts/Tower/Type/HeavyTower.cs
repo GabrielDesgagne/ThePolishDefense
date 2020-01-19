@@ -54,12 +54,11 @@ public class HeavyTower : Tower
             Vector3 position = enemy.transform.position;
             Cannon.Move(Position);
             Cannon.AngleMoveToTarget(position);
-            Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
             if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
             {
                 if (enemy != null && isReady)
                 {
-                    ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, enemy);
+                    ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, Cannon.Obj.transform.position, enemy);
                     isReady = false;
                     TimeManager.Instance.AddTimedAction(new TimedAction(() =>
                     {
