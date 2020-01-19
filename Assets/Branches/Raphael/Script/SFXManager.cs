@@ -13,7 +13,7 @@ public class SFXManager : MonoBehaviour
     public void StopSoundtrack2()
     {
         sfx.skyrim.Stop();
-       
+
     }
 
     public void Soundtrack(string name)
@@ -219,10 +219,6 @@ public class SFXManager : MonoBehaviour
         {
             sfx.explosion2.Play();
         }
-        else if (name == "explosion3")
-        {
-            sfx.explosion3.Play();
-        }
         else if (name == "potion1")
         {
             sfx.potion1.Play();
@@ -238,10 +234,6 @@ public class SFXManager : MonoBehaviour
         else if (name == "potionBreak3")
         {
             sfx.potionBreak3.Play();
-        }
-        else if (name == "splash1")
-        {
-            sfx.splash1.Play();
         }
         else if (name == "splash2")
         {
@@ -277,6 +269,42 @@ public class SFXManager : MonoBehaviour
         else if (name == "fireworks6")
         {
             sfx.fireworks6.Play();
+        }
+    }
+
+    public void TrapSound(string name)
+    {
+        if (name == "explosion3")
+        {
+            sfx.explosion3.Play();
+        }
+        else if (name == "splash1")
+        {
+            sfx.splash1.Play();
+        }
+        else if (name == "click1")
+        {
+            sfx.click1.Play();
+        }
+        else if (name == "click2")
+        {
+            sfx.click2.Play();
+        }
+        else if (name == "click3")
+        {
+            sfx.click3.Play();
+        }
+        else if (name == "spike1")
+        {
+            sfx.spike1.Play();
+        }
+        else if (name == "spike2")
+        {
+            sfx.spike2.Play();
+        }
+        else if (name == "spike3")
+        {
+            sfx.spike3.Play();
         }
     }
 
