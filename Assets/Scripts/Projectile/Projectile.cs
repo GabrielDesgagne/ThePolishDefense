@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Projectile {
+public abstract class Projectile
+{
     public GameObject Obj { get; set; }
     public ProjectileType Type { get; set; }
     public Vector3 StartPos { get; set; }
@@ -23,7 +24,8 @@ public abstract class Projectile {
             }
             else
             {
-                Obj.transform.position = Vector3.Slerp(StartPos, Enemy.transform.position, SlerpPct);
+                if (Enemy != null)
+                    Obj.transform.position = Vector3.Slerp(StartPos, Enemy.transform.position, SlerpPct);
             }
             SlerpPct += 0.05f;
         }

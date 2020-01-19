@@ -143,7 +143,7 @@ public class EnemyManager : Flow
     {
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         Enemy enemy = null;
-        if (enemies.Count > 0)
+        if (enemyInRange.Count > 0)
             enemy = enemyInRange[0];
         return enemy;
     }
