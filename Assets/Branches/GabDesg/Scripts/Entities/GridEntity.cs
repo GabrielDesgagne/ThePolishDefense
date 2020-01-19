@@ -78,7 +78,7 @@ public class GridEntity {
     //------------TODO----------- implement rotation on hiddenGrid
     private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, List<Vector2> pathCorners, GameObject prefab) {
         Quaternion rotation = this.hiddenGrid.transform.rotation;
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+        Vector3 scale = new Vector3(tileSize.x, prefab.transform.localScale.y, tileSize.y);
 
         //Start at center of the startpoint
         Vector2 tileCoords;
@@ -114,7 +114,7 @@ public class GridEntity {
     //------------TODO----------- implement rotation on hiddenGrid
     private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, GameObject prefab) {
         Quaternion rotation = this.hiddenGrid.transform.rotation;
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+        Vector3 scale = new Vector3(tileSize.x, prefab.transform.localScale.y, tileSize.y);
 
         //Start at center of the startpoint
         Vector2 tileCoords;
