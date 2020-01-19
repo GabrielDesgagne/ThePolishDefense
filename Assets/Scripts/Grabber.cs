@@ -17,6 +17,8 @@ public class Grabber : Hand
     //Sketch
     private List<Renderer> m_showAfterInputFocusAcquired;
 
+
+    public Transform IndexTransform;
     public float grabberRadius;
     private bool m_collisionEnabled = true;
 
@@ -87,7 +89,7 @@ public class Grabber : Hand
         m_showAfterInputFocusAcquired = new List<Renderer>();
     }
 
-    public void Initialize()
+    override public void Initialize()
     {
         base.Initialize();
 
@@ -130,12 +132,13 @@ public class Grabber : Hand
 
     }
 
-    public void Refresh()
+    override public void Refresh()
     {
         base.Refresh();
         alreadyUpdated = false;
         //TODO variable Grabber grabbedObject
         bool collisionEnabled = grabbedObj == null && flex >= THRESH_COLLISION_FLEX;
+
         CollisionEnable(collisionEnabled);
         // Hand's collision grows over a short amount of time on enable, rather than snapping to on, to help somewhat with interpenetration issues.
         if (m_collisionEnabled && m_collisionScaleCurrent + Mathf.Epsilon < COLLIDER_SCALE_MAX)
@@ -167,7 +170,6 @@ public class Grabber : Hand
             //Add Object in the hand
             grabbedObj = Main.Instance.grabbableObjects[pointedObject.transform.gameObject];
             GrabbableObject grabbable = Main.Instance.grabbableObjects[pointedObject.transform.gameObject];
-
             #region GRAB
 
             float closestDistance = float.MaxValue;
@@ -183,7 +185,6 @@ public class Grabber : Hand
                     closestGrabbableTransform = grabbableSnap;
                 }
             }
-            Debug.Log(closestGrabbableTransform.name);
             //Deactivate collider in hand (not the hand collider) to prevent some overlap
             GrabVolumeEnable(false);
 
@@ -217,8 +218,8 @@ public class Grabber : Hand
     public void CastRay()
     {
         RaycastHit rayHit;
-
-        if (Physics.SphereCast(transform.position, 0.01f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact")) ||
+            Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
             if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
 
@@ -264,7 +265,6 @@ public class Grabber : Hand
         m_prevFlex = inputs[controller].HandTrigger;
         CheckForPointedObject();
         CheckForGrabOrRelease(prevFlex);
-        Debug.DrawLine(transform.position, transform.position + (transform.forward * 10), Color.red);
     }
 
     void OnDestroy()
@@ -291,7 +291,7 @@ public class Grabber : Hand
         // Check if the collided object is a GrabbableObject.
         // If so, check if it is a grab candidate.
         // Remove the GrabbableObject to the grab Candidate.
-
+        SetPlayerIgnoreCollision(otherCollider.gameObject, false);
         if (!Main.Instance.grabbableObjects.ContainsKey(otherCollider.gameObject)) return;
         if (!grabCandidates.Contains(Main.Instance.grabbableObjects[otherCollider.gameObject])) return;
         grabCandidates.Remove(Main.Instance.grabbableObjects[otherCollider.gameObject]);
@@ -429,8 +429,8 @@ public class Grabber : Hand
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
     {
         grabbedObj.GrabEnd(linearVelocity, angularVelocity);
+
         //if (m_parentHeldObject) m_grabbedObj.transform.parent = null;
-        SetPlayerIgnoreCollision(grabbedObj.gameObject, false);
         grabbedObj = null;
     }
 
@@ -502,40 +502,7 @@ public class Grabber : Hand
         
     }
 
-    //public void castRay()
-    //{
-    //    ray.origin = transform.position;
-    //    ray.direction = transform.forward;
-    //    RaycastHit rayHit;
-    //    if (Physics.SphereCast(transform.position, 0.1f, transform.forward, out rayHit, grabberRadius, 1 << 8)) //TODO Change layer to fit name
-    //    {
-
-    //        if (currentPointedObject != rayHit.transform.gameObject)
-    //        {
-    //            if (curentPointed != null) curentPointed.Pointed = false;
-    //            currentPointedObject = rayHit.transform.gameObject;
-    //            curentPointed = rayHit.transform.GetComponent<InteractObject>();
-    //            if (curentPointed)
-    //                curentPointed.Pointed = true;
-    //        }
-    //        if (InputManager.Instance.inputs.Touch[controller].HandTrigger > 0.5f)
-    //        {
-    //            currentGrabbable = rayHit.transform.GetComponent<GrabbableObject>();
-    //            currentGrabbableObject = rayHit.transform.gameObject;
-    //            currentGrabbable.Selected = true;
-    //        }
-
-
-    //    }
-    //    else if (curentPointed)
-    //    {
-    //        curentPointed.Pointed = false;
-    //        currentPointedObject = null;
-    //        curentPointed = null;
-    //    }
-
-
-    //}
+   
     public void CollisionEnable(bool enabled)
     {
         if (m_collisionEnabled == enabled)
@@ -545,9 +512,26 @@ public class Grabber : Hand
         m_collisionEnabled = enabled;
 
 
-        for (int i = 0; i < handCollider.Length; ++i)
+
+        if (enabled)
         {
-            handCollider[i].enabled = enabled;
+            m_collisionScaleCurrent = COLLIDER_SCALE_MIN;
+            for (int i = 0; i < handCollider.Length; ++i)
+            {
+                Collider collider = handCollider[i];
+                collider.transform.localScale = new Vector3(COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN);
+                collider.enabled = true;
+            }
+        }
+        else
+        {
+            m_collisionScaleCurrent = COLLIDER_SCALE_MAX;
+            for (int i = 0; i < handCollider.Length; ++i)
+            {
+                Collider collider = handCollider[i];
+                collider.enabled = false;
+                collider.transform.localScale = new Vector3(COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN);
+            }
         }
 
     }

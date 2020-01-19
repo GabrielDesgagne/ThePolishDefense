@@ -24,11 +24,11 @@ public class InteractObject : MonoBehaviour, IInteract
 
     public void Pointed(bool value, Grabber grabber)
     {
-        if (!pointed && value)
-            OnPointEnter(grabber);
+        //if (!pointed && value)
+        //    OnPointEnter(grabber);
 
-        else if (pointed && !value)
-            OnPointExit(grabber);
+        //else if (pointed && !value)
+        //    OnPointExit(grabber);
 
         pointed = value;
     }

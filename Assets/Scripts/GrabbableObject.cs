@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GrabbableObject : InteractObject
@@ -12,6 +13,8 @@ public class GrabbableObject : InteractObject
     [SerializeField] private Transform[] grabPoints = null;
     [SerializeField] private bool allowOffhandGrab = true;
 
+
+    private List<Collider> colliders;
     #region Getters
     public bool AllowOffhandGrab => allowOffhandGrab;
     public bool DistanceGrab => distanceGrab;
@@ -50,15 +53,26 @@ public class GrabbableObject : InteractObject
             // Create a default grab point
             grabPoints = new Transform[1] { transform };
         }
+        colliders = GetComponentsInChildren<Collider>().ToList();
+        Debug.Log(colliders);
 
         gameObject.layer = LayerMask.NameToLayer("Interact");
     }
     
+    public void ToggleColliders(bool enable)
+    {
+        foreach(Collider coll in colliders)
+        {
+            coll.enabled = enable;
+        }
+    }
+
     /// <summary>
     /// Notifies the object that it has been grabbed.
     /// </summary>
     virtual public void GrabBegin(Grabber hand, Transform grabPoint) 
     {
+        ToggleColliders(false);
         GrabbedBy = hand;
         GrabbedTransform = grabPoint;
         GrabbableRigidBody.isKinematic = true;
@@ -69,6 +83,7 @@ public class GrabbableObject : InteractObject
     /// </summary>
     virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
+        ToggleColliders(true);
         GrabbableRigidBody.isKinematic = GrabbedKinematic;
         GrabbableRigidBody.velocity = linearVelocity;
         GrabbableRigidBody.angularVelocity = angularVelocity;
@@ -89,5 +104,9 @@ public class GrabbableObject : InteractObject
             // Notify the hand to release destroyed grabbables
             GrabbedBy.ForceRelease(this);
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.transform.name);
     }
 }

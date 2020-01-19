@@ -60,7 +60,7 @@ public class Hand : MonoBehaviour
     protected float point = 0;
     protected bool m_restoreOnInputAcquired = false;
 
-    virtual protected void Initialize()
+    virtual public void Initialize()
     {
         // Get animator layer indices by name, for later use switching between hand visuals
         m_animLayerIndexPoint = m_animator.GetLayerIndex(ANIM_LAYER_NAME_POINT);
@@ -77,7 +77,7 @@ public class Hand : MonoBehaviour
         if (!currentPose) { Debug.LogError("No Hand pose in Grabber Script."); return; }
     }
 
-    protected void Refresh()
+    virtual public void Refresh()
     {
         //Update animation parameter's value
         flex = inputs[controller].HandTrigger;
@@ -89,7 +89,6 @@ public class Hand : MonoBehaviour
         m_pointBlend = InputValueRateChange(m_isPointing, m_pointBlend);
         m_thumbsUpBlend = InputValueRateChange(m_isGivingThumbsUp, m_thumbsUpBlend);
         pinch = inputs[controller].IndexTrigger;
-
         UpdateAnimStates();
     }
     private float InputValueRateChange(bool isDown, float value)
@@ -100,7 +99,6 @@ public class Hand : MonoBehaviour
     }
     private void UpdateAnimStates()
     {
-
         if (updateAnim)
         {
             m_animator.SetInteger(m_animParamIndexPose, (int)currentPose.PoseId);

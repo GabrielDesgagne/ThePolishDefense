@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public float range = 1;
     public void PreInitialize()
     {
-        playerStat = gameObject.AddComponent<PlayerStats>();
+        //playerStat = gameObject.AddComponent<PlayerStats>();
        // Head = new HeadInfo(OVRManager.tracker.GetPose());
         
         LeftHand.PreInitialize();
