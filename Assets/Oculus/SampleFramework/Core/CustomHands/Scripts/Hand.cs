@@ -60,7 +60,7 @@ public class Hand : MonoBehaviour
     protected float point = 0;
     protected bool m_restoreOnInputAcquired = false;
 
-    virtual protected void Start()
+    virtual protected void Initialize()
     {
         // Get animator layer indices by name, for later use switching between hand visuals
         m_animLayerIndexPoint = m_animator.GetLayerIndex(ANIM_LAYER_NAME_POINT);
@@ -77,7 +77,7 @@ public class Hand : MonoBehaviour
         if (!currentPose) { Debug.LogError("No Hand pose in Grabber Script."); return; }
     }
 
-    protected void Update()
+    protected void Refresh()
     {
         //Update animation parameter's value
         flex = inputs[controller].HandTrigger;
@@ -92,9 +92,6 @@ public class Hand : MonoBehaviour
 
         UpdateAnimStates();
     }
-
-
-
     private float InputValueRateChange(bool isDown, float value)
     {
         float rateDelta = Time.deltaTime * INPUT_RATE_CHANGE;

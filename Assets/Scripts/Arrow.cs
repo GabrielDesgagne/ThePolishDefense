@@ -27,11 +27,19 @@ public class Arrow : MonoBehaviour
 			AttachArrow(other.GetComponent<BowManager>());
 		}
 
-		if (other.CompareTag("Enemy"))
-		{
-			other.GetComponent<Enemy>().TakeDamage(PlayerManager.Instance.player.playerStat.damage);
-		}
+		
 	}
+
+	private void OnCollisionEnter(Collision other)
+	{
+		if (other.transform.CompareTag("Enemy"))
+		{
+			other.transform.GetComponent<Enemy>().TakeDamage(PlayerManager.Instance.player.playerStat.damage);
+			Debug.Log("colisionEnemy");
+		}
+		
+	}
+
 	private void OnTriggerExit(Collider other)
 	{
 		

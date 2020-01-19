@@ -25,11 +25,13 @@ public class Door : MonoBehaviour
         {
 
             Enemy e = other.gameObject.GetComponent<Enemy>();
-            e.canEnter = true;
+            
             anim.SetBool("openDoor", true);
-
-            //Animator enemiAnim = other.gameObject.GetComponent<Animator>();
-
+            Animator enemiAnim = other.gameObject.GetComponent<Animator>();
+            //if (!enemiAnim.GetBool("idle"))
+            //{
+                e.canEnter = true;
+            //}
             //enemiAnim.SetTrigger("idle");
             //e.speed = 0;
             //e.isHittable = false;

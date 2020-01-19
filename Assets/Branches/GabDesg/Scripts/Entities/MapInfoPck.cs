@@ -6,6 +6,7 @@ public class MapInfoPck {
     //Moves only the infos on the map (not any other grid)
 
     #region Singleton
+    private MapInfoPck() { }
     private static MapInfoPck instance;
     public static MapInfoPck Instance {
         get {
@@ -14,38 +15,57 @@ public class MapInfoPck {
     }
     #endregion
 
-    public GameVariables gameVariables;
-
-    //Variables
-    public ushort GridWidth { get; private set; }
-    public ushort GridHeight { get; private set; }
     public Dictionary<Vector2, TowerType> TileTowerInfos { get; private set; } = new Dictionary<Vector2, TowerType>();
     public Dictionary<Vector2, TrapType> TileTrapInfos { get; private set; } = new Dictionary<Vector2, TrapType>();
 
 
-    private MapInfoPck() {
-        this.gameVariables = GameObject.Find("MainEntry").GetComponent<GameVariables>();
-        SetBoundsGrid(this.gameVariables.mapGridWidth, this.gameVariables.mapGridHeight);
-    }
 
-    private void SetBoundsGrid(ushort width, ushort height) {
-        this.GridWidth = width;
-        this.GridHeight = height;
-    }
-
-    private void DeleteItemIfExist(Vector2 tileCoords) {
-        if (this.TileTowerInfos.ContainsKey(tileCoords))
-            this.TileTowerInfos.Remove(tileCoords);
-        else if (this.TileTrapInfos.ContainsKey(tileCoords))
-            this.TileTrapInfos.Remove(tileCoords);
-    }
 
     public void AddTower(Vector2 tileCoord, TowerType type) {
-        DeleteItemIfExist(tileCoord);
-        this.TileTowerInfos.Add(tileCoord, type);
+        if (this.TileTrapInfos.ContainsKey(tileCoord))
+            Debug.Log("Tile coords is already saved... U shouldnt be able to place an item here (FIX CODE)");
+        else
+            this.TileTowerInfos.Add(tileCoord, type);
     }
     public void AddTrap(Vector2 tileCoord, TrapType type) {
-        DeleteItemIfExist(tileCoord);
-        this.TileTrapInfos.Add(tileCoord, type);
+        if (this.TileTrapInfos.ContainsKey(tileCoord))
+            Debug.Log("Tile coords is already saved... U shouldnt be able to place an item here (FIX CODE)");
+        else
+            this.TileTrapInfos.Add(tileCoord, type);
+    }
+
+    public void ClearLists() {
+        this.TileTowerInfos.Clear();
+        this.TileTrapInfos.Clear();
+    }
+
+    public void TestPopulate() {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                //                 if (j != 14) {
+                //                     if (j % 3 == 0) {
+                //                         AddTower(new Vector2(i, j), TowerType.BASIC);
+                //                     }
+                //                     else if (j % 3 == 1) {
+                //                         AddTower(new Vector2(i, j), TowerType.HEAVY);
+                //                     }
+                //                     else if (j % 3 == 2) {
+                //                         AddTower(new Vector2(i, j), TowerType.ICE);
+                //                     }
+                //                 }
+                //                 else {
+                //                     if (j % 3 == 0) {
+                //                         AddTrap(new Vector2(i, j), TrapType.GLUE);
+                //                     }
+                //                     else if (j % 3 == 1) {
+                //                         AddTrap(new Vector2(i, j), TrapType.MINE);
+                //                     }
+                //                     else if (j % 3 == 2) {
+                //                         AddTrap(new Vector2(i, j), TrapType.SPIKE);
+                //                     }
+                //                 }
+            }
+        }
+        AddTower(new Vector2(1, 1), TowerType.HEAVY);
     }
 }

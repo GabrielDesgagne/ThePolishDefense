@@ -21,14 +21,14 @@ public class BeginningTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-            Debug.Log("Check if Handle has been grabbed.");
+        //Debug.Log("Check if Handle has been grabbed.");
         
         //Debug.Log("TrigEnter");
     }
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("If (grabbed)  initiate launch game event, and render table NON kinematic");
+//        Debug.Log("If (grabbed)  initiate launch game event, and render table NON kinematic");
 
         //Debug.Log("TrigStay");
 

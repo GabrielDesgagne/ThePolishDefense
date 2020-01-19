@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private float health;
     public int value = 50;
 
-    public EnemyType type;
+    //public EnemyType type;
 
     public Image healthBar;
     [HideInInspector]
@@ -52,13 +52,14 @@ public class Enemy : MonoBehaviour
 
     public void Refresh()
     {
-        
+
         if (canEnter)
         {
             openDoorTime += Time.deltaTime;
             if (isHittable)
             {
                 anim.SetTrigger("idle");
+                //anim.SetBool("isWalk", false);
             }
             //speed = 0;
             isHittable = false;
@@ -66,9 +67,10 @@ public class Enemy : MonoBehaviour
         if (openDoorTime > stateDuration)
         {
             openDoorTime = 0;
+            //canEnter = false;
             //speed = startSpeed;
             anim.SetBool("isWalk", true);
-            
+            //anim.SetBool("idle", false);
 
         }
         //for test the take damage function. we can delete it after

@@ -48,9 +48,6 @@ public class ProjectileManager : Flow
         GameObject throwablePotionParent = new GameObject("ThrowablePotionParent");
         for (int i = 0; i < 10; i++)
         {
-            Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
-            bomb.Obj.SetActive(false);
-            disabledProjectiles[bomb.Type].Add(bomb);
 
             Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], potionParent.transform));
             potion.Obj.SetActive(false);
@@ -58,6 +55,13 @@ public class ProjectileManager : Flow
 
             Potion throwablePotion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], throwablePotionParent.transform));
             enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(throwablePotion);
+        }
+        //TODOODODODODODODODOD AHMAD FIX THIS PLS
+        for(int i = 0; i < 500; i++) {
+
+            Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
+            bomb.Obj.SetActive(false);
+            disabledProjectiles[bomb.Type].Add(bomb);
         }
     }
 

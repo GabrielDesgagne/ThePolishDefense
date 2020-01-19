@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
-
+   
     static public Main Instance { get; private set; }
 
     private Game game;
     private Room room;
     private Flow currentFlow;
-
+    
+    [Header("Internal Settings")]
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
     public GameObject GameSetupPrefab;
@@ -20,13 +21,15 @@ public class Main : MonoBehaviour
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
     public Dictionary<GameObject, IGrabbable> Igrabbables;
 
+    public Player playerPrefab;
     public SceneTransition sceneTransition;
 
+    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
     public bool isInRoomScene { get; private set; }
-
+    
     private string currentSceneName;
     private string lastSceneName;
-
+    
     private void Awake()
     {
 
@@ -50,22 +53,26 @@ public class Main : MonoBehaviour
         room = Room.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
 
-        //Loads
-        //RoomSetupPrefab = Resources.Load<GameObject>("Prefabs/Room/RoomSetup");
-        //GameSetupPrefab = Resources.Load<GameObject>("Prefabs/Game/GameSetup");
-
         //Get/Set
         GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
-
         //Scene Loading Delegate
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        currentFlow = room;
-
-
-
+        if (SceneManager.GetActiveScene().name == "RoomScene")
+        {
+            currentFlow = room;
+        }
+        else if (SceneManager.GetActiveScene().name == "MapScene")
+        {
+            currentFlow = game;
+            isInRoomScene = false;
+        }
+        else
+        {
+            Debug.LogWarning("Not supposed to happen. Wrong scene name. Loading Room Flow.");
+            currentFlow = room;
+        }
     }
 
     private void Start()
@@ -109,7 +116,7 @@ public class Main : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log(mode);
 
         currentSceneName = scene.name;
 

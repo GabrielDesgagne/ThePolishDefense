@@ -6,30 +6,30 @@ public class TestManager : MonoBehaviour
 {
     void Awake()
     {
-        TowerLink.tl = GameObject.FindObjectOfType<TowerLink>();
-        ProjectileManager.Instance.PreInitialize();
-        TowerManager.Instance.PreInitialize();
-        TimeManager.Instance.PreInitialize();
+//         TowerLink.tl = GameObject.FindObjectOfType<TowerLink>();
+//         ProjectileManager.Instance.PreInitialize();
+//         TowerManager.Instance.PreInitialize();
+//         TimeManager.Instance.PreInitialize();
     }
 
     void Start()
     {
-        ProjectileManager.Instance.Initialize();
-        TowerManager.Instance.Initialize();
-        TimeManager.Instance.Initialize();
+//         ProjectileManager.Instance.Initialize();
+//         TowerManager.Instance.Initialize();
+//         TimeManager.Instance.Initialize();
     }
 
     void Update()
     {
-        ProjectileManager.Instance.Refresh();
-        TowerManager.Instance.Refresh();
-        TimeManager.Instance.Refresh();
+//         ProjectileManager.Instance.Refresh();
+//         TowerManager.Instance.Refresh();
+//         TimeManager.Instance.Refresh();
     }
 
     void FixedUpdate()
     {
-        ProjectileManager.Instance.PhysicsRefresh();
-        TowerManager.Instance.PhysicsRefresh();
-        TimeManager.Instance.PhysicsRefresh();
+//         ProjectileManager.Instance.PhysicsRefresh();
+//         TowerManager.Instance.PhysicsRefresh();
+//         TimeManager.Instance.PhysicsRefresh();
     }
 }
