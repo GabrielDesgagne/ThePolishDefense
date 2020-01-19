@@ -166,7 +166,6 @@ public class Game : Flow {
 
             //Create obj
             Tower tower = towerManager.CreateTower(info.Value, tileCenter);
-            tower.Obj.transform.localScale *= 0.2f;
         }
 
         //Traps
