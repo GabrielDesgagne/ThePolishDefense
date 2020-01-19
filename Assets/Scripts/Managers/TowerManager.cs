@@ -8,14 +8,29 @@ public class TowerManager : Flow
     public static TowerManager Instance { get { return instance ?? (instance = new TowerManager()); } }
 
     public Dictionary<TowerType, GameObject> prefabs = new Dictionary<TowerType, GameObject>();
+    public Dictionary<TowerType, GameObject> towerParent = new Dictionary<TowerType, GameObject>();
 
     List<Tower> towerList = new List<Tower>();
+    public GameObject cannonPrefab;
+    public GameObject feederPrefab;
 
     override public void PreInitialize()
     {
         prefabs.Add(TowerType.BASIC, Resources.Load<GameObject>("Prefabs/Tower/Basic_Tower"));
         prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Tower/Heavy_Tower"));
         prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Tower/Ice_Tower"));
+
+        towerParent.Add(TowerType.BASIC, new GameObject("BasicTowerParent"));
+        towerParent.Add(TowerType.HEAVY, new GameObject("HeavyTowerParent"));
+        towerParent.Add(TowerType.ICE, new GameObject("IceTowerParent"));
+
+        GameObject parent = new GameObject("Towers");
+        towerParent[TowerType.BASIC].transform.parent = parent.transform;
+        towerParent[TowerType.HEAVY].transform.parent = parent.transform;
+        towerParent[TowerType.ICE].transform.parent = parent.transform;
+
+        cannonPrefab = Resources.Load<GameObject>("Prefabs/Tower/Cannon");
+        feederPrefab = Resources.Load<GameObject>("Prefabs/Tower/BombFeeder");
 
         foreach (Tower tower in towerList)
             tower.PreInitialize();
@@ -51,7 +66,6 @@ public class TowerManager : Flow
         Tower tower = null;
         switch (type)
         {
-            //magic values 5, 50, 5 for testing
             case TowerType.BASIC:
                 tower = new BasicTower(position, 5, 50, 5);
                 break;
