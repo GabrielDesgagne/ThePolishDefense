@@ -10,13 +10,21 @@ public class Cannon
     public float Angle { get; set; }
     public Bomb Bomb { get; set; }
     private float DistanceFromCenter { get; set; }
+    public Transform ShootPos { get; set; }
 
     public Cannon(Tower tower, Vector3 position)
     {
-        Obj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tower/Cannon"), position, Quaternion.identity);
+        Obj = GameObject.Instantiate(TowerManager.Instance.cannonPrefab, position, Quaternion.identity, tower.Obj.transform);
         DistanceFromCenter = Obj.transform.position.x - tower.Obj.transform.position.x;
         Tower = tower;
         Angle = 0;
+
+        Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
+        foreach(Transform tf in tfList)
+        {
+            if (tf.name == "BombPos")
+                ShootPos = tf;
+        }
     }
 
     public void CannonInput()

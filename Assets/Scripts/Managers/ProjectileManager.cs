@@ -41,14 +41,20 @@ public class ProjectileManager : Flow
         sparkParticle.Stop();
     }
 
+    public GameObject bombParent;
     override public void Initialize()
     {
-        GameObject bombParent = new GameObject("BombParent");
+        GameObject projectileParent = new GameObject("Projectiles");
+
+        bombParent = new GameObject("BombParent");
+        bombParent.transform.parent = projectileParent.transform;
         GameObject potionParent = new GameObject("PotionParent");
+        potionParent.transform.parent = projectileParent.transform;
         GameObject throwablePotionParent = new GameObject("ThrowablePotionParent");
+        throwablePotionParent.transform.parent = projectileParent.transform;
+
         for (int i = 0; i < 10; i++)
         {
-
             Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], potionParent.transform));
             potion.Obj.SetActive(false);
             disabledProjectiles[potion.Type].Add(potion);
@@ -166,8 +172,6 @@ public class ProjectileManager : Flow
     public void MoveThrowablePotions(Vector3 tableLoc)
     {
         foreach (Potion throwablePotion in enabledProjectiles[ProjectileType.THROWABLE_POTION])
-        {
-            throwablePotion.Obj.transform.position = tableLoc + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
-        }
+            throwablePotion.Obj.transform.position = tableLoc + new Vector3(Random.Range(-0.7f, 0.7f), 0, Random.Range(-0.7f, 0.7f));
     }
 }

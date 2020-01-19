@@ -6,13 +6,13 @@ public class HeavyTower : Tower
 {
     public Cannon Cannon { get; private set; }
     public BombFeeder Feeder { get; private set; }
-    private bool isReady = true;
 
     public HeavyTower()
     {
         this.Position = Vector3.zero;
         this.Type = TowerType.HEAVY;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = 50;
         this.DefaultAttackCooldown = 3;
     }
@@ -22,13 +22,15 @@ public class HeavyTower : Tower
         this.Position = position;
         this.Type = TowerType.HEAVY;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = range;
         this.Damage = damage;
         this.DefaultAttackCooldown = attackCooldown;
     }
+
     public override void Initialize()
     {
-        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
+        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity, TowerManager.Instance.towerParent[Type].transform);
         this.Info = Obj.GetComponent<TowerInfo>();
         Transform feederPos = null;
         Transform cannonPos = null;
@@ -40,7 +42,7 @@ public class HeavyTower : Tower
             else if (tf.name == "CannonPos")
                 cannonPos = tf;
         }
-        Feeder = new BombFeeder(feederPos.position);
+        Feeder = new BombFeeder(this, feederPos.position);
         Cannon = new Cannon(this, cannonPos.position);
         Feeder.SpawnBombs();
         AutoShoot = true;//will be set through upgrades or something like that
@@ -56,15 +58,7 @@ public class HeavyTower : Tower
             Cannon.AngleMoveToTarget(position);
             if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
             {
-                if (enemy != null && isReady)
-                {
-                    ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, Cannon.Obj.transform.position, enemy);
-                    isReady = false;
-                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-                    {
-                        isReady = true;
-                    }, DefaultAttackCooldown));
-                }
+                ShootAtEnemy(enemy, Cannon.ShootPos.position, ProjectileType.BOMB);
             }
         }
     }
@@ -78,7 +72,6 @@ public class HeavyTower : Tower
     {
         Feeder.Move();
         Cannon.CannonInput();
-
         ChangeTowerStats();
     }
 }
