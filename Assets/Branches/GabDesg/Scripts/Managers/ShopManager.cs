@@ -49,7 +49,7 @@ public class ShopManager : Flow {
         //Load Resources
         this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGridShop");
         this.hiddenHitBoxPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_HitBox");
-        this.tileSidesPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_Visual_Shop");
+        this.tileSidesPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_Shop");
     }
 
     public override void Initialize() {
