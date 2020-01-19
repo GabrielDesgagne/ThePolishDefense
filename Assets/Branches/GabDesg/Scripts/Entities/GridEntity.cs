@@ -43,6 +43,23 @@ public class GridEntity {
 
         InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
     }
+
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _PathCorners, GameObject tilePrefab)
+    {
+        this.Id = GetNextGridId();
+        this.hiddenGrid = _HiddenGrid;
+        this.startPoint = _StartPoint;
+        this.rows = _Rows;
+        this.columns = _Columns;
+        this.tileSize = this.hiddenGrid.cellSize;
+        this.pathCorners = _PathCorners;
+        this.isHitBoxActive = false;
+
+        CreateTilesHolder(name);
+
+        InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
+    }
+
     public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, GameObject tilePrefab) {
         this.hiddenGrid = _HiddenGrid;
         this.startPoint = _StartPoint;

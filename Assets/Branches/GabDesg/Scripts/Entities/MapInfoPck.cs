@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapInfoPck {
+public class MapInfoPck
+{
     //Moves only the infos on the map (not any other grid)
 
     #region Singleton
     private MapInfoPck() { }
     private static MapInfoPck instance;
-    public static MapInfoPck Instance {
-        get {
+    public static MapInfoPck Instance
+    {
+        get
+        {
             return instance ?? (instance = new MapInfoPck());
         }
     }
@@ -21,27 +24,33 @@ public class MapInfoPck {
 
 
 
-    public void AddTower(Vector2 tileCoord, TowerType type) {
+    public void AddTower(Vector2 tileCoord, TowerType type)
+    {
         if (this.TileTrapInfos.ContainsKey(tileCoord))
             Debug.Log("Tile coords is already saved... U shouldnt be able to place an item here (FIX CODE)");
         else
             this.TileTowerInfos.Add(tileCoord, type);
     }
-    public void AddTrap(Vector2 tileCoord, TrapType type) {
+    public void AddTrap(Vector2 tileCoord, TrapType type)
+    {
         if (this.TileTrapInfos.ContainsKey(tileCoord))
             Debug.Log("Tile coords is already saved... U shouldnt be able to place an item here (FIX CODE)");
         else
             this.TileTrapInfos.Add(tileCoord, type);
     }
 
-    public void ClearLists() {
+    public void ClearLists()
+    {
         this.TileTowerInfos.Clear();
         this.TileTrapInfos.Clear();
     }
 
-    public void TestPopulate() {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+    public void TestPopulate()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            for (int j = 0; j < 15; j++)
+            {
                 //                 if (j != 14) {
                 //                     if (j % 3 == 0) {
                 //                         AddTower(new Vector2(i, j), TowerType.BASIC);
@@ -66,6 +75,7 @@ public class MapInfoPck {
                 //                 }
             }
         }
-        AddTower(new Vector2(1, 1), TowerType.HEAVY);
+        AddTower(new Vector2(2, 2), TowerType.HEAVY);
+        AddTower(new Vector2(4, 12), TowerType.HEAVY);
     }
 }

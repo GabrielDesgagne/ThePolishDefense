@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
         WaveSpawner.EnemiesAlive--;
 
         PlayerStats.addCurrency(value);
-        //EnemyManager.Instance.EnemyDied(this);
+        EnemyManager.Instance.EnemyDied(this);
         //will be do by enemyManager
         Destroy(gameObject, 10);
     }

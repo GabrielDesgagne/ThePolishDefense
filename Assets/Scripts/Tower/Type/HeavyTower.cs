@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeavyTower : Tower {
+public class HeavyTower : Tower
+{
     public Cannon Cannon { get; private set; }
     public BombFeeder Feeder { get; private set; }
 
@@ -28,7 +29,7 @@ public class HeavyTower : Tower {
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
-        //this.Info = Obj.GetComponent<TowerInfo>(); Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
+        this.Info = Obj.GetComponent<TowerInfo>();
         position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         Transform feederPos = null;
         Transform cannonPos = null;
@@ -50,10 +51,19 @@ public class HeavyTower : Tower {
     {
         Cannon.Move(Position);
         Cannon.AngleMoveToTarget(position);
+        Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
         if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
         {
-            ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, Cannon.Obj.transform.position, position);
-            position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+            Enemy enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, 1000);
+            if (enemy != null)
+            {
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, enemy);
+                position = enemy.transform.position;
+            }
+            else
+            {
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, position);
+            }
         }
     }
 
@@ -70,11 +80,11 @@ public class HeavyTower : Tower {
             Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
             if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.BOMB))
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, TowerManager.Instance.GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, EnemyManager.Instance.FindFirstTargetInRange(startPos, 100).transform.position);
             }
             else if (!AutoShoot && Feeder.IsReady)
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, TowerManager.Instance.GetTarget());
+                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, EnemyManager.Instance.FindFirstTargetInRange(startPos, 100).transform.position);
             }
         }
         /*
@@ -87,6 +97,6 @@ public class HeavyTower : Tower {
         Feeder.Move();
         Cannon.CannonInput();
 
-        //ChangeTowerStats();//takes stats from editor || Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
+        ChangeTowerStats();
     }
 }

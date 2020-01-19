@@ -43,6 +43,11 @@ public class GameVariables : MonoBehaviour {
     [SerializeField] public ushort shopGridWidth;
     [SerializeField] public ushort shopGridHeight;
 
+    [SerializeField] public GameObject enemyStart;
+    [SerializeField] public GameObject enemyEnd;
+    [SerializeField] public GameObject enemyParentPoint;
+    [SerializeField] public GameObject enemyPoint;
+
     [SerializeField] public Transform shopRoomPosition;
     [SerializeField] public Transform mapRoomPosition;
 

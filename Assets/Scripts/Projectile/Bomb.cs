@@ -14,7 +14,7 @@ public class Bomb : Projectile {
 
     public override void CollisionHit()
     {
-        //EnemyManager.Instance.ProjectileCollisionHit(Obj.transform.position, Radius, Damage);
+        EnemyManager.Instance.DamageEnemiesInRange(Obj.transform.position, Radius, (int)Damage);
         ProjectileManager.Instance.explosionParticle.gameObject.transform.position = Obj.transform.position;
         ProjectileManager.Instance.explosionParticle.Play();
 

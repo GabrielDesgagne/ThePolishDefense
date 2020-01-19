@@ -29,7 +29,7 @@ public class IceTower : Tower {
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
-        //this.Info = Obj.GetComponent<TowerInfo>(); Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
+        this.Info = Obj.GetComponent<TowerInfo>();
         GameObject potionPrefab = ProjectileManager.Instance.projectilePrefab[ProjectileType.POTION];
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
         foreach (Transform tf in tfList)
@@ -77,6 +77,6 @@ public class IceTower : Tower {
             }
         }
 
-        //ChangeTowerStats();//takes stats from editor || Uncomment code when new prefab gets added and add script(TowerInfo) to the prefab
+        ChangeTowerStats();
     }
 }

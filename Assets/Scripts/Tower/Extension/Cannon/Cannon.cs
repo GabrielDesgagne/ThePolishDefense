@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon {
+public class Cannon
+{
     public GameObject Obj { get; set; }
     public Tower Tower { get; set; }
     public bool IsLoaded { get; set; }
@@ -56,8 +57,7 @@ public class Cannon {
     public void AngleMoveToTarget(Vector3 target)
     {
         float angleTo = Angle - GetAngleToTarget(target);
-        if (Mathf.Abs(angleTo) > 0)
-            Angle -= 1;
+        Angle -= 1;
     }
 
     public void Fire(Vector3 target)

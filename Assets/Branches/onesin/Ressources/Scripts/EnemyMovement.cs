@@ -47,6 +47,7 @@ public class EnemyMovement : MonoBehaviour
                 PlayerStats.decrementHp();
                 enemy.isHittable = false;
                 WaveSpawner.EnemiesAlive--;
+                EnemyManager.Instance.EnemyDied(enemy);
                 Destroy(gameObject);
                 return;
             }
