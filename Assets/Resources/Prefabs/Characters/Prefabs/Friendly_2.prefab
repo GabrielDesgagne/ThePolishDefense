@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3646225110533704138}
   m_Layer: 0
-  m_Name: Soldier_2
+  m_Name: Friendly_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: ed4c4c9fc6907a9498988ccf6ee69799, type: 2}
+      objectReference: {fileID: 2100000, guid: 8cfdfddec51cfbc46a44063b32f4b6a4, type: 2}
     - target: {fileID: -2416733968201007103, guid: 95279a0c0b6bed54c8ddee84962e00cb,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -258,7 +258,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: d939a0b72fdcc574da44a78cc419ec4b, type: 2}
+      objectReference: {fileID: 2100000, guid: ed4c4c9fc6907a9498988ccf6ee69799, type: 2}
     - target: {fileID: -927199367670048503, guid: 95279a0c0b6bed54c8ddee84962e00cb,
         type: 3}
       propertyPath: m_Name
