@@ -778,6 +778,7 @@ GameObject:
   - component: {fileID: -1276065509347630958}
   - component: {fileID: 6462871216534854551}
   - component: {fileID: -2446790838031146208}
+  - component: {fileID: -3533434228222905556}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -813,7 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95006d51c4ccb2e43a3f7c09bd567a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStat: {fileID: -2446790838031146208}
+  playerStat: {fileID: -3533434228222905556}
   LeftHand: {fileID: 1363509652}
   RightHand: {fileID: 950612737}
   range: 1
@@ -4603,6 +4604,22 @@ MonoBehaviour:
   startingLevel: 0
   damage: 5
 --- !u!114 &-2446790838031146208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232227960490631103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f296cd07b7f5043a74afb0c417a728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialCurrency: 100
+  initialHp: 10
+  startingLevel: 0
+  damage: 5
+--- !u!114 &-3533434228222905556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
