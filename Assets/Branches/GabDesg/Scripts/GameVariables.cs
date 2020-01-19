@@ -23,19 +23,18 @@ public class GameVariables : MonoBehaviour {
     [Header("Grids Variables")]
     [SerializeField] public ushort mapRows = 15;
     [SerializeField] public ushort mapColumns = 15;
-    [SerializeField] public ushort shopRows = 2;
-    [SerializeField] public ushort shopColumns = 8;
+    [SerializeField] public ushort shopTurretRows = 2;
+    [SerializeField] public ushort shopTurretColumns = 2;
+    [SerializeField] public ushort shopTrapRows = 2;
+    [SerializeField] public ushort shopTrapColumns = 8;
 
     [SerializeField] public Transform mapStartPointInMap;
     [SerializeField] public Transform mapStartPointInShop;
-    [SerializeField] public Transform shopStartPointInShop;
+    [SerializeField] public Transform shopTurretStartPoint;
+    [SerializeField] public Transform shopTrapStartPoint;
 
     [HideInInspector] public GameObject gridsHolder;
     [HideInInspector] public List<Vector2> pathTilesCoords;
-
-
-
-
 
     [SerializeField] public GameObject randomPrefab;
     [SerializeField] public ushort mapGridWidth;
@@ -53,7 +52,6 @@ public class GameVariables : MonoBehaviour {
 
     [Header("Shop Prefabs")]
     [SerializeField] public GameObject turretBasicPrefab;
-
 
     private void InitPathTilesCoords() {
         instance.pathTilesCoords.Add(new Vector2(11, 14));
