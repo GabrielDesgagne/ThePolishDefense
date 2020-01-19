@@ -17,6 +17,5 @@ public class Bomb : Projectile {
         EnemyManager.Instance.DamageEnemiesInRange(Obj.transform.position, Radius, (int)Damage);
         ProjectileManager.Instance.explosionParticle.gameObject.transform.position = Obj.transform.position;
         ProjectileManager.Instance.explosionParticle.Play();
-
     }
 }

@@ -56,8 +56,11 @@ public class Cannon
 
     public void AngleMoveToTarget(Vector3 target)
     {
-        float angleTo = Angle - GetAngleToTarget(target);
-        Angle -= 1;
+        float distance = (GetAngleToTarget(target) - Angle) % 360;
+        if (distance > 0)
+            Angle += 1;
+        else
+            Angle -= 1;
     }
 
     public void Fire(Vector3 target)

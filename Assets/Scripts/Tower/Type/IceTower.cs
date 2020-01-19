@@ -53,18 +53,6 @@ public class IceTower : Tower {
 
     public override void Refresh()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector3 startPos = Position + new Vector3(0, positionPos.position.y, 0);
-            if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.POTION))
-            {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, TowerManager.Instance.GetTarget());
-            }
-            else if (!AutoShoot)
-            {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.POTION, startPos, TowerManager.Instance.GetTarget());
-            }
-        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (ProjectileManager.Instance.enabledProjectiles[ProjectileType.THROWABLE_POTION].Count > 0)
