@@ -24,7 +24,6 @@ public class Main : MonoBehaviour
     public Player playerPrefab;
     public SceneTransition sceneTransition;
 
-    public Dictionary<GameObject, GrabbableObject> grabbableObjects;
     public bool isInRoomScene { get; private set; }
     
     private string currentSceneName;
