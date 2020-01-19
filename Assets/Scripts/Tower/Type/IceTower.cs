@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceTower : Tower {
+public class IceTower : Tower
+{
     private List<Potion> throwablePotions = new List<Potion>();
 
     public IceTower()
@@ -10,6 +11,7 @@ public class IceTower : Tower {
         this.Position = new Vector3(0, 0, 0);
         this.Type = TowerType.ICE;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = 50;
         this.Damage = 3;
         this.DefaultAttackCooldown = 3;
@@ -20,6 +22,7 @@ public class IceTower : Tower {
         this.Position = position;
         this.Type = TowerType.ICE;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = range;
         this.Damage = damage;
         this.DefaultAttackCooldown = attackCooldown;
@@ -28,7 +31,7 @@ public class IceTower : Tower {
     Transform positionPos = null;
     public override void Initialize()
     {
-        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
+        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity, TowerManager.Instance.towerParent[Type].transform);
         this.Info = Obj.GetComponent<TowerInfo>();
         GameObject potionPrefab = ProjectileManager.Instance.projectilePrefab[ProjectileType.POTION];
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
@@ -38,12 +41,16 @@ public class IceTower : Tower {
                 positionPos = tf;
         }
         //method should be called when teleporting to tower that has towerType.ICE
-        ProjectileManager.Instance.MoveThrowablePotions(Position + new Vector3(0, positionPos.position.y, 0));
+        ProjectileManager.Instance.MoveThrowablePotions(new Vector3(Obj.transform.position.x, positionPos.position.y, Obj.transform.position.z));
     }
 
     public override void PhysicsRefresh()
     {
-
+        Enemy enemy;
+        if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, Range)) != null)
+        {
+            ShootAtEnemy(enemy, Position + new Vector3(0, positionPos.position.y, 0), ProjectileType.POTION);
+        }
     }
 
     public override void PreInitialize()

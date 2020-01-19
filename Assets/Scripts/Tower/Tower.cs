@@ -13,6 +13,7 @@ public abstract class Tower {
     public float Damage { get; protected set; }
     public float DefaultAttackCooldown { get; protected set; }
     public TowerInfo Info { get; protected set; }
+    public bool IsReady { get; protected set; }
 
     public abstract void PreInitialize();
     public abstract void Initialize();
@@ -24,5 +25,18 @@ public abstract class Tower {
         Damage = Info.TowerDamage;
         Range = Info.TowerRange;
         DefaultAttackCooldown = Info.TowerAttackCooldown;
+    }
+
+    protected void ShootAtEnemy(Enemy enemy, Vector3 startPos, ProjectileType type)
+    {
+        if (enemy != null && IsReady)
+        {
+            ProjectileManager.Instance.BasicShoot(type, startPos, enemy);
+            IsReady = false;
+            TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+            {
+                IsReady = true;
+            }, DefaultAttackCooldown));
+        }
     }
 }

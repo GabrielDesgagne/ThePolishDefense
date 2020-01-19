@@ -13,7 +13,7 @@ public class Cannon
 
     public Cannon(Tower tower, Vector3 position)
     {
-        Obj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tower/Cannon"), position, Quaternion.identity);
+        Obj = GameObject.Instantiate(TowerManager.Instance.cannonPrefab, position, Quaternion.identity, tower.Obj.transform);
         DistanceFromCenter = Obj.transform.position.x - tower.Obj.transform.position.x;
         Tower = tower;
         Angle = 0;
