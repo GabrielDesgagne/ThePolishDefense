@@ -27,6 +27,7 @@ public class HeavyTower : Tower
         this.Damage = damage;
         this.DefaultAttackCooldown = attackCooldown;
     }
+
     public override void Initialize()
     {
         this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity, TowerManager.Instance.towerParent[Type].transform);
@@ -57,7 +58,7 @@ public class HeavyTower : Tower
             Cannon.AngleMoveToTarget(position);
             if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
             {
-                ShootAtEnemy(enemy, Cannon.Obj.transform.position, ProjectileType.BOMB);
+                ShootAtEnemy(enemy, Cannon.ShootPos.position, ProjectileType.BOMB);
             }
         }
     }

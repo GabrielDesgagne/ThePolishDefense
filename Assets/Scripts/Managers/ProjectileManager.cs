@@ -41,11 +41,12 @@ public class ProjectileManager : Flow
         sparkParticle.Stop();
     }
 
+    public GameObject bombParent;
     override public void Initialize()
     {
         GameObject projectileParent = new GameObject("Projectiles");
 
-        GameObject bombParent = new GameObject("BombParent");
+        bombParent = new GameObject("BombParent");
         bombParent.transform.parent = projectileParent.transform;
         GameObject potionParent = new GameObject("PotionParent");
         potionParent.transform.parent = projectileParent.transform;
