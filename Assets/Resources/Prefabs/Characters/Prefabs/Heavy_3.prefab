@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6402420408788683608}
   - component: {fileID: 6204722629007676748}
   m_Layer: 0
-  m_Name: Heavy_Knight4
+  m_Name: Heavy_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,6 +138,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ed4c4c9fc6907a9498988ccf6ee69799, type: 2}
+    - target: {fileID: 6599466574928417544, guid: 21b804f17fd78614dbb080985c265ac9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1082a722a6675d4ca59c29f8f80402b, type: 2}
+    - target: {fileID: 6599466574928417544, guid: 21b804f17fd78614dbb080985c265ac9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a0c680a7e9dfb84a95e25906d0601e0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b804f17fd78614dbb080985c265ac9, type: 3}
 --- !u!4 &5694617146328243888 stripped

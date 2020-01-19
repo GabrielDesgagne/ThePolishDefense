@@ -21,7 +21,7 @@ public class Main : MonoBehaviour
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
     public Dictionary<GameObject, IGrabbable> Igrabbables;
 
-    public Player playerPrefab;
+    //public Player playerPrefab;
     public SceneTransition sceneTransition;
 
     public bool isInRoomScene { get; private set; }

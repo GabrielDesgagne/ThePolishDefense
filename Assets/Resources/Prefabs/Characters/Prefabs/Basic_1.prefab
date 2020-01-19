@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851602747422934808}
   m_Layer: 0
-  m_Name: Heavy_Knight
+  m_Name: Basic_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,12 +276,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ed4c4c9fc6907a9498988ccf6ee69799, type: 2}
+      objectReference: {fileID: 2100000, guid: 43a76d54463befc478b8c1ce2bac8ab9, type: 2}
     - target: {fileID: 1651062367082650294, guid: bfac2c4b39a1ce240b1d7ee932d91543,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: b8a847f064ade5341bf3965d78bc8c2d, type: 2}
+    - target: {fileID: 1651062367082650294, guid: bfac2c4b39a1ce240b1d7ee932d91543,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f8dd2ff2cb649044aa0a771c3a0661bf, type: 2}
+    - target: {fileID: 1651062367082650294, guid: bfac2c4b39a1ce240b1d7ee932d91543,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: ed4c4c9fc6907a9498988ccf6ee69799, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfac2c4b39a1ce240b1d7ee932d91543, type: 3}
 --- !u!4 &7249815337061832920 stripped

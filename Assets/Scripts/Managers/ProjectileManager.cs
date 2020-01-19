@@ -56,9 +56,9 @@ public class ProjectileManager : Flow
             Potion throwablePotion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], throwablePotionParent.transform));
             enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(throwablePotion);
         }
-        //TODOODODODODODODODOD AHMAD FIX THIS PLS
-        for(int i = 0; i < 500; i++) {
 
+        for (int i = 0; i < 500; i++)
+        {
             Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
             bomb.Obj.SetActive(false);
             disabledProjectiles[bomb.Type].Add(bomb);
@@ -86,6 +86,18 @@ public class ProjectileManager : Flow
         projectile.StartPos = startPos;
         projectile.TargetPos = targetPos;
         projectile.Obj.SetActive(true);
+        projectile.IsEnemyTarget = false;
+        enabledProjectiles[projectile.Type].Add(projectile);
+        disabledProjectiles[type].RemoveAt(0);
+    }
+
+    public void BasicShoot(ProjectileType type, Vector3 startPos, Enemy enemy)
+    {
+        Projectile projectile = disabledProjectiles[type][0];
+        projectile.StartPos = startPos;
+        projectile.Enemy = enemy;
+        projectile.Obj.SetActive(true);
+        projectile.IsEnemyTarget = true;
         enabledProjectiles[projectile.Type].Add(projectile);
         disabledProjectiles[type].RemoveAt(0);
     }

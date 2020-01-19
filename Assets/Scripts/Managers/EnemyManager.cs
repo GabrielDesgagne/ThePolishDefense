@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { FAST, SIMPLE, SLOW,KNIGHT }
+public enum EnemyType { FAST, SIMPLE, SLOW, KNIGHT }
 public class EnemyManager : Flow
 {
     #region Singleton
@@ -10,7 +10,8 @@ public class EnemyManager : Flow
 
     static public EnemyManager Instance
     {
-        get {
+        get
+        {
             return instance ?? (instance = new EnemyManager());
         }
     }
@@ -22,7 +23,7 @@ public class EnemyManager : Flow
     public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
-   
+
     Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
 
 
@@ -50,9 +51,9 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
-        waveSpawner= Resources.Load<GameObject>("Prefabs/WaveSpawner");
-        spawner.GetComponent<WaveSpawner>();
-        spawner.Initialize();
+        waveSpawner = Resources.Load<GameObject>("Prefabs/WaveSpawner");
+        //spawner.GetComponent<WaveSpawner>();
+        //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
@@ -68,25 +69,25 @@ public class EnemyManager : Flow
         foreach (Enemy e in enemies)
             e.Refresh();
 
-        spawner.Refresh(enemyPrefabDict);
-       /* if (EnemiesAlive > 0)
-        {
-            return;
-        }
+        //spawner.Refresh(enemyPrefabDict);
+        /* if (EnemiesAlive > 0)
+         {
+             return;
+         }
 
-        if (waveCountdownTimer.countdown <= 0f)
-        {
-            MonoBehaviour mono = new MonoBehaviour();
-            mono.StartCoroutine(SpawnWave());
-            waveCountdownTimer.countdown = timeBetweenWaves;
-            return;
-        }
-        waveCountdownTimer.Deduct();*/
+         if (waveCountdownTimer.countdown <= 0f)
+         {
+             MonoBehaviour mono = new MonoBehaviour();
+             mono.StartCoroutine(SpawnWave());
+             waveCountdownTimer.countdown = timeBetweenWaves;
+             return;
+         }
+         waveCountdownTimer.Deduct();*/
     }
 
     override public void PhysicsRefresh()
     {
-       
+
         while (toRemove.Count > 0) //remove all dead ones
         {
             try
@@ -108,7 +109,6 @@ public class EnemyManager : Flow
     public void EnemyDied(Enemy enemyDied)
     {
         toRemove.Push(enemyDied);
-
     }
 
     /* IEnumerator SpawnWave()
@@ -143,7 +143,7 @@ public class EnemyManager : Flow
     {
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         Enemy enemy = null;
-        if (enemies.Count > 0)
+        if (enemyInRange.Count > 0)
             enemy = enemyInRange[0];
         return enemy;
     }
@@ -153,7 +153,7 @@ public class EnemyManager : Flow
     {
         List<Enemy> enemiesInRange = new List<Enemy>();
 
-        for (int i =0;i<enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             if (range >= Vector3.Distance(position, enemies[i].transform.position))
                 enemiesInRange.Add(enemies[i]);

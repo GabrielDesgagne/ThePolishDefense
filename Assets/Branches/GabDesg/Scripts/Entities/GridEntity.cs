@@ -43,6 +43,23 @@ public class GridEntity {
 
         InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
     }
+
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _PathCorners, GameObject tilePrefab)
+    {
+        this.Id = GetNextGridId();
+        this.hiddenGrid = _HiddenGrid;
+        this.startPoint = _StartPoint;
+        this.rows = _Rows;
+        this.columns = _Columns;
+        this.tileSize = this.hiddenGrid.cellSize;
+        this.pathCorners = _PathCorners;
+        this.isHitBoxActive = false;
+
+        CreateTilesHolder(name);
+
+        InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
+    }
+
     public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, GameObject tilePrefab) {
         this.hiddenGrid = _HiddenGrid;
         this.startPoint = _StartPoint;
@@ -78,7 +95,7 @@ public class GridEntity {
     //------------TODO----------- implement rotation on hiddenGrid
     private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, List<Vector2> pathCorners, GameObject prefab) {
         Quaternion rotation = this.hiddenGrid.transform.rotation;
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+        Vector3 scale = new Vector3(tileSize.x, prefab.transform.localScale.y, tileSize.y);
 
         //Start at center of the startpoint
         Vector2 tileCoords;
@@ -114,7 +131,7 @@ public class GridEntity {
     //------------TODO----------- implement rotation on hiddenGrid
     private void InitTiles(Transform startPoint, ushort rows, ushort columns, Vector2 tileSize, GameObject prefab) {
         Quaternion rotation = this.hiddenGrid.transform.rotation;
-        Vector3 scale = new Vector3(tileSize.x, 0.5f, tileSize.y);
+        Vector3 scale = new Vector3(tileSize.x, prefab.transform.localScale.y, tileSize.y);
 
         //Start at center of the startpoint
         Vector2 tileCoords;
