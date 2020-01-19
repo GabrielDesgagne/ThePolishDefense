@@ -85,7 +85,7 @@ public class WaveSpawner : MonoBehaviour {
         {
             GameObject newEnemy = SpawnEnemy(wave.enemy[i]);
             Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-            //EnemyManager.Instance.toAdd.Push(e);
+            EnemyManager.Instance.toAdd.Push(e);
             yield return new WaitForSeconds(1f / wave.rate);
         }
 

@@ -18,5 +18,13 @@ public class Waypoints : MonoBehaviour {
             points[i] = transform.GetChild(i);
         }
     }
+    public static void SetPoint(Transform transform)
+    {
+        points = new Transform[transform.childCount];
 
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = transform.GetChild(i);
+        }
+    }
 }
