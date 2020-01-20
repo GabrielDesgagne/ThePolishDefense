@@ -31,7 +31,7 @@ public class PlayerManager : Flow
             roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
         }
 
-        player = Main.Instance.playerPrefab;
+        player = Main.Instance.VRPlayerCharacter.GetComponent<Player>();
         
         //mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
         //characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
