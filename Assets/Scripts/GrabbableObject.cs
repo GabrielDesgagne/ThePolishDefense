@@ -2,108 +2,80 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GrabbableObject : InteractObject
 {
-    //TODO  make serialize field, and set to private. Add getters
-    public bool distanceGrab;
-    public bool flip;
-    public Transform snap;
-    public Collider thisCollider;
-    public HandPose pose;
-    public float distanceRange = 10;
-    public Rigidbody rigidBody;
+    /* Var in inspector */
+    [SerializeField] private bool distanceGrab;
+    [SerializeField] private HandPose handPose;
+    [SerializeField] private Transform[] grabPoints = null;
+    [SerializeField] private bool allowOffhandGrab = true;
 
-    [SerializeField]
-    protected Collider[] m_grabPoints = null;
-    public bool allowOffhandGrab = true;
-    protected bool m_grabbedKinematic = false;
-    protected Collider m_grabbedCollider = null;
-    protected Grabber m_grabbedBy = null;
 
-    #region Facebook Nightmare
-    /// <summary>
+    private List<Collider> colliders;
+    #region Getters
+    public bool AllowOffhandGrab => allowOffhandGrab;
+    public bool DistanceGrab => distanceGrab;
+    public Rigidbody GrabbableRigidBody { get; private set; }
+    public Collider ThisCollider { get; private set; }
     /// If true, the object is currently grabbed.
-    /// </summary>
-    public bool isGrabbed
-    {
-        get { return m_grabbedBy != null; }
-    }
+    public bool IsGrabbed => GrabbedBy != null;
+    /// Returns the custom hand
+    public HandPose CustomHandPose => handPose;
 
     /// Returns the Grabber currently grabbing this object.
-    public Grabber grabbedBy
-    {
-        get { return m_grabbedBy; }
-    }
+    public Grabber GrabbedBy { get; private set; } = null;
 
     /// The transform at which this object was grabbed.
-    public Transform grabbedTransform
-    {
-        get { return m_grabbedCollider.transform; }
-    }
+    public Transform GrabbedTransform { get; private set; }
 
     /// The Rigidbody of the collider that was used to grab this object.
-    public Rigidbody grabbedRigidbody
-    {
-        get { return m_grabbedCollider.attachedRigidbody; }
-    }
+    public Rigidbody GrabbedRigidbody => GrabbedCollider.attachedRigidbody;
 
     /// The contact point(s) where the object was grabbed.
-    public Collider[] grabPoints
-    {
-        get { return m_grabPoints; }
-    }
+    public Transform[] GrabPoints => grabPoints;
+
+    public bool GrabbedKinematic { get; set; } = false;
+    public Collider GrabbedCollider { get; set; } = null;
+
     #endregion
 
     private void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
-
-        if (m_grabPoints.Length == 0)
-        {
-            // Get the collider from the grabbable
-            thisCollider = this.GetComponent<Collider>();
-            if (thisCollider == null)
-            {
-                throw new ArgumentException("Grabbables cannot have zero grab points and no collider -- please add a grab point or collider.");
-            }
-
-            // Create a default grab point
-            m_grabPoints = new Collider[1] { thisCollider };
-        }
+        //Cache Values
+        GrabbableRigidBody = GetComponent<Rigidbody>();
+        ThisCollider = GetComponent<Collider>(); // Can't be null since it is required in parent class
         
+        if (grabPoints.Length == 0)
+        {
+            // Create a default grab point
+            grabPoints = new Transform[1] { transform };
+        }
+        colliders = GetComponentsInChildren<Collider>().ToList();
+        Debug.Log(colliders);
+
         gameObject.layer = LayerMask.NameToLayer("Interact");
     }
-    private void Update()
+    
+    public void ToggleColliders(bool enable)
     {
-    }
-    private bool selected;
-    public bool Selected { get { return selected; }
-        set
+        foreach(Collider coll in colliders)
         {
-            //collider.isTrigger = true;
-            rigidBody.useGravity = false;
-            selected = value;
+            coll.enabled = enable;
         }
     }
 
-    //public void MoveToHand(Vector3 hand)
-    //{
-
-    //    if (Selected)
-    //    {
-    //        transform.position = Vector3.MoveTowards(snap.position, hand, Time.deltaTime * 20); //TODO
-    //    }
-
-    //}
-
-
-    virtual public void GrabBegin(Grabber hand, Collider grabPoint)
+    /// <summary>
+    /// Notifies the object that it has been grabbed.
+    /// </summary>
+    virtual public void GrabBegin(Grabber hand, Transform grabPoint) 
     {
-        m_grabbedBy = hand;
-        m_grabbedCollider = grabPoint;
-        rigidBody.isKinematic = true;
+        ToggleColliders(false);
+        GrabbedBy = hand;
+        GrabbedTransform = grabPoint;
+        GrabbableRigidBody.isKinematic = true;
     }
 
     /// <summary>
@@ -111,26 +83,30 @@ public class GrabbableObject : InteractObject
     /// </summary>
     virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        rigidBody.isKinematic = m_grabbedKinematic;
-        rigidBody.velocity = linearVelocity;
-        rigidBody.angularVelocity = angularVelocity;
-        m_grabbedBy = null;
-        m_grabbedCollider = null;
+        ToggleColliders(true);
+        GrabbableRigidBody.isKinematic = GrabbedKinematic;
+        GrabbableRigidBody.velocity = linearVelocity;
+        GrabbableRigidBody.angularVelocity = angularVelocity;
+        GrabbedBy = null;
+        GrabbedCollider = null;
     }
 
     protected virtual void Start()
-    {
-        m_grabbedKinematic = rigidBody.isKinematic;
+    { 
+        GrabbedKinematic = GrabbableRigidBody.isKinematic;
         Main.Instance.grabbableObjects.Add(this.gameObject, this);
-
     }
 
     void OnDestroy()
     {
-        if (m_grabbedBy != null)
+        if (GrabbedBy != null)
         {
             // Notify the hand to release destroyed grabbables
-            m_grabbedBy.ForceRelease(this);
+            GrabbedBy.ForceRelease(this);
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.transform.name);
     }
 }

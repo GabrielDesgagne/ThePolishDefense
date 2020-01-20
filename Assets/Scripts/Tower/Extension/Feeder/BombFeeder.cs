@@ -15,10 +15,10 @@ public class BombFeeder {
         Position = new Vector3(0, 0, 0);
     }
 
-    public BombFeeder(Vector3 position)
+    public BombFeeder(Tower tower, Vector3 position)
     {
         Position = position;
-        Obj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tower/BombFeeder"), Position, Quaternion.identity);
+        Obj = GameObject.Instantiate(TowerManager.Instance.feederPrefab, Position, Quaternion.identity, tower.Obj.transform);
     }
 
     GameObject bombPrefab;
@@ -28,9 +28,9 @@ public class BombFeeder {
         float offSet = bombPrefab.transform.localScale.y * 0.25f;
         topY = bombPrefab.transform.localScale.y * 2 + offSet;
 
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY, 0), Quaternion.identity));
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY - bombPrefab.transform.localScale.y, 0), Quaternion.identity));
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, offSet, 0), Quaternion.identity));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY - bombPrefab.transform.localScale.y, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, offSet, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
     }
 
     public void Move()

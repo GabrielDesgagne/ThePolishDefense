@@ -16,10 +16,14 @@ public class Main : MonoBehaviour
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
     public GameObject GameSetupPrefab;
-    public Player playerPrefab;
-    public SceneTransition sceneTransition;
+    public GameObject VRPlayerCharacter;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
+    public Dictionary<GameObject, IGrabbable> Igrabbables;
+
+    //public Player playerPrefab;
+    public SceneTransition sceneTransition;
+
     public bool isInRoomScene { get; private set; }
     
     private string currentSceneName;

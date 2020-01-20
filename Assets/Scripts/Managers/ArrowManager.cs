@@ -34,7 +34,7 @@ public class ArrowManager : Flow
     {
         if (currentArrowLeft != null)
         {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) < 0.2f)
             {
                 currentArrowLeft.setOffHand();
                 currentArrowLeft = null;
@@ -43,7 +43,7 @@ public class ArrowManager : Flow
 
         if (currentArrowRight != null)
         {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) == 0)
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) < 0.2f)
             {
                 currentArrowRight.setOffHand();
                 currentArrowRight = null;
@@ -58,7 +58,6 @@ public class ArrowManager : Flow
                 currentArrowRight = arrow;
                 currentArrowRight.transform.localPosition = ArrowPos;
                 currentArrowRight.transform.localScale = new Vector3(scale,scale,scale);
-
             }
         }
         else

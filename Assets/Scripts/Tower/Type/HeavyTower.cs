@@ -12,6 +12,7 @@ public class HeavyTower : Tower
         this.Position = Vector3.zero;
         this.Type = TowerType.HEAVY;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = 50;
         this.DefaultAttackCooldown = 3;
     }
@@ -21,16 +22,16 @@ public class HeavyTower : Tower
         this.Position = position;
         this.Type = TowerType.HEAVY;
         this.IsPlayerActive = false;
+        this.IsReady = true;
         this.Range = range;
         this.Damage = damage;
         this.DefaultAttackCooldown = attackCooldown;
     }
-    Vector3 position = Vector3.zero;
+
     public override void Initialize()
     {
-        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity);
+        this.Obj = GameObject.Instantiate(TowerManager.Instance.prefabs[Type], Position, Quaternion.identity, TowerManager.Instance.towerParent[Type].transform);
         this.Info = Obj.GetComponent<TowerInfo>();
-        position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         Transform feederPos = null;
         Transform cannonPos = null;
         Transform[] tfList = Obj.GetComponentsInChildren<Transform>();
@@ -41,7 +42,7 @@ public class HeavyTower : Tower
             else if (tf.name == "CannonPos")
                 cannonPos = tf;
         }
-        Feeder = new BombFeeder(feederPos.position);
+        Feeder = new BombFeeder(this, feederPos.position);
         Cannon = new Cannon(this, cannonPos.position);
         Feeder.SpawnBombs();
         AutoShoot = true;//will be set through upgrades or something like that
@@ -49,20 +50,18 @@ public class HeavyTower : Tower
 
     public override void PhysicsRefresh()
     {
-        Cannon.Move(Position);
-        Cannon.AngleMoveToTarget(position);
-        Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
-        if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
+        Enemy enemy;
+        if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, Range)) != null)
         {
-            Enemy enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, 1000);
-            if (enemy != null)
+            Vector3 position = enemy.transform.position;
+            if (IsReady)
             {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, enemy);
-                position = enemy.transform.position;
-            }
-            else
-            {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, position);
+                Cannon.Move(Position);
+                Cannon.AngleMoveToTarget(position);
+                if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
+                {
+                    ShootAtEnemy(enemy, Cannon.ShootPos.position, ProjectileType.BOMB);
+                }
             }
         }
     }
@@ -74,29 +73,8 @@ public class HeavyTower : Tower
 
     public override void Refresh()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Feeder.Pickup();
-            Vector3 startPos = Feeder.Position + new Vector3(0, Feeder.topY, 0);
-            if (AutoShoot && ProjectileManager.Instance.IsReadyToShoot(ProjectileType.BOMB))
-            {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, EnemyManager.Instance.FindFirstTargetInRange(startPos, 100).transform.position);
-            }
-            else if (!AutoShoot && Feeder.IsReady)
-            {
-                ProjectileManager.Instance.BasicShoot(ProjectileType.BOMB, startPos, EnemyManager.Instance.FindFirstTargetInRange(startPos, 100).transform.position);
-            }
-        }
-        /*
-            if (Input.GetKeyDown(KeyCode.Q)) {
-            Feeder.Pickup();
-            enabledBombs.Add(disabledBombs[0]);
-            Canon.LoadCannon(enabledBombs[enabledBombs.Count - 1]);
-            disabledBombs.RemoveAt(0);
-        }*/
         Feeder.Move();
         Cannon.CannonInput();
-
         ChangeTowerStats();
     }
 }

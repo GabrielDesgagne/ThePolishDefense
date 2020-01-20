@@ -49,7 +49,7 @@ public class ShopManager : Flow {
         //Load Resources
         this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGridShop");
         this.hiddenHitBoxPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_HitBox");
-        this.tileSidesPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_Visual_Shop");
+        this.tileSidesPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_Shop");
     }
 
     public override void Initialize() {
@@ -126,12 +126,14 @@ public class ShopManager : Flow {
     public void ObjGrabbed(GameObject obj, HandType hand, TowerPiece type) {
         if (this.hands[hand].GrabObj(obj, type))
             //Respawn turret in shop
-            SpawnTurretInShop(type.currentType);
+            TimeManager.Instance.AddTimedAction(new TimedAction(() => { SpawnTurretInShop(type.currentType); },3.0f));
+            
     }
     public void ObjGrabbed(GameObject obj, HandType hand, TrapPiece type) {
         if (this.hands[hand].GrabObj(obj, type))
             //Respawn trap in shop
-            SpawnTrapInShop(type.currentType);
+            TimeManager.Instance.AddTimedAction(new TimedAction(() => { SpawnTrapInShop(type.currentType); }, 3.0f));
+
     }
 
     public void ObjDropped(HandType hand) {

@@ -78,7 +78,7 @@ public class HandShop {
 
             //Destroy ghost item
             GameObject.Destroy(this.objGhost);
-
+            GameObject.Destroy(this.objInHand);
             //Reset hand infos
             ResetHandInfo();
             Debug.Log("Object Dropped...");
@@ -88,11 +88,13 @@ public class HandShop {
     private void CreateGhostItem(TowerPiece type) {
         //Instantiate obj (prefab held in ShopManager)
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
+        this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void CreateGhostItem(TrapPiece type) {
         //Instantiate obj
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
         this.objGhost.SetActive(false);
+        this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void UpdateTileSelected() {
