@@ -6,12 +6,11 @@ public class BoardHitBox : GrabbableObject
 {
 
     HandType handType;
-    bool value;
     RaycastHit ray;
 
     override public void OnPointExit(Grabber grabber)
     {
-        ShopManager.Instance.OnExitBoard(handType);
+        ShopManager.Instance.OnExitBoard(this.handType);
     }
 
     override public void OnPointEnter(Grabber grabber)
@@ -21,10 +20,15 @@ public class BoardHitBox : GrabbableObject
 
     public override void Pointed(bool value, Grabber grabber, RaycastHit ray)
     {
-        if(ray.point == Vector3.zero) { return; }
-        base.Pointed(value, grabber, ray);
-        //Debug.Log("Nom du fucking colider : " + ray.collider.name + "Pos du point muthafucka : " + ray.point);
-        Debug.DrawLine(grabber.transform.position, ray.point, Color.red);
-        ShopManager.Instance.OnEnterBoard(handType, ray.point);
+        if (ray.point != Vector3.zero) {
+            base.Pointed(value, grabber, ray);
+
+            ShopManager.Instance.OnEnterBoard(this.handType, ray.point);
+
+            //Check input to buy
+            if (InputManager.Instance.inputs.Touch[grabber.controller].IndexTrigger >= 0.5f) {
+                ShopManager.Instance.BuyItem(this.handType);
+            }
+        }
     }
 }
