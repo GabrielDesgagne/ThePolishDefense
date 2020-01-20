@@ -29,7 +29,7 @@ public abstract class Tower {
 
     protected void ShootAtEnemy(Enemy enemy, Vector3 startPos, ProjectileType type)
     {
-        if (enemy != null && IsReady)
+        if (enemy != null)
         {
             ProjectileManager.Instance.BasicShoot(type, startPos, enemy);
             IsReady = false;
