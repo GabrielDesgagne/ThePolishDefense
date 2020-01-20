@@ -24,8 +24,8 @@
 
         void surf(Input IN, inout SurfaceOutput o){
             o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
-            half rim = 1 - saturate(dot(normalize(IN.viewDir), o.Normal));
-            o.Emission = frac(IN.worldPos.y*(20-_StripeWidth)*0.5) > 0.4 ? float3(0,1,0)*rim: float3(1,0,0)*rim;
+            half rim = dot(normalize(IN.viewDir), o.Normal);
+            o.Emission = frac(IN.worldPos.y * (20-_StripeWidth)*0.5) > 0.4 ? float3(0,1,0) * rim: float3(1,0,0) * rim;
         }
         ENDCG
     }
