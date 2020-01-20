@@ -27,6 +27,7 @@ public class Game : Flow {
     ProjectileManager projectileManager;
     LogicManager logicManager;
     TimeManager timeManager;
+    private ArrowManager arrowManager;
 
 
     //Game Setup has a reference to everything in the scene.
@@ -52,7 +53,7 @@ public class Game : Flow {
         logicManager = LogicManager.Instance;
         towerManager = TowerManager.Instance;
         timeManager = TimeManager.Instance;
-
+        arrowManager = ArrowManager.Instance;
         //Setup Variables
 
         //Instantiates
@@ -68,7 +69,8 @@ public class Game : Flow {
         logicManager.PreInitialize();
         towerManager.PreInitialize();
         timeManager.PreInitialize();
-
+        arrowManager.PreInitialize();
+        podManager.PreInitialize();
 
         LoadResources();
     }
@@ -83,7 +85,8 @@ public class Game : Flow {
         logicManager.Initialize();
         towerManager.Initialize();
         timeManager.Initialize();
-
+        arrowManager.Initialize();
+        podManager.Initialize();
         InitMap();
     }
 
@@ -99,6 +102,7 @@ public class Game : Flow {
         logicManager.Refresh();
         towerManager.Refresh();
         timeManager.Refresh();
+        arrowManager.Refresh();
 
     }
 
@@ -112,7 +116,8 @@ public class Game : Flow {
         logicManager.PhysicsRefresh();
         towerManager.PhysicsRefresh();
         timeManager.PhysicsRefresh();
-
+        arrowManager.PhysicsRefresh();
+        podManager.PhysicsRefresh();
     }
 
     override public void EndFlow() {

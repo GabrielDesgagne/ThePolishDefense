@@ -75,10 +75,18 @@ public class Player : MonoBehaviour
 
     private void beginTeleport()
     {
+        Ray ray = new Ray();
         if (controllerUseToTp == OVRInput.Controller.LTouch)
         {
-            RaycastHit rayHit;
-            if (Physics.Raycast(LeftHand.transform.position, LeftHand.transform.forward, out rayHit, 100,1 << 10))
+            ray = new Ray(LeftHand.transform.position, LeftHand.transform.forward);
+        }
+        else if (controllerUseToTp == OVRInput.Controller.RTouch)
+        {
+            ray = new Ray(RightHand.transform.position, RightHand.transform.forward);
+        }
+
+        RaycastHit rayHit;
+            if (Physics.Raycast(ray, out rayHit, 100,1 << 10))
             {
                 //lineRender.gameObject.SetActive(true);
                 //lineRender.SetPosition(0, LeftHand.transform.position);
@@ -95,16 +103,17 @@ public class Player : MonoBehaviour
                 teleportZonePrefab.SetActive(false);
             }
             Debug.DrawRay(LeftHand.transform.position, LeftHand.transform.forward, Color.red);
-        }
+        
         //teleportZonePrefab.SetActive(true);
     }
 
     private void endTeleport()
     {
-        if (onTeleport)
+        if (onTeleport && positionTp != Vector3.zero)
         {
             onTeleport = false;
             transform.position = positionTp;
+            positionTp = Vector3.zero;
         }
     }
    /* public class HeadInfo

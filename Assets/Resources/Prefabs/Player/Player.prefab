@@ -580,6 +580,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportZonePrefab: {fileID: 3675926964669446790, guid: e23a789aef8dee848a821dcba7d376c9,
     type: 3}
+  lineRender: {fileID: 0}
+  tpZone: {fileID: 0}
+  offSet: 0
   playerStat: {fileID: 0}
   LeftHand: {fileID: 506492682}
   RightHand: {fileID: 199253485}
@@ -824,9 +827,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5232227960491069083}
     m_Modifications:
+    - target: {fileID: 172650, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
     - target: {fileID: 195418, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_Name
       value: CustomHandRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 195418, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
       objectReference: {fileID: 0}
     - target: {fileID: 422740, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_LocalPosition.x
@@ -911,9 +922,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5232227960491073269}
     m_Modifications:
+    - target: {fileID: 135332, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
+      objectReference: {fileID: 0}
     - target: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_Name
       value: CustomHandLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
       objectReference: {fileID: 0}
     - target: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_LocalPosition.x
