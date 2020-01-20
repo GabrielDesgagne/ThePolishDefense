@@ -27,7 +27,7 @@ public class TrapManager : Flow
     public GameObject trapHolder;
     public List<Trap> listTrap;
     public Dictionary<TrapType, GameObject> trapPrefabs;
-    Trap trap;
+
 
     override public void PreInitialize()
     {
@@ -45,14 +45,15 @@ public class TrapManager : Flow
         //init list of trap
         listTrap = new List<Trap>();
 
+        foreach (Trap trap in listTrap)
+        {
+            trap.PreInitialize();
+        }
     }
 
     override public void Initialize()
     {
-        foreach (Trap t in listTrap)
-        {
-            t.Initialize();
-        }
+
     }
 
     override public void Refresh()
@@ -79,20 +80,19 @@ public class TrapManager : Flow
             case TrapType.MINE:
                 trap = new Mine(GameObject.Instantiate(trapPrefabs[TrapType.MINE], trapHolder.transform));
                 trap.transform.position = position;
-                listTrap.Add(trap);
                 break;
             case TrapType.SPIKE:
                 trap = new Spike(GameObject.Instantiate(trapPrefabs[TrapType.SPIKE], trapHolder.transform));
                 trap.transform.position = position;
-                listTrap.Add(trap);
+
                 break;
             case TrapType.GLUE:
                 trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], trapHolder.transform));
                 trap.transform.position = position;
-                listTrap.Add(trap);
+
                 break;
         }
-        return trap;
+        return null;
     }
 
 }
