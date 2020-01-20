@@ -52,11 +52,11 @@ public class EnemyManager : Flow
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
         waveSpawner = Resources.Load<GameObject>("Prefabs/WaveSpawner");
-        //spawner.GetComponent<WaveSpawner>();
-        //spawner.Initialize();
+        spawner.GetComponent<WaveSpawner>();
+        spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
-            enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
+            enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
         }
         //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
         //EnemiesAlive = 0;
@@ -69,7 +69,7 @@ public class EnemyManager : Flow
         foreach (Enemy e in enemies)
             e.Refresh();
 
-        //spawner.Refresh(enemyPrefabDict);
+        spawner.Refresh(enemyPrefabDict);
         /* if (EnemiesAlive > 0)
          {
              return;
@@ -143,7 +143,7 @@ public class EnemyManager : Flow
     {
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         Enemy enemy = null;
-        if (enemies.Count > 0)
+        if (enemyInRange.Count > 0)
             enemy = enemyInRange[0];
         return enemy;
     }

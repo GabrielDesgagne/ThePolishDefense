@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
         isHittable = true;
     }
 
-    private void Update() { Refresh(); }
+    //private void Update() { Refresh(); }
 
     public void Refresh()
     {

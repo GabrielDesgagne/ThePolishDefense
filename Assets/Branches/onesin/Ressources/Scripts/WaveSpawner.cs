@@ -8,12 +8,12 @@ public class WaveSpawner : MonoBehaviour {
     public static int EnemiesAlive = 0;
     public Logic gameLogic;
 
-    public Wave[] waves;
+    Wave[] waves;
+    public LevelSystem levelSystem;
 
     [SerializeField]
     public Transform spawnPoint;
 
-    [SerializeField]
     private float timeBetweenWaves = 5f;
 
     [SerializeField]
@@ -23,19 +23,21 @@ public class WaveSpawner : MonoBehaviour {
     private GameObject countdown;
     private Countdown waveCountdownTimer;
     //just for test
-    Dictionary<EnemyType, GameObject> enemyPrefab;
-    private void Start() { Initialize(); }
-    private void Update() { Refresh(enemyPrefab); }
+    //Dictionary<EnemyType, GameObject> enemyPrefab;
+   // private void Start() { Initialize(); }
+    //private void Update() { Refresh(enemyPrefab); }
    
     public void Initialize()
     {
         EnemiesAlive = 0;
         waveCountdownTimer = countdown.GetComponent<Countdown>();
+        waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
+        timeBetweenWaves= levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
         waveCountdownTimer.countdown = timeBetweenWaves;
-        foreach (Wave w in waves)
+        /*foreach (Wave w in waves)
         {
             w.Load();
-        }
+        }*/
 
     }
 
@@ -70,8 +72,9 @@ public class WaveSpawner : MonoBehaviour {
 
         Wave wave = waves[waveIndex];
 
-        EnemiesAlive = wave.enemy.Count;
-        /*for (int i = 0; i < wave.types.Length; i++)
+        //EnemiesAlive = wave.enemy.Count;
+        EnemiesAlive=EnemyManager.Instance.enemies.Count;
+        for (int i = 0; i < wave.types.Length; i++)
         {
             for (int j = 0; j < wave.types[i].number; j++)
             {
@@ -80,14 +83,14 @@ public class WaveSpawner : MonoBehaviour {
                 EnemyManager.Instance.toAdd.Push(e);
                 yield return new WaitForSeconds(1f / wave.rate);
             }
-        }*/
-        for (int i = 0; i < wave.enemy.Count; i++)
+        }
+        /*for (int i = 0; i < wave.enemy.Count; i++)
         {
             GameObject newEnemy = SpawnEnemy(wave.enemy[i]);
             Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
             EnemyManager.Instance.toAdd.Push(e);
             yield return new WaitForSeconds(1f / wave.rate);
-        }
+        }*/
 
         waveIndex++;
 
