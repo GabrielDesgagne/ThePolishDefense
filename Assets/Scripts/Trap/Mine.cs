@@ -37,7 +37,7 @@ public class Mine : Trap
         this.force = 700;
     }
 
-    public Mine(Vector3 position, float damage,float radius, float coldown, float force)
+    public Mine(Vector3 position, float damage, float radius, float coldown, float force)
     {
         this.TrapPosition = position;
         this.type = TrapType.MINE;
