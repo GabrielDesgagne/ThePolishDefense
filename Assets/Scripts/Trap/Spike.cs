@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class Spike : Trap
 {
     //AUDIO
@@ -39,34 +39,41 @@ public class Spike : Trap
 
     public override void Initialize()
     {
+
     }
 
     public override void Refresh()
     {
+        throw new System.NotImplementedException();
     }
 
     public override void PhysicsRefresh()
     {
-    }
-
-    public override void onAction()
-    {
-    }
-
-    public override void onExitTrigger()
-    {
-    }
-
-    public override void onRemove()
-    {
+        throw new System.NotImplementedException();
     }
 
     public override void onTrigger()
     {
+        throw new System.NotImplementedException();
     }
 
+    public override void onExitTrigger()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void onAction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void onRemove()
+    {
+        throw new System.NotImplementedException();
+    }
     protected override void OnTriggerEnter(Collider other)
     {
+        Debug.Log("do i trigger ?");
         currentTime = detonate;
         //spikeRef.transform.position = new Vector3(0, 0.5f, 0);
         //Debug.Log("do i trigger ?");
@@ -96,5 +103,5 @@ public class Spike : Trap
             PlaySound(slashAudio);
         }
     }
-
 }
+

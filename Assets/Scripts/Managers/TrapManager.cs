@@ -94,5 +94,30 @@ public class TrapManager : Flow
         }
         return trap;
     }
+    public void DamageType(TrapType type)
+    {
 
+        //find a way to get only the position of the trap like glue spike mine
+        switch (type)
+        {
+            case TrapType.MINE:
+                EnemyManager.Instance.DamageEnemiesInRange(trap.TrapPosition, trap.trapRadius, (int)trap.attackDamage);
+                break;
+            case TrapType.GLUE:
+                //find a way to slow only enemy that enter the collider
+                foreach (Enemy enemy in EnemyManager.Instance.enemies)
+                {
+                    enemy.Slow(trap.coldownEffect);
+                }
+                break;
+            case TrapType.SPIKE:
+                //find a way to bleed only enemy that leave the collider
+                EnemyManager.Instance.DamageEnemiesInRange(trap.TrapPosition, trap.trapRadius, (int)trap.attackDamage);
+                break;
+        }
+    }
+    public List<Enemy> GetEnemies()
+    {
+        return EnemyManager.Instance.enemies;
+    }
 }
