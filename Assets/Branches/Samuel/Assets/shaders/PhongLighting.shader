@@ -14,7 +14,7 @@
       }
 
         CGPROGRAM
-       #pragma surface surf Lambert
+       #pragma surface surf BlinnPhong
 
        float4 _Color;
        fixed _Spec;
@@ -26,6 +26,8 @@
 
        void surf(Input IN, inout SurfaceOutput o){
            o.Albedo = _Color.rgb;
+           o.Specular = _Spec;
+           o.Gloss = _Gloss;
        }
        
         ENDCG
