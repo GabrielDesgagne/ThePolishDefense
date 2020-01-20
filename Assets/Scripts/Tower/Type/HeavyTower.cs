@@ -54,11 +54,14 @@ public class HeavyTower : Tower
         if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, Range)) != null)
         {
             Vector3 position = enemy.transform.position;
-            Cannon.Move(Position);
-            Cannon.AngleMoveToTarget(position);
-            if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
+            if (IsReady)
             {
-                ShootAtEnemy(enemy, Cannon.ShootPos.position, ProjectileType.BOMB);
+                Cannon.Move(Position);
+                Cannon.AngleMoveToTarget(position);
+                if (Cannon.Angle < (Cannon.GetAngleToTarget(position) + 2) && Cannon.Angle > (Cannon.GetAngleToTarget(position) - 2))
+                {
+                    ShootAtEnemy(enemy, Cannon.ShootPos.position, ProjectileType.BOMB);
+                }
             }
         }
     }
