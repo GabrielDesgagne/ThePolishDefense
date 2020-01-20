@@ -6,16 +6,19 @@ public class BoardHitBox : GrabbableObject
 {
 
     HandType handType;
+    bool value;
     RaycastHit ray;
 
     override public void OnPointExit(Grabber grabber, RaycastHit rayInfo)
     {
         ShopManager.Instance.OnExitBoard(this.handType);
+        this.value = false;
     }
 
     override public void OnPointEnter(Grabber grabber, RaycastHit rayInfo)
     {
         handType = grabber.handside == Hand.Handside.Left ? HandType.LEFT : HandType.RIGHT;
+        this.value = true;
     }
 
     public override void IsPointed(Grabber grabber, RaycastHit ray)
