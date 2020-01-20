@@ -2,11 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Level", menuName = "Level System")]
+[CreateAssetMenu(fileName = "New Level System", menuName = "Level System")]
 public class LevelSystem : ScriptableObject
 {
-    Wave[] waves;
-    float timeBetweenWaves;
-    int currentLevel;
+    public Level[] levels;
+    public NUM_Level currentLevel;
+    //public string nextLevel = "Level02";
+    //public int levelToUnlock = 2;
 
+
+}
+
+public enum NUM_Level
+{
+    LEVEL_1, LEVEL_2, LEVEL_3
+}
+
+[System.Serializable]
+
+public class Level
+{
+    public NUM_Level numLevel;
+    public Wave[] waves;
+    public float timeBetweenWaves;
 }

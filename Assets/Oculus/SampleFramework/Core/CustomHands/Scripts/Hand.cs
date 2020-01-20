@@ -31,7 +31,7 @@ public class Hand : MonoBehaviour
     public const float TRIGGER_DEBOUNCE_TIME = 0.05f;
     public const float THUMB_DEBOUNCE_TIME = 0.15f;
 
-    protected OVRInput.Controller controller;
+    public OVRInput.Controller controller;
 
     protected Dictionary<OVRInput.Controller, TouchController> inputs;
 

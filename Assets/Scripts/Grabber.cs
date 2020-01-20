@@ -9,12 +9,9 @@ using UnityEngine;
 public class Grabber : Hand
 {
     private Rigidbody rb;
-    private GameObject currentGrabbableObject;
     private Collider[] handCollider;
     private Collider playerCollider;
     private GrabbableObject pointedObject;
-    private IGrabbable currentIGrabbable;
-    //Sketch
     private List<Renderer> m_showAfterInputFocusAcquired;
 
 
@@ -63,10 +60,10 @@ public class Grabber : Hand
     protected Vector3 m_grabbedObjectPosOff;
     protected Quaternion m_grabbedObjectRotOff;
     protected List<GrabbableObject> grabCandidates;
-    /// <summary>
+
+
     /// The currently grabbed object.
-    /// </summary>
-    public GrabbableObject grabbedObject
+    public GrabbableObject GrabbedObject
     {
         get { return grabbedObj; }
     }
@@ -96,21 +93,25 @@ public class Grabber : Hand
         #region Awake
         controller = (OVRInput.Controller)handside;
         inputs = InputManager.Instance.inputs.Touch;
-        handCollider = this.GetComponentsInChildren<Collider>().Where(childCollider => !childCollider.isTrigger).ToArray();
 
         m_anchorOffsetPosition = transform.localPosition;
         m_anchorOffsetRotation = transform.localRotation;
+
         // If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
+
+        handCollider = this.GetComponentsInChildren<Collider>().Where(childCollider => !childCollider.isTrigger).ToArray();
         OVRCameraRig rig = transform.GetComponentInParent<OVRCameraRig>();
+        renderers = GetComponentsInChildren<Renderer>();
+        rb = GetComponent<Rigidbody>();
+        playerCollider = m_player.GetComponent<Collider>();
+
+
         if (rig != null)
         {
             rig.UpdatedAnchors += (r) => { OnUpdatedAnchors(); };
         }
 
-        renderers = GetComponentsInChildren<Renderer>();
-        rb = GetComponent<Rigidbody>();
-        //m_parentTransform = transform.parent;
-        if (m_player) playerCollider = m_player.GetComponent<Collider>();
+
         #endregion
 
 
@@ -119,8 +120,6 @@ public class Grabber : Hand
 
         #region Start
 
-
-        //Vars
 
         //Get/Set
         CollisionEnable(false);
@@ -153,89 +152,109 @@ public class Grabber : Hand
     }
 
 
+    public Transform FindClosestGrabPoint(GrabbableObject grabbable)
+    {
+        float closestDistance = float.MaxValue;
+        Transform closestGrabbableTransform = null;
+        for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
+        {
+            Transform grabbableSnap = grabbable.GrabPoints[j];
+            // Store the closest grabbable
+            float distance = Vector3.Distance(m_gripTransform.position, grabbableSnap.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestGrabbableTransform = grabbableSnap;
+            }
+        }
+        return closestGrabbableTransform;
+    }
+
     public void DistanceGrabBegin()
     {
-        if(pointedObject)
+        if (pointedObject)
         {
+            //Check if the interact object is also a grabbable Object
+            if (!Main.Instance.grabbableObjects.ContainsKey(pointedObject.gameObject)) return;
+
             //Check if the gameObject wants to be distance grabbed
             if (Main.Instance.grabbableObjects[pointedObject.transform.gameObject].DistanceGrab != true) return;
 
             //Check if the gameObject is not in the distance grab range
-            Debug.Log(Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position));
             if (Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position) < DISTANCE_GRAB_RANGE_MIN) return;
+            Debug.Log("Min Distnace ok");
 
             //Check if the gameObject is too far
             if (Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position) > Main.Instance.grabbableObjects[pointedObject.transform.gameObject].DistanceRange) return;
-
+            Debug.Log("Head distance ok");
             //Add Object in the hand
-            grabbedObj = Main.Instance.grabbableObjects[pointedObject.transform.gameObject];
+
             GrabbableObject grabbable = Main.Instance.grabbableObjects[pointedObject.transform.gameObject];
-            #region GRAB
-
-            float closestDistance = float.MaxValue;
-            Transform closestGrabbableTransform = null;
-            for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
+            if (grabbable.WillBeGrabbed(this))
             {
-                Transform grabbableSnap = grabbable.GrabPoints[j];
-                // Store the closest grabbable
-                float distance = Vector3.Distance(m_gripTransform.position, grabbableSnap.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestGrabbableTransform = grabbableSnap;
-                }
+                grabbedObj = grabbable;
+
+                //Deactivate collider in hand (not the hand collider) to prevent some overlap
+                GrabVolumeEnable(false);
+
+                //If the grabbed Object has a custom pose, use it
+                currentPose = grabbedObj.CustomHandPose ?? defaultHandPose;
+
+                Transform closestGrabbableTransform = FindClosestGrabPoint(grabbable);
+
+                /*Calcul l'endroit ou l'object va suivre la main, en utilisant l'orientation et position d'un grab Point
+                /************/
+                Vector3 relPos = grabbedObj.transform.position - closestGrabbableTransform.transform.position;
+                relPos = Quaternion.Inverse(transform.rotation) * relPos;
+                m_grabbedObjectPosOff = relPos;
+
+                Quaternion relOri = Quaternion.Inverse(transform.rotation) * closestGrabbableTransform.transform.rotation;
+                m_grabbedObjectRotOff = relOri;
+                /************/
+
+                grabbedObj.GrabBegin(this, closestGrabbableTransform);
+                SetPlayerIgnoreCollision(grabbedObj.gameObject, true);
             }
-            //Deactivate collider in hand (not the hand collider) to prevent some overlap
-            GrabVolumeEnable(false);
-
-            //If the grabbed Object has a custom pose, use it
-            currentPose = grabbedObj.CustomHandPose ?? defaultHandPose;
-
-            //TODO ANTHO
-
-            /*Calcul l'endroit ou l'object va suivre la main, en utilisant l'orientation et position d'un grab Point
-            /************/
-            Vector3 relPos = grabbedObj.transform.position - closestGrabbableTransform.transform.position;
-            relPos = Quaternion.Inverse(transform.rotation) * relPos;
-            m_grabbedObjectPosOff = relPos;
-
-            Quaternion relOri = Quaternion.Inverse(transform.rotation) * closestGrabbableTransform.transform.rotation;
-            m_grabbedObjectRotOff = relOri;
-            /************/
-
-            #endregion
-
-            grabbedObj.GrabBegin(this, closestGrabbableTransform);
-            SetPlayerIgnoreCollision(grabbedObj.gameObject, true);
         }
     }
 
+    /// <summary>
+    /// Check if there is something colliding with the hand. If not, then calls CastRay().
+    /// Used to prevent ray casting when not needed.
+    /// </summary>
     public void CheckForPointedObject()
     {
         if (grabCandidates.Count != 0) return;
         CastRay();
     }
+
+    /// <summary>
+    /// Throw a raycast every frame. 
+    /// </summary>
     public void CastRay()
     {
         RaycastHit rayHit;
-        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact")) ||
-            Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+        Debug.Log(0);
+        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //||
+                                                                                                                     //  Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
-            if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
+            Debug.Log(1);
+            if (!Main.Instance.interactObjects.ContainsKey(rayHit.transform.gameObject)) return;
+            Debug.Log(2);
 
             //Tells the previous ponted object that it is not pointed anymore
             if (pointedObject != null)
                 pointedObject.Pointed(false, this, rayHit);
 
-
             //Check if the pointed Object contains a grabbable Object
             pointedObject = Main.Instance.grabbableObjects[rayHit.transform.gameObject];
 
-            // Will call this every frame. This could be optimised
+            // Will call this every frame.
             pointedObject.Pointed(true, this, rayHit);
+
         }
         else if (pointedObject != null)
-        { 
+        {
             pointedObject.Pointed(false, this, rayHit);
             pointedObject = null;
         }
@@ -291,10 +310,10 @@ public class Grabber : Hand
         // Check if the collided object is a GrabbableObject.
         // If so, check if it is a grab candidate.
         // Remove the GrabbableObject to the grab Candidate.
-        SetPlayerIgnoreCollision(otherCollider.gameObject, false);
         if (!Main.Instance.grabbableObjects.ContainsKey(otherCollider.gameObject)) return;
         if (!grabCandidates.Contains(Main.Instance.grabbableObjects[otherCollider.gameObject])) return;
         grabCandidates.Remove(Main.Instance.grabbableObjects[otherCollider.gameObject]);
+        SetPlayerIgnoreCollision(otherCollider.gameObject, false);
     }
 
     //Called each update
@@ -322,7 +341,7 @@ public class Grabber : Hand
         float closestDistance = float.MaxValue;
         GrabbableObject closestGrabbable = null;
         Transform closestGrabbableTransform = null;
-
+        Transform temp = null;
         // Iterate grab candidates and find the closest grabbable candidate
         foreach (GrabbableObject grabbable in grabCandidates)
         {
@@ -331,7 +350,7 @@ public class Grabber : Hand
             {
                 continue;
             }
-            Debug.Log(grabbable.transform.name);
+
             for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
             {
                 Transform grabbableSnap = grabbable.GrabPoints[j];
@@ -344,18 +363,22 @@ public class Grabber : Hand
                     closestGrabbableTransform = grabbableSnap;
                 }
             }
+
         }
 
-        // Disable grab volumes to prevent overlaps
-        GrabVolumeEnable(false);
+        if (closestGrabbable == null) return;
 
-        if (closestGrabbable != null)
+        #region Start Grab
+
+        if (closestGrabbable.WillBeGrabbed(this))
         {
 
+            // Disable grab volumes to prevent overlaps
+            GrabVolumeEnable(false);
+
             if (closestGrabbable.IsGrabbed)
-            {
                 closestGrabbable.GrabbedBy.OffhandGrabbed(closestGrabbable);
-            }
+
 
             grabbedObj = closestGrabbable;
             grabbedObj.GrabBegin(this, closestGrabbableTransform);
@@ -378,9 +401,9 @@ public class Grabber : Hand
             // is beyond the scope of this demo.
             MoveGrabbedObject(m_lastPos, m_lastRot, true);
             SetPlayerIgnoreCollision(grabbedObj.gameObject, true);
-
         }
 
+        #endregion
 
     }
 
@@ -408,7 +431,7 @@ public class Grabber : Hand
     protected void GrabEnd()
     {
         if (grabbedObj != null)
-        {
+        { 
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(controller), orientation = OVRInput.GetLocalControllerRotation(controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
             localPose = localPose * offsetPose;
@@ -428,10 +451,11 @@ public class Grabber : Hand
 
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        grabbedObj.GrabEnd(linearVelocity, angularVelocity);
-
-        //if (m_parentHeldObject) m_grabbedObj.transform.parent = null;
-        grabbedObj = null;
+        if(grabbedObj.WillBeReleased(this))
+        {
+            grabbedObj.GrabEnd(linearVelocity, angularVelocity);
+            grabbedObj = null;
+        }
     }
 
     protected virtual void GrabVolumeEnable(bool enabled)
@@ -464,15 +488,13 @@ public class Grabber : Hand
 
     protected void SetPlayerIgnoreCollision(GameObject grabbable, bool ignore)
     {
-        if (m_player != null)
+
+        if (playerCollider != null)
         {
-            if (playerCollider != null)
+            Collider[] colliders = grabbable.GetComponents<Collider>();
+            foreach (Collider c in colliders)
             {
-                Collider[] colliders = grabbable.GetComponents<Collider>();
-                foreach (Collider c in colliders)
-                {
-                    Physics.IgnoreCollision(c, playerCollider, ignore);
-                }
+                Physics.IgnoreCollision(c, playerCollider, ignore);
             }
         }
     }
@@ -499,10 +521,10 @@ public class Grabber : Hand
     }
     protected void LateUpdate()
     {
-        
+
     }
 
-   
+
     public void CollisionEnable(bool enabled)
     {
         if (m_collisionEnabled == enabled)
