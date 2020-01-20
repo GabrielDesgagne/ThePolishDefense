@@ -43,8 +43,8 @@ public class Enemy : MonoBehaviour
         health = startHealth;
         anim = GetComponent<Animator>();
         mvt = GetComponent<EnemyMovement>();
-        walk = audioEnnemi.GetComponent<AudioSource>();
-        dead = audioEnnemi.GetComponent<AudioSource>();
+        //walk = audioEnnemi.GetComponent<AudioSource>();
+        //dead = audioEnnemi.GetComponent<AudioSource>();
         isHittable = true;
     }
 
@@ -117,8 +117,8 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger("dead");
         anim.SetBool("isHit", false);
         mvt.enabled = false;
-        walk.Stop();
-        dead.PlayOneShot(soundDead);
+        //walk.Stop();
+        //dead.PlayOneShot(soundDead);
 
         uiDied = Instantiate(uiDiedEffectPrefabs, transform.position, Quaternion.identity);
 
