@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 201532003564814660}
   - component: {fileID: 201532003564814667}
   - component: {fileID: 7283064724005523562}
+  - component: {fileID: 1569535073}
   m_Layer: 0
   m_Name: cheatManager
   m_TagString: Untagged
@@ -63,6 +64,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bee721dd94ca0a4b857302e4285c8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: {fileID: 0}
+  scene: {fileID: 201532003564814667}
+  canvas: {fileID: 0}
+  cheats: {fileID: 0}
+--- !u!114 &1569535073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201532003564814666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bee721dd94ca0a4b857302e4285c8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: {fileID: 201532003564814667}
   canvas: {fileID: 0}
   cheats: {fileID: 0}

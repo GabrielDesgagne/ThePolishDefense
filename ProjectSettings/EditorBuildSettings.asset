@@ -12,21 +12,18 @@ EditorBuildSettings:
     path: Assets/Branches/Samuel/Scene/SceneTest2.unity
     guid: ea3eec8351e375747855d621f93e1f7f
   - enabled: 1
-    path: Assets/SebSohy/Scenes/Tavern.unity
-    guid: b0203cc285d129a44a4c2d016714f4f9
-  - enabled: 1
-    path: Assets/Branches/Ahmad/AhmadScene.unity
-    guid: c182b28e15ae0bd43bc68eba7228db77
-  - enabled: 1
-    path: Assets/Branches/Gabriel.L/Scene/TrapScene.unity
-    guid: f6a3e837726436b4e831f24428b7aa9e
-  - enabled: 1
     path: Assets/Branches/onesin/scene/sampleOnesin.unity
     guid: 381b358f44d39db4daaa867076ba199f
   - enabled: 1
     path: Assets/Branches/Raphael/Scene/SceneRaphael.unity
     guid: 509e6febd59ad2a4996600587bbdc35d
   - enabled: 1
-    path: Assets/Scenes/GabDesg/GabDesg.unity
+    path: Assets/Branches/GabDesg/GabDesg.unity
     guid: 12fe42264cabf2946a551155e7b39a0e
+  - enabled: 1
+    path: Assets/Scenes/RoomScene.unity
+    guid: 3fd01413bb4c92a42aaa6b809cfbd0fa
+  - enabled: 1
+    path: Assets/Scenes/MapScene.unity
+    guid: 310262ab9db08714baaa567324054b90
   m_configObjects: {}
