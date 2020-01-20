@@ -18,7 +18,7 @@ graphics
     public float currentTime;
     public float detonate = 2f;
 
-    //GameObject
+    //Gameobject component
     public GameObject prefab;
     protected AudioSource audioSource;
 
@@ -34,7 +34,7 @@ graphics
     public float trapRadius;
     public float coldownEffect;
 
-    //toggle action
+    //toggle set Action
     public bool isInTrap = false;
     public bool isOutTrap = false;
     public bool timerOn = false;
@@ -53,6 +53,7 @@ graphics
         TrapManager.Instance.CreateTrap(TrapType.MINE, new Vector3(0,10,0));
     }*/
 
+    //Flow methode
     public abstract void PreInitialize();
     public abstract void Initialize();
     public abstract void Refresh();
@@ -62,15 +63,18 @@ graphics
 
     public abstract void onExitTrigger();
 
+
+    //Action Methode
+
     public abstract void onAction();
-
     public abstract void onRemove();
-
     protected abstract void OnTriggerEnter(Collider other);
 
     protected abstract void OnTriggerStay(Collider other);
 
     protected abstract void OnTriggerExit(Collider other);
+
+    //Audio Setup
     protected void PlaySound(AudioClip audio)
     {
         audioSource.PlayOneShot(audio);

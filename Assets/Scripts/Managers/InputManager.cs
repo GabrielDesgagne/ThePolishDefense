@@ -55,6 +55,7 @@ public class InputManager : Flow
 
         inputs.Touch[OVRInput.Controller.LTouch].JoystickLeft = OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft, OVRInput.Controller.LTouch);
         inputs.Touch[OVRInput.Controller.RTouch].JoystickLeft = OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft, OVRInput.Controller.RTouch);
+        
 
         inputs.Touch[OVRInput.Controller.LTouch].JoystickRight = OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight, OVRInput.Controller.LTouch);
         inputs.Touch[OVRInput.Controller.RTouch].JoystickRight = OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight, OVRInput.Controller.RTouch);

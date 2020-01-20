@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class Mine : Trap
 {
-
     //AUDIO
     public AudioClip triggerTrapClick;
     public AudioClip boomSound;
@@ -48,7 +47,7 @@ public class Mine : Trap
     }
 
 
-
+    //TODO replace the start to go with preinit from the flow
     private void Start()
     {
         //NULL CHECK
@@ -76,7 +75,7 @@ public class Mine : Trap
             canDetonate = false;
         }
     }
-
+    ///------------------------------------------------------------------------///
     public override void onAction()
     {
         if (currentTime <= 0)
@@ -104,27 +103,15 @@ public class Mine : Trap
         }
     }
 
-    public override void onExitTrigger()
-    {
-
-    }
-
     public override void onRemove()
     {
         GameObject.Destroy(gameObject, boomLength);
         GameObject.Destroy(explosionRef, explosionDuration);
     }
 
-    public override void onTrigger()
-    {
-        //Debug.Log("on trigger trigger timer");
-        inDetonate = true;
-        currentTime = detonate;
-        PlaySound(triggerTrapClick);
-    }
-
     protected override void OnTriggerEnter(Collider other)
     {
+        
         if (!isTrigger)
         {
             isTrigger = true;
@@ -132,7 +119,9 @@ public class Mine : Trap
             {
                 isTrigger = true;
                 // Debug.Log("name of the collision : " + other.name);
-                onTrigger();
+                inDetonate = true;
+                currentTime = detonate;
+                PlaySound(triggerTrapClick);
             }
         }
 

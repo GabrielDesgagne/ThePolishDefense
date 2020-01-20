@@ -218,8 +218,8 @@ public class Grabber : Hand
     public void CastRay()
     {
         RaycastHit rayHit;
-        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //||
-          //  Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+        if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact")) ||
+            Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
             if (!Main.Instance.grabbableObjects.ContainsKey(rayHit.transform.gameObject)) return;
 
