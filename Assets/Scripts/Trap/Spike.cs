@@ -26,11 +26,16 @@ public class Spike : Trap
     {
         this.prefab = gameObject;
     }
+
+    // TODO 
+    //Delete this start 
+    //use initialise or preinit to go with the flow
     private void Start()
     {
         isOutTrap = true;
     }
 
+    //Abstract methode for the flow
     public override void PreInitialize()
     {
         isOutTrap = true;
@@ -44,33 +49,23 @@ public class Spike : Trap
 
     public override void Refresh()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void PhysicsRefresh()
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public override void onTrigger()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void onExitTrigger()
-    {
-        throw new System.NotImplementedException();
-    }
-
+    //Action for the spike Methode
     public override void onAction()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void onRemove()
     {
-        throw new System.NotImplementedException();
     }
+
     protected override void OnTriggerEnter(Collider other)
     {
         Debug.Log("do i trigger ?");
