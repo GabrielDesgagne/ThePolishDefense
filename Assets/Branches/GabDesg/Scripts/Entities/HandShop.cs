@@ -64,7 +64,6 @@ public class HandShop {
 
             //Create ghost item
             CreateGhostItem(type);
-            Debug.Log("Object Grabbed");
         }
         else
             Debug.Log("Theres already an object in " + this.Type.ToString() + " hand...");
@@ -74,14 +73,15 @@ public class HandShop {
 
     public void DropObj() {
         if (this.objInHand != null && this.objGhost != null) {
-            this.objInHand = null;
 
             //Destroy ghost item
             GameObject.Destroy(this.objGhost);
-            GameObject.Destroy(this.objInHand);
+
+            //Destroy obj dropped on ground with shadder
+            DestroyItem(this.objInHand);
+
             //Reset hand infos
             ResetHandInfo();
-            Debug.Log("Object Dropped...");
         }
     }
 
@@ -221,6 +221,7 @@ public class HandShop {
 
         return objCanGoOnTileType;
     }
+
     private bool IsTileEmpty(Vector2 tileCoords) {
         bool tileIsEmpty = true;
         //Check if tile is saved in MapPck
@@ -228,6 +229,7 @@ public class HandShop {
             tileIsEmpty = false;
         return tileIsEmpty;
     }
+
     private void ResetHandInfo() {
         this.objGhost = null;
         this.objInHand = null;
@@ -235,5 +237,12 @@ public class HandShop {
         this.trapInfo = null;
         this.onAvailableTile = false;
         this.hitPointOnBoard = null;
+    }
+
+    private void DestroyItem(GameObject obj) {
+        //Play shader
+
+        //Destroy obj
+        GameObject.Destroy(obj);
     }
 }

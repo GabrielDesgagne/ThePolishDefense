@@ -37,7 +37,7 @@
             float diff = dot (o.Normal, IN.viewDir);
             float h = diff * 0.5+0.5;
             float2 rh = h;
-            o.Albedo = tex2D(_RampTex, rh).rgb;
+            o.Albedo = _Color.rgb; //tex2D(_RampTex, rh).rgb;
         }
         ENDCG
     }

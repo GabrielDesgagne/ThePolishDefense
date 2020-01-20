@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class dummyTester : MonoBehaviour
 {
+    
     private void FixedUpdate()
     {
         Vector3 dir = new Vector3();

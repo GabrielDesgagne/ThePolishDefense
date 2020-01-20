@@ -15,7 +15,7 @@ public class Pod : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) != 0)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
         {
             if (other.CompareTag("LeftHand"))
             {
@@ -24,7 +24,7 @@ public class Pod : MonoBehaviour
             }
         }
 
-        if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) != 0)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
         {
             if (other.CompareTag("RightHand"))
             {

@@ -18,23 +18,23 @@ graphics
     public float currentTime;
     public float detonate = 2f;
 
+    //Gameobject component
     public GameObject prefab;
     protected AudioSource audioSource;
 
-    public TrapType type { get; protected set; }
+    //Trap Setting
+    public TrapType type;
     [TextArea(15, 20)]
     public string description;
 
     public Vector3 TrapPosition { get; protected set; }
-    public float attackDamage { get; protected set; }
-    public float lifeSpawn { get; protected set; }
-    public float price { get; protected set; }
-    public float trapRadius { get; protected set; }
-    public float coldownEffect { get; protected set; }
+    public float attackDamage;
+    public float lifeSpawn;
+    public float price;
+    public float trapRadius;
+    public float coldownEffect;
 
-    
-
-
+    //toggle set Action
     public bool isInTrap = false;
     public bool isOutTrap = false;
     public bool timerOn = false;
@@ -53,24 +53,22 @@ graphics
         TrapManager.Instance.CreateTrap(TrapType.MINE, new Vector3(0,10,0));
     }*/
 
+    //Flow methode
     public abstract void PreInitialize();
     public abstract void Initialize();
     public abstract void Refresh();
     public abstract void PhysicsRefresh();
 
-    public abstract void onTrigger();
-   
-    public abstract void onExitTrigger();
-
+    //Action Methode
     public abstract void onAction();
-
     public abstract void onRemove();
-
     protected abstract void OnTriggerEnter(Collider other);
 
     protected abstract void OnTriggerStay(Collider other);
 
     protected abstract void OnTriggerExit(Collider other);
+
+    //Audio Setup
     protected void PlaySound(AudioClip audio)
     {
         audioSource.PlayOneShot(audio);
