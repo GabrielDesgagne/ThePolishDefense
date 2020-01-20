@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceArrowMaxShoot: 0.4
-  arrowPrefab: {fileID: 7703457927424067781, guid: 72d29673bcca0bc49b5071fcf7935a9d,
+  arrowPrefab: {fileID: 6707968921799252298, guid: 053165441ed346e458ef94c6ec26a187,
     type: 3}
   stringAttachPoint: {fileID: 392632965561251327}
   stringStartPoint: {fileID: 5056976485281503451}
@@ -1119,9 +1119,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3513123385129154482, guid: b6e5cec88ae59a0439d23e8f73fb0de2, type: 3}
-  - {fileID: -1444460858095362738, guid: b6e5cec88ae59a0439d23e8f73fb0de2, type: 3}
-  - {fileID: -4973734387028869240, guid: b6e5cec88ae59a0439d23e8f73fb0de2, type: 3}
+  - {fileID: 2100000, guid: 0c8df57ed91ca044cbf7ea81bd7af96c, type: 2}
+  - {fileID: 2100000, guid: 43a76d54463befc478b8c1ce2bac8ab9, type: 2}
+  - {fileID: 2100000, guid: b8a847f064ade5341bf3965d78bc8c2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

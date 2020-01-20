@@ -23,14 +23,14 @@ public class Quiver : MonoBehaviour
     {
         if (other.tag == "LeftHand")
         {
-            if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) > 0.1f)
+            if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
             {
                 CreateArrow(false, other.transform);
             }
         }
         else if (other.tag == "RightHand")
         {
-            if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) > 0.1f)
+            if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
             {
                 CreateArrow(true, other.transform);
             }
