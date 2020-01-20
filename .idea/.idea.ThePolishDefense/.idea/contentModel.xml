@@ -1059,6 +1059,9 @@
         </e>
         <e p="Resources" t="Include">
           <e p="Prefabs" t="Include">
+            <e p="Map" t="Include">
+              <e p="Terrain_ToonLitOutline.shader" t="Include" />
+            </e>
             <e p="Room" t="Include">
               <e p="Packs for Map Village" t="Include">
                 <e p="3D Cartoon Village" t="Include">
