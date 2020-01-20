@@ -14,7 +14,7 @@ public class WaveSpawner : MonoBehaviour {
     [SerializeField]
     public Transform spawnPoint;
 
-    private float timeBetweenWaves = 5f;
+    private float timeBetweenWaves ;
 
     [SerializeField]
     private int waveIndex = 0;
@@ -24,7 +24,7 @@ public class WaveSpawner : MonoBehaviour {
     private Countdown waveCountdownTimer;
     //just for test
     //Dictionary<EnemyType, GameObject> enemyPrefab;
-   // private void Start() { Initialize(); }
+    //private void Start() { Initialize(); }
     //private void Update() { Refresh(enemyPrefab); }
    
     public void Initialize()
@@ -56,6 +56,7 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveCountdownTimer.countdown <= 0f)
         {
+
             StartCoroutine(SpawnWave(enemyPrefab));
             waveCountdownTimer.countdown = timeBetweenWaves;
             return;
@@ -73,7 +74,7 @@ public class WaveSpawner : MonoBehaviour {
         Wave wave = waves[waveIndex];
 
         //EnemiesAlive = wave.enemy.Count;
-        EnemiesAlive=EnemyManager.Instance.enemies.Count;
+        EnemiesAlive = EnemyManager.Instance.enemies.Count;
         for (int i = 0; i < wave.types.Length; i++)
         {
             for (int j = 0; j < wave.types[i].number; j++)
@@ -98,7 +99,8 @@ public class WaveSpawner : MonoBehaviour {
 
     GameObject SpawnEnemy(GameObject enemy)
     {
-        return Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        Transform enemyStart = GameVariables.instance.enemyStart.transform;
+        return Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
 }
 
