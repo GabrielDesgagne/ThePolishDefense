@@ -28,9 +28,9 @@ public class BombFeeder {
         float offSet = bombPrefab.transform.localScale.y * 0.25f;
         topY = bombPrefab.transform.localScale.y * 2 + offSet;
 
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY, 0), Quaternion.identity, Obj.transform));
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY - bombPrefab.transform.localScale.y, 0), Quaternion.identity, Obj.transform));
-        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, offSet, 0), Quaternion.identity, Obj.transform));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, topY - bombPrefab.transform.localScale.y, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
+        BombList.Add(GameObject.Instantiate(bombPrefab, Position + new Vector3(0, offSet, 0), Quaternion.identity, ProjectileManager.Instance.bombParent.transform));
     }
 
     public void Move()
