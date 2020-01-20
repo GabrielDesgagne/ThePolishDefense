@@ -15,12 +15,12 @@ using OVRTouchSample;
 
 public class Hand : MonoBehaviour
 {
-    protected enum Handside
+    public enum Handside
     {
         Left = OVRPlugin.Controller.LTouch,
         Right = OVRPlugin.Controller.RTouch
     }
-    [SerializeField] protected Handside handside;
+    public Handside handside;
 
     public const string ANIM_LAYER_NAME_POINT = "Point Layer";
     public const string ANIM_LAYER_NAME_THUMB = "Thumb Layer";
