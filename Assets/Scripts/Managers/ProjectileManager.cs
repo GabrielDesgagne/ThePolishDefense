@@ -42,15 +42,17 @@ public class ProjectileManager : Flow
     }
 
     public GameObject bombParent;
+    public GameObject potionParent;
+    public GameObject throwablePotionParent;
     override public void Initialize()
     {
         GameObject projectileParent = new GameObject("Projectiles");
 
         bombParent = new GameObject("BombParent");
         bombParent.transform.parent = projectileParent.transform;
-        GameObject potionParent = new GameObject("PotionParent");
+        potionParent = new GameObject("PotionParent");
         potionParent.transform.parent = projectileParent.transform;
-        GameObject throwablePotionParent = new GameObject("ThrowablePotionParent");
+        throwablePotionParent = new GameObject("ThrowablePotionParent");
         throwablePotionParent.transform.parent = projectileParent.transform;
 
         for (int i = 0; i < 10; i++)
@@ -61,10 +63,7 @@ public class ProjectileManager : Flow
 
             Potion throwablePotion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], throwablePotionParent.transform));
             enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(throwablePotion);
-        }
 
-        for (int i = 0; i < 500; i++)
-        {
             Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[ProjectileType.BOMB], bombParent.transform));
             bomb.Obj.SetActive(false);
             disabledProjectiles[bomb.Type].Add(bomb);
@@ -88,7 +87,16 @@ public class ProjectileManager : Flow
 
     public void BasicShoot(ProjectileType type, Vector3 startPos, Vector3 targetPos)
     {
-        Projectile projectile = disabledProjectiles[type][0];
+        Projectile projectile = null;
+        if (disabledProjectiles[type].Count > 0)
+        {
+            projectile = disabledProjectiles[type][0];
+        }
+        else
+        {
+            AddProjectileToPool(type);
+            projectile = disabledProjectiles[type][0];
+        }
         projectile.StartPos = startPos;
         projectile.TargetPos = targetPos;
         projectile.Obj.SetActive(true);
@@ -99,14 +107,23 @@ public class ProjectileManager : Flow
 
     public void BasicShoot(ProjectileType type, Vector3 startPos, Enemy enemy)
     {
-        Projectile projectile = disabledProjectiles[type][0];
+        Projectile projectile = null;
+        if (disabledProjectiles[type].Count > 0)
+        {
+            projectile = disabledProjectiles[type][0];
+        }
+        else
+        {
+            AddProjectileToPool(type);
+            projectile = disabledProjectiles[type][0];
+        }
         projectile.StartPos = startPos;
-        projectile.Enemy = enemy;
-        projectile.Obj.SetActive(true);
-        projectile.IsEnemyTarget = true;
-        enabledProjectiles[projectile.Type].Add(projectile);
-        disabledProjectiles[type].RemoveAt(0);
-    }
+            projectile.Enemy = enemy;
+            projectile.Obj.SetActive(true);
+            projectile.IsEnemyTarget = true;
+            enabledProjectiles[projectile.Type].Add(projectile);
+            disabledProjectiles[type].RemoveAt(0);
+        }
 
     public void MoveProjectiles()
     {
@@ -173,5 +190,26 @@ public class ProjectileManager : Flow
     {
         foreach (Potion throwablePotion in enabledProjectiles[ProjectileType.THROWABLE_POTION])
             throwablePotion.Obj.transform.position = tableLoc + new Vector3(Random.Range(-0.7f, 0.7f), 0, Random.Range(-0.7f, 0.7f));
+    }
+
+    private void AddProjectileToPool(ProjectileType type)
+    {
+        switch (type)
+        {
+            case ProjectileType.POTION:
+                Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[type], potionParent.transform));
+                potion.Obj.SetActive(false);
+                disabledProjectiles[type].Add(potion);
+                break;
+            case ProjectileType.THROWABLE_POTION:
+                Potion throwablePotion = new Potion(GameObject.Instantiate(projectilePrefab[type], throwablePotionParent.transform));
+                enabledProjectiles[type].Add(throwablePotion);
+                break;
+            case ProjectileType.BOMB:
+                Bomb bomb = new Bomb(GameObject.Instantiate(projectilePrefab[type], bombParent.transform));
+                bomb.Obj.SetActive(false);
+                disabledProjectiles[type].Add(bomb);
+                break;
+        }
     }
 }

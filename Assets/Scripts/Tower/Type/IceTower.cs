@@ -49,7 +49,10 @@ public class IceTower : Tower
         Enemy enemy;
         if ((enemy = EnemyManager.Instance.FindFirstTargetInRange(Position, Range)) != null)
         {
-            ShootAtEnemy(enemy, Position + new Vector3(0, positionPos.position.y, 0), ProjectileType.POTION);
+            if (IsReady)
+            {
+                ShootAtEnemy(enemy, Position + new Vector3(0, positionPos.position.y, 0), ProjectileType.POTION);
+            }
         }
     }
 

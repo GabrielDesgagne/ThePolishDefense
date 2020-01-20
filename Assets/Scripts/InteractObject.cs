@@ -22,13 +22,14 @@ public class InteractObject : MonoBehaviour, IInteract
     public float DistanceRange => distanceRange;
     public bool UseHighlight => useHighlight;
 
-    public void Pointed(bool value, Grabber grabber)
+    virtual public void Pointed(bool value, Grabber grabber, RaycastHit ray)
     {
-        //if (!pointed && value)
-        //    OnPointEnter(grabber);
+        if (!pointed && value)
+            OnPointEnter(grabber);
 
-        //else if (pointed && !value)
-        //    OnPointExit(grabber);
+        else if (pointed && !value)
+            OnPointExit(grabber);
+
 
         pointed = value;
     }
@@ -73,33 +74,33 @@ public class InteractObject : MonoBehaviour, IInteract
         }
     }
 
-    public void OnPointExit(Grabber grabber)
+    virtual public void OnPointExit(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void OnPointEnter(Grabber grabber)
+    virtual public void OnPointEnter(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void WillBeGrabbed(Grabber grabber)
+    virtual public void WillBeGrabbed(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void Grabbed(Grabber grabber)
+    virtual public void Grabbed(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void WillBeReleased(Grabber grabber)
+    virtual public void WillBeReleased(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+       
     }
 
-    public void Released(Grabber grabber)
+    virtual public void Released(Grabber grabber)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
