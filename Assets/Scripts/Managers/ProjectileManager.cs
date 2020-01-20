@@ -88,10 +88,15 @@ public class ProjectileManager : Flow
     public void BasicShoot(ProjectileType type, Vector3 startPos, Vector3 targetPos)
     {
         Projectile projectile = null;
-        if (disabledProjectiles[type][0] != null)
+        if (disabledProjectiles[type].Count > 0)
+        {
             projectile = disabledProjectiles[type][0];
+        }
         else
+        {
             AddProjectileToPool(type);
+            projectile = disabledProjectiles[type][0];
+        }
         projectile.StartPos = startPos;
         projectile.TargetPos = targetPos;
         projectile.Obj.SetActive(true);
@@ -104,16 +109,21 @@ public class ProjectileManager : Flow
     {
         Projectile projectile = null;
         if (disabledProjectiles[type].Count > 0)
+        {
             projectile = disabledProjectiles[type][0];
+        }
         else
+        {
             AddProjectileToPool(type);
+            projectile = disabledProjectiles[type][0];
+        }
         projectile.StartPos = startPos;
-        projectile.Enemy = enemy;
-        projectile.Obj.SetActive(true);
-        projectile.IsEnemyTarget = true;
-        enabledProjectiles[projectile.Type].Add(projectile);
-        disabledProjectiles[type].RemoveAt(0);
-    }
+            projectile.Enemy = enemy;
+            projectile.Obj.SetActive(true);
+            projectile.IsEnemyTarget = true;
+            enabledProjectiles[projectile.Type].Add(projectile);
+            disabledProjectiles[type].RemoveAt(0);
+        }
 
     public void MoveProjectiles()
     {
