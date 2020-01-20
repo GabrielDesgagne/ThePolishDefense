@@ -307,10 +307,6 @@ public class TestCommand : MonoBehaviour
         {
             sfx.TowerSound(input.text);
         }
-        else if (input.text == "explosion3")
-        {
-            sfx.TowerSound(input.text);
-        }
         else if (input.text == "potion1")
         {
             sfx.TowerSound(input.text);
@@ -324,10 +320,6 @@ public class TestCommand : MonoBehaviour
             sfx.TowerSound(input.text);
         }
         else if (input.text == "potionBreak3")
-        {
-            sfx.TowerSound(input.text);
-        }
-        else if (input.text == "splash1")
         {
             sfx.TowerSound(input.text);
         }
@@ -362,6 +354,58 @@ public class TestCommand : MonoBehaviour
         else if (input.text == "fireworks6")
         {
             sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "screaming villagers")
+        {
+            sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "trumpet")
+        {
+            sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "defenders")
+        {
+            sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "explosion3")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "splash1")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "click1")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "click2")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "click3")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "spike1")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "spike2")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "spike3")
+        {
+            sfx.TrapSound(input.text);
+        }
+        else if (input.text == "teleportation1")
+        {
+            sfx.TeleportaionSound(input.text);
+        }
+        else if (input.text == "teleportation2")
+        {
+            sfx.TeleportaionSound(input.text);
         }
     }
 }

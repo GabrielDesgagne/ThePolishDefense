@@ -61,12 +61,10 @@ public class SFXVariables : MonoBehaviour
     public AudioSource cannon2;
     public AudioSource explosion1;
     public AudioSource explosion2;
-    public AudioSource explosion3;
     public AudioSource potion1;
     public AudioSource potionBreak1;
     public AudioSource potionBreak2;
     public AudioSource potionBreak3;
-    public AudioSource splash1;
     public AudioSource splash2;
     public AudioSource splash3;
 
@@ -77,7 +75,23 @@ public class SFXVariables : MonoBehaviour
     public AudioSource fireworks4;
     public AudioSource fireworks5;
     public AudioSource fireworks6;
+    public AudioSource screamingVillagers;
+    public AudioSource trumpet;
+    public AudioSource defenders;
 
+    //trap
+    public AudioSource splash1;
+    public AudioSource explosion3;
+    public AudioSource click1;
+    public AudioSource click2;
+    public AudioSource click3;
+    public AudioSource spike1;
+    public AudioSource spike2;
+    public AudioSource spike3;
+
+    //teleportation
+    public AudioSource teleportation1;
+    public AudioSource teleportation2;
 
 
 

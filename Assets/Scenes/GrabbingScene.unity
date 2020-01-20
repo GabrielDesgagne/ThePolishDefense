@@ -266,7 +266,7 @@ PrefabInstance:
         type: 3}
       propertyPath: VRPlayerCharacter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 394929107}
     - target: {fileID: 2354030245692463228, guid: 1e977d28bf5c6f9418698e170838eb07,
         type: 3}
       propertyPath: playerPrefab
@@ -329,6 +329,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e977d28bf5c6f9418698e170838eb07, type: 3}
+--- !u!1 &394929107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5232227960490631103, guid: 12921f186c2542d4794df02929a791a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2915839989517990273}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &427131889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1461,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2915839989517990273}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 394929107}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95006d51c4ccb2e43a3f7c09bd567a18, type: 3}
