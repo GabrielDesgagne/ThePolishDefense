@@ -42,8 +42,9 @@ public class GrabbableObject : InteractObject
 
     #endregion
 
-    private void Awake()
+    override protected void Awake()
     {
+        base.Awake();
         //Cache Values
         GrabbableRigidBody = GetComponent<Rigidbody>();
         ThisCollider = GetComponent<Collider>(); // Can't be null since it is required in parent class
@@ -54,9 +55,7 @@ public class GrabbableObject : InteractObject
             grabPoints = new Transform[1] { transform };
         }
         colliders = GetComponentsInChildren<Collider>().ToList();
-        Debug.Log(colliders);
 
-        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
     
     public void ToggleColliders(bool enable)
@@ -67,21 +66,20 @@ public class GrabbableObject : InteractObject
         }
     }
 
-    /// <summary>
     /// Notifies the object that it has been grabbed.
-    /// </summary>
-    virtual public void GrabBegin(Grabber hand, Transform grabPoint) 
+    public void GrabBegin(Grabber hand, Transform grabPoint) 
     {
+
         ToggleColliders(false);
         GrabbedBy = hand;
         GrabbedTransform = grabPoint;
         GrabbableRigidBody.isKinematic = true;
+
+        Grabbed(hand);
     }
 
-    /// <summary>
     /// Notifies the object that it has been released.
-    /// </summary>
-    virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
+    public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
         ToggleColliders(true);
         GrabbableRigidBody.isKinematic = GrabbedKinematic;
@@ -89,14 +87,51 @@ public class GrabbableObject : InteractObject
         GrabbableRigidBody.angularVelocity = angularVelocity;
         GrabbedBy = null;
         GrabbedCollider = null;
+
+        Released(linearVelocity, angularVelocity);
     }
 
-    protected virtual void Start()
-    { 
+    override protected void Start()
+    {
+        base.Start();
         GrabbedKinematic = GrabbableRigidBody.isKinematic;
         Main.Instance.grabbableObjects.Add(this.gameObject, this);
     }
 
+    /// <summary>
+    /// Function to override. Happens before the grab occurs.
+    /// Return true makes the hand grab the object. False prevents the default behaviour.
+    /// </summary>
+    virtual public bool WillBeGrabbed(Grabber grabber)
+    {
+        return true;
+    }
+
+    /// <summary>
+    /// Function to override. Happens once the grab occured.
+    /// </summary>
+    virtual public void Grabbed(Grabber grabber)
+    {
+
+    }
+
+    /// <summary>
+    /// Function to override. Happens before the release occurs.
+    /// Return true makes the hand release the object. False prevents the default behaviour.
+    /// </summary>
+    virtual public bool WillBeReleased(Grabber grabber)
+    {
+        return true;
+    }
+
+
+    /// <summary>
+    /// Function to override. Happens once the release occured.
+    /// </summary>
+    virtual public void Released(Vector3 linearVelocity, Vector3 angularVelocity)
+    {
+
+    }
     void OnDestroy()
     {
         if (GrabbedBy != null)
@@ -105,8 +140,5 @@ public class GrabbableObject : InteractObject
             GrabbedBy.ForceRelease(this);
         }
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.transform.name);
-    }
+
 }

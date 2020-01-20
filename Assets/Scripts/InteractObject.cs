@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class InteractObject : MonoBehaviour, IInteract
+public class InteractObject : MonoBehaviour
 {
     /* Var visible in Inspector */
     [SerializeField] private bool useHighlight;
@@ -22,21 +22,30 @@ public class InteractObject : MonoBehaviour, IInteract
     public float DistanceRange => distanceRange;
     public bool UseHighlight => useHighlight;
 
-    virtual public void Pointed(bool value, Grabber grabber, RaycastHit ray)
+    public void Pointed(bool value, Grabber grabber, RaycastHit ray)
     {
+
         if (!pointed && value)
-            OnPointEnter(grabber);
+            OnPointEnter(grabber, ray);
 
         else if (pointed && !value)
-            OnPointExit(grabber);
-
+            OnPointExit(grabber, ray);
 
         pointed = value;
+
+        if (pointed && value)
+            IsPointed(grabber, ray);
+
     }
     private void Update()
     {
         
     }
+    virtual protected void Awake()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Interact");
+    }
+    
 
 
     public void SetHighlight(bool active)
@@ -57,50 +66,39 @@ public class InteractObject : MonoBehaviour, IInteract
         }
     }
 
-    private void Start()
+    virtual protected void Start()
     {
-        meshRenderer = GetComponent<Renderer>();
-        defaultShader = meshRenderer.material.shader;
-        currentMat = meshRenderer.material;
-        if (highlightShader)
-        {
-            currentMat.shader = highlightShader;
-            currentMat.SetColor("_OutlineColor", Color.white);
-            currentMat.SetFloat("_OutlineWidth", 0.0f);
-        }
-        else
-        {
-            useHighlight = false;
-        }
+        Main.Instance.interactObjects.Add(gameObject, this);
+        //meshRenderer = GetComponent<Renderer>();
+        //defaultShader = meshRenderer.material.shader;
+        //currentMat = meshRenderer.material;
+        //if (highlightShader)
+        //{
+        //    currentMat.shader = highlightShader;
+        //    currentMat.SetColor("_OutlineColor", Color.white);
+        //    currentMat.SetFloat("_OutlineWidth", 0.0f);
+        //}
+        //else
+        //{
+        //    useHighlight = false;
+        //}
     }
 
-    virtual public void OnPointExit(Grabber grabber)
+    #region Event
+
+    virtual public void OnPointExit(Grabber grabber, RaycastHit hitInfo)
     {
         
     }
-
-    virtual public void OnPointEnter(Grabber grabber)
+    virtual public void OnPointEnter(Grabber grabber, RaycastHit hitInfo)
     {
         
     }
-
-    virtual public void WillBeGrabbed(Grabber grabber)
+    virtual public void IsPointed(Grabber grabber, RaycastHit hitInfo)
     {
-        
+
     }
 
-    virtual public void Grabbed(Grabber grabber)
-    {
-        
-    }
+    #endregion
 
-    virtual public void WillBeReleased(Grabber grabber)
-    {
-       
-    }
-
-    virtual public void Released(Grabber grabber)
-    {
-        
-    }
 }

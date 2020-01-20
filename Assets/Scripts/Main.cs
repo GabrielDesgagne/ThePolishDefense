@@ -19,7 +19,7 @@ public class Main : MonoBehaviour
     public GameObject VRPlayerCharacter;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
-    public Dictionary<GameObject, IGrabbable> Igrabbables;
+    public Dictionary<GameObject, InteractObject> interactObjects;
 
     //public Player playerPrefab;
     public SceneTransition sceneTransition;
@@ -51,6 +51,7 @@ public class Main : MonoBehaviour
         game = Game.Instance;
         room = Room.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
+        interactObjects = new Dictionary<GameObject, InteractObject>();
 
         //Get/Set
         GlobalVariables = gameObject.GetComponent<Global>();
