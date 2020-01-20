@@ -578,6 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95006d51c4ccb2e43a3f7c09bd567a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camToTurn: {fileID: 5232227960490984347}
   teleportZonePrefab: {fileID: 3675926964669446790, guid: e23a789aef8dee848a821dcba7d376c9,
     type: 3}
   lineRender: {fileID: 0}

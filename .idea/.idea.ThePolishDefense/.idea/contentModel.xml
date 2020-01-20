@@ -61,8 +61,11 @@
           <e p="Samuel" t="Include">
             <e p="Assets" t="Include">
               <e p="Shaders" t="Include">
+                <e p="Pbr.shader" t="Include" />
+                <e p="Pbr_Specular.shader" t="Include" />
                 <e p="PhongLighting.shader" t="Include" />
                 <e p="RImLighting.shader" t="Include" />
+                <e p="SamLighting.shader" t="Include" />
               </e>
             </e>
             <e p="Scripts" t="Include">
