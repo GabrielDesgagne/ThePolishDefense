@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Glue : Trap
 {
-
+    //Door gameObject
     [SerializeField] GameObject door1;
     [SerializeField] GameObject door2;
 
+    //Door position animation
     //Vector3 startPosDoor1 = new Vector3(, 25, 25);
     Vector3 endPosDoor1 = new Vector3(-2.25f, 0, -2f);
     Vector3 startPosDoor2 = new Vector3(-2.25f, 0, 0);
@@ -58,15 +59,7 @@ public class Glue : Trap
     {
     }
 
-    public override void onExitTrigger()
-    {
-    }
-
     public override void onRemove()
-    {
-    }
-
-    public override void onTrigger()
     {
     }
 }
