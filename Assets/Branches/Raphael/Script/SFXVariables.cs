@@ -75,6 +75,9 @@ public class SFXVariables : MonoBehaviour
     public AudioSource fireworks4;
     public AudioSource fireworks5;
     public AudioSource fireworks6;
+    public AudioSource screamingVillagers;
+    public AudioSource trumpet;
+    public AudioSource defenders;
 
     //trap
     public AudioSource splash1;
@@ -86,6 +89,9 @@ public class SFXVariables : MonoBehaviour
     public AudioSource spike2;
     public AudioSource spike3;
 
+    //teleportation
+    public AudioSource teleportation1;
+    public AudioSource teleportation2;
 
 
 
