@@ -270,6 +270,18 @@ public class SFXManager : MonoBehaviour
         {
             sfx.fireworks6.Play();
         }
+        else if (name == "screaming villagers")
+        {
+            sfx.screamingVillagers.Play();
+        }
+        else if (name == "trumpet")
+        {
+            sfx.trumpet.Play();
+        }
+        else if (name == "defenders")
+        {
+            sfx.defenders.Play();
+        }
     }
 
     public void TrapSound(string name)
@@ -305,6 +317,18 @@ public class SFXManager : MonoBehaviour
         else if (name == "spike3")
         {
             sfx.spike3.Play();
+        }
+    }
+
+    public void TeleportaionSound(string name)
+    {
+        if (name == "teleportation1")
+        {
+            sfx.teleportation1.Play();
+        }
+        else if (name == "teleportation2")
+        {
+            sfx.teleportation2.Play();
         }
     }
 

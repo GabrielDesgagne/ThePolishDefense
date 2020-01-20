@@ -355,6 +355,18 @@ public class TestCommand : MonoBehaviour
         {
             sfx.WaveEndSound(input.text);
         }
+        else if (input.text == "screaming villagers")
+        {
+            sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "trumpet")
+        {
+            sfx.WaveEndSound(input.text);
+        }
+        else if (input.text == "defenders")
+        {
+            sfx.WaveEndSound(input.text);
+        }
         else if (input.text == "explosion3")
         {
             sfx.TrapSound(input.text);
@@ -386,6 +398,14 @@ public class TestCommand : MonoBehaviour
         else if (input.text == "spike3")
         {
             sfx.TrapSound(input.text);
+        }
+        else if (input.text == "teleportation1")
+        {
+            sfx.TeleportaionSound(input.text);
+        }
+        else if (input.text == "teleportation2")
+        {
+            sfx.TeleportaionSound(input.text);
         }
     }
 }
