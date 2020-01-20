@@ -24,6 +24,7 @@ public class GridEntity {
     private readonly ushort rows, columns;
     private readonly Vector2 tileSize;
     private readonly List<Vector2> pathCorners;
+    private GrabbableObject grabbableComponent;
 
     private bool isHitBoxActive;
 
@@ -82,7 +83,7 @@ public class GridEntity {
     private void InitGridHitBox(GameObject hitBoxPrefab, Transform startPoint, Vector2 tileSize, ushort rows, ushort columns) {
         //Instantiate prefab inside parent
         GameObject hitbox = GameObject.Instantiate<GameObject>(hitBoxPrefab, this.tilesHolder.transform);
-
+        grabbableComponent = hitbox.GetComponent<GrabbableObject>();
         //Set at position
         hitbox.transform.position = startPoint.position;
         //hitbox.transform.rotation = this.hiddenGrid.transform.rotation;
@@ -144,9 +145,8 @@ public class GridEntity {
                 tileCoords = new Vector2(xPos, zPos);
 
                 //Check if Path or Map
-                tileCenter = new Vector3(tileCoords.x + tileSize.x / 2, startPoint.position.y, tileCoords.y + tileSize.y / 2);
+                tileCenter = new Vector3(tileCoords.x + tileSize.x / 2f, startPoint.position.y, tileCoords.y + tileSize.y / 2f);
                 this.Tiles.Add(tileCoords, new Tile(TileType.NONE, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
-
                 zPos += tileSize.y;
             }
 
@@ -156,8 +156,8 @@ public class GridEntity {
     }
 
     public Vector2 GetTileCoords(Vector3 pointInWorld) {
-        Vector3Int tileCoords = this.hiddenGrid.WorldToCell(pointInWorld);
-        return new Vector2((int)tileCoords.x, (int)-tileCoords.y - 1);        //NOT SURE IT SHOULD BE MINUS Y
+        Vector3 tileCoords = (Vector3)(this.hiddenGrid.WorldToCell(pointInWorld)) * this.tileSize.x;
+        return new Vector2(tileCoords.x, -tileCoords.y - 1);        //NOT SURE IT SHOULD BE MINUS Y
     }
     public Vector2 GetTileCoords(TileInfo tileInfo) {
         Vector2 coords = new Vector2();

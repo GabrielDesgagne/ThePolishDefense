@@ -92,7 +92,7 @@ public class GrabbableObject : InteractObject
     }
 
     protected virtual void Start()
-    {
+    { 
         GrabbedKinematic = GrabbableRigidBody.isKinematic;
         Main.Instance.grabbableObjects.Add(this.gameObject, this);
     }
