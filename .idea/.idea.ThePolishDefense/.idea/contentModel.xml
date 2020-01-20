@@ -8,6 +8,7 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="BoardHitBox.cs" t="Include" />
         <e p="Branches" t="Include">
           <e p="GabDesg" t="Include">
             <e p="Scripts" t="Include">
@@ -58,6 +59,12 @@
             </e>
           </e>
           <e p="Samuel" t="Include">
+            <e p="Assets" t="Include">
+              <e p="Shaders" t="Include">
+                <e p="PhongLighting.shader" t="Include" />
+                <e p="RImLighting.shader" t="Include" />
+              </e>
+            </e>
             <e p="Scripts" t="Include">
               <e p="ActivateVFX.cs" t="Include" />
               <e p="CheatsManager.cs" t="Include" />
@@ -1059,6 +1066,9 @@
         </e>
         <e p="Resources" t="Include">
           <e p="Prefabs" t="Include">
+            <e p="Map" t="Include">
+              <e p="Terrain_ToonLitOutline.shader" t="Include" />
+            </e>
             <e p="Room" t="Include">
               <e p="Packs for Map Village" t="Include">
                 <e p="3D Cartoon Village" t="Include">
@@ -1106,6 +1116,7 @@
           <e p="Game.cs" t="Include" />
           <e p="GrabbableObject.cs" t="Include" />
           <e p="Grabber.cs" t="Include" />
+          <e p="IInteract.cs" t="Include" />
           <e p="InteractObject.cs" t="Include" />
           <e p="Interfaces" t="Include">
             <e p="IGrabbable.cs" t="Include" />
