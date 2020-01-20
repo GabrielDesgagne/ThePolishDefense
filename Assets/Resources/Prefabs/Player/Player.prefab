@@ -1085,7 +1085,7 @@ PrefabInstance:
     - target: {fileID: 7042403567744855755, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
       propertyPath: zOffSet
-      value: 0.15
+      value: -0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8033a667470993a4cb3f38166edd6af7, type: 3}

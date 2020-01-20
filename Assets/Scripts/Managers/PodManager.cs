@@ -28,7 +28,7 @@ public class PodManager : Flow
     {
         if (leftHandHaveBow)
         {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) == 0)
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) < 0.2f)
             {
                 attachedLeftHandPod.activateRender();
                 attachedLeftHandPod.GetComponent<Collider>().enabled = true;
@@ -40,7 +40,7 @@ public class PodManager : Flow
         }
         if (rightHandHaveBow)
         {
-            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) == 0)
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) < 0.2f)
             {
                 attachedRightHandPod.activateRender();
                 attachedRightHandPod.GetComponent<Collider>().enabled = true;
