@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerPiece : GrabbableObject
-{
+public class TowerPiece : GrabbableObject {
 
     public TowerType currentType;
     [HideInInspector] public bool itemWasPlacedOnMap;
@@ -11,14 +10,12 @@ public class TowerPiece : GrabbableObject
 
     HandType handType;
 
-    override public void Grabbed(Grabber hand)
-    {
+    override public void Grabbed(Grabber hand) {
         handType = hand.handside == Hand.Handside.Left ? HandType.LEFT : HandType.RIGHT;
         ShopManager.Instance.ObjGrabbed(gameObject, handType, this);
     }
 
-    override public void Released(Vector3 linearVelocity, Vector3 angularVelocity)
-    {
+    override public void Released(Vector3 linearVelocity, Vector3 angularVelocity) {
         ShopManager.Instance.ObjDropped(handType);
     }
 }

@@ -97,6 +97,8 @@ public class ShopManager : Flow {
     }
 
     private void InitializeItemOnMap() {
+        MapInfoPck.Instance.TestPopulate();
+
         //Get info package
         Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;
         Dictionary<Vector2, TrapType> trapsInfo = MapInfoPck.Instance.TileTrapInfos;
