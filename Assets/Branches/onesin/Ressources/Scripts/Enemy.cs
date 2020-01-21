@@ -35,7 +35,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool canEnter = false;//to check if enemy is able to enter the player base
     private float openDoorTime = 0;
-    float stateDuration = 4f;
+    public float stateDuration = 1.8f;
+    public float MaxStateDuration = 1.8f;
     private void Start() { Initialize(); }
     public void Initialize()
     {
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
         mvt = GetComponent<EnemyMovement>();
         //walk = audioEnnemi.GetComponent<AudioSource>();
         //dead = audioEnnemi.GetComponent<AudioSource>();
-        isHittable = true;
+        isHittable = false;
     }
 
     //private void Update() { Refresh(); }
@@ -88,21 +89,23 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        //speed = 0;
-        healthBar.fillAmount = health / startHealth;
-
-        anim.SetBool("isWalk", false);
-        anim.SetBool("isHit", true);
-
-        GameObject bEffect = (GameObject)Instantiate(bloodEffect, transform.position, Quaternion.identity);
-        Destroy(bEffect, 2f);
-
-        if (health <= 0 && !isDead)
+        if (isHittable)
         {
-            Die();
-        }
+            health -= amount;
+            //speed = 0;
+            healthBar.fillAmount = health / startHealth;
 
+            anim.SetBool("isWalk", false);
+            anim.SetBool("isHit", true);
+
+            GameObject bEffect = (GameObject)Instantiate(bloodEffect, transform.position, Quaternion.identity);
+            Destroy(bEffect, 2f);
+
+            if (health <= 0 && !isDead)
+            {
+                Die();
+            }
+        }
     }
 
     public void Slow(float amount)
