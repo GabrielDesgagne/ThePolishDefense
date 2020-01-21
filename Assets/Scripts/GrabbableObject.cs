@@ -8,7 +8,7 @@ using UnityEngine;
 public class GrabbableObject : InteractObject
 {
     /* Var in inspector */
-    [SerializeField] private bool distanceGrab;
+    [SerializeField] private bool distanceGrab = true;
     [SerializeField] private HandPose handPose;
     [SerializeField] private Transform[] grabPoints = null;
     [SerializeField] private bool allowOffhandGrab = true;

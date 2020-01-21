@@ -11,8 +11,8 @@ public class WaveSpawner : MonoBehaviour {
     Wave[] waves;
     public LevelSystem levelSystem;
 
-    [SerializeField]
-    public Transform spawnPoint;
+    //[SerializeField]
+    //public Transform spawnPoint;
 
     private float timeBetweenWaves ;
 
