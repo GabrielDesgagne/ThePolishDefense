@@ -14,7 +14,7 @@ public class GrabbableObject : InteractObject
     [SerializeField] private bool allowOffhandGrab = true;
 
 
-    private List<Collider> colliders;
+    private Collider[] colliders;
     #region Getters
     public bool AllowOffhandGrab => allowOffhandGrab;
     public bool DistanceGrab => distanceGrab;
@@ -56,7 +56,7 @@ public class GrabbableObject : InteractObject
             // Create a default grab point for the Distance Grab
             grabPoints = new Transform[1] { transform };
         }
-        colliders = GetComponentsInChildren<Collider>().ToList();
+        colliders = GetComponentsInChildren<Collider>();
 
     }
     //Toggles all colliders on the object. 
