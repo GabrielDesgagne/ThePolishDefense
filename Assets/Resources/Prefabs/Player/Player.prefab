@@ -1260,7 +1260,7 @@ PrefabInstance:
     - target: {fileID: 7042403567744855753, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.317
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7042403567744855753, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
@@ -1340,7 +1340,7 @@ PrefabInstance:
     - target: {fileID: 2799418946353659250, guid: 55fca0b6841b393499142bf573c3f2d0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.331
+      value: 0.195
       objectReference: {fileID: 0}
     - target: {fileID: 2799418946353659250, guid: 55fca0b6841b393499142bf573c3f2d0,
         type: 3}
@@ -1386,6 +1386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PodArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 2799418946353659252, guid: 55fca0b6841b393499142bf573c3f2d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4769233240677462243, guid: 55fca0b6841b393499142bf573c3f2d0,
         type: 3}

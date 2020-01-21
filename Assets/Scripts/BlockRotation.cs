@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class BlockRotation : MonoBehaviour
 {
+    public bool blocPosition;
     public float yOffset;
 
     public float zOffSet;
     void Update()
     {
         transform.eulerAngles = new Vector3(0,transform.parent.eulerAngles.y,0);
-        Vector3 pos = transform.parent.position;
-        pos.y += yOffset;
-        pos.z += zOffSet;
-        transform.position = pos;
+        if (blocPosition)
+        {
+            Vector3 pos = transform.parent.position;
+            pos.y += yOffset;
+            pos.z += zOffSet;
+            transform.position = pos;
+        }
     }
 }
