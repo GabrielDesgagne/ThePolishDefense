@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour
         //for test the take damage function. we can delete it after
         if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
+            Debug.Log("take damage");
             TakeDamage(50);
         }
         //
