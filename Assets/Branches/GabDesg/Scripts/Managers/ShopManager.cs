@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class ObjInfo {
     public GameObject objPrefab;
+    public GameObject ghostPrefab;
     public Vector3 spawnPosition;
 
-    public ObjInfo(GameObject objPrefab, Vector3 spawnPositionInShop) {
+    public ObjInfo(GameObject objPrefab, GameObject ghostPrefab, Vector3 spawnPositionInShop) {
         this.objPrefab = objPrefab;
+        this.ghostPrefab = ghostPrefab;
         this.spawnPosition = spawnPositionInShop;
     }
 }
@@ -116,9 +118,9 @@ public class ShopManager : Flow {
             GameObject obj = SpawnTurret(info.Value, tileCenter);
 
             //Set tower piece info
-            TowerPiece towerPiece = obj.GetComponent<TowerPiece>();
-            towerPiece.itemWasPlacedOnMap = true;
-            towerPiece.positionOnMap = tileCoords;
+//             TowerPiece towerPiece = obj.GetComponent<TowerPiece>();
+//             towerPiece.itemWasPlacedOnMap = true;
+//             towerPiece.positionOnMap = tileCoords;
         }
 
         //Traps
@@ -133,9 +135,9 @@ public class ShopManager : Flow {
             GameObject obj = SpawnTrap(info.Value, tileCenter);
 
             //Set trap piece info
-            TrapPiece trapPiece = obj.GetComponent<TrapPiece>();
-            trapPiece.itemWasPlacedOnMap = true;
-            trapPiece.positionOnMap = tileCoords;
+//             TrapPiece trapPiece = obj.GetComponent<TrapPiece>();
+//             trapPiece.itemWasPlacedOnMap = true;
+//             trapPiece.positionOnMap = tileCoords;
         }
     }
 
@@ -145,22 +147,29 @@ public class ShopManager : Flow {
         Dictionary<Vector2, Tile> tilesTrapShop = this.shopTrap.Tiles;
 
         GameObject obj;
+        GameObject ghost;
         //Init obj with row and column
         //Init turrets
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic");
-        this.towerSpawnInfo.Add(TowerType.BASIC, new ObjInfo(obj, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 0))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy");
-        this.towerSpawnInfo.Add(TowerType.HEAVY, new ObjInfo(obj, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 1))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice");
-        this.towerSpawnInfo.Add(TowerType.ICE, new ObjInfo(obj, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(1, 1))].TileCenter));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic_Ghost");
+        this.towerSpawnInfo.Add(TowerType.BASIC, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 0))].TileCenter));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy_Ghost");
+        this.towerSpawnInfo.Add(TowerType.HEAVY, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 1))].TileCenter));
+        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice_Ghost");
+        this.towerSpawnInfo.Add(TowerType.ICE, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(1, 1))].TileCenter));
 
         //Init traps
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
-        this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 0))].TileCenter));
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
+        this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 0))].TileCenter));
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
-        this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 1))].TileCenter));
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
+        this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 1))].TileCenter));
         obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
-        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(1, 1))].TileCenter));
+        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
+        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(1, 1))].TileCenter));
     }
 
     public void ObjGrabbed(GameObject obj, HandType hand, TowerPiece type) {
@@ -216,13 +225,13 @@ public class ShopManager : Flow {
 
     private GameObject SpawnTurret(TowerType type, Vector3 spawnPosition) {
         //Create obj
-        GameObject obj = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        GameObject obj = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].ghostPrefab, this.shopItemsHolder.transform);
         obj.transform.position = spawnPosition;
 
         return obj;
     }
     private GameObject SpawnTrap(TrapType type, Vector3 spawnPosition) {
-        GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].ghostPrefab, this.shopItemsHolder.transform);
         obj.transform.position = spawnPosition;
 
         return obj;

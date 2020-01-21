@@ -11,7 +11,7 @@ public class Grabber : Hand
     private Rigidbody rb;
     private Collider[] handCollider;
     private Collider playerCollider;
-    private GrabbableObject pointedObject;
+    private InteractObject pointedObject;
     private List<Renderer> m_showAfterInputFocusAcquired;
 
     public Transform IndexTransform;
@@ -246,17 +246,18 @@ public class Grabber : Hand
                 pointedObject.Pointed(false, this, rayHit);
 
             //Check if the pointed Object contains a grabbable Object
-            pointedObject = Main.Instance.grabbableObjects[rayHit.transform.gameObject];
+            pointedObject = Main.Instance.interactObjects[rayHit.transform.gameObject];
 
             // Will call this every frame.
-            pointedObject.Pointed(true, this, rayHit);
-            
+            pointedObject.Pointed(true, this, rayHit);        
         }
         else if (pointedObject != null)
         {
             pointedObject.Pointed(false, this, rayHit);
             pointedObject = null;
         }
+
+
     }
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor. 
     // This is call every update by an Event in OVR Camera Rig
@@ -303,7 +304,12 @@ public class Grabber : Hand
         if (grabCandidates.Contains(Main.Instance.grabbableObjects[otherCollider.gameObject])) return;
         grabCandidates.Add(Main.Instance.grabbableObjects[otherCollider.gameObject]);
     }
-
+    public void RemoveFromCandidate(GrabbableObject grabbable)
+    {
+        if (!grabCandidates.Contains(grabbable)) return;
+        grabCandidates.Remove(grabbable);
+        //SetPlayerIgnoreCollision(otherCollider.gameObject, false);
+    }
     void OnTriggerExit(Collider otherCollider)
     {
         // Check if the collided object is a GrabbableObject.
@@ -353,6 +359,7 @@ public class Grabber : Hand
 
             for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
             {
+                if (!grabbable.GrabPoints[j]) continue;
                 Transform grabbableSnap = grabbable.GrabPoints[j];
                 // Store the closest grabbable
                 float distance = Vector3.Distance(m_gripTransform.position, grabbableSnap.position);

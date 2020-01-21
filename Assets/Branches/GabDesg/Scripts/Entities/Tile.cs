@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
-public enum TileType { NONE, PATH, MAP }
+public enum TileType { NONE, PATH, MAP, INACTIVE }
 
 public class Tile {
     private static ulong nextTileId = 0;
