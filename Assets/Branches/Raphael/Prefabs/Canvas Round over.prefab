@@ -1315,12 +1315,12 @@ GameObject:
   - component: {fileID: 3683962563886410425}
   - component: {fileID: 3683962563886410426}
   m_Layer: 5
-  m_Name: Canvas 1
+  m_Name: Canvas Round over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3683962563886410427
 RectTransform:
   m_ObjectHideFlags: 0

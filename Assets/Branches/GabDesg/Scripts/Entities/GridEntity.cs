@@ -53,6 +53,7 @@ public class GridEntity
     {
         this.Id = GetNextGridId();
         this.hiddenGrid = _HiddenGrid;
+        this.startPoint = _StartPoint;
         this.startPoint.position = (Vector3)this.hiddenGrid.WorldToCell(_StartPoint.position);
         this.rows = _Rows;
         this.columns = _Columns;

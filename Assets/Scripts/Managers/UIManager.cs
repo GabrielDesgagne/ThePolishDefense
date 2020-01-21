@@ -31,7 +31,7 @@ public class UIManager : Flow {
     override public void Initialize()
     {
         InitScoreboard();
-        ShowVictory();
+        HideUI();
     }
 
     override public void Refresh()
