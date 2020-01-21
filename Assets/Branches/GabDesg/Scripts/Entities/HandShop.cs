@@ -157,8 +157,6 @@ public class HandShop
 
         //Reset all values
         ResetHandInfo();
-
-        Debug.Log("Object position saved at: Rows:" + rowColumn.Row + ", Columns: " + rowColumn.Column);
     }
     private void SaveObjInPck(TrapPiece type)
     {
@@ -238,12 +236,6 @@ public class HandShop
             case TileType.MAP:
                 objCanGoOnTileType = true;
                 break;
-            case TileType.NONE:
-                objCanGoOnTileType = false;
-                break;
-            case TileType.PATH:
-                objCanGoOnTileType = false;
-                break;
         }
 
         return objCanGoOnTileType;
@@ -254,12 +246,6 @@ public class HandShop
 
         switch (tileType)
         {
-            case TileType.MAP:
-                objCanGoOnTileType = false;
-                break;
-            case TileType.NONE:
-                objCanGoOnTileType = false;
-                break;
             case TileType.PATH:
                 objCanGoOnTileType = true;
                 break;
