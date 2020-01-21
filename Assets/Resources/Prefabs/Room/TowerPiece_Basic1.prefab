@@ -4396,7 +4396,7 @@ GameObject:
   - component: {fileID: 3615532165222939228}
   - component: {fileID: 1087830926410658707}
   m_Layer: 0
-  m_Name: TowerPiece_Basic
+  m_Name: TowerPiece_Basic1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4441,7 +4441,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &3615532165222939228
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -83,7 +83,7 @@ public class InteractObject : MonoBehaviour
     virtual public void OnPointExit(Grabber grabber, RaycastHit hitInfo)
     {
         
-    }
+    }   
     virtual public void OnPointEnter(Grabber grabber, RaycastHit hitInfo)
     {
         

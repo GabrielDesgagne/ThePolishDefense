@@ -87,6 +87,7 @@ public class GrabbableObject : InteractObject
         GrabbableRigidBody.isKinematic = GrabbedKinematic;
         GrabbableRigidBody.velocity = linearVelocity;
         GrabbableRigidBody.angularVelocity = angularVelocity;
+        GrabbedBy.RemoveFromCandidate(this);
         GrabbedBy = null;
         GrabbedCollider = null;
 
@@ -138,8 +139,10 @@ public class GrabbableObject : InteractObject
     {
         if (GrabbedBy != null)
         {
+            GrabbedBy.RemoveFromCandidate(this);
             // Notify the hand to release destroyed grabbables
             GrabbedBy.ForceRelease(this);
+            Main.Instance.grabbableObjects.Remove(this.gameObject);
         }
     }
 

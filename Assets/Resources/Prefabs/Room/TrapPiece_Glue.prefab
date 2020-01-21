@@ -960,7 +960,6 @@ GameObject:
   - component: {fileID: 4342383716360632311}
   - component: {fileID: 5445409858666054467}
   - component: {fileID: 705104951879062783}
-  - component: {fileID: -8388730582509026483}
   m_Layer: 0
   m_Name: TrapPiece_Glue
   m_TagString: Untagged
@@ -995,6 +994,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae319aece4159c41a182025bd4645b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useHighlight: 0
+  distanceRange: 10
+  highlightShader: {fileID: 0}
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
+  distanceGrab: 0
+  handPose: {fileID: 0}
+  grabPoints: []
+  allowOffhandGrab: 1
   currentType: 2
   itemWasPlacedOnMap: 0
   positionOnMap: {x: 0, y: 0}
@@ -1026,27 +1033,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &-8388730582509026483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322106984469913796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85401009ad8cb024495d32274b2afeb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useHighlight: 0
-  distanceRange: 10
-  highlightShader: {fileID: 0}
-  focusColor: {r: 0, g: 0, b: 0, a: 0}
-  distanceGrab: 0
-  handPose: {fileID: 0}
-  grabPoints: []
-  allowOffhandGrab: 1
+  m_CollisionDetection: 1
 --- !u!1 &3953401450752176890
 GameObject:
   m_ObjectHideFlags: 0
