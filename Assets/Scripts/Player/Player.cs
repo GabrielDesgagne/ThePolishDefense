@@ -72,7 +72,9 @@ public class Player : MonoBehaviour
         {
             beginTeleport();
         }
+        rotation();
         changeLife();
+        
     }
 
     public void EndFlow()
@@ -80,7 +82,11 @@ public class Player : MonoBehaviour
 
     }
 
-    private void beginTeleport()
+    private void rotation()
+    {
+        //transform.Rotate(new Vector3(0, InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].Joystick.x, 0));
+    }
+private void beginTeleport()
     {
         Ray ray = new Ray();
         if (controllerUseToTp == OVRInput.Controller.LTouch)
