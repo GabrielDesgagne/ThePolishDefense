@@ -24,8 +24,6 @@ public class BoardHitBox : GrabbableObject
     public override void IsPointed(Grabber grabber, RaycastHit ray)
     {
         if (ray.point != Vector3.zero) {
-            base.Pointed(value, grabber, ray);
-
             ShopManager.Instance.OnEnterBoard(this.handType, ray.point);
 
             //Check input to buy
