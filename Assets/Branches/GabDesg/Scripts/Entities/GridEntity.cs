@@ -157,6 +157,7 @@ public class GridEntity {
 
     public Vector2 GetTileCoords(Vector3 pointInWorld) {
         Vector3 tileCoords = (Vector3)(this.hiddenGrid.WorldToCell(pointInWorld)) * this.tileSize.x;
+
         return new Vector2(tileCoords.x, -tileCoords.y - 1);        //NOT SURE IT SHOULD BE MINUS Y
     }
     public Vector2 GetTileCoords(TileInfo tileInfo) {
@@ -201,7 +202,9 @@ public class GridEntity {
     }
 
     public TileType GetTileType(Vector2 tileCoords) {
-        return this.Tiles[tileCoords].Type;
+        if(Tiles.ContainsKey(tileCoords))
+            return this.Tiles[tileCoords].Type;
+        return TileType.NONE;
     }
 
     public bool IsTileInGrid(Vector2 coords) {

@@ -163,8 +163,9 @@ public class HandShop {
             if (this.hitPointOnBoard == null)
                 if (this.objGhost.activeSelf)
                     this.objGhost.SetActive(false);
-            if (HasTileChanged() && this.hitPointOnBoard != null) {
-
+            //if (HasTileChanged() && this.hitPointOnBoard != null) {
+            if (this.hitPointOnBoard != null)
+            {
                 //Activated obj
                 if (!this.objGhost.activeSelf)
                     this.objGhost.SetActive(true);
@@ -175,6 +176,7 @@ public class HandShop {
 
                 //Check if item type can go on tile type
                 bool objCanGoOnTileType = false;
+                
                 TileType tileType = shopManager.Map.GetTileType(this.tileCoordsSelected);
                 if (this.towerInfo != null)
                     objCanGoOnTileType = ObjCanGoOnTileType(tileType, this.towerInfo.currentType);
@@ -189,7 +191,7 @@ public class HandShop {
                 }
                 else {
                     this.onAvailableTile = false;
-                    Debug.Log("U Cant place the item here...");
+                   // Debug.Log("U Cant place the item here...");
                     //CANT PLACE HERE
                 }
 
