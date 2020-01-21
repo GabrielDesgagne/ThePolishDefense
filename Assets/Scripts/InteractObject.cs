@@ -8,7 +8,7 @@ public class InteractObject : MonoBehaviour
     /* Var visible in Inspector */
     [SerializeField] private bool useHighlight;
     [SerializeField] private float distanceRange = 10;
-    [SerializeField] protected Shader highlightShader;
+    [SerializeField] private Shader highlightShader;
     [SerializeField] protected Color focusColor;
 
     /* Var private/protected */
@@ -21,6 +21,8 @@ public class InteractObject : MonoBehaviour
     /* Getter */
     public float DistanceRange => distanceRange;
     public bool UseHighlight => useHighlight;
+
+    protected Shader HighlightShader { get => highlightShader; set => highlightShader = value; }
 
     public void Pointed(bool value, Grabber grabber, RaycastHit ray)
     {
@@ -39,14 +41,12 @@ public class InteractObject : MonoBehaviour
     }
     private void Update()
     {
-        
-    }
+
+    }        
     virtual protected void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Interact");
     }
-    
-
 
     public void SetHighlight(bool active)
     {
@@ -69,19 +69,13 @@ public class InteractObject : MonoBehaviour
     virtual protected void Start()
     {
         Main.Instance.interactObjects.Add(gameObject, this);
-        //meshRenderer = GetComponent<Renderer>();
-        //defaultShader = meshRenderer.material.shader;
-        //currentMat = meshRenderer.material;
-        //if (highlightShader)
-        //{
-        //    currentMat.shader = highlightShader;
-        //    currentMat.SetColor("_OutlineColor", Color.white);
-        //    currentMat.SetFloat("_OutlineWidth", 0.0f);
-        //}
-        //else
-        //{
-        //    useHighlight = false;
-        //}
+        meshRenderer = GetComponent<Renderer>();
+        if (meshRenderer)
+        {
+            defaultShader = meshRenderer.material.shader;
+            currentMat = meshRenderer.material;
+        }
+        
     }
 
     #region Event

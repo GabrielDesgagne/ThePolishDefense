@@ -14,7 +14,6 @@ public class Grabber : Hand
     private GrabbableObject pointedObject;
     private List<Renderer> m_showAfterInputFocusAcquired;
 
-
     public Transform IndexTransform;
     public float grabberRadius;
     private bool m_collisionEnabled = true;
@@ -57,8 +56,8 @@ public class Grabber : Hand
     protected Vector3 m_anchorOffsetPosition;
     protected float m_prevFlex;
     public GrabbableObject grabbedObj = null;
-    protected Vector3 m_grabbedObjectPosOff;
-    protected Quaternion m_grabbedObjectRotOff;
+    public Vector3 m_grabbedObjectPosOff;
+    public Quaternion m_grabbedObjectRotOff;
     protected List<GrabbableObject> grabCandidates;
 
 
@@ -174,6 +173,8 @@ public class Grabber : Hand
     {
         if (pointedObject)
         {
+            Debug.Log("distance grab begin");
+
             //Check if the interact object is also a grabbable Object
             if (!Main.Instance.grabbableObjects.ContainsKey(pointedObject.gameObject)) return;
 
@@ -182,11 +183,9 @@ public class Grabber : Hand
 
             //Check if the gameObject is not in the distance grab range
             if (Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position) < DISTANCE_GRAB_RANGE_MIN) return;
-            Debug.Log("Min Distnace ok");
 
             //Check if the gameObject is too far
             if (Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position) > Main.Instance.grabbableObjects[pointedObject.transform.gameObject].DistanceRange) return;
-            Debug.Log("Head distance ok");
             //Add Object in the hand
 
             GrabbableObject grabbable = Main.Instance.grabbableObjects[pointedObject.transform.gameObject];
@@ -204,12 +203,15 @@ public class Grabber : Hand
 
                 /*Calcul l'endroit ou l'object va suivre la main, en utilisant l'orientation et position d'un grab Point
                 /************/
+
+                grabbedObj.transform.rotation = Quaternion.Inverse(closestGrabbableTransform.transform.rotation) * grabbedObj.transform.rotation;
+
                 Vector3 relPos = grabbedObj.transform.position - closestGrabbableTransform.transform.position;
-                relPos = Quaternion.Inverse(transform.rotation) * relPos;
                 m_grabbedObjectPosOff = relPos;
 
-                Quaternion relOri = Quaternion.Inverse(transform.rotation) * closestGrabbableTransform.transform.rotation;
+                Quaternion relOri = Quaternion.Inverse(closestGrabbableTransform.transform.localRotation);
                 m_grabbedObjectRotOff = relOri;
+
                 /************/
 
                 grabbedObj.GrabBegin(this, closestGrabbableTransform);
@@ -234,13 +236,10 @@ public class Grabber : Hand
     public void CastRay()
     {
         RaycastHit rayHit;
-        Debug.Log(0);
         if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //||
                                                                                                                      //  Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
-            Debug.Log(1);
             if (!Main.Instance.interactObjects.ContainsKey(rayHit.transform.gameObject)) return;
-            Debug.Log(2);
 
             //Tells the previous ponted object that it is not pointed anymore
             if (pointedObject != null)
@@ -338,6 +337,7 @@ public class Grabber : Hand
 
     protected virtual void GrabBegin()
     {
+        Debug.Log("grab begin");
         float closestDistance = float.MaxValue;
         GrabbableObject closestGrabbable = null;
         Transform closestGrabbableTransform = null;
@@ -388,13 +388,28 @@ public class Grabber : Hand
             m_lastPos = transform.position;
             m_lastRot = transform.rotation;
 
+            if(closestGrabbable.UseGrabPoint)
+            {
+                /************/
+                grabbedObj.transform.rotation = Quaternion.Inverse(closestGrabbableTransform.transform.rotation) * grabbedObj.transform.rotation;
 
-            Vector3 relPos = closestGrabbableTransform.position - transform.position;
-            relPos = Quaternion.Inverse(transform.rotation) * relPos;
-            m_grabbedObjectPosOff = relPos;
+                Vector3 relPos = grabbedObj.transform.position - closestGrabbableTransform.transform.position;
+                m_grabbedObjectPosOff = relPos;
 
-            Quaternion relOri = Quaternion.Inverse(transform.rotation) * grabbedObj.transform.rotation;
-            m_grabbedObjectRotOff = relOri;
+                Quaternion relOri = Quaternion.Inverse(closestGrabbableTransform.transform.localRotation);
+                m_grabbedObjectRotOff = relOri;
+                /************/
+            }
+            else
+            {
+                Vector3 relPos = closestGrabbableTransform.position - transform.position;
+                relPos = Quaternion.Inverse(transform.rotation) * relPos;
+                m_grabbedObjectPosOff = relPos;
+
+                Quaternion relOri = Quaternion.Inverse(transform.rotation) * grabbedObj.transform.rotation;
+                m_grabbedObjectRotOff = relOri;
+            }
+
 
             // Note: force teleport on grab, to avoid high-speed travel to dest which hits a lot of other objects at high
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
@@ -424,14 +439,14 @@ public class Grabber : Hand
         else
         {
             grabbedRigidbody.MovePosition(grabbablePosition);
-            grabbedRigidbody.MoveRotation(rot);
+            grabbedRigidbody.MoveRotation(grabbableRotation);
         }
     }
 
     protected void GrabEnd()
     {
         if (grabbedObj != null)
-        { 
+        {
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(controller), orientation = OVRInput.GetLocalControllerRotation(controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
             localPose = localPose * offsetPose;
@@ -451,7 +466,7 @@ public class Grabber : Hand
 
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        if(grabbedObj.WillBeReleased(this))
+        if (grabbedObj.WillBeReleased(this))
         {
             grabbedObj.GrabEnd(linearVelocity, angularVelocity);
             grabbedObj = null;
@@ -602,3 +617,15 @@ public class Grabber : Hand
 //        collider.transform.localScale = new Vector3(COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN, COLLIDER_SCALE_MIN);
 //    }
 //}
+
+
+///*Calcul l'endroit ou l'object va suivre la main, en utilisant l'orientation et position d'un grab Point
+///************/
+//grabbedObj.transform.rotation = Quaternion.Inverse(closestGrabbableTransform.transform.rotation) * grabbedObj.transform.rotation;
+
+//Vector3 relPos = grabbedObj.transform.position - closestGrabbableTransform.transform.position;
+//m_grabbedObjectPosOff = relPos;
+
+//                Quaternion relOri = Quaternion.Inverse(closestGrabbableTransform.transform.localRotation);
+//m_grabbedObjectRotOff = relOri;
+//                /************/
