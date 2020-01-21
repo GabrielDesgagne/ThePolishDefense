@@ -25,7 +25,13 @@ public abstract class Projectile
             else
             {
                 if (Enemy != null)
+                {
                     Obj.transform.position = Vector3.Slerp(StartPos, Enemy.transform.position, SlerpPct);
+                }
+                else
+                {
+                    ProjectileManager.Instance.ResetProjectile(this);
+                }
             }
             SlerpPct += 0.05f;
         }
