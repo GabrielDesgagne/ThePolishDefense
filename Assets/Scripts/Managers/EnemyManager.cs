@@ -20,13 +20,14 @@ public class EnemyManager : Flow
 
 
     //public Transform spawnPoint;
+    private GameObject enemyParent;
     public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
 
     public Transform[] waypoints;
 
-    Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
+    public Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
 
 
     //public static int EnemiesAlive = 0;//number of enemy alive
@@ -119,27 +120,11 @@ public class EnemyManager : Flow
         toRemove.Push(enemyDied);
     }
 
-    /* IEnumerator SpawnWave()
-     {
-         Wave wave = waves[waveIndex];
-
-         EnemiesAlive = wave.count;
-
-         for (int i = 0; i < wave.count; i++)
-         {
-             System.Random rnd = new System.Random();
-             EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
-             GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
-             Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-             e.Initialize();               
-             toAdd.Push(e);                              
-             yield return new WaitForSeconds(1f / wave.rate);
-         }
-
-         waveIndex++;
-
-
-     }*/
+    public GameObject SpawnEnemy(GameObject enemy)
+    {
+        Transform enemyStart = GameVariables.instance.enemyStart.transform;
+        return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
+    }
 
     /*GameObject SpawnEnemy(GameObject enemy)
     {

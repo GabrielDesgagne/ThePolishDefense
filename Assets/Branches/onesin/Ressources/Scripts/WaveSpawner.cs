@@ -9,7 +9,6 @@ public class WaveSpawner : MonoBehaviour {
     public Logic gameLogic;
 
     Wave[] waves;
-    public LevelSystem levelSystem;
 
     //[SerializeField]
     //public Transform spawnPoint;
@@ -26,11 +25,12 @@ public class WaveSpawner : MonoBehaviour {
     //Dictionary<EnemyType, GameObject> enemyPrefab;
    
     public void Initialize()
-    {
+    { 
         EnemiesAlive = 0;
         waveCountdownTimer = countdown.GetComponent<Countdown>();
         waveCountdownTimer.Initialize();
         //Instantiate(countdown, gameObject.transform.position, Quaternion.identity);
+        LevelSystem levelSystem = GameVariables.instance.levelSystem;
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
         timeBetweenWaves= levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
         waveCountdownTimer.countdown = timeBetweenWaves;
