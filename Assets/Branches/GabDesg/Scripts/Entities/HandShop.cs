@@ -20,11 +20,6 @@ public class HandShop {
 
     private GameObject objHolder;
 
-
-
-
-
-
     public HandShop(HandType type) {
         if (mapPck == null)
             mapPck = MapInfoPck.Instance;
@@ -83,13 +78,16 @@ public class HandShop {
     private void CreateGhostItem(TowerPiece type) {
         //Instantiate obj (prefab held in ShopManager)
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
+        this.objGhost.GetComponent<Collider>().enabled = false;
         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void CreateGhostItem(TrapPiece type) {
         //Instantiate obj
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
-        this.objGhost.SetActive(false);
+        this.objGhost.GetComponent<Collider>().enabled = false;
         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
+        this.objGhost.SetActive(false);
+       
     }
 
     private void UpdateTileSelected() {
@@ -161,10 +159,12 @@ public class HandShop {
         if (this.objInHand != null && this.objGhost != null) {
             UpdateTileSelected();
             if (this.hitPointOnBoard == null)
+            {
                 if (this.objGhost.activeSelf)
                     this.objGhost.SetActive(false);
+            }
             //if (HasTileChanged() && this.hitPointOnBoard != null) {
-            if (this.hitPointOnBoard != null)
+            else 
             {
                 //Activated obj
                 if (!this.objGhost.activeSelf)

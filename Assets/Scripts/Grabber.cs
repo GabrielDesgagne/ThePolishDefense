@@ -237,12 +237,12 @@ public class Grabber : Hand
     {
         RaycastHit rayHit;
         if (Physics.Raycast(transform.position, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //||
-                                                                                                                     //  Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
+                                                                                                         //  Physics.SphereCast(transform.position, 0.2f, transform.forward, out rayHit, 1000, LayerMask.GetMask("Interact"))) //TODO Change layer to fit name
         {
             if (!Main.Instance.interactObjects.ContainsKey(rayHit.transform.gameObject)) return;
 
             //Tells the previous ponted object that it is not pointed anymore
-            if (pointedObject != null)
+            if (pointedObject != null && pointedObject != rayHit.transform.gameObject)
                 pointedObject.Pointed(false, this, rayHit);
 
             //Check if the pointed Object contains a grabbable Object
@@ -250,7 +250,7 @@ public class Grabber : Hand
 
             // Will call this every frame.
             pointedObject.Pointed(true, this, rayHit);
-
+            
         }
         else if (pointedObject != null)
         {

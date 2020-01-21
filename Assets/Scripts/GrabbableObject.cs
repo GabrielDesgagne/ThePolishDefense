@@ -8,13 +8,13 @@ using UnityEngine;
 public class GrabbableObject : InteractObject
 {
     /* Var in inspector */
-    [SerializeField] private bool distanceGrab;
+    [SerializeField] private bool distanceGrab = true;
     [SerializeField] private HandPose handPose;
     [SerializeField] private Transform[] grabPoints = null;
     [SerializeField] private bool allowOffhandGrab = true;
 
 
-    private List<Collider> colliders;
+    private Collider[] colliders;
     #region Getters
     public bool AllowOffhandGrab => allowOffhandGrab;
     public bool DistanceGrab => distanceGrab;
@@ -56,7 +56,7 @@ public class GrabbableObject : InteractObject
             // Create a default grab point for the Distance Grab
             grabPoints = new Transform[1] { transform };
         }
-        colliders = GetComponentsInChildren<Collider>().ToList();
+        colliders = GetComponentsInChildren<Collider>();
 
     }
     //Toggles all colliders on the object. 
