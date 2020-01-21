@@ -149,18 +149,22 @@ public class HandShop
     private void SaveObjInPck(TowerPiece type)
     {
         //Save obj
-        mapPck.AddTower(this.tileCoordsSelected, type.currentType);
+        TileInfo rowColumn = shopManager.Map.GetRowColumn(this.tileCoordsSelected);
+        mapPck.AddTower(new Vector2(rowColumn.Row, rowColumn.Column), type.currentType);
 
         //Remove obj in hand
         GameObject.Destroy(this.objInHand);
 
         //Reset all values
         ResetHandInfo();
+
+        Debug.Log("Object position saved at: Rows:" + rowColumn.Row + ", Columns: " + rowColumn.Column);
     }
     private void SaveObjInPck(TrapPiece type)
     {
         //Save obj
-        mapPck.AddTrap(this.tileCoordsSelected, type.currentType);
+        TileInfo rowColumn = shopManager.Map.GetRowColumn(this.tileCoordsSelected);
+        mapPck.AddTrap(new Vector2(rowColumn.Row, rowColumn.Column), type.currentType);
 
         //Remove obj in hand
         GameObject.Destroy(this.objInHand);
