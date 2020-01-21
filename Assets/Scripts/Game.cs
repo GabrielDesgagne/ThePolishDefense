@@ -205,6 +205,6 @@ public class Game : Flow {
                 Quaternion.identity,
                 enemyPoint.transform);
         }
-        Waypoints.SetPoint(enemyPoint.transform);
+        EnemyManager.Instance.SetPoints(enemyPoint.transform);
     }
 }

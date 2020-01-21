@@ -10,15 +10,10 @@ public class EnemyMovement : MonoBehaviour
     private Enemy enemy;
     private Rigidbody rb;
 
-    //private Animator anim;
-    private void Start() { Initialize(); }
-    private void Update() { Refresh(); }
-    private void FixedUpdate() { PhysicsRefresh(); }
-
     public void Initialize()
     {
         enemy = GetComponent<Enemy>();
-        target = Waypoints.points[0];
+        target = EnemyManager.Instance.waypoints[0];
         rb=GetComponent<Rigidbody>();
         //anim = GetComponent<Animator>();
     }
@@ -42,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) <= 0.3f)
         {
             //check the next way point
-            if (waypointIndex >= Waypoints.points.Length - 1)
+            if (waypointIndex >= EnemyManager.Instance.waypoints.Length - 1)
             {
                 PlayerStats.decrementHp();
                 enemy.isHittable = false;
@@ -53,7 +48,7 @@ public class EnemyMovement : MonoBehaviour
             }
 
             waypointIndex++;
-            target = Waypoints.points[waypointIndex];
+            target = EnemyManager.Instance.waypoints[waypointIndex];
         }
 
         //enemy.speed = enemy.startSpeed;

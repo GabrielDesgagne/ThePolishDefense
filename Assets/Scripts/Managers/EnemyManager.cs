@@ -24,6 +24,8 @@ public class EnemyManager : Flow
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
 
+    public Transform[] waypoints;
+
     Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
 
 
@@ -51,6 +53,7 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
+        SetPoints(GameVariables.instance.enemyParentPoint.transform);
         waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
         spawner= waveSpawner.GetComponent<WaveSpawner>();
         spawner.Initialize();
@@ -105,6 +108,10 @@ public class EnemyManager : Flow
 
         while (toAdd.Count > 0) //Add new ones
             enemies.Add(toAdd.Pop());
+
+
+        foreach (Enemy enemy in enemies)
+            enemy.PhysicsRefresh();
     }
 
     public void EnemyDied(Enemy enemyDied)
@@ -172,5 +179,15 @@ public class EnemyManager : Flow
     override public void EndFlow()
     {
 
+    }
+
+    public void SetPoints(Transform transform)
+    {
+        waypoints = new Transform[transform.childCount];
+
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            waypoints[i] = transform.GetChild(i);
+        }
     }
 }
