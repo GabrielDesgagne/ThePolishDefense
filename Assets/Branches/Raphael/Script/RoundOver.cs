@@ -7,7 +7,8 @@ using System;
 public class RoundOver : MonoBehaviour
 {
    
-    public TextUI text;
+   
+    public SFXManager sfx;
 
     private bool win = false;
     private bool lose = false;
@@ -43,6 +44,7 @@ public class RoundOver : MonoBehaviour
         youWin.SetActive(true);
         fireworks.SetActive(true);
         explosion.SetActive(false);
+        
     }
     public void ShowDefeat()
     {
