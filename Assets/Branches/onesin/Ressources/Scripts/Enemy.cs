@@ -37,7 +37,6 @@ public class Enemy : MonoBehaviour
     private float openDoorTime = 0;
     public float stateDuration = 1.8f;
     public float MaxStateDuration = 1.8f;
-    float stateDuration = 4f;
 
     private Transform target;
     private int waypointIndex = 0;
