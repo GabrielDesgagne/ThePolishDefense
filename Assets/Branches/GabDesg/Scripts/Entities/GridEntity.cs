@@ -25,11 +25,12 @@ public class GridEntity
     private readonly ushort rows, columns;
     private readonly Vector2 tileSize;
     private readonly List<Vector2> pathCorners;
+    private readonly List<Vector2> inactiveTilesCoords;
     private GrabbableObject grabbableComponent;
 
     private bool isHitBoxActive;
 
-    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _PathCorners, GameObject tilePrefab, GameObject hitBoxPrefab, bool _IsHitBoxActive = true)
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _InactiveTilesCoords, List<Vector2> _PathCorners, GameObject tilePrefab, GameObject hitBoxPrefab, bool _IsHitBoxActive = true)
     {
         this.Id = GetNextGridId();
         this.hiddenGrid = _HiddenGrid;
@@ -38,6 +39,7 @@ public class GridEntity
         this.columns = _Columns;
         this.tileSize = this.hiddenGrid.cellSize;
         this.pathCorners = _PathCorners;
+        this.inactiveTilesCoords = _InactiveTilesCoords;
         this.isHitBoxActive = _IsHitBoxActive;
 
         CreateTilesHolder(name);
@@ -47,16 +49,16 @@ public class GridEntity
         InitTiles(this.startPoint, this.rows, this.columns, this.tileSize, this.pathCorners, tilePrefab);
     }
 
-    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _PathCorners, GameObject tilePrefab)
+    public GridEntity(string name, Grid _HiddenGrid, Transform _StartPoint, ushort _Rows, ushort _Columns, List<Vector2> _InactiveTilesCoords, List<Vector2> _PathCorners, GameObject tilePrefab)
     {
         this.Id = GetNextGridId();
         this.hiddenGrid = _HiddenGrid;
         this.startPoint = _StartPoint;
-        this.startPoint.position = (Vector3)this.hiddenGrid.WorldToCell(_StartPoint.position);
         this.rows = _Rows;
         this.columns = _Columns;
         this.tileSize = this.hiddenGrid.cellSize;
         this.pathCorners = _PathCorners;
+        this.inactiveTilesCoords = _InactiveTilesCoords;
         this.isHitBoxActive = false;
 
         CreateTilesHolder(name);
@@ -121,23 +123,35 @@ public class GridEntity
                 //Check if Path or Map
                 tileCenter = new Vector3(tileCoords.x + tileSize.x / 2f, startPoint.position.y, tileCoords.y + tileSize.y / 2f);
 
-                if (this.pathCorners.Contains(new Vector2(i, j)))
+                if (this.inactiveTilesCoords.Contains(new Vector2(i, j)))
                 {
-                    //Add Path tile
+                    //Add Inactive tile
                     Vector3Int realCoords = hiddenGrid.WorldToCell(tileCenter);
                     Vector2 coords = new Vector2(realCoords.x, -realCoords.y);
 
-                    if (!this.Tiles.ContainsKey(coords))
-                        this.Tiles.Add(coords, new Tile(TileType.PATH, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                    this.Tiles.Add(coords, new Tile(TileType.INACTIVE, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
                 }
                 else
                 {
-                    //Add Map tile
-                    Vector3Int realCoords = hiddenGrid.WorldToCell(tileCenter);
-                    Vector2 coords = new Vector2(realCoords.x, -realCoords.y);
 
-                    if (!this.Tiles.ContainsKey(coords))
-                        this.Tiles.Add(coords, new Tile(TileType.MAP, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                    if (this.pathCorners.Contains(new Vector2(i, j)))
+                    {
+                        //Add Path tile
+                        Vector3Int realCoords = hiddenGrid.WorldToCell(tileCenter);
+                        Vector2 coords = new Vector2(realCoords.x, -realCoords.y);
+
+                        if (!this.Tiles.ContainsKey(coords))
+                            this.Tiles.Add(coords, new Tile(TileType.PATH, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                    }
+                    else
+                    {
+                        //Add Map tile
+                        Vector3Int realCoords = hiddenGrid.WorldToCell(tileCenter);
+                        Vector2 coords = new Vector2(realCoords.x, -realCoords.y);
+
+                        if (!this.Tiles.ContainsKey(coords))
+                            this.Tiles.Add(coords, new Tile(TileType.MAP, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+                    }
                 }
 
                 zPos += tileSize.y;
@@ -174,6 +188,7 @@ public class GridEntity
 
                 if (!this.Tiles.ContainsKey(coords))
                     this.Tiles.Add(coords, new Tile(TileType.NONE, tileCenter, rotation, scale, prefab, this.tilesHolder.transform));
+
                 zPos += tileSize.y;
             }
 
