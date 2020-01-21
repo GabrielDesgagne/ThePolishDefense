@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Door2 : MonoBehaviour
 {
-    public int maxAngle=120;
+    public int maxAngle=90;
     public bool openDoor=false;
-    private int currentAngle;
-    GameObject door;
-    Transform pivot;
+    private int currentAngle=0;
+    public GameObject doorLeft;
+    public GameObject doorRight;
+    public Transform pivotLeft;
+    public Transform pivotRight;
     Quaternion initialRotation;
     int speed = 1;
     // Start is called before the first frame update
     void Start()
     {
-        door = GameObject.Find("Door");
+        //door = GameObject.Find("LeftDoor");
         initialRotation = transform.rotation;
     }
 
@@ -26,7 +28,8 @@ public class Door2 : MonoBehaviour
             if (currentAngle < maxAngle)
             {
                 currentAngle += speed;
-                door.transform.RotateAround(pivot.transform.position, Vector3.up, currentAngle*Time.deltaTime);
+                doorLeft.transform.RotateAround(pivotLeft.transform.position, Vector3.up, -currentAngle*Time.deltaTime);
+                doorRight.transform.RotateAround(pivotRight.transform.position, Vector3.up, currentAngle * Time.deltaTime);
             }
 
         }
@@ -34,14 +37,18 @@ public class Door2 : MonoBehaviour
             if (currentAngle >speed)
             {
                 currentAngle -= speed;
-                door.transform.RotateAround(pivot.transform.position, -Vector3.up, currentAngle * Time.deltaTime);
+                doorLeft.transform.RotateAround(pivotLeft.transform.position, -Vector3.up, -currentAngle * Time.deltaTime);
+                doorRight.transform.RotateAround(pivotRight.transform.position, -Vector3.up, currentAngle * Time.deltaTime);
             }
 
         }
-        if (currentAngle < 0)
+        if (currentAngle == 0)
         {
-            door.transform.rotation = initialRotation;
+            doorLeft.transform.rotation = initialRotation;
+            doorRight.transform.rotation = initialRotation;
         }
+        //openDoor = currentAngle > maxAngle/4 ;
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,9 +58,10 @@ public class Door2 : MonoBehaviour
 
             Enemy e = other.gameObject.GetComponent<Enemy>();
             openDoor = true;
-            Animator enemiAnim = other.gameObject.GetComponent<Animator>();
+            //Animator enemiAnim = other.gameObject.GetComponent<Animator>();
             
             e.canEnter = true;
+            e.stateDuration = e.MaxStateDuration * (1 - (currentAngle / maxAngle));
            
         }
     }
@@ -63,6 +71,8 @@ public class Door2 : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             openDoor = false;
+            Enemy e = other.gameObject.GetComponent<Enemy>();
+            e.canEnter = false;
         }
 
     }

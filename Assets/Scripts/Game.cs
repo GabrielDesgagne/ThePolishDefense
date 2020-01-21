@@ -150,6 +150,8 @@ public class Game : Flow {
 
 
         this.mapGrid = new GridEntity("MapMap", this.hiddenGrid, GameVariables.instance.mapStartPointInMap, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab);
+
+        MapInfoPck.Instance.TestPopulate();
         StartEndPath(GameVariables.instance.pathTilesCoords[0], GameVariables.instance.pathTilesCoords[GameVariables.instance.pathTilesCoords.Count - 1]);
         PlacePointInMap();
         SpawnItemsOnGrid(); 
@@ -190,13 +192,12 @@ public class Game : Flow {
     {
         GameVariables.instance.enemyStart.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath));
         GameVariables.instance.enemyEnd.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(endPath));
-        //remove this line after onesin joins the flow
-        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath)) + new Vector3(0,0,-3);
+        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath));
     }
 
     private void PlacePointInMap()
     {
-        GameObject enemyPoint = GameVariables.instance.enemyParentPoint;//parent
+        GameObject enemyPoint = GameVariables.instance.enemyParentPoint;
         foreach (Vector2 vec in GameVariables.instance.pathTilesCoords)
         {
             GameObject ob = GameObject.Instantiate(GameVariables.instance.enemyPoint,
