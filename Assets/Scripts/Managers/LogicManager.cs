@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogicManager : Flow
-{
+public class LogicManager : Flow {
     #region Singleton
     static private LogicManager instance = null;
 
     static public LogicManager Instance
     {
-        get {
+        get
+        {
             return instance ?? (instance = new LogicManager());
         }
     }
@@ -39,5 +39,15 @@ public class LogicManager : Flow
     override public void EndFlow()
     {
 
+    }
+
+    public void LevelWon()
+    {
+        UIManager.Instance.ShowVictory();
+    }
+
+    public void LevelLost()
+    {
+        UIManager.Instance.ShowDefeat();
     }
 }

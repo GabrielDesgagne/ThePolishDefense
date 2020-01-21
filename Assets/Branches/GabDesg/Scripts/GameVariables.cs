@@ -13,6 +13,7 @@ public class GameVariables : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             InitPathTilesCoords();
+            InitInactiveTiles();
         }
         else {
             Destroy(this.gameObject);
@@ -35,6 +36,7 @@ public class GameVariables : MonoBehaviour {
 
     [HideInInspector] public GameObject gridsHolder;
     [HideInInspector] public List<Vector2> pathTilesCoords;
+    [HideInInspector] public List<Vector2> inactiveTilesCoords;
 
     [SerializeField] public GameObject randomPrefab;
     [SerializeField] public ushort mapGridWidth;
@@ -46,6 +48,7 @@ public class GameVariables : MonoBehaviour {
     [SerializeField] public GameObject enemyEnd;
     [SerializeField] public GameObject enemyParentPoint;
     [SerializeField] public GameObject enemyPoint;
+    [SerializeField] public LevelSystem levelSystem;
 
     [SerializeField] public Transform shopRoomPosition;
     [SerializeField] public Transform mapRoomPosition;
@@ -54,8 +57,6 @@ public class GameVariables : MonoBehaviour {
     [SerializeField] public GameObject turretBasicPrefab;
 
     private void InitPathTilesCoords() {
-        instance.pathTilesCoords.Add(new Vector2(11, 14));
-        instance.pathTilesCoords.Add(new Vector2(11, 13));
         instance.pathTilesCoords.Add(new Vector2(11, 12));
         instance.pathTilesCoords.Add(new Vector2(11, 11));
         instance.pathTilesCoords.Add(new Vector2(11, 10));
@@ -93,5 +94,10 @@ public class GameVariables : MonoBehaviour {
         instance.pathTilesCoords.Add(new Vector2(3, 2));
         instance.pathTilesCoords.Add(new Vector2(3, 1));
         instance.pathTilesCoords.Add(new Vector2(3, 0));
+    }
+
+    private void InitInactiveTiles()
+    {
+        //TODO add inactive tiles
     }
 }

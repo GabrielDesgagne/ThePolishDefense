@@ -17,19 +17,12 @@ public class ArrowManager : Flow
     }
 
     #endregion
-    private bool leftHand;
-    private OVRGrabbable hand;
     public Arrow currentArrowLeft;
     public Arrow currentArrowRight;
 
-    public Vector3 ArrowPos = new Vector3(0f, 0f, .342f);
+    public Vector3 ArrowPos = new Vector3(0f, 0f, 0.330f);
 
-    public float scale = 0.1f;
-    //public GameObject arrowPrefab;
-    
-    // Start is called before the first frame update
-
-    // Update is called once per frame
+    public float scale = 1f;
     public override void Refresh()
     {
         if (currentArrowLeft != null)
@@ -54,20 +47,18 @@ public class ArrowManager : Flow
     public void AttachArrowToHand(Arrow arrow, bool right) {
         if (right)
         {
-            if (currentArrowRight == null) {
+            //if (currentArrowRight == null) {
                 currentArrowRight = arrow;
                 currentArrowRight.transform.localPosition = ArrowPos;
-                currentArrowRight.transform.localScale = new Vector3(scale,scale,scale);
-            }
+            //}
         }
         else
         {
-            if (currentArrowLeft == null)
-            {
+           // if (currentArrowLeft == null)
+           // {
                 currentArrowLeft = arrow;
                 currentArrowLeft.transform.localPosition = ArrowPos;
-                currentArrowLeft.transform.localScale = new Vector3(scale,scale,scale);
-            }
+           // }
         }
         
     }
