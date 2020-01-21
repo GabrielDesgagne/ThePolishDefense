@@ -58,6 +58,7 @@ public class GridEntity
         this.columns = _Columns;
         this.tileSize = this.hiddenGrid.cellSize;
         this.pathCorners = _PathCorners;
+        this.inactiveTilesCoords = _InactiveTilesCoords;
         this.isHitBoxActive = false;
 
         CreateTilesHolder(name);
