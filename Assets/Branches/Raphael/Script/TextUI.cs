@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class TextUI {
+public class TextUI : MonoBehaviour {
 
     private TextMeshProUGUI textMesh;
     private string text;
