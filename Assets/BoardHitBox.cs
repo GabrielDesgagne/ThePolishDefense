@@ -9,22 +9,27 @@ public class BoardHitBox : GrabbableObject
     bool value;
     RaycastHit ray;
 
-    override public void OnPointExit(Grabber grabber)
+    override public void OnPointExit(Grabber grabber, RaycastHit rayInfo)
     {
-        ShopManager.Instance.OnExitBoard(handType);
+        ShopManager.Instance.OnExitBoard(this.handType);
+        this.value = false;
     }
 
-    override public void OnPointEnter(Grabber grabber)
+    override public void OnPointEnter(Grabber grabber, RaycastHit rayInfo)
     {
         handType = grabber.handside == Hand.Handside.Left ? HandType.LEFT : HandType.RIGHT;
+        this.value = true;
     }
 
-    public override void Pointed(bool value, Grabber grabber, RaycastHit ray)
+    public override void IsPointed(Grabber grabber, RaycastHit ray)
     {
-        if(ray.point == Vector3.zero) { return; }
-        base.Pointed(value, grabber, ray);
-        //Debug.Log("Nom du fucking colider : " + ray.collider.name + "Pos du point muthafucka : " + ray.point);
-        Debug.DrawLine(grabber.transform.position, ray.point, Color.red);
-        ShopManager.Instance.OnEnterBoard(handType, ray.point);
+        if (ray.point != Vector3.zero) {
+            ShopManager.Instance.OnEnterBoard(this.handType, ray.point);
+
+            //Check input to buy
+            if (InputManager.Instance.inputs.Touch[grabber.controller].IndexTrigger >= 0.5f) {
+                ShopManager.Instance.BuyItem(this.handType);
+            }
+        }
     }
 }

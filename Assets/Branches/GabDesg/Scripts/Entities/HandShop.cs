@@ -20,11 +20,6 @@ public class HandShop {
 
     private GameObject objHolder;
 
-
-
-
-
-
     public HandShop(HandType type) {
         if (mapPck == null)
             mapPck = MapInfoPck.Instance;
@@ -33,10 +28,6 @@ public class HandShop {
         this.Type = type;
 
         this.objHolder = new GameObject("Hand" + this.Type.ToString());
-    }
-
-    public void Refresh() {
-        //Hand Logic
     }
 
     public bool GrabObj(GameObject obj, TowerPiece type) {
@@ -48,7 +39,6 @@ public class HandShop {
 
             //Create ghost item
             CreateGhostItem(type);
-            Debug.Log("Object Grabbed");
         }
         else
             Debug.Log("Theres already an object in " + this.Type.ToString() + " hand...");
@@ -88,13 +78,16 @@ public class HandShop {
     private void CreateGhostItem(TowerPiece type) {
         //Instantiate obj (prefab held in ShopManager)
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
+        this.objGhost.GetComponent<Collider>().enabled = false;
         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void CreateGhostItem(TrapPiece type) {
         //Instantiate obj
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
-        this.objGhost.SetActive(false);
+        this.objGhost.GetComponent<Collider>().enabled = false;
         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
+        this.objGhost.SetActive(false);
+       
     }
 
     private void UpdateTileSelected() {
@@ -115,13 +108,28 @@ public class HandShop {
     }
 
     public void BuyItem() {
+        bool itemCanBeBought = false;
+
         if (this.onAvailableTile) {
 
-            if (this.towerInfo != null)
-                SaveObjInPck(this.towerInfo);
-            else if (this.trapInfo != null)
-                SaveObjInPck(this.trapInfo);
+            //Check if enough money
+            if (true) {
+
+                itemCanBeBought = true;
+
+                if (this.towerInfo != null)
+                    SaveObjInPck(this.towerInfo);
+                else if (this.trapInfo != null)
+                    SaveObjInPck(this.trapInfo);
+            }
         }
+
+        if (itemCanBeBought) {
+            //Destroy obj in hand
+            GameObject.Destroy(this.objInHand);
+            ResetHandInfo();
+        }
+
     }
 
     private void SaveObjInPck(TowerPiece type) {
@@ -151,10 +159,13 @@ public class HandShop {
         if (this.objInHand != null && this.objGhost != null) {
             UpdateTileSelected();
             if (this.hitPointOnBoard == null)
+            {
                 if (this.objGhost.activeSelf)
                     this.objGhost.SetActive(false);
-            if (HasTileChanged() && this.hitPointOnBoard != null) {
-
+            }
+            //if (HasTileChanged() && this.hitPointOnBoard != null) {
+            else 
+            {
                 //Activated obj
                 if (!this.objGhost.activeSelf)
                     this.objGhost.SetActive(true);
@@ -165,6 +176,7 @@ public class HandShop {
 
                 //Check if item type can go on tile type
                 bool objCanGoOnTileType = false;
+                
                 TileType tileType = shopManager.Map.GetTileType(this.tileCoordsSelected);
                 if (this.towerInfo != null)
                     objCanGoOnTileType = ObjCanGoOnTileType(tileType, this.towerInfo.currentType);
@@ -179,7 +191,7 @@ public class HandShop {
                 }
                 else {
                     this.onAvailableTile = false;
-                    Debug.Log("U Cant place the item here...");
+                   // Debug.Log("U Cant place the item here...");
                     //CANT PLACE HERE
                 }
 

@@ -11,16 +11,14 @@ public class TowerPiece : GrabbableObject
 
     HandType handType;
 
-    override public void GrabBegin(Grabber hand, Transform grabPoint)
+    override public void Grabbed(Grabber hand)
     {
-        base.GrabBegin(hand, grabPoint);
         handType = hand.handside == Hand.Handside.Left ? HandType.LEFT : HandType.RIGHT;
         ShopManager.Instance.ObjGrabbed(gameObject, handType, this);
     }
 
-    override public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
+    override public void Released(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        base.GrabEnd(linearVelocity, angularVelocity);
         ShopManager.Instance.ObjDropped(handType);
     }
 }

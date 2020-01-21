@@ -24,6 +24,8 @@ public class EnemyManager : Flow
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
 
+    public Transform[] waypoints;
+
     Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
 
 
@@ -51,12 +53,14 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
-        waveSpawner = Resources.Load<GameObject>("Prefabs/WaveSpawner");
-        //spawner.GetComponent<WaveSpawner>();
-        //spawner.Initialize();
+        SetPoints(GameVariables.instance.enemyParentPoint.transform);
+        waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
+        spawner= waveSpawner.GetComponent<WaveSpawner>();
+        spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
-            enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
+            Debug.Log(etype.ToString());
+            enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
         }
         //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
         //EnemiesAlive = 0;
@@ -69,7 +73,7 @@ public class EnemyManager : Flow
         foreach (Enemy e in enemies)
             e.Refresh();
 
-        //spawner.Refresh(enemyPrefabDict);
+        spawner.Refresh(enemyPrefabDict);
         /* if (EnemiesAlive > 0)
          {
              return;
@@ -104,6 +108,10 @@ public class EnemyManager : Flow
 
         while (toAdd.Count > 0) //Add new ones
             enemies.Add(toAdd.Pop());
+
+
+        foreach (Enemy enemy in enemies)
+            enemy.PhysicsRefresh();
     }
 
     public void EnemyDied(Enemy enemyDied)
@@ -171,5 +179,15 @@ public class EnemyManager : Flow
     override public void EndFlow()
     {
 
+    }
+
+    public void SetPoints(Transform transform)
+    {
+        waypoints = new Transform[transform.childCount];
+
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            waypoints[i] = transform.GetChild(i);
+        }
     }
 }

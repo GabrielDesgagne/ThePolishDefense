@@ -25,41 +25,45 @@ public class TrapPiece : MonoBehaviour, IGrabbable {
 
     }
 
-    private void Update() {
-        switch (currentType) {
-            case TrapType.GLUE:
-                if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                    Grabbed();
-                }
-                if (Input.GetKeyDown(KeyCode.R)) {
-                    Dropped();
-                }
-                break;
-            case TrapType.MINE:
-                if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                    Grabbed();
-                }
-                if (Input.GetKeyDown(KeyCode.T)) {
-                    Dropped();
-                }
-                break;
-            case TrapType.SPIKE:
-                if (Input.GetKeyDown(KeyCode.Alpha6)) {
-                    Grabbed();
-                }
-                if (Input.GetKeyDown(KeyCode.Y)) {
-                    Dropped();
-                }
-                break;
-        }
-
-        //Get mouse position for now
-        Vector3? fakePoisition;
-        if (LookForHitOnTables(out fakePoisition))
-            ShopManager.Instance.OnEnterBoard(HandType.LEFT, (Vector3)fakePoisition);
-        else
-            ShopManager.Instance.OnExitBoard(HandType.LEFT);
-    }
+//     private void Update() {
+//         switch (currentType) {
+//             case TrapType.GLUE:
+//                 if (Input.GetKeyDown(KeyCode.Alpha4)) {
+//                     Grabbed();
+//                 }
+//                 if (Input.GetKeyDown(KeyCode.R)) {
+//                     Dropped();
+//                 }
+//                 break;
+//             case TrapType.MINE:
+//                 if (Input.GetKeyDown(KeyCode.Alpha5)) {
+//                     Grabbed();
+//                 }
+//                 if (Input.GetKeyDown(KeyCode.T)) {
+//                     Dropped();
+//                 }
+//                 break;
+//             case TrapType.SPIKE:
+//                 if (Input.GetKeyDown(KeyCode.Alpha6)) {
+//                     Grabbed();
+//                 }
+//                 if (Input.GetKeyDown(KeyCode.Y)) {
+//                     Dropped();
+//                 }
+//                 break;
+//         }
+// 
+//         //Get mouse position for now
+//         Vector3? fakePoisition;
+//         if (LookForHitOnTables(out fakePoisition))
+//             ShopManager.Instance.OnEnterBoard(HandType.LEFT, (Vector3)fakePoisition);
+//         else
+//         {
+//             Debug.Log("Test exit board, " + this);
+//             ShopManager.Instance.OnExitBoard(HandType.LEFT);
+//         }
+//             
+//     }
 
     public bool LookForHitOnTables(out Vector3? hitPointInWorld) {
         bool tableHasBeenHit = false;
