@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Vector3 startingMapPos = new Vector3(217,-41,1171);
+    public Vector3 startingRoomPos = new Vector3(109,14,79);
     public TextMeshPro lifeUi;
     public Transform camToTurn;
     private OVRInput.Controller controllerUseToTp;
