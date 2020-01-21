@@ -111,7 +111,7 @@ public class Mine : Trap
 
     protected override void OnTriggerEnter(Collider other)
     {
-        
+
         if (!isTrigger)
         {
             isTrigger = true;
@@ -124,6 +124,15 @@ public class Mine : Trap
                 PlaySound(triggerTrapClick);
             }
         }
+
+    }
+
+    public override void onTrigger()
+    {
+
+    }
+    public override void onExitTrigger()
+    {
 
     }
 

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game : Flow {
+public class Game : Flow
+{
 
     #region Singleton
     static private Game instance = null;
 
-    static public Game Instance {
-        get {
+    static public Game Instance
+    {
+        get
+        {
             return instance ?? (instance = new Game());
         }
     }
@@ -27,6 +30,7 @@ public class Game : Flow {
     ProjectileManager projectileManager;
     LogicManager logicManager;
     TimeManager timeManager;
+    AmbianceManager ambianceManager;
     private ArrowManager arrowManager;
 
 
@@ -41,7 +45,8 @@ public class Game : Flow {
 
 
 
-    override public void PreInitialize() {
+    override public void PreInitialize()
+    {
         //Grab instances
         inputManager = InputManager.Instance;
         podManager = PodManager.Instance;
@@ -54,6 +59,7 @@ public class Game : Flow {
         towerManager = TowerManager.Instance;
         timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
+        ambianceManager = AmbianceManager.Instance;
         //Setup Variables
 
         //Instantiates
@@ -71,11 +77,13 @@ public class Game : Flow {
         timeManager.PreInitialize();
         arrowManager.PreInitialize();
         podManager.PreInitialize();
+        ambianceManager.PreInitialize();
 
         LoadResources();
     }
 
-    override public void Initialize() {
+    override public void Initialize()
+    {
         inputManager.Initialize();
         playerManager.Initialize();
         waveManager.Initialize();
@@ -87,10 +95,13 @@ public class Game : Flow {
         timeManager.Initialize();
         arrowManager.Initialize();
         podManager.Initialize();
+        ambianceManager.Initialize();
+
         InitMap();
     }
 
-    override public void Refresh() {
+    override public void Refresh()
+    {
         inputManager.Refresh();
         playerManager.Refresh();
         //playerManager.Refresh();
@@ -103,10 +114,12 @@ public class Game : Flow {
         towerManager.Refresh();
         timeManager.Refresh();
         arrowManager.Refresh();
+        ambianceManager.Refresh();
 
     }
 
-    override public void PhysicsRefresh() {
+    override public void PhysicsRefresh()
+    {
         inputManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
         waveManager.PhysicsRefresh();
@@ -118,9 +131,11 @@ public class Game : Flow {
         timeManager.PhysicsRefresh();
         arrowManager.PhysicsRefresh();
         podManager.PhysicsRefresh();
+        ambianceManager.PhysicsRefresh();
     }
 
-    override public void EndFlow() {
+    override public void EndFlow()
+    {
         inputManager.EndFlow();
         playerManager.EndFlow();
         waveManager.EndFlow();
@@ -130,17 +145,20 @@ public class Game : Flow {
         logicManager.EndFlow();
         towerManager.EndFlow();
         timeManager.EndFlow();
+        ambianceManager.EndFlow();
 
 
         GameObject.Destroy(gameSetup);
     }
 
-    private void LoadResources() {
+    private void LoadResources()
+    {
         this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGrid");
         this.tileSidesPrefab = Resources.Load<GameObject>("Prefabs/Grid/Grid_VisualSides");
     }
 
-    private void InitMap() {
+    private void InitMap()
+    {
 
         //Init grids holder
         GameVariables.instance.gridsHolder = new GameObject("GridsStuff");
@@ -150,20 +168,22 @@ public class Game : Flow {
 
 
         this.mapGrid = new GridEntity("MapMap", this.hiddenGrid, GameVariables.instance.mapStartPointInMap, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab);
-        MapInfoPck.Instance.TestPopulate(); 
+        MapInfoPck.Instance.TestPopulate();
         StartEndPath(GameVariables.instance.pathTilesCoords[0], GameVariables.instance.pathTilesCoords[GameVariables.instance.pathTilesCoords.Count - 1]);
         PlacePointInMap();
-        SpawnItemsOnGrid(); 
+        SpawnItemsOnGrid();
     }
 
-    private void SpawnItemsOnGrid() {
+    private void SpawnItemsOnGrid()
+    {
         //Get info package
         Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;
         Dictionary<Vector2, TrapType> trapsInfo = MapInfoPck.Instance.TileTrapInfos;
 
 
         //Towers
-        foreach (KeyValuePair<Vector2, TowerType> info in towersInfo) {
+        foreach (KeyValuePair<Vector2, TowerType> info in towersInfo)
+        {
             //Get tile Coords
             Vector2 tileCoords = this.mapGrid.GetTileCoords(info.Key);
 
@@ -175,7 +195,8 @@ public class Game : Flow {
         }
 
         //Traps
-        foreach (KeyValuePair<Vector2, TrapType> info in trapsInfo) {
+        foreach (KeyValuePair<Vector2, TrapType> info in trapsInfo)
+        {
             //Get tile Coords
             Vector2 tileCoords = this.mapGrid.GetTileCoords(info.Key);
 
@@ -184,7 +205,7 @@ public class Game : Flow {
 
             //Create obj
             //trapManager.CreateTrap(info.Value, tileCenter);
-        }    
+        }
     }
 
     private void StartEndPath(Vector2 startPath, Vector2 endPath)
@@ -192,7 +213,7 @@ public class Game : Flow {
         GameVariables.instance.enemyStart.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath));
         GameVariables.instance.enemyEnd.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(endPath));
         //remove this line after onesin joins the flow
-        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath)) + new Vector3(0,0,-3);
+        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath)) + new Vector3(0, 0, -3);
     }
 
     private void PlacePointInMap()
@@ -201,7 +222,7 @@ public class Game : Flow {
         foreach (Vector2 vec in GameVariables.instance.pathTilesCoords)
         {
             GameObject ob = GameObject.Instantiate(GameVariables.instance.enemyPoint,
-                this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(vec)), 
+                this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(vec)),
                 Quaternion.identity,
                 enemyPoint.transform);
         }

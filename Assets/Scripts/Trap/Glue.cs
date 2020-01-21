@@ -36,6 +36,16 @@ public class Glue : Trap
     public override void Refresh()
     {
     }
+    public override void onTrigger()
+    {
+
+    }
+    public override void onExitTrigger()
+    {
+
+    }
+
+
 
     protected override void OnTriggerEnter(Collider other)
     {
