@@ -44,29 +44,6 @@ public class TestCommand : MonoBehaviour
         }
 
     }
-    public void CheckAmount()
-    {
-        int num = int.Parse(amountIN.GetComponent<TMP_InputField>().text);
-        switch (choice)
-        {
-            case 1:
-                textUI.AddScore(num);
-                break;
-            case 2:
-                textUI.AddCash(num);
-                break;
-            case 3:
-                textUI.AddHeadshot(num);
-                break;
-            case 4:
-                textUI.AddPlayerKill(num);
-                break;
-            case 5:
-                textUI.AddTowerKill(num);
-                break;
-        }
-    }
-
     public void CheckCheat()
     {
 

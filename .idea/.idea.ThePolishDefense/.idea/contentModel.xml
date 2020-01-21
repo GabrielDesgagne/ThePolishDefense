@@ -32,6 +32,7 @@
               <e p="Porte" t="Include">
                 <e p="scipts" t="Include">
                   <e p="Door.cs" t="Include" />
+                  <e p="Door2.cs" t="Include" />
                 </e>
               </e>
               <e p="Scripts" t="Include">
@@ -1070,6 +1071,13 @@
         <e p="Resources" t="Include">
           <e p="Prefabs" t="Include">
             <e p="Map" t="Include">
+              <e p="Graphics" t="Include">
+                <e p="Decorations" t="Include">
+                  <e p="LowPolyTreePack" t="Include">
+                    <e p="README.txt" t="Include" />
+                  </e>
+                </e>
+              </e>
               <e p="Terrain_ToonLitOutline.shader" t="Include" />
             </e>
             <e p="Room" t="Include">
@@ -1141,6 +1149,7 @@
             <e p="WaveManager.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
+            <e p="CheckIfColliderTrigger.cs" t="Include" />
             <e p="Player.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
           </e>

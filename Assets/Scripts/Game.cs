@@ -27,6 +27,7 @@ public class Game : Flow {
     ProjectileManager projectileManager;
     LogicManager logicManager;
     TimeManager timeManager;
+    UIManager uiManager;
     private ArrowManager arrowManager;
 
 
@@ -54,6 +55,7 @@ public class Game : Flow {
         towerManager = TowerManager.Instance;
         timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
+        uiManager = UIManager.Instance;
         //Setup Variables
 
         //Instantiates
@@ -71,6 +73,7 @@ public class Game : Flow {
         timeManager.PreInitialize();
         arrowManager.PreInitialize();
         podManager.PreInitialize();
+        uiManager.PreInitialize();
 
         LoadResources();
     }
@@ -87,6 +90,7 @@ public class Game : Flow {
         timeManager.Initialize();
         arrowManager.Initialize();
         podManager.Initialize();
+        uiManager.Initialize();
         InitMap();
     }
 
@@ -103,6 +107,7 @@ public class Game : Flow {
         towerManager.Refresh();
         timeManager.Refresh();
         arrowManager.Refresh();
+        uiManager.Refresh();
 
     }
 
@@ -118,6 +123,7 @@ public class Game : Flow {
         timeManager.PhysicsRefresh();
         arrowManager.PhysicsRefresh();
         podManager.PhysicsRefresh();
+        uiManager.PhysicsRefresh();
     }
 
     override public void EndFlow() {
@@ -130,7 +136,7 @@ public class Game : Flow {
         logicManager.EndFlow();
         towerManager.EndFlow();
         timeManager.EndFlow();
-
+        uiManager.EndFlow();
 
         GameObject.Destroy(gameSetup);
     }
@@ -150,6 +156,8 @@ public class Game : Flow {
 
 
         this.mapGrid = new GridEntity("MapMap", this.hiddenGrid, GameVariables.instance.mapStartPointInMap, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab);
+
+        MapInfoPck.Instance.TestPopulate();
         StartEndPath(GameVariables.instance.pathTilesCoords[0], GameVariables.instance.pathTilesCoords[GameVariables.instance.pathTilesCoords.Count - 1]);
         PlacePointInMap();
         SpawnItemsOnGrid(); 
@@ -190,13 +198,12 @@ public class Game : Flow {
     {
         GameVariables.instance.enemyStart.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath));
         GameVariables.instance.enemyEnd.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(endPath));
-        //remove this line after onesin joins the flow
-        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath)) + new Vector3(0,0,-3);
+        GameVariables.instance.enemyPoint.transform.position = this.mapGrid.GetTileCenterFixed(this.mapGrid.GetTileCoords(startPath));
     }
 
     private void PlacePointInMap()
     {
-        GameObject enemyPoint = GameVariables.instance.enemyParentPoint;//parent
+        GameObject enemyPoint = GameVariables.instance.enemyParentPoint;
         foreach (Vector2 vec in GameVariables.instance.pathTilesCoords)
         {
             GameObject ob = GameObject.Instantiate(GameVariables.instance.enemyPoint,

@@ -1,34 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public TextMeshPro lifeUi;
     public Transform camToTurn;
     private OVRInput.Controller controllerUseToTp;
     private bool teleportBegin;
-    public GameObject teleportZonePrefab;
-    public LineRenderer lineRender;
-    public GameObject tpZone;
+    private GameObject teleportZonePrefab;
     public float offSet;
     private bool onTeleport;
+    [HideInInspector]
     public PlayerStats playerStat;
-    //public MainPlayerController playerController;
     public Grabber LeftHand;
     public Grabber RightHand;
     Vector3 positionTp;
 
     private CharacterController characterController;
-  //  public HeadInfo Head { get; set; }
-    //Use this range for distance Grab
     public float range = 1;
     public void PreInitialize()
     {
-        //playerStat = gameObject.AddComponent<PlayerStats>();
-       // Head = new HeadInfo(OVRManager.tracker.GetPose());
-        
+        teleportZonePrefab = Instantiate(Resources.Load("Prefabs/Player/TeleportPoint")) as GameObject;
+       teleportZonePrefab.SetActive(false);
         LeftHand.PreInitialize();
         RightHand.PreInitialize();
+        playerStat = GetComponent<PlayerStats>();
+        PlayerStats.addHp(playerStat.initialHp);
     }
     public void Initialize()
     {
@@ -73,7 +72,7 @@ public class Player : MonoBehaviour
         {
             beginTeleport();
         }
-
+        changeLife();
     }
 
     public void EndFlow()
@@ -94,27 +93,26 @@ public class Player : MonoBehaviour
         }
 
         RaycastHit rayHit;
-            if (Physics.Raycast(ray, out rayHit, 100,1 << 10))
-            {
-                //lineRender.gameObject.SetActive(true);
-                //lineRender.SetPosition(0, LeftHand.transform.position);
-                //lineRender.SetPosition(1, rayHit.point);
-                positionTp = rayHit.point;
-                teleportZonePrefab.SetActive(true);
-                positionTp.y += offSet;
-                teleportZonePrefab.transform.position = positionTp;
-
-            }
-            else
-            {
-                //lineRender.gameObject.SetActive(false);
-                teleportZonePrefab.SetActive(false);
-            }
-            Debug.DrawRay(LeftHand.transform.position, LeftHand.transform.forward, Color.red);
-        
-        //teleportZonePrefab.SetActive(true);
+        if (Physics.Raycast(ray, out rayHit, 100,1 << 10))
+        {
+            positionTp = rayHit.point;
+            teleportZonePrefab.SetActive(true);
+            positionTp.y += offSet;
+            teleportZonePrefab.transform.position = positionTp;
+        }
+        else
+        {
+            teleportZonePrefab.SetActive(false);
+        }
     }
 
+    private void changeLife()
+    {
+        if (lifeUi.text != PlayerStats.Hp.ToString())
+        {
+            lifeUi.text = "Vie: " + PlayerStats.Hp;
+        }
+    }
     private void endTeleport()
     {
         if (onTeleport && positionTp != Vector3.zero)
@@ -124,14 +122,4 @@ public class Player : MonoBehaviour
             positionTp = Vector3.zero;
         }
     }
-   /* public class HeadInfo
-    {
-        public HeadInfo(OVRPose headInfo)
-        {
-
-        }
-
-
-    }*/
-
 }
