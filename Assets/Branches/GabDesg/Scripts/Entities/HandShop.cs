@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum HandType { LEFT, RIGHT }
 
-public class HandShop {
+public class HandShop
+{
     private static MapInfoPck mapPck;
     private static ShopManager shopManager;
 
@@ -20,7 +19,8 @@ public class HandShop {
 
     private GameObject objHolder;
 
-    public HandShop(HandType type) {
+    public HandShop(HandType type)
+    {
         if (mapPck == null)
             mapPck = MapInfoPck.Instance;
         if (shopManager == null)
@@ -30,9 +30,11 @@ public class HandShop {
         this.objHolder = new GameObject("Hand" + this.Type.ToString());
     }
 
-    public bool GrabObj(GameObject obj, TowerPiece type) {
+    public bool GrabObj(GameObject obj, TowerPiece type)
+    {
         bool objCanBeGrabbed = false;
-        if (this.objInHand == null) {
+        if (this.objInHand == null)
+        {
             objCanBeGrabbed = true;
             this.objInHand = obj;
             this.towerInfo = type;
@@ -45,9 +47,11 @@ public class HandShop {
 
         return objCanBeGrabbed;
     }
-    public bool GrabObj(GameObject obj, TrapPiece type) {
+    public bool GrabObj(GameObject obj, TrapPiece type)
+    {
         bool objCanBeGrabbed = false;
-        if (this.objInHand == null) {
+        if (this.objInHand == null)
+        {
             objCanBeGrabbed = true;
             this.objInHand = obj;
             this.trapInfo = type;
@@ -61,8 +65,10 @@ public class HandShop {
         return objCanBeGrabbed;
     }
 
-    public void DropObj() {
-        if (this.objInHand != null && this.objGhost != null) {
+    public void DropObj()
+    {
+        if (this.objInHand != null && this.objGhost != null)
+        {
 
             //Destroy ghost item
             GameObject.Destroy(this.objGhost);
@@ -75,31 +81,35 @@ public class HandShop {
         }
     }
 
-    private void CreateGhostItem(TowerPiece type) {
+    private void CreateGhostItem(TowerPiece type)
+    {
         //Instantiate obj (prefab held in ShopManager)
-        this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
-        this.objGhost.GetComponent<Collider>().enabled = false;
-        this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
+        this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].ghostPrefab, this.objHolder.transform);
+//         this.objGhost.GetComponent<Collider>().enabled = false;
+//         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
-    private void CreateGhostItem(TrapPiece type) {
+    private void CreateGhostItem(TrapPiece type)
+    {
         //Instantiate obj
-        this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].objPrefab, this.objHolder.transform);
-        this.objGhost.GetComponent<Collider>().enabled = false;
-        this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
-        this.objGhost.SetActive(false);
-       
+        this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].ghostPrefab, this.objHolder.transform);
+//         this.objGhost.GetComponent<Collider>().enabled = false;
+//         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    private void UpdateTileSelected() {
-        if (this.hitPointOnBoard != null) {
+    private void UpdateTileSelected()
+    {
+        if (this.hitPointOnBoard != null)
+        {
             this.tileCoordsSelected = shopManager.Map.GetTileCoords((Vector3)this.hitPointOnBoard);
         }
     }
 
-    private bool HasTileChanged() {
+    private bool HasTileChanged()
+    {
         bool tileHasChanged = false;
 
-        if (this.tileCoordsSelected != this.oldTileCoordsSelected) {
+        if (this.tileCoordsSelected != this.oldTileCoordsSelected)
+        {
             tileHasChanged = true;
             this.oldTileCoordsSelected = this.tileCoordsSelected;
         }
@@ -107,13 +117,16 @@ public class HandShop {
         return tileHasChanged;
     }
 
-    public void BuyItem() {
+    public void BuyItem()
+    {
         bool itemCanBeBought = false;
 
-        if (this.onAvailableTile) {
+        if (this.onAvailableTile)
+        {
 
             //Check if enough money
-            if (true) {
+            if (true)
+            {
 
                 itemCanBeBought = true;
 
@@ -124,7 +137,8 @@ public class HandShop {
             }
         }
 
-        if (itemCanBeBought) {
+        if (itemCanBeBought)
+        {
             //Destroy obj in hand
             GameObject.Destroy(this.objInHand);
             ResetHandInfo();
@@ -132,7 +146,8 @@ public class HandShop {
 
     }
 
-    private void SaveObjInPck(TowerPiece type) {
+    private void SaveObjInPck(TowerPiece type)
+    {
         //Save obj
         mapPck.AddTower(this.tileCoordsSelected, type.currentType);
 
@@ -142,7 +157,8 @@ public class HandShop {
         //Reset all values
         ResetHandInfo();
     }
-    private void SaveObjInPck(TrapPiece type) {
+    private void SaveObjInPck(TrapPiece type)
+    {
         //Save obj
         mapPck.AddTrap(this.tileCoordsSelected, type.currentType);
 
@@ -153,10 +169,12 @@ public class HandShop {
         ResetHandInfo();
     }
 
-    public void SetHitPointOnBoard(Vector3? hitPoint) {
+    public void SetHitPointOnBoard(Vector3? hitPoint)
+    {
         this.hitPointOnBoard = hitPoint;
 
-        if (this.objInHand != null && this.objGhost != null) {
+        if (this.objInHand != null && this.objGhost != null)
+        {
             UpdateTileSelected();
             if (this.hitPointOnBoard == null)
             {
@@ -164,19 +182,23 @@ public class HandShop {
                     this.objGhost.SetActive(false);
             }
             //if (HasTileChanged() && this.hitPointOnBoard != null) {
-            else 
+            else
             {
+
                 //Activated obj
                 if (!this.objGhost.activeSelf)
                     this.objGhost.SetActive(true);
 
                 //Move obj
-                Vector3 newPosition = shopManager.Map.GetTileCenter(this.tileCoordsSelected);
-                this.objGhost.transform.position = newPosition;
+                if (shopManager.Map.Tiles.ContainsKey(this.tileCoordsSelected))
+                {
+                    Vector3 newPosition = shopManager.Map.GetTileCenter(this.tileCoordsSelected);
+                    this.objGhost.transform.position = newPosition;
+                }
 
                 //Check if item type can go on tile type
                 bool objCanGoOnTileType = false;
-                
+
                 TileType tileType = shopManager.Map.GetTileType(this.tileCoordsSelected);
                 if (this.towerInfo != null)
                     objCanGoOnTileType = ObjCanGoOnTileType(tileType, this.towerInfo.currentType);
@@ -186,12 +208,16 @@ public class HandShop {
                 //Check if item already placed on tile
                 bool tileIsEmpty = IsTileEmpty(this.tileCoordsSelected);
 
-                if (objCanGoOnTileType && tileIsEmpty) {
+                if (tileIsEmpty && objCanGoOnTileType)
+                {
                     this.onAvailableTile = true;
                 }
-                else {
+                else
+                {
                     this.onAvailableTile = false;
-                   // Debug.Log("U Cant place the item here...");
+
+                    this.objGhost.SetActive(false);
+                    // Debug.Log("U Cant place the item here...");
                     //CANT PLACE HERE
                 }
 
@@ -199,10 +225,12 @@ public class HandShop {
         }
     }
 
-    private bool ObjCanGoOnTileType(TileType tileType, TowerType towerType) {
+    private bool ObjCanGoOnTileType(TileType tileType, TowerType towerType)
+    {
         bool objCanGoOnTileType = false;
 
-        switch (tileType) {
+        switch (tileType)
+        {
             case TileType.MAP:
                 objCanGoOnTileType = true;
                 break;
@@ -216,10 +244,12 @@ public class HandShop {
 
         return objCanGoOnTileType;
     }
-    private bool ObjCanGoOnTileType(TileType tileType, TrapType trapType) {
+    private bool ObjCanGoOnTileType(TileType tileType, TrapType trapType)
+    {
         bool objCanGoOnTileType = false;
 
-        switch (tileType) {
+        switch (tileType)
+        {
             case TileType.MAP:
                 objCanGoOnTileType = false;
                 break;
@@ -234,15 +264,18 @@ public class HandShop {
         return objCanGoOnTileType;
     }
 
-    private bool IsTileEmpty(Vector2 tileCoords) {
+    private bool IsTileEmpty(Vector2 tileCoords)
+    {
         bool tileIsEmpty = true;
         //Check if tile is saved in MapPck
-        if (mapPck.TileTowerInfos.ContainsKey(tileCoords) || mapPck.TileTrapInfos.ContainsKey(tileCoords))
+       TileInfo tileInfo = shopManager.Map.GetRowColumn(tileCoords);
+        if (mapPck.TileTowerInfos.ContainsKey(new Vector2(tileInfo.Row, tileInfo.Column)) || mapPck.TileTrapInfos.ContainsKey(tileCoords))
             tileIsEmpty = false;
         return tileIsEmpty;
     }
 
-    private void ResetHandInfo() {
+    private void ResetHandInfo()
+    {
         this.objGhost = null;
         this.objInHand = null;
         this.towerInfo = null;
@@ -251,7 +284,8 @@ public class HandShop {
         this.hitPointOnBoard = null;
     }
 
-    private void DestroyItem(GameObject obj) {
+    private void DestroyItem(GameObject obj)
+    {
         //Play shader
 
         //Destroy obj
