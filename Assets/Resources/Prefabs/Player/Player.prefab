@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d206466e1e333649a2efbb9d1569c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocPosition: 0
   yOffset: 0
   zOffSet: 0
 --- !u!114 &199253485
@@ -660,7 +661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232227960490631103}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b71d1996d67004241a3b69960856ffcb, type: 3}
   m_Name: 
@@ -1260,7 +1261,7 @@ PrefabInstance:
     - target: {fileID: 7042403567744855753, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.163
       objectReference: {fileID: 0}
     - target: {fileID: 7042403567744855753, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
@@ -1309,9 +1310,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7042403567744855755, guid: 8033a667470993a4cb3f38166edd6af7,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042403567744855755, guid: 8033a667470993a4cb3f38166edd6af7,
+        type: 3}
       propertyPath: zOffSet
       value: -0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7042403567744855757, guid: 8033a667470993a4cb3f38166edd6af7,
+        type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 6707968921799252298, guid: 053165441ed346e458ef94c6ec26a187,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8033a667470993a4cb3f38166edd6af7, type: 3}
 --- !u!4 &6119731870496885137 stripped
@@ -1387,10 +1399,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PodArea
       objectReference: {fileID: 0}
-    - target: {fileID: 2799418946353659252, guid: 55fca0b6841b393499142bf573c3f2d0,
+    - target: {fileID: 2799418946353659255, guid: 55fca0b6841b393499142bf573c3f2d0,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: blocPosition
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4769233240677462243, guid: 55fca0b6841b393499142bf573c3f2d0,
         type: 3}

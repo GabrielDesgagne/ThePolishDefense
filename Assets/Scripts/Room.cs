@@ -61,8 +61,9 @@ public class Room : Flow
     {
         inputManager.Refresh();
         playerManager.Refresh();
-        arrowManager.Refresh();
         podManager.Refresh();
+        arrowManager.Refresh();
+        
         grabbableManager.Refresh();
         shopManager.Refresh();
         timeManager.Refresh();
