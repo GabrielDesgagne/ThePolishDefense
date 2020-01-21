@@ -47,38 +47,8 @@ public class MapInfoPck
 
     public void TestPopulate()
     {
-        for (int i = 0; i < 15; i++)
-        {
-            for (int j = 0; j < 15; j++)
-            {
-                //                 if (j != 14) {
-                //                     if (j % 3 == 0) {
-                //                         AddTower(new Vector2(i, j), TowerType.BASIC);
-                //                     }
-                //                     else if (j % 3 == 1) {
-                //                         AddTower(new Vector2(i, j), TowerType.HEAVY);
-                //                     }
-                //                     else if (j % 3 == 2) {
-                //                         AddTower(new Vector2(i, j), TowerType.ICE);
-                //                     }
-                //                 }
-                //                 else {
-                //                     if (j % 3 == 0) {
-                //                         AddTrap(new Vector2(i, j), TrapType.GLUE);
-                //                     }
-                //                     else if (j % 3 == 1) {
-                //                         AddTrap(new Vector2(i, j), TrapType.MINE);
-                //                     }
-                //                     else if (j % 3 == 2) {
-                //                         AddTrap(new Vector2(i, j), TrapType.SPIKE);
-                //                     }
-                //                 }
-            }
-        }
         AddTower(new Vector2(2, 2), TowerType.HEAVY);
-        AddTower(new Vector2(4, 12), TowerType.HEAVY);
         AddTower(new Vector2(6, 6), TowerType.HEAVY);
-        AddTower(new Vector2(12, 8), TowerType.HEAVY);
         AddTower(new Vector2(2, 6), TowerType.ICE);
         AddTower(new Vector2(8, 9), TowerType.ICE);
         AddTower(new Vector2(4, 8), TowerType.BASIC);

@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 
 
 public enum TileType { NONE, PATH, MAP, INACTIVE }
 
-public class Tile {
+public class Tile
+{
     private static ulong nextTileId = 0;
 
 
@@ -17,9 +15,10 @@ public class Tile {
     public Vector3 TileScale { get; private set; }
 
     private GameObject tileContour;
-    private List<MeshRenderer> meshes;
+    private LineRenderer meshes;
 
-    public Tile(TileType type, Vector3 position, Quaternion rotation, Vector3 scale, GameObject prefab, Transform parent) {
+    public Tile(TileType type, Vector3 position, Quaternion rotation, Vector3 scale, GameObject prefab, Transform parent)
+    {
         this.Id = GetNextTileId();
         this.Type = type;
         this.TileCenter = position;
@@ -30,35 +29,42 @@ public class Tile {
         InitColor(this.Type);
     }
 
-    private void InitPrefab(GameObject prefab, Transform parent) {
+    private void InitPrefab(GameObject prefab, Transform parent)
+    {
         this.tileContour = GameObject.Instantiate<GameObject>(prefab, parent);
         this.tileContour.transform.position = this.TileCenter;
         //this.tileContour.transform.rotation = this.TileRotation;
         this.tileContour.transform.localScale = this.TileScale;
 
-        this.meshes = this.tileContour.GetComponentsInChildren<MeshRenderer>().ToList();
+        this.meshes = this.tileContour.GetComponentInChildren<LineRenderer>();
     }
 
-    private void InitColor(TileType type) {
-        switch (type) {
+    private void InitColor(TileType type)
+    {
+        switch (type)
+        {
             case TileType.MAP:
                 ChangeContourColor(new Color(255, 255, 255));
                 break;
             case TileType.PATH:
                 ChangeContourColor(new Color(255, 0, 0));
                 break;
+            case TileType.INACTIVE:
+                this.meshes.gameObject.SetActive(false);
+                break;
             default:
                 break;
         }
     }
 
-    private void ChangeContourColor(Color color) {
-        foreach (MeshRenderer mesh in this.meshes) {
-            mesh.material.color = color;
-        }
+    private void ChangeContourColor(Color color)
+    {
+        this.meshes.startColor = color;
+        this.meshes.endColor = color;
     }
 
-    private ulong GetNextTileId() {
+    private ulong GetNextTileId()
+    {
         nextTileId++;
         return nextTileId;
     }
