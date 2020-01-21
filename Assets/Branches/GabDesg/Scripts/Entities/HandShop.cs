@@ -35,10 +35,6 @@ public class HandShop {
         this.objHolder = new GameObject("Hand" + this.Type.ToString());
     }
 
-    public void Refresh() {
-        //Hand Logic
-    }
-
     public bool GrabObj(GameObject obj, TowerPiece type) {
         bool objCanBeGrabbed = false;
         if (this.objInHand == null) {
@@ -48,7 +44,6 @@ public class HandShop {
 
             //Create ghost item
             CreateGhostItem(type);
-            Debug.Log("Object Grabbed");
         }
         else
             Debug.Log("Theres already an object in " + this.Type.ToString() + " hand...");
@@ -115,13 +110,28 @@ public class HandShop {
     }
 
     public void BuyItem() {
+        bool itemCanBeBought = false;
+
         if (this.onAvailableTile) {
 
-            if (this.towerInfo != null)
-                SaveObjInPck(this.towerInfo);
-            else if (this.trapInfo != null)
-                SaveObjInPck(this.trapInfo);
+            //Check if enough money
+            if (true) {
+
+                itemCanBeBought = true;
+
+                if (this.towerInfo != null)
+                    SaveObjInPck(this.towerInfo);
+                else if (this.trapInfo != null)
+                    SaveObjInPck(this.trapInfo);
+            }
         }
+
+        if (itemCanBeBought) {
+            //Destroy obj in hand
+            GameObject.Destroy(this.objInHand);
+            ResetHandInfo();
+        }
+
     }
 
     private void SaveObjInPck(TowerPiece type) {

@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Wave", menuName = "Wave")]
 public class Wave : ScriptableObject
 {
-    [HideInInspector]
-    public List<GameObject> enemy;
+    //[HideInInspector]
+    //public List<GameObject> enemy;
     public EnemyTypeByWave[] types;
     //public int count;
     public float rate;
 
-    public void Load()
+   /* public void Load()
     {
         enemy = new List<GameObject>();
         for (int i = 0; i < types.Length; i++)
@@ -21,7 +21,7 @@ public class Wave : ScriptableObject
                 enemy.Add(Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + types[i].type.ToString()));
             }
         }
-    }
+    }*/
 }
 
 [System.Serializable]
