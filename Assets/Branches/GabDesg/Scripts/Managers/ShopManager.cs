@@ -67,13 +67,10 @@ public class ShopManager : Flow {
         InitializeGrids();
         InitializeHands();
         InitializeShopItems();
+        InitializeItemOnMap();
     }
 
-    public override void Refresh() {
-        foreach (HandShop hand in this.hands.Values) {
-            hand.Refresh();
-        }
-    }
+    public override void Refresh() {  }
 
     private void InitializeGrids() {
         //Init grids
@@ -97,6 +94,49 @@ public class ShopManager : Flow {
         SpawnTrapInShop(TrapType.GLUE);
         SpawnTrapInShop(TrapType.MINE);
         SpawnTrapInShop(TrapType.SPIKE);
+    }
+
+    private void InitializeItemOnMap() {
+        MapInfoPck.Instance.TestPopulate();
+
+        //Get info package
+        Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;
+        Dictionary<Vector2, TrapType> trapsInfo = MapInfoPck.Instance.TileTrapInfos;
+
+
+        //Towers
+        foreach (KeyValuePair<Vector2, TowerType> info in towersInfo) {
+            //Get tile Coords
+            Vector2 tileCoords = this.Map.GetTileCoords(info.Key);
+
+            //Get tileCenter
+            Vector3 tileCenter = this.Map.GetTileCenterFixed(tileCoords);
+
+            //Create obj
+            GameObject obj = SpawnTurret(info.Value, tileCenter);
+
+            //Set tower piece info
+            TowerPiece towerPiece = obj.GetComponent<TowerPiece>();
+            towerPiece.itemWasPlacedOnMap = true;
+            towerPiece.positionOnMap = tileCoords;
+        }
+
+        //Traps
+        foreach (KeyValuePair<Vector2, TrapType> info in trapsInfo) {
+            //Get tile Coords
+            Vector2 tileCoords = this.Map.GetTileCoords(info.Key);
+
+            //Get tileCenter
+            Vector3 tileCenter = this.Map.GetTileCenterFixed(tileCoords);
+
+            //Create obj
+            GameObject obj = SpawnTrap(info.Value, tileCenter);
+
+            //Set trap piece info
+            TrapPiece trapPiece = obj.GetComponent<TrapPiece>();
+            trapPiece.itemWasPlacedOnMap = true;
+            trapPiece.positionOnMap = tileCoords;
+        }
     }
 
     private void InitSpawnPositions() {
@@ -140,6 +180,10 @@ public class ShopManager : Flow {
         this.hands[hand].DropObj();
     }
 
+    public void BuyItem(HandType type) {
+        this.hands[type].BuyItem();
+    }
+
     public void ObjTrashed(GameObject obj, HandType hand, TowerPiece type) {
         //----------------TODO----------------
     }
@@ -168,5 +212,19 @@ public class ShopManager : Flow {
         //Spawn trap
         GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
         obj.transform.position = spawnPosition;
+    }
+
+    private GameObject SpawnTurret(TowerType type, Vector3 spawnPosition) {
+        //Create obj
+        GameObject obj = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        obj.transform.position = spawnPosition;
+
+        return obj;
+    }
+    private GameObject SpawnTrap(TrapType type, Vector3 spawnPosition) {
+        GameObject obj = GameObject.Instantiate<GameObject>(this.trapSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
+        obj.transform.position = spawnPosition;
+
+        return obj;
     }
 }

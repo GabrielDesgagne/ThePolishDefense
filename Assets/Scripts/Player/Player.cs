@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Transform camToTurn;
     private OVRInput.Controller controllerUseToTp;
     private bool teleportBegin;
     public GameObject teleportZonePrefab;
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     public Grabber LeftHand;
     public Grabber RightHand;
     Vector3 positionTp;
+
+    private CharacterController characterController;
   //  public HeadInfo Head { get; set; }
     //Use this range for distance Grab
     public float range = 1;
@@ -43,7 +46,12 @@ public class Player : MonoBehaviour
 
     public void PhysicsRefresh()
     {
-        
+        Vector3 bob = camToTurn.localEulerAngles;
+        if(InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].JoystickLeft)
+            bob.y += 1f;
+        else if(InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].JoystickRight)
+            bob.y -= 1f;
+        camToTurn.localEulerAngles = bob;
         if (InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].ButtonOne)
         {
             controllerUseToTp = OVRInput.Controller.LTouch;
