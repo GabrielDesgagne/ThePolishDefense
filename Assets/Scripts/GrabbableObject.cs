@@ -30,6 +30,7 @@ public class GrabbableObject : InteractObject
 
     /// The transform at which this object was grabbed.
     public Transform GrabbedTransform { get; private set; }
+    public bool UseGrabPoint { get; private set; }
 
     /// The Rigidbody of the collider that was used to grab this object.
     public Rigidbody GrabbedRigidbody => GrabbedCollider.attachedRigidbody;
@@ -48,16 +49,17 @@ public class GrabbableObject : InteractObject
         //Cache Values
         GrabbableRigidBody = GetComponent<Rigidbody>();
         ThisCollider = GetComponent<Collider>(); // Can't be null since it is required in parent class
-        
+        UseGrabPoint = true;
         if (grabPoints.Length == 0)
         {
-            // Create a default grab point
+            UseGrabPoint = false;
+            // Create a default grab point for the Distance Grab
             grabPoints = new Transform[1] { transform };
         }
         colliders = GetComponentsInChildren<Collider>().ToList();
 
     }
-    
+    //Toggles all colliders on the object. 
     public void ToggleColliders(bool enable)
     {
         foreach(Collider coll in colliders)
