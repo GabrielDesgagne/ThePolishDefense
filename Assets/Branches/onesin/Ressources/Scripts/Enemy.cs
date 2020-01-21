@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool isHittable;
     [HideInInspector]
-    public bool canEnter = false;//to check if enemy is able to enter the player base
+    public bool canEnter;//to check if enemy is able to enter the player base
     private float openDoorTime = 0;
     public float stateDuration = 1.8f;
     public float MaxStateDuration = 1.8f;
@@ -54,7 +54,8 @@ public class Enemy : MonoBehaviour
         mvt = GetComponent<EnemyMovement>();
         //walk = audioEnnemi.GetComponent<AudioSource>();
         //dead = audioEnnemi.GetComponent<AudioSource>();
-        isHittable = false;
+        isHittable = true;
+        canEnter = false;
     }
 
     public void Refresh()
@@ -83,7 +84,6 @@ public class Enemy : MonoBehaviour
         //for test the take damage function. we can delete it after
         if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
-            Debug.Log("take damage");
             TakeDamage(50);
         }
         //

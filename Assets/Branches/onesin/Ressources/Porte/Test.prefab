@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 120
-  openDoor: 1
+  openDoor: 0
   doorLeft: {fileID: 759676958018909382}
   doorRight: {fileID: 7880463580891691620}
   pivotLeft: {fileID: 6758893681900433217}

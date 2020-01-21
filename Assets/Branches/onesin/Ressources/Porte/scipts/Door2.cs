@@ -42,7 +42,7 @@ public class Door2 : MonoBehaviour
             }
 
         }
-        if (currentAngle == 0)
+        if (currentAngle <= 0)
         {
             doorLeft.transform.rotation = initialRotation;
             doorRight.transform.rotation = initialRotation;
