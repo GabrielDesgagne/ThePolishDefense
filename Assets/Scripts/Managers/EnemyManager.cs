@@ -59,7 +59,6 @@ public class EnemyManager : Flow
         spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
-            Debug.Log(etype.ToString());
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
         }
         //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
@@ -70,10 +69,11 @@ public class EnemyManager : Flow
 
     override public void Refresh()
     {
+        spawner.Refresh(enemyPrefabDict);
         foreach (Enemy e in enemies)
             e.Refresh();
 
-        spawner.Refresh(enemyPrefabDict);
+        
         /* if (EnemiesAlive > 0)
          {
              return;

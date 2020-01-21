@@ -16,27 +16,18 @@ public class TextManager : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
+       // Initialize();
     }
 
     private void Update()
     {
-        Refresh();
+        //Refresh();
     }
 
 
     public void Initialize()
     {
-
         
-        this.variables = GameObject.Find("Script").GetComponent<UIVariables>();
-        this.score = new TextUI("Score : ", PlayerStats.CurrentLevel, variables.scoreUI);
-        this.cash = new TextUI("Cash : ", PlayerStats.Currency, variables.cashUI);
-        this.headshot = new TextUI("Headshot : ", 0, variables.headshotUI);
-        this.playerKill = new TextUI("Player Kill : ", 0, variables.playerKillsUI);
-        this.towerKill = new TextUI("Tower Kill : ", 0, variables.towerKillsUI);
-        this.totalKill = new TextUI("Total Kill : ", 0, variables.totalKillsUI);
-
     }
 
    
@@ -44,7 +35,7 @@ public class TextManager : MonoBehaviour
 
     public void Refresh()
     {
-       
+
     }
 
     public void TurningOff()

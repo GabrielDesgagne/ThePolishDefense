@@ -9,7 +9,12 @@ public class PlayerStats : MonoBehaviour
     public int initialHp = 10;
     public int startingLevel = 0;
     public int damage = 5;
-    
+
+    public static int Headshot { get; set; }
+    public static int PlayerKill { get; set; }
+    public static int TowerKill { get; set; }
+    public static int TotalKill { get { return PlayerKill + TowerKill; } }
+    public static int Score { get; set; }
     public static bool IsPlayerDead { get; set; }
 
     private static int currency=100;
