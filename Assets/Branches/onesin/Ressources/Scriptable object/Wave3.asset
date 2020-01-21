@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7547c714d41b93b498980609c2b98745, type: 3}
   m_Name: Wave3
   m_EditorClassIdentifier: 
-  enemy: []
   types:
-  - type: 3
+  - type: 2
     number: 1
   rate: 2
