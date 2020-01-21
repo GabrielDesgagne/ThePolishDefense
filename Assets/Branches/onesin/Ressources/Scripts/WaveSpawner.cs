@@ -24,13 +24,12 @@ public class WaveSpawner : MonoBehaviour {
     private Countdown waveCountdownTimer;
     //just for test
     //Dictionary<EnemyType, GameObject> enemyPrefab;
-    //private void Start() { Initialize(); }
-    //private void Update() { Refresh(enemyPrefab); }
    
     public void Initialize()
     {
         EnemiesAlive = 0;
         waveCountdownTimer = countdown.GetComponent<Countdown>();
+        waveCountdownTimer.Initialize();
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
         timeBetweenWaves= levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
         waveCountdownTimer.countdown = timeBetweenWaves;
@@ -50,7 +49,7 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveIndex == waves.Length)
         {
-            gameLogic.WinLevel();
+            //gameLogic.WinLevel();
             this.enabled = false;
         }
 
@@ -81,6 +80,7 @@ public class WaveSpawner : MonoBehaviour {
             {
                 GameObject newEnemy = SpawnEnemy(enemyPrefab[wave.types[i].type]);
                 Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
+                e.Initialize();
                 EnemyManager.Instance.toAdd.Push(e);
                 yield return new WaitForSeconds(1f / wave.rate);
             }

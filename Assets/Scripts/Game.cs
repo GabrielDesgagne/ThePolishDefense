@@ -150,7 +150,6 @@ public class Game : Flow {
 
 
         this.mapGrid = new GridEntity("MapMap", this.hiddenGrid, GameVariables.instance.mapStartPointInMap, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab);
-        MapInfoPck.Instance.TestPopulate(); 
         StartEndPath(GameVariables.instance.pathTilesCoords[0], GameVariables.instance.pathTilesCoords[GameVariables.instance.pathTilesCoords.Count - 1]);
         PlacePointInMap();
         SpawnItemsOnGrid(); 
@@ -205,6 +204,6 @@ public class Game : Flow {
                 Quaternion.identity,
                 enemyPoint.transform);
         }
-        Waypoints.SetPoint(enemyPoint.transform);
+        EnemyManager.Instance.SetPoints(enemyPoint.transform);
     }
 }

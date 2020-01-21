@@ -20,7 +20,6 @@ public class Countdown : MonoBehaviour
 
     private bool showTime=true;
 
-    private void Start() { Initialize(); }
     public void Initialize()
     {
         startTime = countdown;

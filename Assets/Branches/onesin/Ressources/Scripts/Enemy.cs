@@ -37,19 +37,26 @@ public class Enemy : MonoBehaviour
     private float openDoorTime = 0;
     public float stateDuration = 1.8f;
     public float MaxStateDuration = 1.8f;
-    private void Start() { Initialize(); }
+    float stateDuration = 4f;
+
+    private Transform target;
+    private int waypointIndex = 0;
+
+    private Rigidbody rb;
+
     public void Initialize()
     {
         speed = startSpeed;
         health = startHealth;
+        if (EnemyManager.Instance.waypoints.Length > 0)
+            target = EnemyManager.Instance.waypoints[0];
+        rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         mvt = GetComponent<EnemyMovement>();
         //walk = audioEnnemi.GetComponent<AudioSource>();
         //dead = audioEnnemi.GetComponent<AudioSource>();
         isHittable = false;
     }
-
-    //private void Update() { Refresh(); }
 
     public void Refresh()
     {
@@ -84,6 +91,39 @@ public class Enemy : MonoBehaviour
         {
             uiDied.transform.Translate(Vector3.up * speedMoveUi * Time.fixedDeltaTime, Space.World);
             Destroy(uiDied, 10f);
+        }
+
+        if (EnemyManager.Instance.waypoints.Length > 0)
+        {
+            if (Vector3.Distance(transform.position, target.position) <= 0.3f)
+            {
+                //check the next way point
+                if (waypointIndex >= EnemyManager.Instance.waypoints.Length - 1)
+                {
+                    PlayerStats.decrementHp();
+                    isHittable = false;
+                    WaveSpawner.EnemiesAlive--;
+                    EnemyManager.Instance.EnemyDied(this);
+                    Destroy(gameObject);
+                    return;
+                }
+
+                waypointIndex++;
+                target = EnemyManager.Instance.waypoints[waypointIndex];
+            }
+        }
+    }
+
+    public void PhysicsRefresh()
+    {
+        if (EnemyManager.Instance.waypoints.Length > 0)
+        {
+            Vector3 dir = target.position - transform.position;
+            transform.LookAt(target);
+            if (!canEnter)
+            {
+                rb.MovePosition(dir.normalized * speed * Time.fixedDeltaTime + rb.position);
+            }
         }
     }
 
