@@ -23,7 +23,7 @@ public class Mine : Trap
     bool canDetonate = false;
     bool isTrigger = false;
 
-    public Mine(GameObject go)
+    /*public Mine(GameObject go)
     {
         this.prefab = go;
         this.type = TrapType.MINE;
@@ -34,9 +34,9 @@ public class Mine : Trap
         this.trapRadius = 7;
         this.coldownEffect = 2;
         this.force = 700;
-    }
+    }*/
 
-    public Mine(Vector3 position, float damage,float radius, float coldown, float force)
+    /*public Mine(Vector3 position, float damage,float radius, float coldown, float force)
     {
         this.TrapPosition = position;
         this.type = TrapType.MINE;
@@ -44,12 +44,19 @@ public class Mine : Trap
         this.trapRadius = radius;
         this.coldownEffect = coldown;
         this.force = force;
-    }
+    }*/
 
 
     Enemy enemy;
     List<Enemy> enemies;
+
+    public Mine(GameObject gameObject)
+    {
+        this.prefab = gameObject;
+    }
+
     //TODO replace the start to go with preinit from the flow
+    /*
     private void Start()
     {
         enemies = new List<Enemy>();
@@ -63,8 +70,8 @@ public class Mine : Trap
         //Set action time--- use as a timer to delete object
         boomLength = boomSound.length;
         explosionDuration = explosionEffect.GetComponent<ParticleSystem>().main.duration;
-    }
-
+    }*/
+    /*
     private void Update()
     {
         //Toggle mine Action
@@ -78,7 +85,7 @@ public class Mine : Trap
             onAction();
             canDetonate = false;
         }
-    }
+    }*/
     ///------------------------------------------------------------------------///
     public override void onAction()
     {
@@ -152,7 +159,17 @@ public class Mine : Trap
 
     public override void PreInitialize()
     {
-        throw new System.NotImplementedException();
+        enemies = new List<Enemy>();
+        enemy = gameObject.GetComponent<Enemy>();
+        //NULL CHECK
+        if (audioSource == null)
+        {
+            //Debug.Log("audio source not loaded");
+        }
+
+        //Set action time--- use as a timer to delete object
+        boomLength = boomSound.length;
+        explosionDuration = explosionEffect.GetComponent<ParticleSystem>().main.duration;
     }
 
     public override void Initialize()
@@ -162,7 +179,16 @@ public class Mine : Trap
 
     public override void Refresh()
     {
-        throw new System.NotImplementedException();
+        if (inDetonate)
+        {
+            currentTime -= Time.deltaTime;
+            canDetonate = true;
+        }
+        if (canDetonate)
+        {
+            onAction();
+            canDetonate = false;
+        }
     }
 
     public override void PhysicsRefresh()
