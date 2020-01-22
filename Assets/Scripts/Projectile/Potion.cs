@@ -8,8 +8,8 @@ public class Potion : Projectile {
         Obj = ob;
         SlerpPct = 0;
         Type = ProjectileType.POTION;
-        Damage = 3;
-        Radius = 5;
+        Damage = TowerLink.tl.potionDamage;
+        Radius = TowerLink.tl.potionRadius;
     }
 
     public override void CollisionHit()

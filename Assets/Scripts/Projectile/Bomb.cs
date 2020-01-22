@@ -8,8 +8,8 @@ public class Bomb : Projectile {
         Obj = ob;
         SlerpPct = 0;
         Type = ProjectileType.BOMB;
-        Damage = 3;
-        Radius = 5;
+        Damage = TowerLink.tl.bombDamage;
+        Radius = TowerLink.tl.bombRadius;
     }
 
     public override void CollisionHit()
