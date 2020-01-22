@@ -37,12 +37,6 @@ public class Game : Flow {
     private GameVariables gameVariables;
     private MapVariables mapVariables;
 
-
-    //Game Setup has a reference to everything in the scene.
-    public GameObject gameSetup;
-
-
-
     override public void PreInitialize() {
         //Grab instances
         inputManager = InputManager.Instance;
@@ -57,9 +51,6 @@ public class Game : Flow {
         timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
         uiManager = UIManager.Instance;
-
-        //Instantiates
-        gameSetup = GameObject.Instantiate(Main.Instance.GameSetupPrefab);
 
         //First Initialize
         inputManager.PreInitialize();
@@ -142,8 +133,6 @@ public class Game : Flow {
         towerManager.EndFlow();
         timeManager.EndFlow();
         uiManager.EndFlow();
-
-        GameObject.Destroy(gameSetup);
     }
 
 
