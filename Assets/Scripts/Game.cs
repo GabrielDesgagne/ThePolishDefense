@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game : Flow {
+public class Game : Flow
+{
 
     #region Singleton
     static private Game instance = null;
 
-    static public Game Instance {
-        get {
+    static public Game Instance
+    {
+        get
+        {
             return instance ?? (instance = new Game());
         }
     }
@@ -31,13 +34,15 @@ public class Game : Flow {
     PodManager podManager;
     ArrowManager arrowManager;
     ProjectileManager projectileManager;
+    AmbianceManager ambianceManager;
 
     UIManager uiManager;
 
     private GameVariables gameVariables;
     private MapVariables mapVariables;
 
-    override public void PreInitialize() {
+    override public void PreInitialize()
+    {
         //Grab instances
         inputManager = InputManager.Instance;
         podManager = PodManager.Instance;
@@ -50,6 +55,7 @@ public class Game : Flow {
         towerManager = TowerManager.Instance;
         timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
+        ambianceManager = AmbianceManager.Instance;
         uiManager = UIManager.Instance;
 
         //First Initialize
@@ -64,12 +70,14 @@ public class Game : Flow {
         timeManager.PreInitialize();
         arrowManager.PreInitialize();
         podManager.PreInitialize();
+        ambianceManager.PreInitialize();
         uiManager.PreInitialize();
 
         PreInitializeMap();
     }
 
-    override public void Initialize() {
+    override public void Initialize()
+    {
         inputManager.Initialize();
         playerManager.Initialize();
         enemyManager.Initialize();
@@ -81,6 +89,7 @@ public class Game : Flow {
         timeManager.Initialize();
         arrowManager.Initialize();
         podManager.Initialize();
+        ambianceManager.Initialize();
         uiManager.Initialize();
 
         //Setup Variables
@@ -90,7 +99,8 @@ public class Game : Flow {
         InitializeMap();
     }
 
-    override public void Refresh() {
+    override public void Refresh()
+    {
         inputManager.Refresh();
         playerManager.Refresh();
         //playerManager.Refresh();
@@ -103,11 +113,13 @@ public class Game : Flow {
         towerManager.Refresh();
         timeManager.Refresh();
         arrowManager.Refresh();
+        ambianceManager.Refresh();
         uiManager.Refresh();
 
     }
 
-    override public void PhysicsRefresh() {
+    override public void PhysicsRefresh()
+    {
         inputManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
         enemyManager.PhysicsRefresh();
@@ -119,10 +131,12 @@ public class Game : Flow {
         timeManager.PhysicsRefresh();
         arrowManager.PhysicsRefresh();
         podManager.PhysicsRefresh();
+        ambianceManager.PhysicsRefresh();
         uiManager.PhysicsRefresh();
     }
 
-    override public void EndFlow() {
+    override public void EndFlow()
+    {
         inputManager.EndFlow();
         playerManager.EndFlow();
         enemyManager.EndFlow();
@@ -132,6 +146,7 @@ public class Game : Flow {
         logicManager.EndFlow();
         towerManager.EndFlow();
         timeManager.EndFlow();
+        ambianceManager.EndFlow();
         uiManager.EndFlow();
     }
 
@@ -165,7 +180,8 @@ public class Game : Flow {
 
     }
 
-    private void SpawnItemsOnGrid() {
+    private void SpawnItemsOnGrid()
+    {
         //Get info package
         Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;
         Dictionary<Vector2, TrapType> trapsInfo = MapInfoPck.Instance.TileTrapInfos;
@@ -174,7 +190,8 @@ public class Game : Flow {
         //MapInfoPck.Instance.TestPopulate();
 
         //Towers
-        foreach (KeyValuePair<Vector2, TowerType> info in towersInfo) {
+        foreach (KeyValuePair<Vector2, TowerType> info in towersInfo)
+        {
             //Get tile Coords
             Vector2 tileCoords = this.mapVariables.mapGrid.GetTileCoords(info.Key);
 
@@ -186,7 +203,8 @@ public class Game : Flow {
         }
 
         //Traps
-        foreach (KeyValuePair<Vector2, TrapType> info in trapsInfo) {
+        foreach (KeyValuePair<Vector2, TrapType> info in trapsInfo)
+        {
             //Get tile Coords
             Vector2 tileCoords = this.mapVariables.mapGrid.GetTileCoords(info.Key);
 
