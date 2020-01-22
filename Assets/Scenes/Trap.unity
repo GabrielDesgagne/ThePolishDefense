@@ -8500,7 +8500,7 @@ PrefabInstance:
     - target: {fileID: 3927816940474101411, guid: bfe8aab2c0974094aafe9fa2eabed07b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.55
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 3927816940474101411, guid: bfe8aab2c0974094aafe9fa2eabed07b,
         type: 3}
@@ -8510,7 +8510,7 @@ PrefabInstance:
     - target: {fileID: 3927816940474101411, guid: bfe8aab2c0974094aafe9fa2eabed07b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.78
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 3927816940474101411, guid: bfe8aab2c0974094aafe9fa2eabed07b,
         type: 3}
@@ -8571,6 +8571,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mine_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694742321723723718, guid: bfe8aab2c0974094aafe9fa2eabed07b,
+        type: 3}
+      propertyPath: attackDamage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694742321723723718, guid: bfe8aab2c0974094aafe9fa2eabed07b,
+        type: 3}
+      propertyPath: trapRadius
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfe8aab2c0974094aafe9fa2eabed07b, type: 3}

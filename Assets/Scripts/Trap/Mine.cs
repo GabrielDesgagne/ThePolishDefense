@@ -47,9 +47,13 @@ public class Mine : Trap
     }
 
 
+    Enemy enemy;
+    List<Enemy> enemies;
     //TODO replace the start to go with preinit from the flow
     private void Start()
     {
+        enemies = new List<Enemy>();
+        enemy = gameObject.GetComponent<Enemy>();
         //NULL CHECK
         if (audioSource == null)
         {
@@ -89,9 +93,16 @@ public class Mine : Trap
             foreach (Collider nearByGO in colliders)
             {
                 Rigidbody rb = nearByGO.GetComponent<Rigidbody>();
+                Enemy enemy = gameObject.GetComponent<Enemy>();
+                enemies.Add(enemy);
                 if (rb != null)
                 {
                     rb.AddExplosionForce(force, transform.position, radius);
+                   
+                }
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].TakeDamage(this.attackDamage);
                 }
                 //add damage
             }
@@ -122,6 +133,8 @@ public class Mine : Trap
                 inDetonate = true;
                 currentTime = detonate;
                 PlaySound(triggerTrapClick);
+                //EnemyManager.Instance.DamageEnemiesInRange(this.TrapPosition, this.trapRadius, (int)this.attackDamage);
+                
             }
         }
 
