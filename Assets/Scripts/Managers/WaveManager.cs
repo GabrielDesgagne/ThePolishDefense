@@ -50,12 +50,12 @@ public class WaveManager : Flow {
                 {
                     PlayerStats.nextLevel();
                     LogicManager.Instance.LevelWon();
-                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-                    {
-                        Debug.Log("New Level Begin!");
-                        UIManager.Instance.HideUI();
-                        NextLevelTest();
-                    }, 5));
+//                     TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+//                     {
+//                         Debug.Log("New Level Begin!");
+//                         UIManager.Instance.HideUI();
+//                         NextLevelTest();
+//                     }, 5));
                 }
                 else
                 {

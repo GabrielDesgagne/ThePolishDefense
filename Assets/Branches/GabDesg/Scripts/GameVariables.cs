@@ -33,6 +33,8 @@ public class GameVariables : MonoBehaviour {
     [Header("Player")]
     [SerializeField] public Player playerPrefab;
 
+    [HideInInspector] public PlayerStats playerStat;
+
 
     private void InitPathTilesCoords() {
         instance.pathTilesCoords.Add(new Vector2(11, 12));

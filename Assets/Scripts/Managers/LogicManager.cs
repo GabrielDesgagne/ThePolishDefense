@@ -50,6 +50,7 @@ public class LogicManager : Flow {
     public void LevelWon()
     {
         UIManager.Instance.ShowVictory();
+        TimeManager.Instance.AddTimedAction(new TimedAction(Main.Instance.ChangeCurrentFlow, 4f));
         Debug.Log("Won Level!!!");
     }
 
