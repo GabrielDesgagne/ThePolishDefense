@@ -78,26 +78,20 @@ public class TrapManager : Flow
 
     public Trap CreateTrap(TrapType type, Vector3 position)
     {
-        //TODO
         Trap trap = null;
         switch (type)
         {
             case TrapType.MINE:
-                trap = new Mine(GameObject.Instantiate(trapPrefabs[TrapType.MINE], trapHolder.transform));
-                trap.transform.position = position;
-                listTrap.Add(trap);
+                trap = new Mine(GameObject.Instantiate(trapPrefabs[TrapType.MINE], position, Quaternion.identity, trapHolder.transform));
                 break;
             case TrapType.SPIKE:
-                trap = new Spike(GameObject.Instantiate(trapPrefabs[TrapType.SPIKE], trapHolder.transform));
-                trap.transform.position = position;
-                listTrap.Add(trap);
+                trap = new Spike(GameObject.Instantiate(trapPrefabs[TrapType.SPIKE], position, Quaternion.identity, trapHolder.transform));
                 break;
             case TrapType.GLUE:
-                trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], trapHolder.transform));
-                trap.transform.position = position;
-                listTrap.Add(trap);
+                trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], position, Quaternion.identity, trapHolder.transform));
                 break;
         }
+        listTrap.Add(trap);
         return trap;
     }
     public void DamageType(TrapType type)

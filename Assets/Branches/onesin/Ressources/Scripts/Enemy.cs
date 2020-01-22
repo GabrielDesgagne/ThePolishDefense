@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
         if (openDoorTime > stateDuration)
         {
             openDoorTime = 0;
-            //canEnter = false;
+            canEnter = false;
             //speed = startSpeed;
             anim.SetBool("isWalk", true);
             //anim.SetBool("idle", false);
