@@ -239,15 +239,21 @@ public class GridEntity
 
             //Find starting tile coord
             Vector2 startPointTile = GetTileCoords(this.startPoint.position);
-            Vector2 rowColumn = new Vector2((coords.x - startPointTile.x) - 1, (coords.y - startPointTile.y) - 1);
-            Vector2 startTileCoord = GetTileCoords(this.startPoint.position);
 
             //Get distance between the two coords
-            ushort row = (ushort)((coords.x - startTileCoord.x) / this.tileSize.x);
-            ushort column = (ushort)((coords.y - startTileCoord.y) / this.tileSize.y);
+            ushort row, column;
+            if (coords.x - startPointTile.x <= 0)
+                row = (ushort)(coords.x - startPointTile.x);
+            else
+                row = (ushort)(coords.x - startPointTile.x - 1);
 
-            tileInfo.Row = (ushort)rowColumn.x;
-            tileInfo.Column = (ushort)rowColumn.y;
+            if (coords.y - startPointTile.y <= 0)
+                column = (ushort)(coords.y - startPointTile.y);
+            else
+                column = (ushort)(coords.x - startPointTile.x - 1);
+
+            tileInfo.Row = row;
+            tileInfo.Column = column;
         }
 
         return tileInfo;

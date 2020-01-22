@@ -27,6 +27,10 @@ public class ShopManager : Flow {
     }
     #endregion
 
+    //
+    GameVariables gameVariables;
+    RoomVariables roomVariables;
+
     private Dictionary<HandType, HandShop> hands = new Dictionary<HandType, HandShop>();
 
     public GridEntity Map { get; private set; }
@@ -56,6 +60,10 @@ public class ShopManager : Flow {
 
     public override void Initialize() {
 
+        this.gameVariables = GameVariables.instance;
+        this.roomVariables = RoomVariables.instance;
+
+
         //Init grids holder
         GameVariables.instance.gridsHolder = new GameObject("GridsStuff");
 
@@ -76,9 +84,9 @@ public class ShopManager : Flow {
 
     private void InitializeGrids() {
         //Init grids
-        this.Map = new GridEntity("MapShop", this.hiddenGrid, GameVariables.instance.mapStartPointInShop, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.inactiveTilesCoords, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
-        this.shopTurret = new GridEntity("ShopTurret", this.hiddenGrid, GameVariables.instance.shopTurretStartPoint, GameVariables.instance.shopTurretRows, GameVariables.instance.shopTurretColumns, this.tileSidesPrefab);
-        this.shopTrap = new GridEntity("ShopTrap", this.hiddenGrid, GameVariables.instance.shopTrapStartPoint, GameVariables.instance.shopTrapRows, GameVariables.instance.shopTrapColumns, this.tileSidesPrefab);
+        this.Map = new GridEntity("MapShop", this.hiddenGrid, this.roomVariables.mapStartPointInShop, this.gameVariables.mapRows, this.gameVariables.mapColumns, this.gameVariables.inactiveTilesCoords, this.gameVariables.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
+        this.shopTurret = new GridEntity("ShopTurret", this.hiddenGrid, this.roomVariables.shopTurretStartPoint, this.roomVariables.shopTurretRows, this.roomVariables.shopTurretColumns, this.tileSidesPrefab);
+        this.shopTrap = new GridEntity("ShopTrap", this.hiddenGrid, this.roomVariables.shopTrapStartPoint, this.roomVariables.shopTrapRows, this.roomVariables.shopTrapColumns, this.tileSidesPrefab);
     }
 
     private void InitializeHands() {
@@ -150,26 +158,26 @@ public class ShopManager : Flow {
         GameObject ghost;
         //Init obj with row and column
         //Init turrets
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic_Room");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Basic_Ghost");
+        obj = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Basic_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Basic_Ghost");
         this.towerSpawnInfo.Add(TowerType.BASIC, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 0))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy_Room");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Heavy_Ghost");
+        obj = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Heavy_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Heavy_Ghost");
         this.towerSpawnInfo.Add(TowerType.HEAVY, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(0, 1))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice_Room");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TowerPiece_Ice_Ghost");
-        this.towerSpawnInfo.Add(TowerType.ICE, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(1, 1))].TileCenter));
+        obj = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Ice_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Towers/TowerPiece_Ice_Ghost");
+        this.towerSpawnInfo.Add(TowerType.ICE, new ObjInfo(obj, ghost, tilesTurretShop[this.shopTurret.GetTileCoords(new TileInfo(1, 0))].TileCenter));
 
         //Init traps
-        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Glue");
+        obj = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Glue_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Glue_Ghost");
         this.trapSpawnInfo.Add(TrapType.GLUE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 0))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Mine");
+        obj = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Mine_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Mine_Ghost");
         this.trapSpawnInfo.Add(TrapType.MINE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(0, 1))].TileCenter));
-        obj = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
-        ghost = Resources.Load<GameObject>("Prefabs/Room/TrapPiece_Spike");
-        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(1, 1))].TileCenter));
+        obj = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Spike_Room");
+        ghost = Resources.Load<GameObject>("Prefabs/Room/Traps/TrapPiece_Spike_Ghost");
+        this.trapSpawnInfo.Add(TrapType.SPIKE, new ObjInfo(obj, ghost, tilesTrapShop[this.shopTrap.GetTileCoords(new TileInfo(1, 0))].TileCenter));
     }
 
     public void ObjGrabbed(GameObject obj, HandType hand, TowerPiece type) {

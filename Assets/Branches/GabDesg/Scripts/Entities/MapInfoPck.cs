@@ -39,7 +39,7 @@ public class MapInfoPck
             this.TileTrapInfos.Add(tileCoord, type);
     }
 
-    public void ClearLists()
+    public void Reset()
     {
         this.TileTowerInfos.Clear();
         this.TileTrapInfos.Clear();

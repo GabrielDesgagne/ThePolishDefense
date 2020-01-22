@@ -1146,8 +1146,10 @@
             <e p="ProjectileManager.cs" t="Include" />
             <e p="TowerManager.cs" t="Include" />
             <e p="TrapManager.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
             <e p="WaveManager.cs" t="Include" />
           </e>
+          <e p="MapVariables.cs" t="Include" />
           <e p="Player" t="Include">
             <e p="CheckIfColliderTrigger.cs" t="Include" />
             <e p="Player.cs" t="Include" />
@@ -1163,6 +1165,7 @@
           <e p="Quiver.cs" t="Include" />
           <e p="Room.cs" t="Include" />
           <e p="RoomPrefabsHolder.cs" t="Include" />
+          <e p="RoomVariables.cs" t="Include" />
           <e p="ShopController.cs" t="Include" />
           <e p="StatsBoardController.cs" t="Include" />
           <e p="Tower" t="Include">
@@ -1177,6 +1180,7 @@
             <e p="TestManager.cs" t="Include" />
             <e p="Tower.cs" t="Include" />
             <e p="TowerInfo.cs" t="Include" />
+            <e p="TowerInteract.cs" t="Include" />
             <e p="TowerLink.cs" t="Include" />
             <e p="TowerPiece.cs" t="Include" />
             <e p="TowerType.cs" t="Include" />

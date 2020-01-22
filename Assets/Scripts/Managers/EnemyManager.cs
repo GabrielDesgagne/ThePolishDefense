@@ -21,13 +21,14 @@ public class EnemyManager : Flow
 
 
     //public Transform spawnPoint;
+    private GameObject enemyParent;
     public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
 
     public Transform[] waypoints;
 
-    Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
+    public Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
 
 
     //public static int EnemiesAlive = 0;//number of enemy alive
@@ -54,10 +55,10 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
-        SetPoints(GameVariables.instance.enemyParentPoint.transform);
+        SetPoints(MapVariables.instance.enemyParentPoint.transform);
         waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
         spawner= waveSpawner.GetComponent<WaveSpawner>();
-        spawner.Initialize();
+        //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
@@ -70,7 +71,7 @@ public class EnemyManager : Flow
 
     override public void Refresh()
     {
-        spawner.Refresh(enemyPrefabDict);
+        //spawner.Refresh(enemyPrefabDict);
         foreach (Enemy e in enemies)
             e.Refresh();
 
@@ -120,27 +121,11 @@ public class EnemyManager : Flow
         toRemove.Push(enemyDied);
     }
 
-    /* IEnumerator SpawnWave()
-     {
-         Wave wave = waves[waveIndex];
-
-         EnemiesAlive = wave.count;
-
-         for (int i = 0; i < wave.count; i++)
-         {
-             System.Random rnd = new System.Random();
-             EnemyType eType = (EnemyType)rnd.Next(0, enemyPrefabDict.Count-1);
-             GameObject newEnemy = SpawnEnemy(enemyPrefabDict[eType]);
-             Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-             e.Initialize();               
-             toAdd.Push(e);                              
-             yield return new WaitForSeconds(1f / wave.rate);
-         }
-
-         waveIndex++;
-
-
-     }*/
+    public GameObject SpawnEnemy(GameObject enemy)
+    {
+        Transform enemyStart = MapVariables.instance.enemyStart.transform;
+        return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
+    }
 
     /*GameObject SpawnEnemy(GameObject enemy)
     {

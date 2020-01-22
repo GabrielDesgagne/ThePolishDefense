@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Vector3 startingMapPos = new Vector3(217,-41,1171);
+    public Vector3 startingRoomPos = new Vector3(109,14,79);
     public TextMeshPro lifeUi;
     public Transform camToTurn;
     private OVRInput.Controller controllerUseToTp;
@@ -72,7 +74,9 @@ public class Player : MonoBehaviour
         {
             beginTeleport();
         }
+        rotation();
         changeLife();
+        
     }
 
     public void EndFlow()
@@ -80,7 +84,11 @@ public class Player : MonoBehaviour
 
     }
 
-    private void beginTeleport()
+    private void rotation()
+    {
+        //transform.Rotate(new Vector3(0, InputManager.Instance.inputs.Touch[OVRInput.Controller.LTouch].Joystick.x, 0));
+    }
+private void beginTeleport()
     {
         Ray ray = new Ray();
         if (controllerUseToTp == OVRInput.Controller.LTouch)

@@ -149,7 +149,8 @@ public class HandShop
     private void SaveObjInPck(TowerPiece type)
     {
         //Save obj
-        mapPck.AddTower(this.tileCoordsSelected, type.currentType);
+        TileInfo rowColumn = shopManager.Map.GetRowColumn(this.tileCoordsSelected);
+        mapPck.AddTower(new Vector2(rowColumn.Row, rowColumn.Column), type.currentType);
 
         //Remove obj in hand
         GameObject.Destroy(this.objInHand);
@@ -160,7 +161,8 @@ public class HandShop
     private void SaveObjInPck(TrapPiece type)
     {
         //Save obj
-        mapPck.AddTrap(this.tileCoordsSelected, type.currentType);
+        TileInfo rowColumn = shopManager.Map.GetRowColumn(this.tileCoordsSelected);
+        mapPck.AddTrap(new Vector2(rowColumn.Row, rowColumn.Column), type.currentType);
 
         //Remove obj in hand
         GameObject.Destroy(this.objInHand);
@@ -234,12 +236,6 @@ public class HandShop
             case TileType.MAP:
                 objCanGoOnTileType = true;
                 break;
-            case TileType.NONE:
-                objCanGoOnTileType = false;
-                break;
-            case TileType.PATH:
-                objCanGoOnTileType = false;
-                break;
         }
 
         return objCanGoOnTileType;
@@ -250,12 +246,6 @@ public class HandShop
 
         switch (tileType)
         {
-            case TileType.MAP:
-                objCanGoOnTileType = false;
-                break;
-            case TileType.NONE:
-                objCanGoOnTileType = false;
-                break;
             case TileType.PATH:
                 objCanGoOnTileType = true;
                 break;
