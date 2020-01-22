@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { FAST, SIMPLE, SLOW, KNIGHT }
+public enum EnemyType { FAST, SIMPLE, SLOW, KNIGHT, BOSS }
 public class EnemyManager : Flow
 {
     #region Singleton

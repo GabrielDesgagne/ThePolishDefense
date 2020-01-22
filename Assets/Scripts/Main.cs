@@ -15,7 +15,7 @@ public class Main : MonoBehaviour
     [Header("Internal Settings")]
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
-    public GameObject GameSetupPrefab;
+    [HideInInspector]
     public GameObject VRPlayerCharacter;
 
     public Dictionary<GameObject, GrabbableObject> grabbableObjects;
@@ -55,7 +55,6 @@ public class Main : MonoBehaviour
         interactObjects = new Dictionary<GameObject, InteractObject>();
 
         //Get/Set
-        GlobalVariables = gameObject.GetComponent<Global>();
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
         //Scene Loading Delegate

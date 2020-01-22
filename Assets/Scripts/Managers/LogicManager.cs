@@ -16,6 +16,8 @@ public class LogicManager : Flow {
 
     #endregion
 
+    public bool IsGameOver { get; set; }
+
     override public void PreInitialize()
     {
 
@@ -44,10 +46,16 @@ public class LogicManager : Flow {
     public void LevelWon()
     {
         UIManager.Instance.ShowVictory();
+        Debug.Log("Won Level!!!");
     }
 
     public void LevelLost()
     {
         UIManager.Instance.ShowDefeat();
+    }
+
+    public void GameFinish()
+    {
+
     }
 }
