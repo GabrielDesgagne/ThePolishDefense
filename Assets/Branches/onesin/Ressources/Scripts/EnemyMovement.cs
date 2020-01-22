@@ -23,10 +23,10 @@ public class EnemyMovement : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         transform.LookAt(target);
         //transform.Translate(dir.normalized * enemy.speed * Time.fixedDeltaTime, Space.World);
-        if (!enemy.canEnter/*&&!anim.GetBool("isHit")*/)
-        {
+        /*if (!enemy.canEnter&&!anim.GetBool("isHit")*)
+        {*/
             rb.MovePosition(dir.normalized * enemy.speed * Time.fixedDeltaTime + rb.position);
-        }
+        //}
         
 
     }
@@ -52,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
 
         //enemy.speed = enemy.startSpeed;
         //enemy.isHittable = true;
-        if (Vector3.Distance(transform.position, MapVariables.instance.enemyStart.transform.position)>0.3f&&!enemy.canEnter){
+        if (Vector3.Distance(transform.position, MapVariables.instance.enemyStart.transform.position)>0.3f/*&&!enemy.canEnter*/){
             enemy.isHittable = true;
         }
        /* else

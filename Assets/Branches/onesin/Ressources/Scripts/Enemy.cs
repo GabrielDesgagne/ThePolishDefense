@@ -36,6 +36,9 @@ public class Enemy : MonoBehaviour
     private float openDoorTime = 0;
     public float stateDuration = 1.8f;
     public float MaxStateDuration = 1.8f;
+    //public bool canAttack;
+    //public float damage=1;
+    //public Door2 door;
 
     private Transform target;
     private int waypointIndex = 0;
@@ -59,8 +62,14 @@ public class Enemy : MonoBehaviour
 
     public void Refresh()
     {
+        /*if (canAttack)
+        {
+            anim.SetBool("attack", true);
+            door.takeDamage(damage);
+            
+        }*/
 
-        if (canEnter)
+        /*if (canEnter)
         {
             openDoorTime += Time.deltaTime;
             if (isHittable)
@@ -79,7 +88,7 @@ public class Enemy : MonoBehaviour
             anim.SetBool("isWalk", true);
             //anim.SetBool("idle", false);
 
-        }
+        }*/
         //for test the take damage function. we can delete it after
         if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
         {
@@ -172,4 +181,9 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isHit", false);
     }
 
+    public void Kill()
+    {
+        isHittable = true;
+        TakeDamage(health);
+    }
 }

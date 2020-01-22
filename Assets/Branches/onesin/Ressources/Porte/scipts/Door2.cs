@@ -13,6 +13,7 @@ public class Door2 : MonoBehaviour
     public Transform pivotRight;
     Quaternion initialRotation;
     int speed = 1;
+    public float Hp=5;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,7 @@ public class Door2 : MonoBehaviour
             }
 
         }
-        else{
+        /*else{
             if (currentAngle >speed)
             {
                 currentAngle -= speed;
@@ -46,7 +47,7 @@ public class Door2 : MonoBehaviour
         {
             doorLeft.transform.rotation = initialRotation;
             doorRight.transform.rotation = initialRotation;
-        }
+        }*/
         //openDoor = currentAngle > maxAngle/4 ;
         
     }
@@ -57,20 +58,35 @@ public class Door2 : MonoBehaviour
         {
 
             Enemy e = other.gameObject.GetComponent<Enemy>();
-            openDoor = true;
+
             //Animator enemiAnim = other.gameObject.GetComponent<Animator>();
             
-            e.canEnter = true;
+            //e.canAttack = true;
+            //e.door = this;
             e.stateDuration = e.MaxStateDuration * (1 - (currentAngle / maxAngle));
-           
+            if (!openDoor)
+            {
+                e.Kill();
+            }
+            /*else
+            {
+                e.canEnter = true;
+            }*/
+            openDoor = true;
+            
         }
     }
+
+    /*public void takeDamage(float damage)
+    {
+        Hp -= damage;
+    }*/
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            openDoor = false;
+            //openDoor = false;
             Enemy e = other.gameObject.GetComponent<Enemy>();
             e.canEnter = false;
         }
