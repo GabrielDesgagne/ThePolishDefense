@@ -17,12 +17,6 @@ public class PlayerManager : Flow
     #endregion
     
     public Player player;
-    RoomPrefabsHolder roomHolder;
-    
-    //TODO GamePrefabsHolder
-
-    //MainPlayerController mainPlayerController;
-    //CharacterController characterController;
 
     override public void PreInitialize()
     {
