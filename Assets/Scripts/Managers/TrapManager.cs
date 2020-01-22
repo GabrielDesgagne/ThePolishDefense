@@ -57,17 +57,23 @@ public class TrapManager : Flow
 
     override public void Refresh()
     {
-
+        foreach (Trap t in listTrap)
+        {
+            t.Refresh();
+        }
     }
 
     override public void PhysicsRefresh()
     {
-
+        foreach (Trap t in listTrap)
+        {
+            t.PhysicsRefresh();
+        }
     }
 
     override public void EndFlow()
     {
-
+    
     }
 
     public Trap CreateTrap(TrapType type, Vector3 position)
@@ -101,6 +107,8 @@ public class TrapManager : Flow
         switch (type)
         {
             case TrapType.MINE:
+                //trapPrefabs.TryGetValue(TrapType.MINE,out GetEnemies() );
+                //trapPrefabs[TrapType.MINE]
                 EnemyManager.Instance.DamageEnemiesInRange(trap.TrapPosition, trap.trapRadius, (int)trap.attackDamage);
                 break;
             case TrapType.GLUE:

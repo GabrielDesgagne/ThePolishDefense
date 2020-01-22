@@ -39,10 +39,12 @@ public class Spike : Trap
     // TODO 
     //Delete this start 
     //use initialise or preinit to go with the flow
+
+        /*
     private void Start()
     {
         isOutTrap = true;
-    }
+    }*/
 
     //Abstract methode for the flow
     public override void PreInitialize()

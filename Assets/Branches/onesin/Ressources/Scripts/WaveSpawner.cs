@@ -9,7 +9,6 @@ public class WaveSpawner : MonoBehaviour {
     public Logic gameLogic;
 
     Wave[] waves;
-    public LevelSystem levelSystem;
 
     //[SerializeField]
     //public Transform spawnPoint;
@@ -26,10 +25,12 @@ public class WaveSpawner : MonoBehaviour {
     //Dictionary<EnemyType, GameObject> enemyPrefab;
    
     public void Initialize()
-    {
+    { 
         EnemiesAlive = 0;
         waveCountdownTimer = countdown.GetComponent<Countdown>();
         waveCountdownTimer.Initialize();
+        //Instantiate(countdown, gameObject.transform.position, Quaternion.identity);
+        LevelSystem levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
         timeBetweenWaves= levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
         waveCountdownTimer.countdown = timeBetweenWaves;
@@ -73,7 +74,6 @@ public class WaveSpawner : MonoBehaviour {
         Wave wave = waves[waveIndex];
 
         //EnemiesAlive = wave.enemy.Count;
-        EnemiesAlive = EnemyManager.Instance.enemies.Count;
         for (int i = 0; i < wave.types.Length; i++)
         {
             for (int j = 0; j < wave.types[i].number; j++)
@@ -85,6 +85,7 @@ public class WaveSpawner : MonoBehaviour {
                 yield return new WaitForSeconds(1f / wave.rate);
             }
         }
+        EnemiesAlive = EnemyManager.Instance.enemies.Count;
         /*for (int i = 0; i < wave.enemy.Count; i++)
         {
             GameObject newEnemy = SpawnEnemy(wave.enemy[i]);
@@ -99,7 +100,7 @@ public class WaveSpawner : MonoBehaviour {
 
     GameObject SpawnEnemy(GameObject enemy)
     {
-        Transform enemyStart = GameVariables.instance.enemyStart.transform;
+        Transform enemyStart = MapVariables.instance.enemyStart.transform;
         return Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
 }

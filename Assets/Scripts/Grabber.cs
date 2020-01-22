@@ -11,7 +11,7 @@ public class Grabber : Hand
     private Rigidbody rb;
     private Collider[] handCollider;
     private Collider playerCollider;
-    private GrabbableObject pointedObject;
+    private InteractObject pointedObject;
     private List<Renderer> m_showAfterInputFocusAcquired;
 
     public Transform IndexTransform;
@@ -60,6 +60,7 @@ public class Grabber : Hand
     public Quaternion m_grabbedObjectRotOff;
     protected List<GrabbableObject> grabCandidates;
 
+    public GameObject Player => m_player;
 
     /// The currently grabbed object.
     public GrabbableObject GrabbedObject
@@ -173,13 +174,11 @@ public class Grabber : Hand
     {
         if (pointedObject)
         {
-            Debug.Log("distance grab begin");
-
             //Check if the interact object is also a grabbable Object
             if (!Main.Instance.grabbableObjects.ContainsKey(pointedObject.gameObject)) return;
 
             //Check if the gameObject wants to be distance grabbed
-            if (Main.Instance.grabbableObjects[pointedObject.transform.gameObject].DistanceGrab != true) return;
+            if (Main.Instance.grabbableObjects[pointedObject.gameObject].DistanceGrab != true) return;
 
             //Check if the gameObject is not in the distance grab range
             if (Vector3.Distance(headAnchor.transform.position, pointedObject.transform.position) < DISTANCE_GRAB_RANGE_MIN) return;
@@ -242,21 +241,22 @@ public class Grabber : Hand
             if (!Main.Instance.interactObjects.ContainsKey(rayHit.transform.gameObject)) return;
 
             //Tells the previous ponted object that it is not pointed anymore
-            if (pointedObject != null && pointedObject != rayHit.transform.gameObject)
+            if (pointedObject != null && pointedObject.gameObject != rayHit.transform.gameObject)
                 pointedObject.Pointed(false, this, rayHit);
 
             //Check if the pointed Object contains a grabbable Object
-            pointedObject = Main.Instance.grabbableObjects[rayHit.transform.gameObject];
+            pointedObject = Main.Instance.interactObjects[rayHit.transform.gameObject];
 
             // Will call this every frame.
-            pointedObject.Pointed(true, this, rayHit);
-            
+            pointedObject.Pointed(true, this, rayHit);        
         }
         else if (pointedObject != null)
         {
             pointedObject.Pointed(false, this, rayHit);
             pointedObject = null;
         }
+
+
     }
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor. 
     // This is call every update by an Event in OVR Camera Rig
@@ -303,7 +303,12 @@ public class Grabber : Hand
         if (grabCandidates.Contains(Main.Instance.grabbableObjects[otherCollider.gameObject])) return;
         grabCandidates.Add(Main.Instance.grabbableObjects[otherCollider.gameObject]);
     }
-
+    public void RemoveFromCandidate(GrabbableObject grabbable)
+    {
+        if (!grabCandidates.Contains(grabbable)) return;
+        grabCandidates.Remove(grabbable);
+        //SetPlayerIgnoreCollision(otherCollider.gameObject, false);
+    }
     void OnTriggerExit(Collider otherCollider)
     {
         // Check if the collided object is a GrabbableObject.
@@ -353,6 +358,7 @@ public class Grabber : Hand
 
             for (int j = 0; j < grabbable.GrabPoints.Length; ++j)
             {
+                if (!grabbable.GrabPoints[j]) continue;
                 Transform grabbableSnap = grabbable.GrabPoints[j];
                 // Store the closest grabbable
                 float distance = Vector3.Distance(m_gripTransform.position, grabbableSnap.position);

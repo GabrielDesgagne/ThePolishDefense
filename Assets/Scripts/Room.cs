@@ -46,6 +46,8 @@ public class Room : Flow
         grabbableManager.PreInitialize();
         shopManager.PreInitialize();
         timeManager.PreInitialize();
+
+        PreInitializeRoom();
     }
 
     override public void Initialize()
@@ -55,14 +57,17 @@ public class Room : Flow
         grabbableManager.Initialize();
         shopManager.Initialize();
         timeManager.Initialize();
+
+        InitializeRoom();
     }
 
     override public void Refresh()
     {
         inputManager.Refresh();
         playerManager.Refresh();
-        arrowManager.Refresh();
         podManager.Refresh();
+        arrowManager.Refresh();
+        
         grabbableManager.Refresh();
         shopManager.Refresh();
         timeManager.Refresh();
@@ -80,5 +85,13 @@ public class Room : Flow
     override public void EndFlow()
     {
         //GameObject.Destroy(roomSetup);
+    }
+
+    private void PreInitializeRoom() {
+
+    }
+
+    private void InitializeRoom() {
+
     }
 }

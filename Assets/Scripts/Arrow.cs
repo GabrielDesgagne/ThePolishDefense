@@ -18,6 +18,7 @@ public class Arrow : MonoBehaviour
 	{
 		collider = GetComponent<Collider>();
 		rb = transform.GetComponent<Rigidbody>();
+		startDisapearTime = 0;
 	}
 
 	void OnTriggerEnter(Collider other) 
@@ -48,7 +49,7 @@ public class Arrow : MonoBehaviour
 			GetComponent<BoxCollider>().isTrigger = false;
 		}
 	}
-	void Update() 
+	void FixedUpdate() 
 	{
 		if (isFired && rb.velocity.magnitude > startToCurve) {
 			transform.LookAt (transform.position + rb.velocity);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardHitBox : GrabbableObject
+public class BoardHitBox : InteractObject
 {
 
     HandType handType;

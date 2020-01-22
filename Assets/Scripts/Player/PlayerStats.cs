@@ -6,14 +6,19 @@ public class PlayerStats : MonoBehaviour
 {
 
     public int initialCurrency = 100;
-    public int initialHp = 10;
+    public float initialHp = 10;
     public int startingLevel = 0;
     public int damage = 5;
-    
+
+    public static int Headshot { get; set; }
+    public static int PlayerKill { get; set; }
+    public static int TowerKill { get; set; }
+    public static int TotalKill { get { return PlayerKill + TowerKill; } }
+    public static int Score { get; set; }
     public static bool IsPlayerDead { get; set; }
 
-    private static int currency=100;
-    private static int hp;
+    private static int currency = 100;
+    private static float hp;
     private static int currentLevel;
 
     //No need to implement init for now... resetAllStats() does it.
@@ -32,10 +37,10 @@ public class PlayerStats : MonoBehaviour
         private set { currency = value; }
     }
 
-    public static int Hp
+    public static float Hp
     {
         get { return hp; }
-        private set { hp = value; }
+        set { hp = value; }
     }
 
     public static int CurrentLevel
@@ -51,7 +56,7 @@ public class PlayerStats : MonoBehaviour
 
     public static bool subtractCurrency(int amount)
     {
-        if(Currency - amount < 0)
+        if (Currency - amount < 0)
         {
             return false;
         }
@@ -62,14 +67,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public static void addHp(int amount)
+    public static void addHp(float amount)
     {
         Hp += amount;
     }
 
     public static void decrementHp()
     {
-        if(--Hp == 0)
+        if (--Hp == 0)
         {
             IsPlayerDead = true;
         }
@@ -77,7 +82,7 @@ public class PlayerStats : MonoBehaviour
 
     public void subtractHp(int amount)
     {
-        if(hp - amount <= 0)
+        if (hp - amount <= 0)
         {
             hp = 0;
             IsPlayerDead = true;

@@ -10,8 +10,11 @@ public class Quiver : MonoBehaviour
     {
         if (right)
         {
-            if(!ArrowManager.Instance.currentArrowRight)
-                ArrowManager.Instance.AttachArrowToHand( Instantiate(arrowPrefab, hand.parent.parent.parent.transform).GetComponent<Arrow>(), true);
+            if (!ArrowManager.Instance.currentArrowRight)
+            {
+                GameObject ga = Instantiate(arrowPrefab, hand.parent.parent.parent.transform);
+                ArrowManager.Instance.AttachArrowToHand(ga.GetComponent<Arrow>(), true);
+            }
         }
         else
         {

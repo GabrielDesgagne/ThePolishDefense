@@ -7,10 +7,6 @@ public class LevelSystem : ScriptableObject
 {
     public Level[] levels;
     public NUM_Level currentLevel;
-    //public string nextLevel = "Level02";
-    //public int levelToUnlock = 2;
-
-
 }
 
 public enum NUM_Level
