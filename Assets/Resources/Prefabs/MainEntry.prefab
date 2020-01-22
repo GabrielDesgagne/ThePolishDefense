@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2354030245692463230}
   - component: {fileID: 2354030245692463216}
   - component: {fileID: 2354030245692463231}
+  - component: {fileID: 919621283}
+  - component: {fileID: 1279912415807612055}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: Untagged
@@ -49,10 +51,7 @@ MonoBehaviour:
   GlobalVariables: {fileID: 0}
   RoomSetupPrefab: {fileID: 8711379309019227772, guid: 57a2af5ab36996342b3721876003ca3e,
     type: 3}
-  GameSetupPrefab: {fileID: 8027072850541259594, guid: 3445d985476fd7e4196200f009322689,
-    type: 3}
-  VRPlayerCharacter: {fileID: 5232227960490631103, guid: 12921f186c2542d4794df02929a791a4,
-    type: 3}
+  VRPlayerCharacter: {fileID: 0}
   sceneTransition: {fileID: 2354030245692463231}
 --- !u!114 &2354030245692463230
 MonoBehaviour:
@@ -78,8 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfa25303385fb0429e623f7157c9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRows: 15
-  mapColumns: 15
+  mapRows: 12
+  mapColumns: 12
   gridsHolder: {fileID: 0}
   pathTilesCoords: []
   inactiveTilesCoords: []
@@ -106,3 +105,48 @@ MonoBehaviour:
   enemySceneName: sampleOnesin
   uiSceneName: sceneRaphael
   mapSceneName: GabDesg
+--- !u!114 &919621283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354030245692463227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9a5b1b92bdc2c4284371603e12896e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heavyTowerDamage: 0
+  heavyTowerRange: 0
+  heavyTowerAttackCooldown: 0
+  iceTowerDamage: 0
+  iceTowerRange: 0
+  iceTowerAttackCooldown: 0
+  bombDamage: 0
+  bombRadius: 0
+  potionDamage: 0
+  potionRadius: 0
+--- !u!114 &1279912415807612055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354030245692463227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5783b3ab33e378499ee97e85b04e23c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreUI: {fileID: 0}
+  cashUI: {fileID: 0}
+  headshotUI: {fileID: 0}
+  playerKillsUI: {fileID: 0}
+  towerKillsUI: {fileID: 0}
+  totalKillsUI: {fileID: 0}
+  canvas: {fileID: 0}
+  winUI: {fileID: 0}
+  loseUI: {fileID: 0}
+  fireworks: {fileID: 0}
+  explosion: {fileID: 0}
