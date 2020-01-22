@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManager : Flow
-{
+public class WaveManager : Flow {
 
     #region Singleton
     static private WaveManager instance = null;
@@ -91,18 +90,29 @@ public class WaveManager : Flow
     private void SpawnWave()
     {
         Wave wave = waves[currentWave];
-
+        GameObject newEnemy;
+        float time = 0;
         for (int i = 0; i < wave.types.Length; i++)
         {
             for (int j = 0; j < wave.types[i].number; j++)
             {
-                GameObject newEnemy = EnemyManager.Instance.SpawnEnemy(EnemyManager.Instance.enemyPrefabDict[wave.types[i].type]);
-                Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
-                e.Initialize();
-                EnemyManager.Instance.toAdd.Push(e);
+                newEnemy = EnemyManager.Instance.enemyPrefabDict[wave.types[i].type];
+                SpawnEnemyAfterTime(newEnemy, time);
+                time += 0.35f;
             }
         }
         currentWave++;
+    }
+
+    private void SpawnEnemyAfterTime(GameObject enemyPrefab, float time)
+    {
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            GameObject enemyObj = EnemyManager.Instance.SpawnEnemy(enemyPrefab);
+            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            enemy.Initialize();
+            EnemyManager.Instance.toAdd.Push(enemy);
+        }, time));
     }
 
     private void NextLevelTest()

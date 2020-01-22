@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Projectile
-{
+public abstract class Projectile {
     public GameObject Obj { get; set; }
     public ProjectileType Type { get; set; }
     public Vector3 StartPos { get; set; }
@@ -24,11 +23,11 @@ public abstract class Projectile
             }
             else
             {
-                if (Enemy != null)
+                if (Enemy != null || Enemy.isHittable)
                 {
                     Obj.transform.position = Vector3.Slerp(StartPos, Enemy.transform.position, SlerpPct);
                 }
-                else
+                else if (Enemy == null)
                 {
                     ProjectileManager.Instance.ResetProjectile(this);
                 }
