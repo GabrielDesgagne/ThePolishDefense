@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
 
     public int initialCurrency = 100;
-    public float initialHp = 10;
+    public float initialHp = 1;
     public int startingLevel = 0;
     public int damage = 5;
 

@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
 
     public float startSpeed = 10;
     [HideInInspector]
@@ -107,7 +106,6 @@ public class Enemy : MonoBehaviour
                     isHittable = false;
                     WaveSpawner.EnemiesAlive--;
                     EnemyManager.Instance.EnemyDied(this);
-                    Destroy(gameObject);
                     return;
                 }
 
@@ -151,9 +149,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Slow(float amount)
+    public void Slow(float amount, float duration)
     {
         speed = startSpeed * (1f - amount);
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            speed = startSpeed;
+        }, duration));
     }
 
     private void Die()
@@ -170,8 +172,6 @@ public class Enemy : MonoBehaviour
 
         PlayerStats.addCurrency(value);
         EnemyManager.Instance.EnemyDied(this);
-        //will be do by enemyManager
-        Destroy(gameObject, 10);
     }
 
     public void ExitHitState()

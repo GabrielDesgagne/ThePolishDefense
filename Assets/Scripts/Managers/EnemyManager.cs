@@ -55,7 +55,7 @@ public class EnemyManager : Flow
     override public void PhysicsRefresh()
     {
 
-        while (toRemove.Count > 0) //remove all dead ones
+        while (toRemove.Count > 0)
         {
             try
             {
@@ -69,7 +69,7 @@ public class EnemyManager : Flow
             }
         }
 
-        while (toAdd.Count > 0) //Add new ones
+        while (toAdd.Count > 0)
             enemies.Add(toAdd.Pop());
 
 
@@ -114,6 +114,14 @@ public class EnemyManager : Flow
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         foreach (Enemy enemy in enemyInRange)
             enemy.TakeDamage(damage);
+    }
+
+    //decimalSpeed, has to be a decimal 0.01 - 0.99
+    public void SlowEnemiesInRange(Vector3 position, float range, float decimalSpeed , float duration)
+    {
+        List<Enemy> enemyInRange = EnemiesInRange(position, range);
+        foreach (Enemy enemy in enemyInRange)
+            enemy.Slow(decimalSpeed, duration);
     }
 
     override public void EndFlow()

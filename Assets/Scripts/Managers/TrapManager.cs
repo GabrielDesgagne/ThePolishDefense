@@ -20,7 +20,7 @@ public class TrapManager : Flow
 
     //Prefabs Paths
     const string SPIKE = "Prefabs/TrapsAndWeapons/Spiketrap";
-    const string MINE = "Prefabs/TrapsAndWeapons/Mine";
+    const string MINE = "Prefabs/TrapsAndWeapons/Mine_2";
     const string GLUE = "Prefabs/TrapsAndWeapons/GlueTrap";
 
     //GameObject List
@@ -44,6 +44,7 @@ public class TrapManager : Flow
 
         //init list of trap
         listTrap = new List<Trap>();
+
 
     }
 
@@ -91,6 +92,8 @@ public class TrapManager : Flow
                 trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], position, Quaternion.identity, trapHolder.transform));
                 break;
         }
+        trap.PreInitialize();
+        trap.Initialize();
         listTrap.Add(trap);
         return trap;
     }
@@ -109,7 +112,7 @@ public class TrapManager : Flow
                 //find a way to slow only enemy that enter the collider
                 foreach (Enemy enemy in EnemyManager.Instance.enemies)
                 {
-                    enemy.Slow(trap.coldownEffect);
+
                 }
                 break;
             case TrapType.SPIKE:

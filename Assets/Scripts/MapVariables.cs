@@ -29,7 +29,7 @@ public class MapVariables : MonoBehaviour
 
 
     [Header("Player")]
-    [SerializeField] public Player playerInstance;
+    [SerializeField] public Player playerPrefab;
 
 
     [Header("Enemies")]

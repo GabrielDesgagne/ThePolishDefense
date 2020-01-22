@@ -30,7 +30,11 @@ public class LogicManager : Flow {
 
     override public void Refresh()
     {
-
+        if (PlayerStats.IsPlayerDead)
+        {
+            LevelLost();
+            Debug.Log("YOU LOST!!!");
+        }
     }
 
     override public void PhysicsRefresh()

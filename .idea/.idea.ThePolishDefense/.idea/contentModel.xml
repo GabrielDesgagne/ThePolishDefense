@@ -71,8 +71,10 @@
             </e>
             <e p="Scripts" t="Include">
               <e p="ActivateVFX.cs" t="Include" />
+              <e p="AmbianceManager1.cs" t="Include" />
               <e p="CheatsManager.cs" t="Include" />
               <e p="SceneTransition.cs" t="Include" />
+              <e p="soundType.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -1076,9 +1078,9 @@
                   <e p="LowPolyTreePack" t="Include">
                     <e p="README.txt" t="Include" />
                   </e>
+                  <e p="Terrain_ToonLitOutline.shader" t="Include" />
                 </e>
               </e>
-              <e p="Terrain_ToonLitOutline.shader" t="Include" />
             </e>
             <e p="Room" t="Include">
               <e p="Packs for Map Village" t="Include">

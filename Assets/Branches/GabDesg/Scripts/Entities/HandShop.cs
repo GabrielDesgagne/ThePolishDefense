@@ -157,6 +157,8 @@ public class HandShop
 
         //Reset all values
         ResetHandInfo();
+
+        Debug.Log("Obj position saved at: " + rowColumn.Row + "," + rowColumn.Column);
     }
     private void SaveObjInPck(TrapPiece type)
     {
@@ -169,6 +171,7 @@ public class HandShop
 
         //Reset all values
         ResetHandInfo();
+        Debug.Log("Obj position saved at: " + rowColumn.Row + "," + rowColumn.Column);
     }
 
     public void SetHitPointOnBoard(Vector3? hitPoint)

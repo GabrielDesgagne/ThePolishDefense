@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Wave2
   m_EditorClassIdentifier: 
   types:
-  - type: 0
+  - type: 15
     number: 1
-  - type: 1
+  - type: 16
     number: 2
   rate: 2

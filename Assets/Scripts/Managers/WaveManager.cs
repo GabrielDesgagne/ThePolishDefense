@@ -98,7 +98,7 @@ public class WaveManager : Flow {
             {
                 newEnemy = EnemyManager.Instance.enemyPrefabDict[wave.types[i].type];
                 SpawnEnemyAfterTime(newEnemy, time);
-                time += 0.35f;
+                time += wave.rate;
             }
         }
         currentWave++;
