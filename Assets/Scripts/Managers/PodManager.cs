@@ -50,4 +50,9 @@ public class PodManager : Flow
             }
         }
     }
+
+    public override void EndFlow()
+    {
+        instance = null;
+    }
 }
