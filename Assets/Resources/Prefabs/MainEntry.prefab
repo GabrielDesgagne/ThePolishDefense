@@ -51,7 +51,7 @@ MonoBehaviour:
     type: 3}
   GameSetupPrefab: {fileID: 8027072850541259594, guid: 3445d985476fd7e4196200f009322689,
     type: 3}
-  playerPrefab: {fileID: 8680112799749987386, guid: 12921f186c2542d4794df02929a791a4,
+  VRPlayerCharacter: {fileID: 5232227960490631103, guid: 12921f186c2542d4794df02929a791a4,
     type: 3}
   sceneTransition: {fileID: 2354030245692463231}
 --- !u!114 &2354030245692463230
@@ -78,15 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfa25303385fb0429e623f7157c9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomPrefab: {fileID: 3647869786120135176, guid: 4daaca73bf37cce4b8b62dc871b4780d,
-    type: 3}
-  mapGridWidth: 15
-  mapGridHeight: 15
-  shopGridWidth: 2
-  shopGridHeight: 8
-  shopRoomPosition: {fileID: 0}
-  mapRoomPosition: {fileID: 0}
-  turretBasicPrefab: {fileID: 3647869786120135176, guid: 4daaca73bf37cce4b8b62dc871b4780d,
+  mapRows: 15
+  mapColumns: 15
+  gridsHolder: {fileID: 0}
+  pathTilesCoords: []
+  inactiveTilesCoords: []
+  playerPrefab: {fileID: 8680112799749987386, guid: 12921f186c2542d4794df02929a791a4,
     type: 3}
 --- !u!114 &2354030245692463231
 MonoBehaviour:
