@@ -1822,7 +1822,13 @@ MonoBehaviour:
   currentTime: 0
   detonate: 2
   prefab: {fileID: 3933363178440793431}
+  type: 1
   description: 
+  attackDamage: 0
+  lifeSpawn: 0
+  price: 0
+  trapRadius: 0
+  coldownEffect: 0
   isInTrap: 0
   isOutTrap: 0
   timerOn: 0

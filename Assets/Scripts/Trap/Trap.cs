@@ -26,7 +26,7 @@ graphics
     public TrapType type;
     [TextArea(15, 20)]
     public string description;
-
+    [SerializeField]
     public Vector3 TrapPosition { get; protected set; }
     public float attackDamage;
     public float lifeSpawn;
@@ -59,7 +59,13 @@ graphics
     public abstract void Refresh();
     public abstract void PhysicsRefresh();
 
+    public abstract void onTrigger();
+
+    public abstract void onExitTrigger();
+
+
     //Action Methode
+
     public abstract void onAction();
     public abstract void onRemove();
     protected abstract void OnTriggerEnter(Collider other);
