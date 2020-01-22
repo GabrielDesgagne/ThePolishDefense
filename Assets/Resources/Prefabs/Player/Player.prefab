@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95006d51c4ccb2e43a3f7c09bd567a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMapPos: {x: 217, y: -41, z: 1171}
+  startingMapPos: {x: 217, y: -40.21, z: 1171}
   startingRoomPos: {x: 109, y: 14, z: 79}
   lifeUi: {fileID: 1131106844180081211}
   camToTurn: {fileID: 5232227960490984347}
@@ -631,7 +631,7 @@ MonoBehaviour:
   JumpForce: 0.3
   RotationAmount: 1.5
   RotationRatchet: 45
-  SnapRotation: 1
+  SnapRotation: 0
   FixedSpeedSteps: 0
   HmdResetsY: 1
   HmdRotatesY: 1
@@ -1025,13 +1025,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1131106844180081211}
-    characterCount: 0
+    characterCount: 7
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 2
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
