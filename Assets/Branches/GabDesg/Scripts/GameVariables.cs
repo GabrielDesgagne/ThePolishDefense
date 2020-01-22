@@ -21,40 +21,18 @@ public class GameVariables : MonoBehaviour {
     }
     #endregion
 
-    [Header("Grids Variables")]
-    [SerializeField] public ushort mapRows = 15;
-    [SerializeField] public ushort mapColumns = 15;
-    [SerializeField] public ushort shopTurretRows = 2;
-    [SerializeField] public ushort shopTurretColumns = 2;
-    [SerializeField] public ushort shopTrapRows = 2;
-    [SerializeField] public ushort shopTrapColumns = 8;
-
-    [SerializeField] public Transform mapStartPointInMap;
-    [SerializeField] public Transform mapStartPointInShop;
-    [SerializeField] public Transform shopTurretStartPoint;
-    [SerializeField] public Transform shopTrapStartPoint;
+    [Header("Grids")]
+    [SerializeField] public ushort mapRows = 12;
+    [SerializeField] public ushort mapColumns = 12;
 
     [HideInInspector] public GameObject gridsHolder;
     [HideInInspector] public List<Vector2> pathTilesCoords;
     [HideInInspector] public List<Vector2> inactiveTilesCoords;
 
-    [SerializeField] public GameObject randomPrefab;
-    [SerializeField] public ushort mapGridWidth;
-    [SerializeField] public ushort mapGridHeight;
-    [SerializeField] public ushort shopGridWidth;
-    [SerializeField] public ushort shopGridHeight;
 
-    [SerializeField] public GameObject enemyStart;
-    [SerializeField] public GameObject enemyEnd;
-    [SerializeField] public GameObject enemyParentPoint;
-    [SerializeField] public GameObject enemyPoint;
-    [SerializeField] public LevelSystem levelSystem;
+    [Header("Player")]
+    [SerializeField] public Player playerPrefab;
 
-    [SerializeField] public Transform shopRoomPosition;
-    [SerializeField] public Transform mapRoomPosition;
-
-    [Header("Shop Prefabs")]
-    [SerializeField] public GameObject turretBasicPrefab;
 
     private void InitPathTilesCoords() {
         instance.pathTilesCoords.Add(new Vector2(11, 12));

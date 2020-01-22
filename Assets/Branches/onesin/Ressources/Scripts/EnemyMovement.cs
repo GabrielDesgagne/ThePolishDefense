@@ -52,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
 
         //enemy.speed = enemy.startSpeed;
         //enemy.isHittable = true;
-        if (Vector3.Distance(transform.position, GameVariables.instance.enemyStart.transform.position)>0.3f&&!enemy.canEnter){
+        if (Vector3.Distance(transform.position, MapVariables.instance.enemyStart.transform.position)>0.3f&&!enemy.canEnter){
             enemy.isHittable = true;
         }
        /* else
