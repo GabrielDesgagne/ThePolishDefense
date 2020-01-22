@@ -34,7 +34,7 @@ public class WaveManager : Flow
     {
         waveCountdownTimer = MapVariables.instance.timerUI;
         waveCountdownTimer.Initialize();
-        levelSystem = GameVariables.instance.levelSystem;
+        levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
         timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
