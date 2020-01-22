@@ -27,6 +27,8 @@ public class PlayerManager : Flow
         }
         else{
             player.transform.position = player.startingMapPos;
+            this.player.GetComponent<OVRPlayerController>().enabled = false;
+
         }
 
         Main.Instance.VRPlayerCharacter = player.gameObject;
