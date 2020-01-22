@@ -20,7 +20,6 @@ public class EnemyManager : Flow
     #endregion
 
 
-    //public Transform spawnPoint;
     private GameObject enemyParent;
     public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
@@ -29,20 +28,6 @@ public class EnemyManager : Flow
     public Transform[] waypoints;
 
     public Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
-
-
-    //public static int EnemiesAlive = 0;//number of enemy alive
-
-    private GameObject waveSpawner;
-    public WaveSpawner spawner;
-
-    //public Wave[] waves;
-    //private float timeBetweenWaves = 5f;
-
-    //private int waveIndex = 0;
-
-    //private GameObject countdown;
-    //private Countdown waveCountdownTimer;
 
     override public void PreInitialize()
     {
@@ -54,41 +39,17 @@ public class EnemyManager : Flow
         toRemove = new Stack<Enemy>();
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
-        //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
         SetPoints(MapVariables.instance.enemyParentPoint.transform);
-        //waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
-        //spawner= waveSpawner.GetComponent<WaveSpawner>();
-        //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
         }
-        //countdown= Resources.Load<GameObject>("Prefabs/TimerUI");
-        //EnemiesAlive = 0;
-        //waveCountdownTimer = countdown.GetComponent<Countdown>();
-        //waveCountdownTimer.countdown = timeBetweenWaves;
     }
 
     override public void Refresh()
     {
-        //spawner.Refresh(enemyPrefabDict);
         foreach (Enemy e in enemies)
             e.Refresh();
-
-        
-        /* if (EnemiesAlive > 0)
-         {
-             return;
-         }
-
-         if (waveCountdownTimer.countdown <= 0f)
-         {
-             MonoBehaviour mono = new MonoBehaviour();
-             mono.StartCoroutine(SpawnWave());
-             waveCountdownTimer.countdown = timeBetweenWaves;
-             return;
-         }
-         waveCountdownTimer.Deduct();*/
     }
 
     override public void PhysicsRefresh()
@@ -127,12 +88,6 @@ public class EnemyManager : Flow
         return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
 
-    /*GameObject SpawnEnemy(GameObject enemy)
-    {
-        return GameObject.Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-    }*/
-
-    /* Retrieve the closest enemy from the base within range of a position */
     public Enemy FindFirstTargetInRange(Vector3 position, float range)
     {
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
@@ -142,7 +97,6 @@ public class EnemyManager : Flow
         return enemy;
     }
 
-    /* Retrieve all enemies that are within range of a position */
     public List<Enemy> EnemiesInRange(Vector3 position, float range)
     {
         List<Enemy> enemiesInRange = new List<Enemy>();
@@ -160,6 +114,14 @@ public class EnemyManager : Flow
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         foreach (Enemy enemy in enemyInRange)
             enemy.TakeDamage(damage);
+    }
+
+    //decimalSpeed, has to be a decimal 0.01 - 0.99
+    public void SlowEnemiesInRange(Vector3 position, float range, float decimalSpeed , float duration)
+    {
+        List<Enemy> enemyInRange = EnemiesInRange(position, range);
+        foreach (Enemy enemy in enemyInRange)
+            enemy.Slow(decimalSpeed, duration);
     }
 
     override public void EndFlow()

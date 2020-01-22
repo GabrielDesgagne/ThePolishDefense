@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
 
     public float startSpeed = 10;
     [HideInInspector]
@@ -74,7 +73,7 @@ public class Enemy : MonoBehaviour
         if (openDoorTime > stateDuration)
         {
             openDoorTime = 0;
-            //canEnter = false;
+            canEnter = false;
             //speed = startSpeed;
             anim.SetBool("isWalk", true);
             //anim.SetBool("idle", false);
@@ -142,9 +141,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Slow(float amount)
+    public void Slow(float amount, float duration)
     {
         speed = startSpeed * (1f - amount);
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            speed = startSpeed;
+        }, duration));
     }
 
     private void Die()

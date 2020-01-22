@@ -27,6 +27,15 @@ public class Spike : Trap
         this.prefab = gameObject;
     }
 
+    public override void onTrigger()
+    {
+
+    }
+
+    public override void onExitTrigger()
+    {
+
+    }
     // TODO 
     //Delete this start 
     //use initialise or preinit to go with the flow
@@ -101,3 +110,4 @@ public class Spike : Trap
         }
     }
 }
+

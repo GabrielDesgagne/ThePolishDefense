@@ -7,10 +7,12 @@ public class CheatsManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] SceneTransition scene;
+    AmbianceManager ambianceManager;
     public GameObject canvas;
     public TMP_InputField cheats;
     void Start()
     {
+        ambianceManager = new AmbianceManager();
         canvas.SetActive(false);
     }
 
@@ -52,6 +54,14 @@ public class CheatsManager : MonoBehaviour
         if (cheats.text.Equals("map"))
         {
             scene.loadMapScene();
+        }
+        if (cheats.text.Equals("fightM"))
+        {
+            ambianceManager.playMapMusic();
+        }
+        if (cheats.text.Equals("roomM"))
+        {
+            ambianceManager.playSoundsRoom();
         }
     }
 }
