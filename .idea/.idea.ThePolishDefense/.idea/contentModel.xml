@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\jean-\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jean-\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ThePolishDefense.-1523588253.00" t="ExcludeRecursive" />
-    <e p="D:\VrUnity\2\ThePolishDefense" t="IncludeRecursive">
+    <e p="C:\Users\ssohy\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ssohy\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ThePolishDefense.-1232157521.00" t="ExcludeRecursive" />
+    <e p="C:\Users\ssohy\Documents\dev\Unity\ThePolishDefense" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -1149,6 +1149,7 @@
             <e p="UIManager.cs" t="Include" />
             <e p="WaveManager.cs" t="Include" />
           </e>
+          <e p="MapVariables.cs" t="Include" />
           <e p="Player" t="Include">
             <e p="CheckIfColliderTrigger.cs" t="Include" />
             <e p="Player.cs" t="Include" />
@@ -1164,6 +1165,7 @@
           <e p="Quiver.cs" t="Include" />
           <e p="Room.cs" t="Include" />
           <e p="RoomPrefabsHolder.cs" t="Include" />
+          <e p="RoomVariables.cs" t="Include" />
           <e p="ShopController.cs" t="Include" />
           <e p="StatsBoardController.cs" t="Include" />
           <e p="Tower" t="Include">

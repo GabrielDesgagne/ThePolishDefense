@@ -41,6 +41,7 @@ public class Main : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
         #endregion
 
