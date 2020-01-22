@@ -3,10 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class WaveSpawner : MonoBehaviour {
+public class WaveSpawner : MonoBehaviour
+{
 
     public static int EnemiesAlive = 0;
-    public Logic gameLogic;
+    //public Logic gameLogic;
 
     Wave[] waves;
     public LevelSystem levelSystem;
@@ -14,7 +15,7 @@ public class WaveSpawner : MonoBehaviour {
     //[SerializeField]
     //public Transform spawnPoint;
 
-    private float timeBetweenWaves ;
+    private float timeBetweenWaves;
 
     [SerializeField]
     private int waveIndex = 0;
@@ -24,7 +25,7 @@ public class WaveSpawner : MonoBehaviour {
     private Countdown waveCountdownTimer;
     //just for test
     //Dictionary<EnemyType, GameObject> enemyPrefab;
-   
+
     public void Initialize()
     {
         EnemiesAlive = 0;
@@ -32,7 +33,7 @@ public class WaveSpawner : MonoBehaviour {
         waveCountdownTimer.Initialize();
         //Instantiate(countdown, gameObject.transform.position, Quaternion.identity);
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
-        timeBetweenWaves= levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
+        timeBetweenWaves = levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
         waveCountdownTimer.countdown = timeBetweenWaves;
         /*foreach (Wave w in waves)
         {
@@ -41,7 +42,8 @@ public class WaveSpawner : MonoBehaviour {
 
     }
 
-    public void Refresh(Dictionary<EnemyType, GameObject> enemyPrefab) {
+    public void Refresh(Dictionary<EnemyType, GameObject> enemyPrefab)
+    {
         //condition to restart countdown
         if (EnemiesAlive > 0)
         {
@@ -50,7 +52,7 @@ public class WaveSpawner : MonoBehaviour {
 
         if (waveIndex == waves.Length)
         {
-            //gameLogic.WinLevel();
+            LogicManager.Instance.WinLevel();
             this.enabled = false;
         }
 
@@ -62,7 +64,7 @@ public class WaveSpawner : MonoBehaviour {
             return;
         }
         waveCountdownTimer.Deduct();
-        
+
 
     }
 
@@ -105,12 +107,3 @@ public class WaveSpawner : MonoBehaviour {
     }
 }
 
-/*[System.Serializable]
-public class Wave
-{
-
-    public GameObject enemy;
-    public int count;
-    public float rate;
-
-}*/

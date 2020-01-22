@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour
                 enemy.isHittable = false;
                 WaveSpawner.EnemiesAlive--;
                 EnemyManager.Instance.EnemyDied(enemy);
-                Destroy(gameObject);
+                Destroy(gameObject,10f);
                 return;
             }
 
