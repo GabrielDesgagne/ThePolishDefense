@@ -54,5 +54,6 @@ public class MapInfoPck
         AddTower(new Vector2(4, 8), TowerType.BASIC);
         AddTower(new Vector2(2, 10), TowerType.BASIC);
         AddTrap(new Vector2(9, 5), TrapType.SPIKE);
+        AddTrap(new Vector2(10, 5), TrapType.MINE);
     }
 }
