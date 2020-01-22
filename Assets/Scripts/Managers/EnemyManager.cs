@@ -116,6 +116,14 @@ public class EnemyManager : Flow
             enemy.TakeDamage(damage);
     }
 
+    //decimalSpeed, has to be a decimal 0.01 - 0.99
+    public void SlowEnemiesInRange(Vector3 position, float range, float decimalSpeed , float duration)
+    {
+        List<Enemy> enemyInRange = EnemiesInRange(position, range);
+        foreach (Enemy enemy in enemyInRange)
+            enemy.Slow(decimalSpeed, duration);
+    }
+
     override public void EndFlow()
     {
 
