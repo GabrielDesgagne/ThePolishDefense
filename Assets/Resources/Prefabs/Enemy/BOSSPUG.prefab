@@ -387,9 +387,9 @@ GameObject:
   - component: {fileID: -2343399965721994053}
   - component: {fileID: 2445413924548495152}
   - component: {fileID: -4223757269106413325}
-  m_Layer: 0
-  m_Name: BossPug
-  m_TagString: Untagged
+  m_Layer: 9
+  m_Name: BOSSPUG
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
