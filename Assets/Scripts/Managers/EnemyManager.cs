@@ -54,7 +54,7 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
-        SetPoints(GameVariables.instance.enemyParentPoint.transform);
+        SetPoints(MapVariables.instance.enemyParentPoint.transform);
         waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
         spawner= waveSpawner.GetComponent<WaveSpawner>();
         //spawner.Initialize();
@@ -122,7 +122,7 @@ public class EnemyManager : Flow
 
     public GameObject SpawnEnemy(GameObject enemy)
     {
-        Transform enemyStart = GameVariables.instance.enemyStart.transform;
+        Transform enemyStart = MapVariables.instance.enemyStart.transform;
         return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
 

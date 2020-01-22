@@ -32,7 +32,7 @@ public class WaveManager : Flow
 
     override public void Initialize()
     {
-        waveCountdownTimer = GameVariables.instance.timerUI.GetComponent<Countdown>();
+        waveCountdownTimer = MapVariables.instance.timerUI;
         waveCountdownTimer.Initialize();
         levelSystem = GameVariables.instance.levelSystem;
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
