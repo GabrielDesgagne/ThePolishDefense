@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
     private AudioSource walk;
     private AudioSource dead;
     public GameObject uiDiedEffectPrefabs;
-    private GameObject uiDied;
     private float speedMoveUi = 2f;
     public GameObject bloodEffect;
     [HideInInspector]
@@ -87,11 +86,6 @@ public class Enemy : MonoBehaviour
             TakeDamage(50);
         }
         //
-        if (isDead)
-        {
-            uiDied.transform.Translate(Vector3.up * speedMoveUi * Time.fixedDeltaTime, Space.World);
-            Destroy(uiDied, 10f);
-        }
 
         if (EnemyManager.Instance.waypoints.Length > 0)
         {
@@ -162,9 +156,6 @@ public class Enemy : MonoBehaviour
         mvt.enabled = false;
         //walk.Stop();
         //dead.PlayOneShot(soundDead);
-
-        uiDied = Instantiate(uiDiedEffectPrefabs, transform.position, Quaternion.identity);
-
 
         WaveSpawner.EnemiesAlive--;
 

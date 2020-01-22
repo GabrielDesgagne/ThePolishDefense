@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManager : Flow {
+public class WaveManager : Flow
+{
 
     #region Singleton
     static private WaveManager instance = null;
@@ -17,6 +18,7 @@ public class WaveManager : Flow {
 
     #endregion
 
+    private LevelSystem levelSystem;
     private Wave[] waves;
     private int currentWave;
 
@@ -32,18 +34,35 @@ public class WaveManager : Flow {
     {
         waveCountdownTimer = MapVariables.instance.timerUI;
         waveCountdownTimer.Initialize();
-        LevelSystem levelSystem = MapVariables.instance.levelSystem;
-        waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
-        timeBetweenWaves = levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
+        levelSystem = MapVariables.instance.levelSystem;
+        waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
+        timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
 
     override public void Refresh()
     {
+        if (LogicManager.Instance.IsGameOver) { return; }
         if (EnemyManager.Instance.enemies.Count <= 0)
         {
             if (currentWave == waves.Length)
             {
-                LogicManager.Instance.LevelWon();
+                currentWave = 0;
+                if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
+                {
+                    PlayerStats.nextLevel();
+                    LogicManager.Instance.LevelWon();
+                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+                    {
+                        Debug.Log("New Level Begin!");
+                        UIManager.Instance.HideUI();
+                        NextLevelTest();
+                    }, 5));
+                }
+                else
+                {
+                    LogicManager.Instance.IsGameOver = true;
+                    Debug.Log("Game Over!");
+                }
             }
             else
             {
@@ -65,7 +84,8 @@ public class WaveManager : Flow {
 
     override public void EndFlow()
     {
-
+        waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
+        timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
 
     private void SpawnWave()
@@ -83,5 +103,11 @@ public class WaveManager : Flow {
             }
         }
         currentWave++;
+    }
+
+    private void NextLevelTest()
+    {
+        waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
+        timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
 }
