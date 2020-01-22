@@ -387,9 +387,9 @@ GameObject:
   - component: {fileID: 7586479788138207719}
   - component: {fileID: 9162738510102574083}
   - component: {fileID: 3982783813634998095}
-  m_Layer: 0
-  m_Name: Friendly_2
-  m_TagString: Untagged
+  m_Layer: 9
+  m_Name: FRIENDLY_2
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
