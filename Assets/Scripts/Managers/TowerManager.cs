@@ -58,7 +58,7 @@ public class TowerManager : Flow
 
     override public void EndFlow()
     {
-        towerList.Clear();
+        instance = null;
     }
 
     public Tower CreateTower(TowerType type, Vector3 position)

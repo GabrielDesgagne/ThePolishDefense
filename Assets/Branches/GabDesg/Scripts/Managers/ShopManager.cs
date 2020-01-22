@@ -27,6 +27,10 @@ public class ShopManager : Flow {
     }
     #endregion
 
+    //
+    GameVariables gameVariables;
+    RoomVariables roomVariables;
+
     private Dictionary<HandType, HandShop> hands = new Dictionary<HandType, HandShop>();
 
     public GridEntity Map { get; private set; }
@@ -56,6 +60,10 @@ public class ShopManager : Flow {
 
     public override void Initialize() {
 
+        this.gameVariables = GameVariables.instance;
+        this.roomVariables = RoomVariables.instance;
+
+
         //Init grids holder
         GameVariables.instance.gridsHolder = new GameObject("GridsStuff");
 
@@ -76,9 +84,9 @@ public class ShopManager : Flow {
 
     private void InitializeGrids() {
         //Init grids
-        this.Map = new GridEntity("MapShop", this.hiddenGrid, GameVariables.instance.mapStartPointInShop, GameVariables.instance.mapRows, GameVariables.instance.mapColumns, GameVariables.instance.inactiveTilesCoords, GameVariables.instance.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
-        this.shopTurret = new GridEntity("ShopTurret", this.hiddenGrid, GameVariables.instance.shopTurretStartPoint, GameVariables.instance.shopTurretRows, GameVariables.instance.shopTurretColumns, this.tileSidesPrefab);
-        this.shopTrap = new GridEntity("ShopTrap", this.hiddenGrid, GameVariables.instance.shopTrapStartPoint, GameVariables.instance.shopTrapRows, GameVariables.instance.shopTrapColumns, this.tileSidesPrefab);
+        this.Map = new GridEntity("MapShop", this.hiddenGrid, this.roomVariables.mapStartPointInShop, this.gameVariables.mapRows, this.gameVariables.mapColumns, this.gameVariables.inactiveTilesCoords, this.gameVariables.pathTilesCoords, this.tileSidesPrefab, this.hiddenHitBoxPrefab);
+        this.shopTurret = new GridEntity("ShopTurret", this.hiddenGrid, this.roomVariables.shopTurretStartPoint, this.roomVariables.shopTurretRows, this.roomVariables.shopTurretColumns, this.tileSidesPrefab);
+        this.shopTrap = new GridEntity("ShopTrap", this.hiddenGrid, this.roomVariables.shopTrapStartPoint, this.roomVariables.shopTrapRows, this.roomVariables.shopTrapColumns, this.tileSidesPrefab);
     }
 
     private void InitializeHands() {
