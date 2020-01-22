@@ -30,9 +30,9 @@ public class WaveManager : Flow {
 
     override public void Initialize()
     {
-        waveCountdownTimer = GameVariables.instance.timerUI.GetComponent<Countdown>();
+        waveCountdownTimer = MapVariables.instance.timerUI;
         waveCountdownTimer.Initialize();
-        LevelSystem levelSystem = GameVariables.instance.levelSystem;
+        LevelSystem levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
         timeBetweenWaves = levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
     }

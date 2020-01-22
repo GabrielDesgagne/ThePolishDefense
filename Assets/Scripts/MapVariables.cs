@@ -38,5 +38,6 @@ public class MapVariables : MonoBehaviour
     [SerializeField] public GameObject enemyParentPoint;
     [SerializeField] public LevelSystem levelSystem;
     [SerializeField] public GameObject enemyPoint;
+    [SerializeField] public Countdown timerUI;
 
 }
