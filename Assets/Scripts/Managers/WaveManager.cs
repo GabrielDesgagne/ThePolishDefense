@@ -29,15 +29,16 @@ public class WaveManager : Flow {
     }
 
     override public void Initialize()
-    {/*
+    {
+        waveCountdownTimer = MapVariables.instance.timerUI;
         waveCountdownTimer.Initialize();
-        LevelSystem levelSystem = GameVariables.instance.levelSystem;
+        LevelSystem levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[(int)levelSystem.currentLevel].waves;
-        timeBetweenWaves = levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;*/
+        timeBetweenWaves = levelSystem.levels[(int)levelSystem.currentLevel].timeBetweenWaves;
     }
 
     override public void Refresh()
-    {/*
+    {
         if (EnemyManager.Instance.enemies.Count <= 0)
         {
             if (currentWave == waves.Length)
@@ -48,13 +49,13 @@ public class WaveManager : Flow {
             {
                 if (waveCountdownTimer.countdown <= 0f)
                 {
-                    //StartCoroutine(SpawnWave());
+                    SpawnWave();
                     waveCountdownTimer.countdown = timeBetweenWaves;
                     return;
                 }
                 waveCountdownTimer.Deduct();
             }
-        }*/
+        }
     }
 
     override public void PhysicsRefresh()
@@ -67,7 +68,7 @@ public class WaveManager : Flow {
 
     }
 
-    private IEnumerator SpawnWave()
+    private void SpawnWave()
     {
         Wave wave = waves[currentWave];
 
@@ -79,7 +80,6 @@ public class WaveManager : Flow {
                 Enemy e = newEnemy.GetComponent<Enemy>();   //get the enemy component on the newly created obj
                 e.Initialize();
                 EnemyManager.Instance.toAdd.Push(e);
-                yield return new WaitForSeconds(1f / wave.rate);
             }
         }
         currentWave++;

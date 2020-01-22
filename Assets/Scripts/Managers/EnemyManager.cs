@@ -54,10 +54,10 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
-        SetPoints(GameVariables.instance.enemyParentPoint.transform);
+        SetPoints(MapVariables.instance.enemyParentPoint.transform);
         waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
         spawner= waveSpawner.GetComponent<WaveSpawner>();
-        spawner.Initialize();
+        //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
             enemyPrefabDict.Add(etype, Resources.Load<GameObject>("Prefabs/Enemy/Prefabs/" + etype.ToString())); //Each enum matches the name of the enemy perfectly
@@ -70,7 +70,7 @@ public class EnemyManager : Flow
 
     override public void Refresh()
     {
-        spawner.Refresh(enemyPrefabDict);
+        //spawner.Refresh(enemyPrefabDict);
         foreach (Enemy e in enemies)
             e.Refresh();
 
@@ -122,7 +122,7 @@ public class EnemyManager : Flow
 
     public GameObject SpawnEnemy(GameObject enemy)
     {
-        Transform enemyStart = GameVariables.instance.enemyStart.transform;
+        Transform enemyStart = MapVariables.instance.enemyStart.transform;
         return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
 

@@ -101,6 +101,7 @@ public class TrapManager : Flow
         switch (type)
         {
             case TrapType.MINE:
+                //trapPrefabs.TryGetValue(TrapType.MINE,out GetEnemies() );
                 EnemyManager.Instance.DamageEnemiesInRange(trap.TrapPosition, trap.trapRadius, (int)trap.attackDamage);
                 break;
             case TrapType.GLUE:
