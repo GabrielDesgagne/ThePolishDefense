@@ -34,6 +34,7 @@ public class Game : Flow
     PodManager podManager;
     ArrowManager arrowManager;
     ProjectileManager projectileManager;
+    AmbianceManager ambianceManager;
 
     UIManager uiManager;
 
@@ -54,6 +55,7 @@ public class Game : Flow
         towerManager = TowerManager.Instance;
         timeManager = TimeManager.Instance;
         arrowManager = ArrowManager.Instance;
+        ambianceManager = AmbianceManager.Instance;
         uiManager = UIManager.Instance;
 
         //First Initialize
@@ -68,6 +70,7 @@ public class Game : Flow
         timeManager.PreInitialize();
         arrowManager.PreInitialize();
         podManager.PreInitialize();
+        ambianceManager.PreInitialize();
         uiManager.PreInitialize();
 
         PreInitializeMap();
@@ -86,6 +89,7 @@ public class Game : Flow
         timeManager.Initialize();
         arrowManager.Initialize();
         podManager.Initialize();
+        ambianceManager.Initialize();
         uiManager.Initialize();
 
         //Setup Variables
@@ -109,6 +113,7 @@ public class Game : Flow
         towerManager.Refresh();
         timeManager.Refresh();
         arrowManager.Refresh();
+        ambianceManager.Refresh();
         uiManager.Refresh();
 
     }
@@ -126,6 +131,7 @@ public class Game : Flow
         timeManager.PhysicsRefresh();
         arrowManager.PhysicsRefresh();
         podManager.PhysicsRefresh();
+        ambianceManager.PhysicsRefresh();
         uiManager.PhysicsRefresh();
     }
 
@@ -140,6 +146,7 @@ public class Game : Flow
         logicManager.EndFlow();
         towerManager.EndFlow();
         timeManager.EndFlow();
+        ambianceManager.EndFlow();
         uiManager.EndFlow();
     }
 

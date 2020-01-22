@@ -20,7 +20,7 @@ public class TrapManager : Flow
 
     //Prefabs Paths
     const string SPIKE = "Prefabs/TrapsAndWeapons/Spiketrap";
-    const string MINE = "Prefabs/TrapsAndWeapons/Mine";
+    const string MINE = "Prefabs/TrapsAndWeapons/Mine_2";
     const string GLUE = "Prefabs/TrapsAndWeapons/GlueTrap";
 
     //GameObject List
@@ -91,6 +91,7 @@ public class TrapManager : Flow
                 trap = new Glue(GameObject.Instantiate(trapPrefabs[TrapType.GLUE], position, Quaternion.identity, trapHolder.transform));
                 break;
         }
+        trap.PreInitialize();
         listTrap.Add(trap);
         return trap;
     }

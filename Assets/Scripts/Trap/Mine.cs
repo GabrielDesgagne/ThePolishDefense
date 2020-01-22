@@ -93,7 +93,7 @@ public class Mine : Trap
         {
             //Debug.Log("boom");
             //TODO explosion move enemy qui va perturber le chmin des enemy
-            gameObject.AddComponent<Rigidbody>();
+           // gameObject.AddComponent<Rigidbody>();
             explosionRef = Instantiate(explosionEffect, transform.position, transform.rotation);
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -168,7 +168,9 @@ public class Mine : Trap
 
     public override void PreInitialize()
     {
+        Debug.Log("before enemy");
         enemies = new List<Enemy>();
+        Debug.Log("after");
         enemy = gameObject.GetComponent<Enemy>();
         //NULL CHECK
         if (audioSource == null)
