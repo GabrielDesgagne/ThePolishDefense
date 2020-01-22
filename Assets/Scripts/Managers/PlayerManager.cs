@@ -15,7 +15,7 @@ public class PlayerManager : Flow
     }
 
     #endregion
-
+    
     public Player player;
     RoomPrefabsHolder roomHolder;
     
@@ -26,19 +26,16 @@ public class PlayerManager : Flow
 
     override public void PreInitialize()
     {
+        player = (GameObject.Instantiate(Resources.Load("Prefabs/Player/Player")) as GameObject).GetComponent<Player>() ;
         if (Main.Instance.isInRoomScene)
         {
-            roomHolder = Main.Instance.RoomSetupPrefab.GetComponent<RoomPrefabsHolder>();
+            player.transform.position = player.startingRoomPos;
         }
-        if(player == null)
-        {
-            player = Main.Instance.VRPlayerCharacter.GetComponent<Player>();
+        else{
+            player.transform.position = player.startingMapPos;
         }
-        
-        //mainPlayerController = roomHolder.vrPlayerCharacterPrefab.GetComponent<MainPlayerController>();
-        //characterController = roomHolder.vrPlayerCharacterPrefab.GetComponent<CharacterController>();
 
-        //mainPlayerController.PreInitialize();
+        Main.Instance.VRPlayerCharacter = player.gameObject;
         player.PreInitialize();
     }
 

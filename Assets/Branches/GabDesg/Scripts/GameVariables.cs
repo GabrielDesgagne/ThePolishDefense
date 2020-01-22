@@ -49,6 +49,7 @@ public class GameVariables : MonoBehaviour {
     [SerializeField] public GameObject enemyParentPoint;
     [SerializeField] public GameObject enemyPoint;
     [SerializeField] public LevelSystem levelSystem;
+    [SerializeField] public GameObject timerUI;
 
     [SerializeField] public Transform shopRoomPosition;
     [SerializeField] public Transform mapRoomPosition;
