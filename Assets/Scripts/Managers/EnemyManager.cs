@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { FAST, SIMPLE, SLOW, KNIGHT,BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW,BOSSPUG, FAST_1, FAST_2 , FAST_3,
+public enum EnemyType { FAST, SIMPLE, SLOW,BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW,BOSSPUG, FAST_1, FAST_2 , FAST_3,
     FRIENDLY_1, FRIENDLY_2, HEAVY_1 , HEAVY_2 , HEAVY_3 }
 public class EnemyManager : Flow
 {
@@ -56,8 +56,8 @@ public class EnemyManager : Flow
         enemies = new List<Enemy>();
         //spawnPoint =Resources.Load<GameObject>("Prefabs/START").transform;
         SetPoints(MapVariables.instance.enemyParentPoint.transform);
-        waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
-        spawner= waveSpawner.GetComponent<WaveSpawner>();
+        //waveSpawner = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/WaveSpawner"));
+        //spawner= waveSpawner.GetComponent<WaveSpawner>();
         //spawner.Initialize();
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {

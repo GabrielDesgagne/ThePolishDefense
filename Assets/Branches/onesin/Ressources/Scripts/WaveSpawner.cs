@@ -52,7 +52,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (waveIndex == waves.Length)
         {
-            LogicManager.Instance.WinLevel();
+            //LogicManager.Instance.WinLevel();
             this.enabled = false;
         }
 
