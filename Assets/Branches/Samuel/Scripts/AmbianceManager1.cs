@@ -7,7 +7,8 @@ public class AmbianceManager : Flow
     private static AmbianceManager instance = null;
     public static AmbianceManager Instance { get { return instance ?? (instance = new AmbianceManager()); } }
     public Dictionary<soundTypes, AudioClip> sounds = new Dictionary<soundTypes, AudioClip>();
-
+    GameObject AudioPlayerMusic;
+    GameObject AudioPlayerSounds;
 
 
     public override void PreInitialize()
@@ -42,9 +43,10 @@ public class AmbianceManager : Flow
         sounds.Add(soundTypes.FIREWORKS, Resources.Load<AudioClip>("SFX/WaveEndSound/Fireworks1"));
         sounds.Add(soundTypes.SCREAMS, Resources.Load<AudioClip>("SFX/WaveEndSound/ScreamingVillager"));
         sounds.Add(soundTypes.TRUMPET, Resources.Load<AudioClip>("SFX/WaveEndSound/Trumpet"));
-       
-
-
+        AudioPlayerMusic = new GameObject();
+        AudioPlayerMusic.name = "Music";
+        AudioPlayerSounds = new GameObject();
+        AudioPlayerSounds.name = "Sounds";
 
         base.PreInitialize();
     }
