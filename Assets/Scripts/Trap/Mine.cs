@@ -48,4 +48,12 @@ public class Mine : Trap {
     public override void Refresh() {}
 
     public override void PhysicsRefresh() {}
+
+    public override void onTrigger()
+    {
+    }
+
+    public override void onExitTrigger()
+    {
+    }
 }
