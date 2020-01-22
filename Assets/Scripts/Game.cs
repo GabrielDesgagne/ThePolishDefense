@@ -55,8 +55,8 @@ public class Game : Flow {
         //First Initialize
         inputManager.PreInitialize();
         playerManager.PreInitialize();
-        waveManager.PreInitialize();
         enemyManager.PreInitialize();
+        waveManager.PreInitialize();
         trapManager.PreInitialize();
         projectileManager.PreInitialize();
         logicManager.PreInitialize();
@@ -72,8 +72,8 @@ public class Game : Flow {
     override public void Initialize() {
         inputManager.Initialize();
         playerManager.Initialize();
-        waveManager.Initialize();
         enemyManager.Initialize();
+        waveManager.Initialize();
         trapManager.Initialize();
         projectileManager.Initialize();
         logicManager.Initialize();
@@ -95,8 +95,8 @@ public class Game : Flow {
         playerManager.Refresh();
         //playerManager.Refresh();
         podManager.Refresh();
-        waveManager.Refresh();
         enemyManager.Refresh();
+        waveManager.Refresh();
         trapManager.Refresh();
         projectileManager.Refresh();
         logicManager.Refresh();
@@ -110,8 +110,8 @@ public class Game : Flow {
     override public void PhysicsRefresh() {
         inputManager.PhysicsRefresh();
         playerManager.PhysicsRefresh();
-        waveManager.PhysicsRefresh();
         enemyManager.PhysicsRefresh();
+        waveManager.PhysicsRefresh();
         trapManager.PhysicsRefresh();
         projectileManager.PhysicsRefresh();
         logicManager.PhysicsRefresh();
@@ -125,8 +125,8 @@ public class Game : Flow {
     override public void EndFlow() {
         inputManager.EndFlow();
         playerManager.EndFlow();
-        waveManager.EndFlow();
         enemyManager.EndFlow();
+        waveManager.EndFlow();
         trapManager.EndFlow();
         projectileManager.EndFlow();
         logicManager.EndFlow();
@@ -151,8 +151,6 @@ public class Game : Flow {
         //Spawn items on map
         SpawnItemsOnGrid();
 
-
-
     }
 
     private void InitGrid() {
@@ -172,6 +170,8 @@ public class Game : Flow {
         Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;
         Dictionary<Vector2, TrapType> trapsInfo = MapInfoPck.Instance.TileTrapInfos;
 
+        //generates towers without vr
+        //MapInfoPck.Instance.TestPopulate();
 
         //Towers
         foreach (KeyValuePair<Vector2, TowerType> info in towersInfo) {
