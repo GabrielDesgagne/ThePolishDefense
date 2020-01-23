@@ -38,15 +38,11 @@ public class LogicManager : Flow {
 
     public void LevelWon()
     {
+        UIManager.Instance.ShowVictory();
         //Change scene
         TimeManager.Instance.AddTimedAction(new TimedAction(() =>
         {
-            if (EnemyManager.Instance.enemies.Count <= 0)
-            {
-                WaveManager.Instance.currentWave = 0;
-                PlayerStats.nextLevel();
-                Main.Instance.ChangeCurrentFlow();
-            }
+            Main.Instance.ChangeCurrentFlow();
         }, 4f));
     }
 

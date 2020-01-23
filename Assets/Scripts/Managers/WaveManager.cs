@@ -24,7 +24,8 @@ public class WaveManager : Flow {
     private Countdown waveCountdownTimer;
     private float timeBetweenWaves;
 
-    private bool isWaveOn = true;
+    public int EnemyInWaveLeft { get; set; }
+    private bool isLevelOver;
 
     override public void PreInitialize()
     {
@@ -38,34 +39,44 @@ public class WaveManager : Flow {
         levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
         timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
+        currentWave = 0;
+        for (int i = 0; i < waves[currentWave].types.Length; i++)
+            EnemyInWaveLeft += waves[currentWave].types[i].number;
+        SpawnWave();
+        currentWave++;
+        isLevelOver = false;
     }
 
     override public void Refresh()
     {
         if (LogicManager.Instance.IsGameOver) { return; }
-        if (EnemyManager.Instance.enemies.Count <= 0)
+        if (EnemyInWaveLeft <= 0 && !isLevelOver)
         {
-            if (currentWave == waves.Length)
+            if (currentWave > waves.Length)
             {
+                currentWave = 0;
                 if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
                 {
+                    PlayerStats.nextLevel();
                     LogicManager.Instance.LevelWon();
+                    isLevelOver = true;
+                    return;
                 }
                 else
                 {
                     LogicManager.Instance.IsGameOver = true;
-                    Debug.Log("Last Wave!");
+                    Debug.Log("Game Over");
                 }
             }
             else
             {
-                if (waveCountdownTimer.countdown <= 0f)
+                if (currentWave < waves.Length)
                 {
+                    for (int i = 0; i < waves[currentWave].types.Length; i++)
+                        EnemyInWaveLeft += waves[currentWave].types[i].number;
                     SpawnWave();
-                    waveCountdownTimer.countdown = timeBetweenWaves;
-                    return;
                 }
-                waveCountdownTimer.Deduct();
+                currentWave++;
             }
         }
     }
@@ -95,7 +106,6 @@ public class WaveManager : Flow {
                 time += 0.35f;
             }
         }
-        currentWave++;
     }
 
     private void SpawnEnemyAfterTime(GameObject enemyPrefab, float time)

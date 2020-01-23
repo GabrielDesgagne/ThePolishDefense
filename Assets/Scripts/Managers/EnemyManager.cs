@@ -66,6 +66,7 @@ public class EnemyManager : Flow
             {
                 Enemy e = toRemove.Pop();
                 enemies.Remove(e);
+                WaveManager.Instance.EnemyInWaveLeft--;
                 GameObject.Destroy(e.gameObject);
             }
             catch

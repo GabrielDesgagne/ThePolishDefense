@@ -72,8 +72,8 @@ public class Game : Flow
         towerManager.PreInitialize();
         trapManager.PreInitialize();
 
-        waveManager.PreInitialize();
         enemyManager.PreInitialize();
+        waveManager.PreInitialize();
 
         podManager.PreInitialize();
         arrowManager.PreInitialize();
@@ -95,9 +95,9 @@ public class Game : Flow
 
         towerManager.Initialize();
         trapManager.Initialize();
-
-        waveManager.Initialize();
+        
         enemyManager.Initialize();
+        waveManager.Initialize();
 
         podManager.Initialize();
         arrowManager.Initialize();
@@ -127,8 +127,8 @@ public class Game : Flow
             towerManager.Refresh();
             trapManager.Refresh();
 
-            waveManager.Refresh();
             enemyManager.Refresh();
+            waveManager.Refresh();
 
             podManager.Refresh();
             arrowManager.Refresh();
@@ -151,9 +151,9 @@ public class Game : Flow
 
             towerManager.PhysicsRefresh();
             trapManager.PhysicsRefresh();
-
-            waveManager.PhysicsRefresh();
+            
             enemyManager.PhysicsRefresh();
+            waveManager.PhysicsRefresh();
 
             podManager.PhysicsRefresh();
             arrowManager.PhysicsRefresh();
@@ -176,9 +176,9 @@ public class Game : Flow
 
         towerManager.EndFlow();
         trapManager.EndFlow();
-
-        waveManager.EndFlow();
+        
         enemyManager.EndFlow();
+        waveManager.EndFlow();
 
         podManager.EndFlow();
         arrowManager.EndFlow();
