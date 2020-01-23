@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { FAST, SIMPLE_1, SIMPLE_2, SLOW/*,BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW,BOSSPUG,
-    FRIENDLY_1, FRIENDLY_2, HEAVY_1 , HEAVY_2 , HEAVY_3 */}
+public enum EnemyType { FAST, SIMPLE_1, SIMPLE_2, SLOW, BOSSPUG, BOSSCOW/*,BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW,BOSSPUG,
+    FRIENDLY_1, FRIENDLY_2, HEAVY_1 , HEAVY_2 , HEAVY_3 */
+}
 public class EnemyManager : Flow
 {
     #region Singleton
@@ -24,7 +25,7 @@ public class EnemyManager : Flow
     public List<Enemy> enemies;
     public Stack<Enemy> toRemove;
     public Stack<Enemy> toAdd;
-
+    AmbianceManager ambiance;
     public Transform[] waypoints;
 
     public Dictionary<EnemyType, GameObject> enemyPrefabDict;
@@ -35,10 +36,12 @@ public class EnemyManager : Flow
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
         enemyPrefabDict = new Dictionary<EnemyType, GameObject>();
+        ambiance = AmbianceManager.Instance;
     }
 
     override public void Initialize()
     {
+        
         SetPoints(MapVariables.instance.enemyParentPoint.transform);
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
@@ -61,7 +64,15 @@ public class EnemyManager : Flow
             {
                 Enemy e = toRemove.Pop();
                 enemies.Remove(e);
-                GameObject.Destroy(e.gameObject,5f);
+                if(e.gameObject.name==EnemyType.BOSSCOW.ToString() + "(Clone)" || e.gameObject.name == EnemyType.BOSSPUG.ToString() + "(Clone)")
+                {
+                    GameObject.Destroy(e.gameObject);
+                }
+                else
+                {
+                    GameObject.Destroy(e.gameObject, 5f);
+                }
+                
             }
             catch
             {
@@ -79,11 +90,13 @@ public class EnemyManager : Flow
 
     public void EnemyDied(Enemy enemyDied)
     {
+        ambiance.deadEnemy();
         toRemove.Push(enemyDied);
     }
 
     public GameObject SpawnEnemy(GameObject enemy)
     {
+        ambiance.playSpawnSounds();
         Transform enemyStart = MapVariables.instance.enemyStart.transform;
         return GameObject.Instantiate(enemy, enemyStart.position, enemyStart.rotation);
     }
@@ -117,7 +130,7 @@ public class EnemyManager : Flow
     }
 
     //decimalSpeed, has to be a decimal 0.01 - 0.99
-    public void SlowEnemiesInRange(Vector3 position, float range, float decimalSpeed , float duration)
+    public void SlowEnemiesInRange(Vector3 position, float range, float decimalSpeed, float duration)
     {
         List<Enemy> enemyInRange = EnemiesInRange(position, range);
         foreach (Enemy enemy in enemyInRange)
@@ -126,7 +139,7 @@ public class EnemyManager : Flow
 
     override public void EndFlow()
     {
-        instance = null;
+        //instance = null;
     }
 
     public void SetPoints(Transform transform)

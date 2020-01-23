@@ -61,7 +61,7 @@ public class ArrowManager : Flow
     public void AttachArrowToHand(Arrow arrow, bool right) {
         if (right)
         {
-            //if (currentArrowRight == null) {
+            //if (PodManager.Instance.bowRightHand == null) {
                 currentArrowRight = arrow;
                 currentArrowRight.transform.localPosition = arrowPos;
             //}

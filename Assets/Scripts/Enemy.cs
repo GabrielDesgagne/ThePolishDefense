@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour {
     public GameObject audioEnnemi;
     public AudioClip soundDead;
     private EnemyMovement mvt;
-    private AudioSource walk;
     private AudioSource dead;
     public GameObject uiDiedEffectPrefabs;
     private float speedMoveUi = 2f;
@@ -41,7 +40,8 @@ public class Enemy : MonoBehaviour {
 
     private Transform target;
     private int waypointIndex = 0;
-
+    [HideInInspector]
+    public EnemyType type;
     private Rigidbody rb;
 
     public void Initialize()

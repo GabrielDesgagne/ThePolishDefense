@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startToCurve: 5
-  forceToApplyMax: 30
+  forceToApplyMax: 45
   startDisapearTime: 10
 --- !u!54 &5358866589268793683
 Rigidbody:

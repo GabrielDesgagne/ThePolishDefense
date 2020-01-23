@@ -11,7 +11,7 @@ public class LevelSystem : ScriptableObject
 
 public enum NUM_Level
 {
-    LEVEL_1, LEVEL_2, LEVEL_3
+    LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5
 }
 
 [System.Serializable]
