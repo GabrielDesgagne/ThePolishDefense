@@ -15,6 +15,7 @@ public class BowManager : MonoBehaviour
     private Vector3 stringAttachPointBase;
     private Arrow currentSnapArrow;
     private bool bowLeftHand = false;
+    AmbianceManager ambiance;
     private OVRGrabbable hand;
     public bool isLeft;
     public Vector3 rotOffSet;
@@ -28,6 +29,7 @@ public class BowManager : MonoBehaviour
     }
     private void Awake()
     {
+        ambiance = AmbianceManager.Instance;
         rotation = Vector3.zero;
         hand = GetComponent<OVRGrabbable>();
     }
@@ -44,24 +46,26 @@ public class BowManager : MonoBehaviour
         temp += rotOffSet;
         temp.x += yHandOffset;
 
-        transform.GetChild(0).transform.localPosition += new Vector3(0.03f,yHandOffsetPos,0);
+        transform.GetChild(0).transform.localPosition += new Vector3(0.03f, yHandOffsetPos, 0);
         transform.GetChild(0).transform.localEulerAngles = temp;
     }
     void FixedUpdate()
     {
-       
+
         if (currentSnapArrow != null)
         {
             PullString();
         }
     }
-    public void AttachBowToArrow(Arrow arrowToAttach) {
+    public void AttachBowToArrow(Arrow arrowToAttach)
+    {
         currentSnapArrow = arrowToAttach;
         currentSnapArrow.transform.parent = stringAttachPoint.transform;
         currentSnapArrow.transform.localPosition = new Vector3(0, -3.15f, 0);
         currentSnapArrow.transform.localEulerAngles = new Vector3(90, 0, 0);
     }
-    private void PullString() {
+    private void PullString()
+    {
         if (currentSnapArrow != null)
         {
             Vector3 temp = stringAttachPointBase;
@@ -80,9 +84,11 @@ public class BowManager : MonoBehaviour
             }
         }
     }
-    private void Fire() {
-        currentSnapArrow.Fired ((forceArrowMaxShoot * pourcentString) / 100f);
-        
+    private void Fire()
+    {
+        ambiance.BowSounds();
+        currentSnapArrow.Fired((forceArrowMaxShoot * pourcentString) / 100f);
+
         stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition;
 
         currentSnapArrow = null;

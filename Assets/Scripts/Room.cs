@@ -28,6 +28,8 @@ public class Room : Flow
     PodManager podManager;
     ArrowManager arrowManager;
 
+    AmbianceManager ambianceManager;
+
     private GameVariables gameVariables;
     private RoomVariables roomVariables;
     private bool sceneEnded;
@@ -52,7 +54,7 @@ public class Room : Flow
         //Setup Variables
         roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
         sceneEnded = false;
-        
+        ambianceManager = AmbianceManager.Instance;
 
         //First Initialize
         playerManager.PreInitialize();
@@ -84,7 +86,7 @@ public class Room : Flow
 
         podManager.Initialize();
         arrowManager.Initialize();
-
+        ambianceManager.Initialize();
 
         //Setup Variables
         gameVariables = GameVariables.instance;
@@ -151,7 +153,7 @@ public class Room : Flow
     }
 
     private void InitializeRoom() {
-
+        ambianceManager.playSoundsRoom();
     }
 
     private void DestroyRoomVariables() {
