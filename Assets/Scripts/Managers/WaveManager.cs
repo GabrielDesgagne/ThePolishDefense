@@ -31,7 +31,8 @@ public class WaveManager : Flow {
 
     override public void Initialize()
     {
-        waveCountdownTimer = new Countdown();
+        waveCountdownTimer = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TimerUI")).GetComponent<Countdown>();
+        //waveCountdownTimer = new Countdown();
         waveCountdownTimer.Initialize();
         levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
