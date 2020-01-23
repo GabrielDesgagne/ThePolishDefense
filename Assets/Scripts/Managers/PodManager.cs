@@ -6,7 +6,6 @@ public class PodManager : Flow
 {
     public GameObject bowLeftHand;
     public GameObject bowRightHand;
-    public GameObject bowPrefab;
     public Pod attachedLeftHandPod;
     public Pod attachedRightHandPod;
     public bool leftHandHaveBow;
