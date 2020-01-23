@@ -209,10 +209,21 @@ public class Game : Flow
         //Spawn items on map
         SpawnItemsOnGrid();
 
+        //Spawn player at position
+
+
     }
 
     private void DestroyMapVariables() {
         
+    }
+
+    private void SpawnPlayer()
+    {
+        //Spawn at position
+        PlayerManager.Instance.player.transform.position = this.mapVariables.playerSpawnPosition.position;
+
+        //Toggle off OVR Controller
     }
 
     private void InitGrid() {

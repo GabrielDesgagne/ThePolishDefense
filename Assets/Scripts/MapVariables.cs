@@ -31,6 +31,7 @@ public class MapVariables : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] public Player playerPrefab;
+    [SerializeField] public Transform playerSpawnPosition;
 
 
     [Header("Enemies")]
