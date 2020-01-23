@@ -19,10 +19,12 @@ public class WaveManager : Flow {
 
     private LevelSystem levelSystem;
     private Wave[] waves;
-    private int currentWave;
+    public int currentWave;
 
     private Countdown waveCountdownTimer;
     private float timeBetweenWaves;
+
+    private bool isWaveOn = true;
 
     override public void PreInitialize()
     {
@@ -45,22 +47,14 @@ public class WaveManager : Flow {
         {
             if (currentWave == waves.Length)
             {
-                currentWave = 0;
                 if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
                 {
-                    PlayerStats.nextLevel();
                     LogicManager.Instance.LevelWon();
-                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-                    {
-                        Debug.Log("New Level Begin!");
-                        UIManager.Instance.HideUI();
-                        NextLevelTest();
-                    }, 5));
                 }
                 else
                 {
                     LogicManager.Instance.IsGameOver = true;
-                    Debug.Log("Game Over!");
+                    Debug.Log("Last Wave!");
                 }
             }
             else
@@ -113,11 +107,5 @@ public class WaveManager : Flow {
             enemy.Initialize();
             EnemyManager.Instance.toAdd.Push(enemy);
         }, time));
-    }
-
-    private void NextLevelTest()
-    {
-        waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
-        timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
 }
