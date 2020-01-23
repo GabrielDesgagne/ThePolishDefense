@@ -1160,6 +1160,7 @@
             <e p="ProjectileType.cs" t="Include" />
           </e>
           <e p="Quiver.cs" t="Include" />
+          <e p="RedButtonAnim.cs" t="Include" />
           <e p="Room.cs" t="Include" />
           <e p="RoomPrefabsHolder.cs" t="Include" />
           <e p="RoomVariables.cs" t="Include" />
