@@ -34,125 +34,168 @@ public class Game : Flow
     PodManager podManager;
     ArrowManager arrowManager;
     ProjectileManager projectileManager;
-    AmbianceManager ambianceManager;
 
     UIManager uiManager;
+    AmbianceManager ambianceManager;
 
     private GameVariables gameVariables;
     private MapVariables mapVariables;
+    private bool sceneEnded;
 
     override public void PreInitialize()
     {
         //Grab instances
-        inputManager = InputManager.Instance;
-        podManager = PodManager.Instance;
+        logicManager = LogicManager.Instance;
+        timeManager = TimeManager.Instance;
+
         playerManager = PlayerManager.Instance;
+        inputManager = InputManager.Instance;
+
+        towerManager = TowerManager.Instance;
+        trapManager = TrapManager.Instance;
+
         waveManager = WaveManager.Instance;
         enemyManager = EnemyManager.Instance;
-        trapManager = TrapManager.Instance;
-        projectileManager = ProjectileManager.Instance;
-        logicManager = LogicManager.Instance;
-        towerManager = TowerManager.Instance;
-        timeManager = TimeManager.Instance;
+
+        podManager = PodManager.Instance;
         arrowManager = ArrowManager.Instance;
-        ambianceManager = AmbianceManager.Instance;
+        projectileManager = ProjectileManager.Instance;
+
         uiManager = UIManager.Instance;
+        ambianceManager = AmbianceManager.Instance;
 
         //First Initialize
-        inputManager.PreInitialize();
-        playerManager.PreInitialize();
-        enemyManager.PreInitialize();
-        waveManager.PreInitialize();
-        trapManager.PreInitialize();
-        projectileManager.PreInitialize();
         logicManager.PreInitialize();
-        towerManager.PreInitialize();
         timeManager.PreInitialize();
-        arrowManager.PreInitialize();
+
+        playerManager.PreInitialize();
+        inputManager.PreInitialize();
+
+        towerManager.PreInitialize();
+        trapManager.PreInitialize();
+
+        waveManager.PreInitialize();
+        enemyManager.PreInitialize();
+        
         podManager.PreInitialize();
-        ambianceManager.PreInitialize();
+        arrowManager.PreInitialize();
+        projectileManager.PreInitialize();
+
         uiManager.PreInitialize();
+        ambianceManager.PreInitialize();
 
         PreInitializeMap();
     }
 
     override public void Initialize()
     {
-        inputManager.Initialize();
-        playerManager.Initialize();
-        enemyManager.Initialize();
-        waveManager.Initialize();
-        trapManager.Initialize();
-        projectileManager.Initialize();
         logicManager.Initialize();
-        towerManager.Initialize();
         timeManager.Initialize();
-        arrowManager.Initialize();
+
+        playerManager.Initialize();
+        inputManager.Initialize();
+
+        towerManager.Initialize();
+        trapManager.Initialize();
+
+        waveManager.Initialize();
+        enemyManager.Initialize();
+
         podManager.Initialize();
-        ambianceManager.Initialize();
+        arrowManager.Initialize();
+        projectileManager.Initialize();
+
         uiManager.Initialize();
+        ambianceManager.Initialize();
 
         //Setup Variables
         gameVariables = GameVariables.instance;
         mapVariables = MapVariables.instance;
+        sceneEnded = false;
 
         InitializeMap();
     }
 
     override public void Refresh()
     {
-        inputManager.Refresh();
-        playerManager.Refresh();
-        //playerManager.Refresh();
-        podManager.Refresh();
-        enemyManager.Refresh();
-        waveManager.Refresh();
-        trapManager.Refresh();
-        projectileManager.Refresh();
-        logicManager.Refresh();
-        towerManager.Refresh();
-        timeManager.Refresh();
-        arrowManager.Refresh();
-        ambianceManager.Refresh();
-        uiManager.Refresh();
+        if (!sceneEnded) {
+            logicManager.Refresh();
+            timeManager.Refresh();
 
+            playerManager.Refresh();
+            inputManager.Refresh();
+
+            towerManager.Refresh();
+            trapManager.Refresh();
+
+            waveManager.Refresh();
+            enemyManager.Refresh();
+
+            podManager.Refresh();
+            arrowManager.Refresh();
+            projectileManager.Refresh();
+
+            uiManager.Refresh();
+            ambianceManager.Refresh();
+        }
     }
 
     override public void PhysicsRefresh()
     {
-        inputManager.PhysicsRefresh();
-        playerManager.PhysicsRefresh();
-        enemyManager.PhysicsRefresh();
-        waveManager.PhysicsRefresh();
-        trapManager.PhysicsRefresh();
-        projectileManager.PhysicsRefresh();
-        logicManager.PhysicsRefresh();
-        towerManager.PhysicsRefresh();
-        timeManager.PhysicsRefresh();
-        arrowManager.PhysicsRefresh();
-        podManager.PhysicsRefresh();
-        ambianceManager.PhysicsRefresh();
-        uiManager.PhysicsRefresh();
+        if (!sceneEnded) {
+            logicManager.PhysicsRefresh();
+            timeManager.PhysicsRefresh();
+
+            playerManager.PhysicsRefresh();
+            inputManager.PhysicsRefresh();
+
+            towerManager.PhysicsRefresh();
+            trapManager.PhysicsRefresh();
+
+            waveManager.PhysicsRefresh();
+            enemyManager.PhysicsRefresh();
+
+            podManager.PhysicsRefresh();
+            arrowManager.PhysicsRefresh();
+            projectileManager.PhysicsRefresh();
+
+            uiManager.PhysicsRefresh();
+            ambianceManager.PhysicsRefresh();
+        }
     }
 
     override public void EndFlow()
     {
-        inputManager.EndFlow();
-        playerManager.EndFlow();
-        enemyManager.EndFlow();
-        waveManager.EndFlow();
-        trapManager.EndFlow();
-        projectileManager.EndFlow();
+        sceneEnded = true;
+
         logicManager.EndFlow();
-        towerManager.EndFlow();
         timeManager.EndFlow();
-        ambianceManager.EndFlow();
+
+        playerManager.EndFlow();
+        inputManager.EndFlow();
+
+        towerManager.EndFlow();
+        trapManager.EndFlow();
+
+        waveManager.EndFlow();
+        enemyManager.EndFlow();
+
+        podManager.EndFlow();
+        arrowManager.EndFlow();
+        projectileManager.EndFlow();
+
         uiManager.EndFlow();
+        ambianceManager.EndFlow();
+
+
+        DestroyMapVariables();
     }
 
 
     private void PreInitializeMap() {
+
     }
+
     private void InitializeMap() {
         //Create grid to place items
         InitGrid();
@@ -166,6 +209,10 @@ public class Game : Flow
         //Spawn items on map
         SpawnItemsOnGrid();
 
+    }
+
+    private void DestroyMapVariables() {
+        
     }
 
     private void InitGrid() {

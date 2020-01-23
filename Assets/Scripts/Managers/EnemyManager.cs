@@ -27,18 +27,18 @@ public class EnemyManager : Flow
 
     public Transform[] waypoints;
 
-    public Dictionary<EnemyType, GameObject> enemyPrefabDict = new Dictionary<EnemyType, GameObject>(); //all enemy prefabs
+    public Dictionary<EnemyType, GameObject> enemyPrefabDict;
 
     override public void PreInitialize()
-    {
-
-    }
-
-    override public void Initialize()
     {
         toRemove = new Stack<Enemy>();
         toAdd = new Stack<Enemy>();
         enemies = new List<Enemy>();
+        enemyPrefabDict = new Dictionary<EnemyType, GameObject>();
+    }
+
+    override public void Initialize()
+    {
         SetPoints(MapVariables.instance.enemyParentPoint.transform);
         foreach (EnemyType etype in System.Enum.GetValues(typeof(EnemyType))) //fill the resource dictionary with all the prefabs
         {
@@ -126,7 +126,7 @@ public class EnemyManager : Flow
 
     override public void EndFlow()
     {
-
+        instance = null;
     }
 
     public void SetPoints(Transform transform)

@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : Flow
-{
+public class ProjectileManager : Flow {
     #region Singleton
     static private ProjectileManager instance = null;
 
-    static public ProjectileManager Instance
-    {
-        get
-        {
+    static public ProjectileManager Instance {
+        get {
             return instance ?? (instance = new ProjectileManager());
         }
     }
@@ -24,8 +21,7 @@ public class ProjectileManager : Flow
     public ParticleSystem explosionParticle;
     public ParticleSystem sparkParticle;
 
-    override public void PreInitialize()
-    {
+    override public void PreInitialize() {
         enabledProjectiles = new Dictionary<ProjectileType, List<Projectile>>();
         disabledProjectiles = new Dictionary<ProjectileType, List<Projectile>>();
         InitDictionaries();
@@ -44,8 +40,7 @@ public class ProjectileManager : Flow
     public GameObject bombParent;
     public GameObject potionParent;
     public GameObject throwablePotionParent;
-    override public void Initialize()
-    {
+    override public void Initialize() {
         GameObject projectileParent = new GameObject("Projectiles");
 
         bombParent = new GameObject("BombParent");
@@ -55,8 +50,7 @@ public class ProjectileManager : Flow
         throwablePotionParent = new GameObject("ThrowablePotionParent");
         throwablePotionParent.transform.parent = projectileParent.transform;
 
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[ProjectileType.POTION], potionParent.transform));
             potion.Obj.SetActive(false);
             disabledProjectiles[potion.Type].Add(potion);
@@ -70,30 +64,22 @@ public class ProjectileManager : Flow
         }
     }
 
-    override public void Refresh()
-    {
+    override public void Refresh() {
         MoveProjectiles();
     }
 
-    override public void PhysicsRefresh()
-    {
+    override public void PhysicsRefresh() { }
 
+    override public void EndFlow() {
+        instance = null;
     }
 
-    override public void EndFlow()
-    {
-
-    }
-
-    public void BasicShoot(ProjectileType type, Vector3 startPos, Vector3 targetPos)
-    {
+    public void BasicShoot(ProjectileType type, Vector3 startPos, Vector3 targetPos) {
         Projectile projectile = null;
-        if (disabledProjectiles[type].Count > 0)
-        {
+        if (disabledProjectiles[type].Count > 0) {
             projectile = disabledProjectiles[type][0];
         }
-        else
-        {
+        else {
             AddProjectileToPool(type);
             projectile = disabledProjectiles[type][0];
         }
@@ -105,43 +91,33 @@ public class ProjectileManager : Flow
         disabledProjectiles[type].RemoveAt(0);
     }
 
-    public void BasicShoot(ProjectileType type, Vector3 startPos, Enemy enemy)
-    {
+    public void BasicShoot(ProjectileType type, Vector3 startPos, Enemy enemy) {
         Projectile projectile = null;
-        if (disabledProjectiles[type].Count > 0)
-        {
+        if (disabledProjectiles[type].Count > 0) {
             projectile = disabledProjectiles[type][0];
         }
-        else
-        {
+        else {
             AddProjectileToPool(type);
             projectile = disabledProjectiles[type][0];
         }
         projectile.StartPos = startPos;
-            projectile.Enemy = enemy;
-            projectile.Obj.SetActive(true);
-            projectile.IsEnemyTarget = true;
-            enabledProjectiles[projectile.Type].Add(projectile);
-            disabledProjectiles[type].RemoveAt(0);
-        }
+        projectile.Enemy = enemy;
+        projectile.Obj.SetActive(true);
+        projectile.IsEnemyTarget = true;
+        enabledProjectiles[projectile.Type].Add(projectile);
+        disabledProjectiles[type].RemoveAt(0);
+    }
 
-    public void MoveProjectiles()
-    {
-        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))
-        {
-            if (type != ProjectileType.THROWABLE_POTION)
-            {
-                for (int i = 0; i < enabledProjectiles[type].Count; i++)
-                {
-                    if (enabledProjectiles[type][i].SlerpPct < 1)
-                    {
-                        if (enabledProjectiles[type][i].Obj.activeSelf)
-                        {
+    public void MoveProjectiles() {
+        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType))) {
+            if (type != ProjectileType.THROWABLE_POTION) {
+                for (int i = 0; i < enabledProjectiles[type].Count; i++) {
+                    if (enabledProjectiles[type][i].SlerpPct < 1) {
+                        if (enabledProjectiles[type][i].Obj.activeSelf) {
                             enabledProjectiles[type][i].MoveToTarget();
                         }
                     }
-                    else
-                    {
+                    else {
                         enabledProjectiles[type][i].CollisionHit();
                         ResetProjectile(enabledProjectiles[type][i]);
                     }
@@ -150,52 +126,43 @@ public class ProjectileManager : Flow
         }
     }
 
-    public void ResetProjectile(Projectile projectile)
-    {
+    public void ResetProjectile(Projectile projectile) {
         projectile.Reset();
         disabledProjectiles[projectile.Type].Add(projectile);
         enabledProjectiles[projectile.Type].Remove(projectile);
     }
 
-    public bool IsReadyToShoot(ProjectileType type)
-    {
+    public bool IsReadyToShoot(ProjectileType type) {
         return this.disabledProjectiles[type].Count > 0;
     }
 
-    private void InitDictionaries()
-    {
-        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))
-        {
+    private void InitDictionaries() {
+        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType))) {
             enabledProjectiles.Add(type, new List<Projectile>());
             disabledProjectiles.Add(type, new List<Projectile>());
         }
     }
 
-    public void PickupThrowablePotion()
-    {
+    public void PickupThrowablePotion() {
         enabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.SetActive(false);
         disabledProjectiles[ProjectileType.THROWABLE_POTION].Add(enabledProjectiles[ProjectileType.THROWABLE_POTION][0]);
         enabledProjectiles[ProjectileType.THROWABLE_POTION].RemoveAt(0);
     }
 
-    public void SpawnThrowablePotion(Vector3 tableLoc)
-    {
+    public void SpawnThrowablePotion(Vector3 tableLoc) {
         disabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.SetActive(true);
         disabledProjectiles[ProjectileType.THROWABLE_POTION][0].Obj.transform.position = tableLoc + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
         enabledProjectiles[ProjectileType.THROWABLE_POTION].Add(disabledProjectiles[ProjectileType.THROWABLE_POTION][0]);
         disabledProjectiles[ProjectileType.THROWABLE_POTION].RemoveAt(0);
     }
 
-    public void MoveThrowablePotions(Vector3 tableLoc)
-    {
+    public void MoveThrowablePotions(Vector3 tableLoc) {
         foreach (Potion throwablePotion in enabledProjectiles[ProjectileType.THROWABLE_POTION])
             throwablePotion.Obj.transform.position = tableLoc + new Vector3(Random.Range(-0.7f, 0.7f), 0, Random.Range(-0.7f, 0.7f));
     }
 
-    private void AddProjectileToPool(ProjectileType type)
-    {
-        switch (type)
-        {
+    private void AddProjectileToPool(ProjectileType type) {
+        switch (type) {
             case ProjectileType.POTION:
                 Potion potion = new Potion(GameObject.Instantiate(projectilePrefab[type], potionParent.transform));
                 potion.Obj.SetActive(false);
