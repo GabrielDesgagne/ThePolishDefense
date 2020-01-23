@@ -6,8 +6,10 @@ public class LogicManager : Flow {
     #region Singleton
     static private LogicManager instance = null;
 
-    static public LogicManager Instance {
-        get {
+    static public LogicManager Instance
+    {
+        get
+        {
             return instance ?? (instance = new LogicManager());
         }
     }
@@ -20,7 +22,8 @@ public class LogicManager : Flow {
 
     override public void Initialize() { }
 
-    override public void Refresh() {
+    override public void Refresh()
+    {
         if (PlayerStats.IsPlayerDead)
             LevelLost();
 
@@ -28,22 +31,32 @@ public class LogicManager : Flow {
 
     override public void PhysicsRefresh() { }
 
-    override public void EndFlow() {
+    override public void EndFlow()
+    {
         instance = null;
     }
 
-    public void LevelWon() {
-        UIManager.Instance.ShowVictory();
-
+    public void LevelWon()
+    {
         //Change scene
-        TimeManager.Instance.AddTimedAction(new TimedAction(Main.Instance.ChangeCurrentFlow, 4f));
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            if (EnemyManager.Instance.enemies.Count <= 0)
+            {
+                WaveManager.Instance.currentWave = 0;
+                PlayerStats.nextLevel();
+                Main.Instance.ChangeCurrentFlow();
+            }
+        }, 4f));
     }
 
-    public void LevelLost() {
+    public void LevelLost()
+    {
         UIManager.Instance.ShowDefeat();
     }
 
-    public void GameFinish() {
+    public void GameFinish()
+    {
         //------------------TODO----------------- Implement
     }
 }
