@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Mine : Trap {
+public class Mine : MonoBehaviour {
     //AUDIO
     public AudioClip triggerTrapClick;
     public AudioClip boomSound;
@@ -16,44 +16,15 @@ public class Mine : Trap {
     public float radius = 5f;
     public float damage = 100f;
 
-    public Mine(GameObject gameObject) {}
-
-    public override void onAction() {}
-
-    public override void onRemove()
+    public void OnTriggerEnter(Collider other)
     {
-        GameObject.Destroy(gameObject, 0);
-        GameObject.Destroy(explosionObject, 2f);
-    }
-
-    protected override void OnTriggerEnter(Collider other)
-    {
-        PlaySound(triggerTrapClick);
-        TimeManager.Instance.AddTimedAction(new TimedAction(() => {
-            PlaySound(boomSound);
-            explosionObject = GameObject.Instantiate(explosionEffect, transform.position, transform.rotation);
+        //PlaySound(triggerTrapClick);
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            //PlaySound(boomSound);
+            explosionObject = GameObject.Instantiate(explosionEffect, transform.position, transform.rotation, transform);
             EnemyManager.Instance.DamageEnemiesInRange(transform.position, radius, (int)damage);
-            onRemove();
+            GameObject.Destroy(gameObject, 0.55f);
         }, 0.5f));
-    }
-
-    protected override void OnTriggerStay(Collider other) { }
-
-    protected override void OnTriggerExit(Collider other) { }
-
-    public override void PreInitialize() { }
-
-    public override void Initialize() {}
-
-    public override void Refresh() {}
-
-    public override void PhysicsRefresh() {}
-
-    public override void onTrigger()
-    {
-    }
-
-    public override void onExitTrigger()
-    {
     }
 }
