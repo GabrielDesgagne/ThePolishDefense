@@ -26,7 +26,7 @@ public class RedButtonAnim : MonoBehaviour
             toMove.localPosition = bob;
         if (pourcent >= 90f)
         {
-            Main.Instance.ChangeCurrentFlow();
+            PlayerManager.Instance.changeScene = true;
         }
     }
 
