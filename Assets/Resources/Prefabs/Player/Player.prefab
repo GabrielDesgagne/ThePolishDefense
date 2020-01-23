@@ -260,7 +260,7 @@ MonoBehaviour:
   virtualGreenScreenApplyDepthCulling: 0
   virtualGreenScreenDepthTolerance: 0.2
   mrcActivationMode: 0
-  _trackingOriginType: 0
+  _trackingOriginType: 1
   usePositionTracking: 1
   useRotationTracking: 1
   useIPDInPositionTracking: 1
@@ -587,11 +587,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingMapPos: {x: 217, y: -40.21, z: 1171}
-  startingRoomPos: {x: 109, y: 14, z: 79}
+  startingRoomPos: {x: 109, y: 15.8, z: 79}
   lifeUi: {fileID: 1131106844180081211}
   camToTurn: {fileID: 5232227960490984347}
   offSet: 0
-  playerStat: {fileID: 0}
   LeftHand: {fileID: 506492682}
   RightHand: {fileID: 199253485}
   range: 1
@@ -647,7 +646,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5232227960490631103}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f07515ada089df47868559a20dd6783, type: 3}
   m_Name: 

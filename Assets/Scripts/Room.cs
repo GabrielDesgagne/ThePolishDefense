@@ -17,12 +17,16 @@ public class Room : Flow
     #endregion
     
     PlayerManager playerManager;
-    GrabbableManager grabbableManager;
-    InputManager inputManager;
-    ShopManager shopManager;
+
     TimeManager timeManager;
-    ArrowManager arrowManager;
+
+    InputManager inputManager;
+    GrabbableManager grabbableManager;
+
+    ShopManager shopManager;
+
     PodManager podManager;
+    ArrowManager arrowManager;
 
     public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
 
@@ -85,6 +89,8 @@ public class Room : Flow
     override public void EndFlow()
     {
         //GameObject.Destroy(roomSetup);
+        shopManager.EndFlow();
+        podManager.EndFlow();
     }
 
     private void PreInitializeRoom() {

@@ -112,7 +112,6 @@ public class TrapManager : Flow
                 //find a way to slow only enemy that enter the collider
                 foreach (Enemy enemy in EnemyManager.Instance.enemies)
                 {
-                    //enemy.Slow(trap.coldownEffect);
                 }
                 break;
             case TrapType.SPIKE:

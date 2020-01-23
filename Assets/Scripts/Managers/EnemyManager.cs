@@ -55,7 +55,7 @@ public class EnemyManager : Flow
     override public void PhysicsRefresh()
     {
 
-        while (toRemove.Count > 0) //remove all dead ones
+        while (toRemove.Count > 0)
         {
             try
             {
@@ -69,7 +69,7 @@ public class EnemyManager : Flow
             }
         }
 
-        while (toAdd.Count > 0) //Add new ones
+        while (toAdd.Count > 0)
             enemies.Add(toAdd.Pop());
 
 

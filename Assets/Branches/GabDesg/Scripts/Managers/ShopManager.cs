@@ -50,7 +50,9 @@ public class ShopManager : Flow {
 
 
 
-    public override void EndFlow() { }
+    public override void EndFlow() {
+        instance = null;
+    }
     public override void PreInitialize() {
         //Load Resources
         this.hiddenGridPrefab = Resources.Load<GameObject>("Prefabs/Grid/HiddenGridShop");
@@ -107,7 +109,7 @@ public class ShopManager : Flow {
     }
 
     private void InitializeItemOnMap() {
-        MapInfoPck.Instance.TestPopulate();
+        //MapInfoPck.Instance.TestPopulate();
 
         //Get info package
         Dictionary<Vector2, TowerType> towersInfo = MapInfoPck.Instance.TileTowerInfos;

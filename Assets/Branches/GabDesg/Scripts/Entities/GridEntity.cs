@@ -250,7 +250,7 @@ public class GridEntity
             if (coords.y - startPointTile.y <= 0)
                 column = (ushort)(coords.y - startPointTile.y);
             else
-                column = (ushort)(coords.x - startPointTile.x - 1);
+                column = (ushort)(coords.y - startPointTile.y - 1);
 
             tileInfo.Row = row;
             tileInfo.Column = column;

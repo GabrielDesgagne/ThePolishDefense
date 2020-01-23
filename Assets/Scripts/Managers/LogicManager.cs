@@ -30,7 +30,11 @@ public class LogicManager : Flow {
 
     override public void Refresh()
     {
-
+        if (PlayerStats.IsPlayerDead)
+        {
+            LevelLost();
+            Debug.Log("YOU LOST!!!");
+        }
     }
 
     override public void PhysicsRefresh()
@@ -46,6 +50,7 @@ public class LogicManager : Flow {
     public void LevelWon()
     {
         UIManager.Instance.ShowVictory();
+        TimeManager.Instance.AddTimedAction(new TimedAction(Main.Instance.ChangeCurrentFlow, 4f));
         Debug.Log("Won Level!!!");
     }
 

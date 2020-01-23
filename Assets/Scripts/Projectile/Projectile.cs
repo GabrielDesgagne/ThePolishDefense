@@ -23,7 +23,7 @@ public abstract class Projectile {
             }
             else
             {
-                if (Enemy != null || Enemy.isHittable)
+                if (Enemy != null)
                 {
                     Obj.transform.position = Vector3.Slerp(StartPos, Enemy.transform.position, SlerpPct);
                 }

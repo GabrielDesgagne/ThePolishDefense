@@ -50,12 +50,12 @@ public class WaveManager : Flow {
                 {
                     PlayerStats.nextLevel();
                     LogicManager.Instance.LevelWon();
-                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-                    {
-                        Debug.Log("New Level Begin!");
-                        UIManager.Instance.HideUI();
-                        NextLevelTest();
-                    }, 5));
+//                     TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+//                     {
+//                         Debug.Log("New Level Begin!");
+//                         UIManager.Instance.HideUI();
+//                         NextLevelTest();
+//                     }, 5));
                 }
                 else
                 {
@@ -98,7 +98,7 @@ public class WaveManager : Flow {
             {
                 newEnemy = EnemyManager.Instance.enemyPrefabDict[wave.types[i].type];
                 SpawnEnemyAfterTime(newEnemy, time);
-                time += 0.35f;
+                time += wave.rate;
             }
         }
         currentWave++;

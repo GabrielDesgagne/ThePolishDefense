@@ -97,7 +97,6 @@ public class Enemy : MonoBehaviour {
                     isHittable = false;
                     WaveSpawner.EnemiesAlive--;
                     EnemyManager.Instance.EnemyDied(this);
-                    Destroy(gameObject);
                     return;
                 }
 
@@ -164,8 +163,6 @@ public class Enemy : MonoBehaviour {
 
         PlayerStats.addCurrency(value);
         EnemyManager.Instance.EnemyDied(this);
-        //will be do by enemyManager
-        Destroy(gameObject, 10);
     }
 
     public void ExitHitState()

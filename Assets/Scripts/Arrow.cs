@@ -35,7 +35,7 @@ public class Arrow : MonoBehaviour
 	{
 		if (other.transform.CompareTag("Enemy"))
 		{
-			other.transform.GetComponent<Enemy>().TakeDamage(PlayerManager.Instance.player.playerStat.damage);
+			other.transform.GetComponent<Enemy>().TakeDamage(GameVariables.instance.playerStat.damage);
 			//Debug.Log("colisionEnemy");
 		}
 		
