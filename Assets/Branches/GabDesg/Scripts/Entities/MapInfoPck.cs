@@ -21,7 +21,7 @@ public class MapInfoPck
     public Dictionary<Vector2, TowerType> TileTowerInfos { get; private set; } = new Dictionary<Vector2, TowerType>();
     public Dictionary<Vector2, TrapType> TileTrapInfos { get; private set; } = new Dictionary<Vector2, TrapType>();
 
-
+    private bool TestPopulatedDone = false;
 
 
     public void AddTower(Vector2 tileCoord, TowerType type)
@@ -47,6 +47,10 @@ public class MapInfoPck
 
     public void TestPopulate()
     {
-        AddTower(new Vector2(6, 6), TowerType.BASIC);
+        if (!this.TestPopulatedDone)
+        {
+            this.TestPopulatedDone = true;
+            AddTower(new Vector2(6, 6), TowerType.BASIC);
+        }
     }
 }

@@ -51,6 +51,7 @@ MonoBehaviour:
     type: 3}
   hiddenGrid: {fileID: 0}
   playerPrefab: {fileID: 0}
+  playerSpawnPosition: {fileID: 0}
   enemyStart: {fileID: 0}
   enemyEnd: {fileID: 0}
   enemyParentPoint: {fileID: 0}
