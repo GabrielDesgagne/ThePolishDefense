@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType
-{
-    FAST, SIMPLE, SLOW, BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW, BOSSPUG, FAST_1, FAST_2, FAST_3,
-    FRIENDLY_1, FRIENDLY_2, HEAVY_1, HEAVY_2, HEAVY_3
+public enum EnemyType { FAST, SIMPLE_1, SIMPLE_2, SLOW, BOSSPUG, BOSSCOW/*,BASIC_1, BASIC_2, BASIC_3, BONUS_1, BONUS_2, BOSSCOW,BOSSPUG,
+    FRIENDLY_1, FRIENDLY_2, HEAVY_1 , HEAVY_2 , HEAVY_3 */
 }
 public class EnemyManager : Flow
 {
@@ -66,7 +64,15 @@ public class EnemyManager : Flow
             {
                 Enemy e = toRemove.Pop();
                 enemies.Remove(e);
-                GameObject.Destroy(e.gameObject);
+                if(e.gameObject.name==EnemyType.BOSSCOW.ToString() + "(Clone)" || e.gameObject.name == EnemyType.BOSSPUG.ToString() + "(Clone)")
+                {
+                    GameObject.Destroy(e.gameObject);
+                }
+                else
+                {
+                    GameObject.Destroy(e.gameObject, 5f);
+                }
+                
             }
             catch
             {

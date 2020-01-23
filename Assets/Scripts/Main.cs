@@ -68,6 +68,7 @@ public class Main : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "RoomScene")
         {
             currentFlow = room;
+            ambiance.playSoundsRoom();
         }
         else if (SceneManager.GetActiveScene().name == "MapScene")
         {
