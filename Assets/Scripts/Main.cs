@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
-   
+
     static public Main Instance { get; private set; }
 
     private Game game;
     private Room room;
     private Flow currentFlow;
-    
+
+    AmbianceManager ambiance;
+
     [Header("Internal Settings")]
     public Global GlobalVariables;
     public GameObject RoomSetupPrefab;
@@ -25,10 +27,10 @@ public class Main : MonoBehaviour
     public SceneTransition sceneTransition;
 
     public bool isInRoomScene { get; private set; }
-    
+
     private string currentSceneName;
     private string lastSceneName;
-    
+
     private void Awake()
     {
 
@@ -53,7 +55,8 @@ public class Main : MonoBehaviour
         room = Room.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
         interactObjects = new Dictionary<GameObject, InteractObject>();
-
+        ambiance = new AmbianceManager();
+        ambiance.Initialize();
         //Get/Set
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
@@ -62,10 +65,12 @@ public class Main : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "RoomScene")
         {
             currentFlow = room;
+            ambiance.playSoundsRoom();
         }
         else if (SceneManager.GetActiveScene().name == "MapScene")
         {
             currentFlow = game;
+            ambiance.playMapMusic();
             isInRoomScene = false;
         }
         else
@@ -102,13 +107,13 @@ public class Main : MonoBehaviour
         if (!isInRoomScene)
         {
             sceneTransition.loadMainRoomScene();
-            
+            ambiance.playSoundsRoom();
             isInRoomScene = true;
         }
-        else 
+        else
         {
             sceneTransition.loadMainMapScene();
-            
+            ambiance.playMapMusic();
             isInRoomScene = false;
         }
     }
@@ -126,7 +131,7 @@ public class Main : MonoBehaviour
             currentFlow = room;
         }
         //Make sure this is called only once.
-        if(currentSceneName != lastSceneName)
+        if (currentSceneName != lastSceneName)
         {
             currentFlow.PreInitialize();
             currentFlow.Initialize();
