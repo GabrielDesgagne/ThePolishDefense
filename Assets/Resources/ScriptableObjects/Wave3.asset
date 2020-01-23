@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Wave3
   m_EditorClassIdentifier: 
   types:
-  - type: 16
+  - type: 0
+    number: 2
+  - type: 1
     number: 1
-  rate: 2
+  - type: 3
+    number: 3
+  rate: 0.5

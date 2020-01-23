@@ -210,9 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdown: 5
-  countdownSound: {fileID: 2794352892765873147}
-  soundTimer: {fileID: 8300000, guid: 25460bde594acec44b1c60ceb0b9c7fd, type: 3}
-  countdownTimer: {fileID: 2794352893132526248}
+  waveCountdownTimer: {fileID: 2794352893132526248}
 --- !u!1 &2794352893132526250
 GameObject:
   m_ObjectHideFlags: 0
