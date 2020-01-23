@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Glue : Trap
-{
+public class Glue : MonoBehaviour {
     //Door gameObject
-    [SerializeField] GameObject door1;
-    [SerializeField] GameObject door2;
+    [SerializeField] private GameObject door1;
+    [SerializeField] private GameObject door2;
 
     //Door position animation
     //Vector3 startPosDoor1 = new Vector3(, 25, 25);
@@ -14,62 +13,16 @@ public class Glue : Trap
     Vector3 startPosDoor2 = new Vector3(-2.25f, 0, 0);
     Vector3 endPosDoor2 = new Vector3(-2.25f, 0, 1);
 
-    public Glue(GameObject gameObject)
+    public void OnTriggerEnter(Collider other)
     {
-        this.prefab = gameObject;
-    }
-
-
-    public override void Initialize()
-    {
-
-    }
-
-    public override void PreInitialize()
-    {
-    }
-
-    public override void PhysicsRefresh()
-    {
-    }
-
-    public override void Refresh()
-    {
-    }
-    public override void onTrigger()
-    {
-
-    }
-    public override void onExitTrigger()
-    {
-
-    }
-
-
-
-    protected override void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(door2.transform.localPosition);
         door1.transform.localPosition = new Vector3(-2.3f, 0.1f, -2);
         door2.transform.localPosition = new Vector3(-2.3f, 0.1f, 1);
-        Debug.Log(door2.transform.localPosition);
+        EnemyManager.Instance.SlowEnemiesInRange(transform.position, 5f, 0.50f, 2f);
     }
 
-    protected override void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         door1.transform.localPosition = new Vector3(-2.3f, 0.1f, -1.2f);
         door2.transform.localPosition = new Vector3(-2.3f, 0.1f, 0);
-    }
-
-    protected override void OnTriggerStay(Collider other)
-    {
-    }
-
-    public override void onAction()
-    {
-    }
-
-    public override void onRemove()
-    {
     }
 }
