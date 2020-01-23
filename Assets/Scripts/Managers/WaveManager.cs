@@ -17,10 +17,6 @@ public class WaveManager : Flow {
 
     #endregion
 
-    private EnemyManager enemyManager;
-    private LogicManager logicManager;
-    private TimeManager timeManager;
-
     private LevelSystem levelSystem;
     private Wave[] waves;
     private int currentWave;
@@ -30,9 +26,7 @@ public class WaveManager : Flow {
 
     override public void PreInitialize()
     {
-        enemyManager = EnemyManager.Instance;
-        logicManager = LogicManager.Instance;
-        timeManager = TimeManager.Instance;
+
     }
 
     override public void Initialize()
@@ -46,8 +40,8 @@ public class WaveManager : Flow {
 
     override public void Refresh()
     {
-        if (logicManager.IsGameOver) { return; }
-        if (enemyManager.enemies.Count <= 0)
+        if (LogicManager.Instance.IsGameOver) { return; }
+        if (EnemyManager.Instance.enemies.Count <= 0)
         {
             if (currentWave == waves.Length)
             {
@@ -55,17 +49,17 @@ public class WaveManager : Flow {
                 if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
                 {
                     PlayerStats.nextLevel();
-                    logicManager.LevelWon();
-//                     TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-//                     {
-//                         Debug.Log("New Level Begin!");
-//                         UIManager.Instance.HideUI();
-//                         NextLevelTest();
-//                     }, 5));
+                    LogicManager.Instance.LevelWon();
+                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+                    {
+                        Debug.Log("New Level Begin!");
+                        UIManager.Instance.HideUI();
+                        NextLevelTest();
+                    }, 5));
                 }
                 else
                 {
-                    logicManager.IsGameOver = true;
+                    LogicManager.Instance.IsGameOver = true;
                     Debug.Log("Game Over!");
                 }
             }
@@ -91,8 +85,6 @@ public class WaveManager : Flow {
     {
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
         timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
-
-        instance = null;
     }
 
     private void SpawnWave()
@@ -104,9 +96,9 @@ public class WaveManager : Flow {
         {
             for (int j = 0; j < wave.types[i].number; j++)
             {
-                newEnemy = enemyManager.enemyPrefabDict[wave.types[i].type];
+                newEnemy = EnemyManager.Instance.enemyPrefabDict[wave.types[i].type];
                 SpawnEnemyAfterTime(newEnemy, time);
-                time += wave.rate;
+                time += 0.35f;
             }
         }
         currentWave++;
@@ -114,12 +106,12 @@ public class WaveManager : Flow {
 
     private void SpawnEnemyAfterTime(GameObject enemyPrefab, float time)
     {
-        timeManager.AddTimedAction(new TimedAction(() =>
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
         {
-            GameObject enemyObj = enemyManager.SpawnEnemy(enemyPrefab);
+            GameObject enemyObj = EnemyManager.Instance.SpawnEnemy(enemyPrefab);
             Enemy enemy = enemyObj.GetComponent<Enemy>();
             enemy.Initialize();
-            enemyManager.toAdd.Push(enemy);
+            EnemyManager.Instance.toAdd.Push(enemy);
         }, time));
     }
 

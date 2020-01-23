@@ -12,7 +12,6 @@ public class Main : MonoBehaviour
     private Room room;
     private Flow currentFlow;
 
-    AmbianceManager ambiance;
 
     [Header("Internal Settings")]
     public Global GlobalVariables;
@@ -30,6 +29,8 @@ public class Main : MonoBehaviour
 
     private string currentSceneName;
     private string lastSceneName;
+
+    public AmbianceManager ambiance;
 
     private void Awake()
     {
@@ -53,10 +54,12 @@ public class Main : MonoBehaviour
         //Initialize
         game = Game.Instance;
         room = Room.Instance;
+        ambiance = AmbianceManager.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
         interactObjects = new Dictionary<GameObject, InteractObject>();
-        ambiance = new AmbianceManager();
+        ambiance = AmbianceManager.Instance;
         ambiance.Initialize();
+        
         //Get/Set
         sceneTransition = gameObject.GetComponent<SceneTransition>();
 
@@ -65,7 +68,6 @@ public class Main : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "RoomScene")
         {
             currentFlow = room;
-            ambiance.playSoundsRoom();
         }
         else if (SceneManager.GetActiveScene().name == "MapScene")
         {
@@ -107,13 +109,11 @@ public class Main : MonoBehaviour
         if (!isInRoomScene)
         {
             sceneTransition.loadMainRoomScene();
-            ambiance.playSoundsRoom();
             isInRoomScene = true;
         }
         else
         {
             sceneTransition.loadMainMapScene();
-            ambiance.playMapMusic();
             isInRoomScene = false;
         }
     }
