@@ -73,6 +73,7 @@ public class AmbianceManager : Flow
         spawn = spawnAudio.GetComponent<AudioSource>();
         spawn.volume = volume;
         spawn.clip = sounds[soundTypes.ENEMY_SPAWN];
+        spawnAudio.transform.position = new Vector3(-247.6f, -34.8f, -1200);
 
 
 
@@ -118,7 +119,6 @@ public class AmbianceManager : Flow
 
     public void playSpawnSounds()
     {
-        spawnAudio.transform.position = new Vector3(-247.6f, -34.8f, -1200);
         spawn.Play();
     }
 

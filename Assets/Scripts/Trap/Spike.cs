@@ -16,6 +16,8 @@ public class Spike : Trap
     public float maximum = 1.0F;
     public float speed;
     static float t = 0.01f;
+    public float radius = 5f;
+    public float damage = 100f;
 
     //spike reference
     [SerializeField] GameObject spikeRef;
@@ -24,7 +26,6 @@ public class Spike : Trap
 
     public Spike(GameObject gameObject)
     {
-        this.prefab = gameObject;
     }
 
     public override void onTrigger()
@@ -36,17 +37,7 @@ public class Spike : Trap
     {
 
     }
-    // TODO 
-    //Delete this start 
-    //use initialise or preinit to go with the flow
 
-        /*
-    private void Start()
-    {
-        isOutTrap = true;
-    }*/
-
-    //Abstract methode for the flow
     public override void PreInitialize()
     {
         isOutTrap = true;
@@ -75,24 +66,24 @@ public class Spike : Trap
 
     public override void onRemove()
     {
+        GameObject.Destroy(gameObject, 0);
+        GameObject.Destroy(slashRef, 2f);
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log("do i trigger ?");
-        currentTime = detonate;
-        //spikeRef.transform.position = new Vector3(0, 0.5f, 0);
-        //Debug.Log("do i trigger ?");
-        isInTrap = true;
-        isOutTrap = false;
+        PlaySound(slashAudio);
+        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        {
+            PlaySound(slashAudio);
+            slashRef = GameObject.Instantiate(slashParticul, transform.position, transform.rotation);
+            EnemyManager.Instance.DamageEnemiesInRange(transform.position, radius, (int)damage);
+            onRemove();
+        }, 0.5f));
     }
 
     protected override void OnTriggerExit(Collider other)
     {
-
-        isInTrap = false;
-        isOutTrap = true;
-        spikeRef.transform.localPosition = new Vector3(0, 0.01f, 0);
     }
 
     protected override void OnTriggerStay(Collider other)
