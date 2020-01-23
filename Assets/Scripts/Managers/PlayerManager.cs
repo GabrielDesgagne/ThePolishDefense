@@ -15,8 +15,10 @@ public class PlayerManager : Flow {
     #endregion
 
     public Player player;
-
-    override public void PreInitialize() {
+    public bool changeScene;
+    override public void PreInitialize()
+    {
+        changeScene = false;
         player = (GameObject.Instantiate(Resources.Load("Prefabs/Player/Player")) as GameObject).GetComponent<Player>();
         if (Main.Instance.isInRoomScene) {
             player.transform.position = player.startingRoomPos;
@@ -41,7 +43,7 @@ public class PlayerManager : Flow {
 
         //TODO Remove this in build version
         //Switch Scene. 
-        if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.P) || changeScene) {
             Main.Instance.ChangeCurrentFlow();
         }
         player.Refresh();
