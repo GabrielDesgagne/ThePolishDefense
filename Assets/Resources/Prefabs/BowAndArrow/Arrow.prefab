@@ -122,4 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebf79e950aa7c14492b83f23af3735d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeft: 0
+  startToCurve: 5
+  forceToApplyMax: 45
+  startDisapearTime: 0

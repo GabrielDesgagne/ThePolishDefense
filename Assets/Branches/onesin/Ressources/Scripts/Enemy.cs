@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour {
     public GameObject audioEnnemi;
     public AudioClip soundDead;
     private EnemyMovement mvt;
-    private AudioSource walk;
     private AudioSource dead;
     public GameObject uiDiedEffectPrefabs;
     private float speedMoveUi = 2f;

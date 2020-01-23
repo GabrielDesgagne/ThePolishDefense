@@ -1267,13 +1267,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dcb4e4f21eae44881d035cadd153a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 10
+  startSpeed: 7
   speed: 0
-  startHealth: 100
+  startHealth: 350
   value: 50
   healthBar: {fileID: 2367275470641164635}
   isDead: 0
-  audioEnnemi: {fileID: 4101659182027935532}
+  audioEnnemi: {fileID: 0}
   soundDead: {fileID: 8300000, guid: 4e105e19406554b42b02f867a6544a89, type: 3}
   uiDiedEffectPrefabs: {fileID: 2479430923811739813, guid: 20c182a05638c4b4e987c3bd4aa8cbae,
     type: 3}
