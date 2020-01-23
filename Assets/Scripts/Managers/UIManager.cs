@@ -6,15 +6,15 @@ public class UIManager : Flow {
     #region Singleton
     static private UIManager instance = null;
 
-    static public UIManager Instance
-    {
-        get
-        {
+    static public UIManager Instance {
+        get {
             return instance ?? (instance = new UIManager());
         }
     }
 
     #endregion
+
+    private MapVariables mapVariables;
 
     private TextUI score;
     private TextUI cash;
@@ -23,44 +23,41 @@ public class UIManager : Flow {
     private TextUI towerKill;
     private TextUI totalKill;
 
-    override public void PreInitialize()
-    {
-        UIVariables.uiLink = GameObject.FindObjectOfType<UIVariables>();
+    override public void PreInitialize() {
     }
 
-    override public void Initialize()
-    {
+    override public void Initialize() {
+        UIVariables.uiLink = GameObject.FindObjectOfType<UIVariables>();
+
+        score = UIVariables.uiLink.scoreUI.GetComponent<TextUI>();
+        cash = UIVariables.uiLink.cashUI.GetComponent<TextUI>();
+        headshot = UIVariables.uiLink.headshotUI.GetComponent<TextUI>();
+        playerKill = UIVariables.uiLink.playerKillsUI.GetComponent<TextUI>();
+        towerKill = UIVariables.uiLink.towerKillsUI.GetComponent<TextUI>();
+        totalKill = UIVariables.uiLink.totalKillsUI.GetComponent<TextUI>();
+
         InitScoreboard();
         HideUI();
     }
 
-    override public void Refresh()
-    {
+    override public void Refresh() { }
 
+    override public void PhysicsRefresh() { }
+
+    override public void EndFlow() {
+        instance = null;
     }
 
-    override public void PhysicsRefresh()
-    {
-
+    private void InitScoreboard() {
+        this.score.Initialize(UIVariables.uiLink.scoreUI, "Score : ", PlayerStats.Score);
+        this.cash.Initialize(UIVariables.uiLink.cashUI, "Cash : ", PlayerStats.Currency);
+        this.headshot.Initialize(UIVariables.uiLink.headshotUI, "Headshot : ", PlayerStats.Headshot);
+        this.playerKill.Initialize(UIVariables.uiLink.playerKillsUI, "Player Kill : ", PlayerStats.PlayerKill);
+        this.towerKill.Initialize(UIVariables.uiLink.towerKillsUI, "Tower Kill : ", PlayerStats.TowerKill);
+        this.totalKill.Initialize(UIVariables.uiLink.totalKillsUI, "Total Kill : ", PlayerStats.TotalKill);
     }
 
-    override public void EndFlow()
-    {
-
-    }
-
-    private void InitScoreboard()
-    {
-        this.score = new TextUI(UIVariables.uiLink.scoreUI, "Score : ", PlayerStats.Score);
-        this.cash = new TextUI(UIVariables.uiLink.cashUI, "Cash : ", PlayerStats.Currency);
-        this.headshot = new TextUI(UIVariables.uiLink.headshotUI, "Headshot : ", PlayerStats.Headshot);
-        this.playerKill = new TextUI(UIVariables.uiLink.playerKillsUI, "Player Kill : ", PlayerStats.PlayerKill);
-        this.towerKill = new TextUI(UIVariables.uiLink.towerKillsUI, "Tower Kill : ", PlayerStats.TowerKill);
-        this.totalKill = new TextUI(UIVariables.uiLink.totalKillsUI, "Total Kill : ", PlayerStats.TotalKill);
-    }
-
-    public void TurningOff()
-    {
+    public void TurningOff() {
         this.score.SetActive(false);
         this.cash.SetActive(false);
         this.headshot.SetActive(false);
@@ -69,8 +66,7 @@ public class UIManager : Flow {
         this.totalKill.SetActive(false);
     }
 
-    public void TurningOn()
-    {
+    public void TurningOn() {
         this.score.SetActive(true);
         this.cash.SetActive(true);
         this.headshot.SetActive(true);
@@ -79,8 +75,7 @@ public class UIManager : Flow {
         this.totalKill.SetActive(true);
     }
 
-    public void ShowVictory()
-    {
+    public void ShowVictory() {
         UIVariables.uiLink.canvas.SetActive(true);
         UIVariables.uiLink.loseUI.SetActive(false);
         UIVariables.uiLink.winUI.SetActive(true);
@@ -88,8 +83,7 @@ public class UIManager : Flow {
         UIVariables.uiLink.explosion.SetActive(false);
     }
 
-    public void ShowDefeat()
-    {
+    public void ShowDefeat() {
         UIVariables.uiLink.canvas.SetActive(true);
         UIVariables.uiLink.winUI.SetActive(false);
         UIVariables.uiLink.loseUI.SetActive(true);
@@ -97,8 +91,7 @@ public class UIManager : Flow {
         UIVariables.uiLink.fireworks.SetActive(false);
     }
 
-    public void HideUI()
-    {
+    public void HideUI() {
         UIVariables.uiLink.canvas.SetActive(false);
         UIVariables.uiLink.winUI.SetActive(false);
         UIVariables.uiLink.loseUI.SetActive(false);

@@ -17,12 +17,22 @@ public class ArrowManager : Flow
     }
 
     #endregion
+
     public Arrow currentArrowLeft;
     public Arrow currentArrowRight;
 
-    public Vector3 ArrowPos = new Vector3(0f, 0f, 0.330f);
+    public Vector3 arrowPos;
 
-    public float scale = 1f;
+    public float scale;
+
+    public override void PreInitialize() {
+        arrowPos = new Vector3(0f, 0f, 0.330f);
+        scale = 1f;
+    }
+
+    public override void Initialize() {
+    }
+
     public override void Refresh()
     {
         if (currentArrowLeft != null)
@@ -43,13 +53,17 @@ public class ArrowManager : Flow
             }
         }
     }
-    
+
+    public override void EndFlow() {
+        instance = null;
+    }
+
     public void AttachArrowToHand(Arrow arrow, bool right) {
         if (right)
         {
             //if (currentArrowRight == null) {
                 currentArrowRight = arrow;
-                currentArrowRight.transform.localPosition = ArrowPos;
+                currentArrowRight.transform.localPosition = arrowPos;
             //}
         }
         else
@@ -57,7 +71,7 @@ public class ArrowManager : Flow
            // if (currentArrowLeft == null)
            // {
                 currentArrowLeft = arrow;
-                currentArrowLeft.transform.localPosition = ArrowPos;
+                currentArrowLeft.transform.localPosition = arrowPos;
            // }
         }
         
