@@ -74,7 +74,7 @@ public class TrapManager : Flow
 
     override public void EndFlow()
     {
-    
+        instance = null;
     }
 
     public Trap CreateTrap(TrapType type, Vector3 position)

@@ -5,6 +5,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+    private EnemyManager enemyManager;
+    private TimeManager timeManager;
+
     public float startSpeed = 10;
     [HideInInspector]
     public float speed;
@@ -43,10 +46,13 @@ public class Enemy : MonoBehaviour {
 
     public void Initialize()
     {
+        enemyManager = EnemyManager.Instance;
+        timeManager = TimeManager.Instance;
+
         speed = startSpeed;
         health = startHealth;
-        if (EnemyManager.Instance.waypoints.Length > 0)
-            target = EnemyManager.Instance.waypoints[0];
+        if (enemyManager.waypoints.Length > 0)
+            target = enemyManager.waypoints[0];
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         mvt = GetComponent<EnemyMovement>();
@@ -91,24 +97,24 @@ public class Enemy : MonoBehaviour {
             if (Vector3.Distance(transform.position, target.position) <= 0.3f)
             {
                 //check the next way point
-                if (waypointIndex >= EnemyManager.Instance.waypoints.Length - 1)
+                if (waypointIndex >= enemyManager.waypoints.Length - 1)
                 {
                     PlayerStats.decrementHp();
                     isHittable = false;
                     WaveSpawner.EnemiesAlive--;
-                    EnemyManager.Instance.EnemyDied(this);
+                    enemyManager.EnemyDied(this);
                     return;
                 }
 
                 waypointIndex++;
-                target = EnemyManager.Instance.waypoints[waypointIndex];
+                target = enemyManager.waypoints[waypointIndex];
             }
         }
     }
 
     public void PhysicsRefresh()
     {
-        if (EnemyManager.Instance.waypoints.Length > 0)
+        if (enemyManager.waypoints.Length > 0)
         {
             Vector3 dir = target.position - transform.position;
             transform.LookAt(target);
@@ -142,7 +148,7 @@ public class Enemy : MonoBehaviour {
     public void Slow(float amount, float duration)
     {
         speed = startSpeed * (1f - amount);
-        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        timeManager.AddTimedAction(new TimedAction(() =>
         {
             speed = startSpeed;
         }, duration));
@@ -161,7 +167,7 @@ public class Enemy : MonoBehaviour {
         WaveSpawner.EnemiesAlive--;
 
         PlayerStats.addCurrency(value);
-        EnemyManager.Instance.EnemyDied(this);
+        enemyManager.EnemyDied(this);
     }
 
     public void ExitHitState()

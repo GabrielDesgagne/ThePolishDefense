@@ -91,7 +91,6 @@ public class InputManager : Flow
 
     override public void EndFlow()
     {
-        Debug.Log("EndFlow");
     }
 
     public class InputPkg

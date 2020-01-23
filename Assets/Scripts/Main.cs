@@ -115,9 +115,6 @@ public class Main : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        //Debug.Log(mode);
-
         currentSceneName = scene.name;
 
         if (!isInRoomScene)

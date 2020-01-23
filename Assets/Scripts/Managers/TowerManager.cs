@@ -7,8 +7,8 @@ public class TowerManager : Flow
     private static TowerManager instance = null;
     public static TowerManager Instance { get { return instance ?? (instance = new TowerManager()); } }
 
-    public Dictionary<TowerType, GameObject> prefabs = new Dictionary<TowerType, GameObject>();
-    public Dictionary<TowerType, GameObject> towerParent = new Dictionary<TowerType, GameObject>();
+    public Dictionary<TowerType, GameObject> prefabs;
+    public Dictionary<TowerType, GameObject> towerParent;
 
     List<Tower> towerList = new List<Tower>();
     public GameObject cannonPrefab;
@@ -16,6 +16,9 @@ public class TowerManager : Flow
 
     override public void PreInitialize()
     {
+        prefabs = new Dictionary<TowerType, GameObject>();
+        towerParent = new Dictionary<TowerType, GameObject>();
+
         prefabs.Add(TowerType.BASIC, Resources.Load<GameObject>("Prefabs/Tower/Basic_Tower"));
         prefabs.Add(TowerType.HEAVY, Resources.Load<GameObject>("Prefabs/Tower/Heavy_Tower"));
         prefabs.Add(TowerType.ICE, Resources.Load<GameObject>("Prefabs/Tower/Ice_Tower"));

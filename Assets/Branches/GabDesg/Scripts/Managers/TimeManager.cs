@@ -6,11 +6,15 @@ public class TimedAction {
 
     public delegate void ActionDelegate();
 
+    private TimeManager timeManager;
+
     private float timeLeft;
     private ActionDelegate function;
 
 
     public TimedAction(ActionDelegate _function, float timer) {
+        timeManager = TimeManager.Instance;
+
         this.function = _function;
         this.timeLeft = timer;
     }
@@ -21,7 +25,8 @@ public class TimedAction {
         //Check if function should be called
         if (this.timeLeft <= 0) {
             this.function.Invoke();
-            TimeManager.Instance.RemoveTimedAction(this);
+            if (timeManager != null)
+                timeManager.RemoveTimedAction(this);
         }
     }
 
@@ -30,10 +35,9 @@ public class TimedAction {
     }
 }
 
-public class TimeManager : Flow
-{
+public class TimeManager : Flow {
     #region Singleton
-    private TimeManager() {}
+    private TimeManager() { }
     private static TimeManager instance;
     public static TimeManager Instance {
         get {
@@ -42,24 +46,22 @@ public class TimeManager : Flow
     }
     #endregion
 
-    private HashSet<TimedAction> actions = new HashSet<TimedAction>();
-    private HashSet<TimedAction> toRemoveActions = new HashSet<TimedAction>();
+    private HashSet<TimedAction> actions;
+    private HashSet<TimedAction> toRemoveActions;
 
     public override void PreInitialize() {
-        base.PreInitialize();
+        actions = new HashSet<TimedAction>();
+        toRemoveActions = new HashSet<TimedAction>();
     }
 
-    public override void Initialize() {
-        base.Initialize();
-    }
+    public override void Initialize() { }
 
     public override void Refresh() {
-        base.Refresh();
 
         float deltatime = Time.deltaTime;
 
         //Update all actions
-        foreach(TimedAction action in this.actions) {
+        foreach (TimedAction action in this.actions) {
             action.Refresh(deltatime);
         }
 
@@ -67,12 +69,10 @@ public class TimeManager : Flow
         CleanActionLists();
     }
 
-    public override void PhysicsRefresh() {
-        base.PhysicsRefresh();
-    }
+    public override void PhysicsRefresh() { }
 
     public override void EndFlow() {
-        base.EndFlow();
+        instance = null;
     }
 
     public void AddTimedAction(TimedAction action) {
@@ -84,7 +84,7 @@ public class TimeManager : Flow
     }
 
     private void CleanActionLists() {
-        foreach(TimedAction action in this.toRemoveActions) {
+        foreach (TimedAction action in this.toRemoveActions) {
             this.actions.Remove(action);
         }
 

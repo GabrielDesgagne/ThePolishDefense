@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmbianceManager : Flow
-{
+public class AmbianceManager : Flow {
     private static AmbianceManager instance = null;
     public static AmbianceManager Instance { get { return instance ?? (instance = new AmbianceManager()); } }
-    public Dictionary<soundTypes, AudioClip> sounds = new Dictionary<soundTypes, AudioClip>();
+
+    public Dictionary<soundTypes, AudioClip> sounds;
     GameObject AudioPlayerMusic;
     GameObject AudioPlayerSounds;
     GameObject spawnAudio;
@@ -18,8 +18,9 @@ public class AmbianceManager : Flow
     public float volume = 0.04f;
 
 
-    public override void PreInitialize()
-    {
+    public override void PreInitialize() {
+        sounds = new Dictionary<soundTypes, AudioClip>();
+
         // prepares sounds for the room
         sounds.Add(soundTypes.RELEASE, Resources.Load<AudioClip>("SFX/BowSounds/Release1"));
         sounds.Add(soundTypes.SHOOT, Resources.Load<AudioClip>("SFX/BowSounds/Shooting1"));
@@ -74,50 +75,33 @@ public class AmbianceManager : Flow
         spawn.volume = volume;
         spawn.clip = sounds[soundTypes.ENEMY_SPAWN];
 
-
-
-        base.PreInitialize();
     }
-    public override void Initialize()
-    {
+    public override void Initialize() { }
 
-        base.Initialize();
-
-        // playSoundsRoom();
-        //playSpawnSounds();
-    }
-    public override void Refresh()
-    {
+    public override void Refresh() {
         if (Input.GetKey(KeyCode.Space))
             playSpawnSounds();
-        base.Refresh();
     }
-    public override void PhysicsRefresh()
-    {
-        base.PhysicsRefresh();
-    }
-    public override void EndFlow()
-    {
-        base.EndFlow();
+    public override void PhysicsRefresh() { }
+
+    public override void EndFlow() {
+        instance = null;
     }
 
-    public void playSoundsRoom()
-    {
+    public void playSoundsRoom() {
         bg.clip = sounds[soundTypes.TAVERN_BG];
         bg.Play();
         sfx.clip = sounds[soundTypes.FIREPLACE];
         sfx.Play();
     }
 
-    public void playMapMusic()
-    {
+    public void playMapMusic() {
         bg.clip = sounds[soundTypes.FIGHT_BG];
         bg.Play();
         sfx.Stop();
     }
 
-    public void playSpawnSounds()
-    {
+    public void playSpawnSounds() {
         spawnAudio.transform.position = new Vector3(-247.6f, -34.8f, -1200);
         spawn.Play();
     }

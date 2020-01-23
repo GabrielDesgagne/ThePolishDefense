@@ -17,6 +17,10 @@ public class WaveManager : Flow {
 
     #endregion
 
+    private EnemyManager enemyManager;
+    private LogicManager logicManager;
+    private TimeManager timeManager;
+
     private LevelSystem levelSystem;
     private Wave[] waves;
     private int currentWave;
@@ -26,7 +30,9 @@ public class WaveManager : Flow {
 
     override public void PreInitialize()
     {
-
+        enemyManager = EnemyManager.Instance;
+        logicManager = LogicManager.Instance;
+        timeManager = TimeManager.Instance;
     }
 
     override public void Initialize()
@@ -41,8 +47,8 @@ public class WaveManager : Flow {
 
     override public void Refresh()
     {
-        if (LogicManager.Instance.IsGameOver) { return; }
-        if (EnemyManager.Instance.enemies.Count <= 0)
+        if (logicManager.IsGameOver) { return; }
+        if (enemyManager.enemies.Count <= 0)
         {
             if (currentWave == waves.Length)
             {
@@ -50,7 +56,7 @@ public class WaveManager : Flow {
                 if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
                 {
                     PlayerStats.nextLevel();
-                    LogicManager.Instance.LevelWon();
+                    logicManager.LevelWon();
 //                     TimeManager.Instance.AddTimedAction(new TimedAction(() =>
 //                     {
 //                         Debug.Log("New Level Begin!");
@@ -60,7 +66,7 @@ public class WaveManager : Flow {
                 }
                 else
                 {
-                    LogicManager.Instance.IsGameOver = true;
+                    logicManager.IsGameOver = true;
                     Debug.Log("Game Over!");
                 }
             }
@@ -86,6 +92,8 @@ public class WaveManager : Flow {
     {
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
         timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
+
+        instance = null;
     }
 
     private void SpawnWave()
@@ -97,7 +105,7 @@ public class WaveManager : Flow {
         {
             for (int j = 0; j < wave.types[i].number; j++)
             {
-                newEnemy = EnemyManager.Instance.enemyPrefabDict[wave.types[i].type];
+                newEnemy = enemyManager.enemyPrefabDict[wave.types[i].type];
                 SpawnEnemyAfterTime(newEnemy, time);
                 time += wave.rate;
             }
@@ -107,12 +115,12 @@ public class WaveManager : Flow {
 
     private void SpawnEnemyAfterTime(GameObject enemyPrefab, float time)
     {
-        TimeManager.Instance.AddTimedAction(new TimedAction(() =>
+        timeManager.AddTimedAction(new TimedAction(() =>
         {
-            GameObject enemyObj = EnemyManager.Instance.SpawnEnemy(enemyPrefab);
+            GameObject enemyObj = enemyManager.SpawnEnemy(enemyPrefab);
             Enemy enemy = enemyObj.GetComponent<Enemy>();
             enemy.Initialize();
-            EnemyManager.Instance.toAdd.Push(enemy);
+            enemyManager.toAdd.Push(enemy);
         }, time));
     }
 

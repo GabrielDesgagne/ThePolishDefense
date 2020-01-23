@@ -28,69 +28,122 @@ public class Room : Flow
     PodManager podManager;
     ArrowManager arrowManager;
 
+    private GameVariables gameVariables;
+    private RoomVariables roomVariables;
+    private bool sceneEnded;
+
     public Dictionary<GameObject, IGrabbable> roomGrabbablesDict;
 
     override public void PreInitialize()
     {
         //Grab instances
-        inputManager = InputManager.Instance;
         playerManager = PlayerManager.Instance;
-        grabbableManager = GrabbableManager.Instance;
-        shopManager = ShopManager.Instance;
+
         timeManager = TimeManager.Instance;
-        arrowManager = ArrowManager.Instance;
+
+        inputManager = InputManager.Instance;
+        grabbableManager = GrabbableManager.Instance;
+
+        shopManager = ShopManager.Instance;
+
         podManager = PodManager.Instance;
+        arrowManager = ArrowManager.Instance;
 
         //Setup Variables
         roomGrabbablesDict = new Dictionary<GameObject, IGrabbable>();
+        sceneEnded = false;
+        
 
         //First Initialize
-        inputManager.PreInitialize();
         playerManager.PreInitialize();
-        grabbableManager.PreInitialize();
-        shopManager.PreInitialize();
+
         timeManager.PreInitialize();
+
+        inputManager.PreInitialize();
+        grabbableManager.PreInitialize();
+
+        shopManager.PreInitialize();
+
+        podManager.PreInitialize();
+        arrowManager.PreInitialize();
+
 
         PreInitializeRoom();
     }
 
     override public void Initialize()
     {
-        inputManager.Initialize();
         playerManager.Initialize();
-        grabbableManager.Initialize();
-        shopManager.Initialize();
+
         timeManager.Initialize();
+
+        inputManager.Initialize();
+        grabbableManager.Initialize();
+
+        shopManager.Initialize();
+
+        podManager.Initialize();
+        arrowManager.Initialize();
+
+
+        //Setup Variables
+        gameVariables = GameVariables.instance;
+        roomVariables = RoomVariables.instance;
 
         InitializeRoom();
     }
 
     override public void Refresh()
     {
-        inputManager.Refresh();
-        playerManager.Refresh();
-        podManager.Refresh();
-        arrowManager.Refresh();
-        
-        grabbableManager.Refresh();
-        shopManager.Refresh();
-        timeManager.Refresh();
+        if (!sceneEnded) {
+            playerManager.Refresh();
+
+            timeManager.Refresh();
+
+            inputManager.Refresh();
+            grabbableManager.Refresh();
+
+            shopManager.Refresh();
+
+            podManager.Refresh();
+            arrowManager.Refresh();
+        }
     }
 
     override public void PhysicsRefresh()
     {
-        inputManager.PhysicsRefresh();
-        playerManager.PhysicsRefresh();
-        grabbableManager.PhysicsRefresh();
-        shopManager.PhysicsRefresh();
-        timeManager.PhysicsRefresh();
+        if (!sceneEnded) {
+            playerManager.PhysicsRefresh();
+
+            timeManager.PhysicsRefresh();
+
+            inputManager.PhysicsRefresh();
+            grabbableManager.PhysicsRefresh();
+
+            shopManager.PhysicsRefresh();
+
+            podManager.PhysicsRefresh();
+            arrowManager.PhysicsRefresh();
+        }
     }
 
     override public void EndFlow()
     {
-        //GameObject.Destroy(roomSetup);
+        sceneEnded = true;
+
+        playerManager.EndFlow();
+
+        timeManager.EndFlow();
+
+        inputManager.EndFlow();
+        grabbableManager.EndFlow();
+
         shopManager.EndFlow();
+
         podManager.EndFlow();
+        arrowManager.EndFlow();
+
+        DestroyRoomVariables();
     }
 
     private void PreInitializeRoom() {
@@ -99,5 +152,9 @@ public class Room : Flow
 
     private void InitializeRoom() {
 
+    }
+
+    private void DestroyRoomVariables() {
+        
     }
 }
