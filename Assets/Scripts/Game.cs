@@ -225,7 +225,7 @@ public class Game : Flow
     {
         //Spawn at position
         this.playerManager.player.transform.position = this.mapVariables.playerSpawnPosition.position;
-
+        ToogleOffOVRController();
 
     }
 
