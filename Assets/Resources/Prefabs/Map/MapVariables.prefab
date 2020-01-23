@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3373614240272865342}
   - component: {fileID: 4160537986257267645}
+  - component: {fileID: 2803614142246446801}
   m_Layer: 0
   m_Name: MapVariables
   m_TagString: Untagged
@@ -44,12 +45,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapStartPointInMap: {fileID: 0}
-  hiddenGridPrefab: {fileID: 0}
-  tileSidesPrefab: {fileID: 0}
+  hiddenGridPrefab: {fileID: 6416105770710102517, guid: b0722d6270d163d4c88f26a0dfe64b2a,
+    type: 3}
+  tileSidesPrefab: {fileID: 656199918737043562, guid: f78c09b27757dcd4799234baa0587de6,
+    type: 3}
   hiddenGrid: {fileID: 0}
-  playerInstance: {fileID: 0}
+  playerPrefab: {fileID: 0}
   enemyStart: {fileID: 0}
   enemyEnd: {fileID: 0}
   enemyParentPoint: {fileID: 0}
-  levelSystem: {fileID: 0}
+  levelSystem: {fileID: 11400000, guid: 6c2d8679dc97f6e47a21daa87d883d1e, type: 2}
   enemyPoint: {fileID: 0}
+  timerUI: {fileID: 0}
+--- !u!114 &2803614142246446801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942080318142965883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5783b3ab33e378499ee97e85b04e23c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreUI: {fileID: 0}
+  cashUI: {fileID: 0}
+  headshotUI: {fileID: 0}
+  playerKillsUI: {fileID: 0}
+  towerKillsUI: {fileID: 0}
+  totalKillsUI: {fileID: 0}
+  canvas: {fileID: 0}
+  winUI: {fileID: 0}
+  loseUI: {fileID: 0}
+  fireworks: {fileID: 0}
+  explosion: {fileID: 0}

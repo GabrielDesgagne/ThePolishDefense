@@ -55,7 +55,7 @@ public class Main : MonoBehaviour
         room = Room.Instance;
         grabbableObjects = new Dictionary<GameObject, GrabbableObject>();
         interactObjects = new Dictionary<GameObject, InteractObject>();
-        ambiance = new AmbianceManager();
+        ambiance = AmbianceManager.Instance;
         ambiance.Initialize();
         //Get/Set
         sceneTransition = gameObject.GetComponent<SceneTransition>();
@@ -107,13 +107,13 @@ public class Main : MonoBehaviour
         if (!isInRoomScene)
         {
             sceneTransition.loadMainRoomScene();
-            ambiance.playSoundsRoom();
+           
             isInRoomScene = true;
         }
         else
         {
             sceneTransition.loadMainMapScene();
-            ambiance.playMapMusic();
+           
             isInRoomScene = false;
         }
     }

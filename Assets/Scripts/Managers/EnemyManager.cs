@@ -126,7 +126,7 @@ public class EnemyManager : Flow
 
     override public void EndFlow()
     {
-        instance = null;
+        //instance = null;
     }
 
     public void SetPoints(Transform transform)

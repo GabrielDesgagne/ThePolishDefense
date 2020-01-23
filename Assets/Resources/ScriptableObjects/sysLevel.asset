@@ -15,6 +15,12 @@ MonoBehaviour:
   levels:
   - numLevel: 0
     waves:
-    - {fileID: 11400000, guid: 334fbda3a8b56984d9b3703d76e65e59, type: 2}
+    - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
+    - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
+    timeBetweenWaves: 5
+  - numLevel: 0
+    waves:
+    - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
+    - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
     timeBetweenWaves: 5
   currentLevel: 0
