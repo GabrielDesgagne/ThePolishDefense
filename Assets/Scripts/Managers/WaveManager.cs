@@ -19,10 +19,13 @@ public class WaveManager : Flow {
 
     private LevelSystem levelSystem;
     private Wave[] waves;
-    private int currentWave;
+    public int currentWave;
 
     private Countdown waveCountdownTimer;
     private float timeBetweenWaves;
+
+    public int EnemyInWaveLeft { get; set; }
+    private bool isLevelOver;
 
     override public void PreInitialize()
     {
@@ -31,47 +34,50 @@ public class WaveManager : Flow {
 
     override public void Initialize()
     {
-        waveCountdownTimer = new Countdown();
+        waveCountdownTimer = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TimerUI")).GetComponent<Countdown>();
+        //waveCountdownTimer = new Countdown();
         waveCountdownTimer.Initialize();
         levelSystem = MapVariables.instance.levelSystem;
         waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
         timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
+        currentWave = 0;
+        for (int i = 0; i < waves[currentWave].types.Length; i++)
+            EnemyInWaveLeft += waves[currentWave].types[i].number;
+        SpawnWave();
+        currentWave++;
+        isLevelOver = false;
     }
 
     override public void Refresh()
     {
         if (LogicManager.Instance.IsGameOver) { return; }
-        if (EnemyManager.Instance.enemies.Count <= 0)
+        if (EnemyInWaveLeft <= 0 && !isLevelOver)
         {
-            if (currentWave == waves.Length)
+            if (currentWave > waves.Length)
             {
                 currentWave = 0;
                 if (PlayerStats.CurrentLevel < levelSystem.levels.Length - 1)
                 {
                     PlayerStats.nextLevel();
                     LogicManager.Instance.LevelWon();
-                    TimeManager.Instance.AddTimedAction(new TimedAction(() =>
-                    {
-                        Debug.Log("New Level Begin!");
-                        UIManager.Instance.HideUI();
-                        NextLevelTest();
-                    }, 5));
+                    isLevelOver = true;
+                    return;
                 }
                 else
                 {
                     LogicManager.Instance.IsGameOver = true;
-                    Debug.Log("Game Over!");
+                    Debug.Log("Game Over");
                 }
             }
             else
             {
-                if (waveCountdownTimer.countdown <= 0f)
+                if (currentWave < waves.Length)
                 {
+                    for (int i = 0; i < waves[currentWave].types.Length; i++)
+                        EnemyInWaveLeft += waves[currentWave].types[i].number;
                     SpawnWave();
-                    waveCountdownTimer.countdown = timeBetweenWaves;
-                    return;
                 }
-                waveCountdownTimer.Deduct();
+                currentWave++;
             }
         }
     }
@@ -101,7 +107,6 @@ public class WaveManager : Flow {
                 time += 0.35f;
             }
         }
-        currentWave++;
     }
 
     private void SpawnEnemyAfterTime(GameObject enemyPrefab, float time)
@@ -113,11 +118,5 @@ public class WaveManager : Flow {
             enemy.Initialize();
             EnemyManager.Instance.toAdd.Push(enemy);
         }, time));
-    }
-
-    private void NextLevelTest()
-    {
-        waves = levelSystem.levels[PlayerStats.CurrentLevel].waves;
-        timeBetweenWaves = levelSystem.levels[PlayerStats.CurrentLevel].timeBetweenWaves;
     }
 }
