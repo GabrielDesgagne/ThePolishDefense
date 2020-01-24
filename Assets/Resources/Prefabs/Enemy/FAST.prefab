@@ -1487,7 +1487,7 @@ Animator:
   m_GameObject: {fileID: 6639193871637115624}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 21b804f17fd78614dbb080985c265ac9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 93b3efb6a6da95f458664f7773e8c8cd, type: 2}
+  m_Controller: {fileID: 9100000, guid: a004624056fe13e4dbf8391256ecd6f7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1508,9 +1508,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dcb4e4f21eae44881d035cadd153a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 15
+  startSpeed: 7
   speed: 0
-  startHealth: 710.4
+  startHealth: 100
   value: 50
   healthBar: {fileID: 2502272327305094623}
   isDead: 0
@@ -1523,6 +1523,7 @@ MonoBehaviour:
   canEnter: 0
   stateDuration: 1.8
   MaxStateDuration: 1.8
+  type: 0
 --- !u!114 &8353673247606283943
 MonoBehaviour:
   m_ObjectHideFlags: 0

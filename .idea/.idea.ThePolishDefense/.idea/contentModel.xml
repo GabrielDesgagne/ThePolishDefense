@@ -27,27 +27,6 @@
               </e>
             </e>
           </e>
-          <e p="onesin" t="Include">
-            <e p="Ressources" t="Include">
-              <e p="Porte" t="Include">
-                <e p="scipts" t="Include">
-                  <e p="Door.cs" t="Include" />
-                  <e p="Door2.cs" t="Include" />
-                </e>
-              </e>
-              <e p="Scripts" t="Include">
-                <e p="Countdown.cs" t="Include" />
-                <e p="Enemy.cs" t="Include" />
-                <e p="EnemyMovement.cs" t="Include" />
-                <e p="HitBehavior.cs" t="Include" />
-                <e p="LevelSystem.cs" t="Include" />
-                <e p="Logic.cs" t="Include" />
-                <e p="Wave.cs" t="Include" />
-                <e p="WaveSpawner.cs" t="Include" />
-                <e p="Waypoints.cs" t="Include" />
-              </e>
-            </e>
-          </e>
           <e p="Raphael" t="Include">
             <e p="Script" t="Include">
               <e p="RoundOver.cs" t="Include" />
@@ -1120,15 +1099,21 @@
           <e p="BlockRotation.cs" t="Include" />
           <e p="BowManager.cs" t="Include" />
           <e p="CameraFacing.cs" t="Include" />
+          <e p="Countdown.cs" t="Include" />
+          <e p="Door.cs" t="Include" />
+          <e p="Enemy.cs" t="Include" />
+          <e p="EnemyMovement.cs" t="Include" />
           <e p="Flow.cs" t="Include" />
           <e p="Game.cs" t="Include" />
           <e p="GrabbableObject.cs" t="Include" />
           <e p="Grabber.cs" t="Include" />
+          <e p="HitBehavior.cs" t="Include" />
           <e p="IInteract.cs" t="Include" />
           <e p="InteractObject.cs" t="Include" />
           <e p="Interfaces" t="Include">
             <e p="IGrabbable.cs" t="Include" />
           </e>
+          <e p="LevelSystem.cs" t="Include" />
           <e p="Main.cs" t="Include" />
           <e p="MainPlayerController.cs" t="Include" />
           <e p="Managers" t="Include">
@@ -1160,6 +1145,7 @@
             <e p="ProjectileType.cs" t="Include" />
           </e>
           <e p="Quiver.cs" t="Include" />
+          <e p="RedButtonAnim.cs" t="Include" />
           <e p="Room.cs" t="Include" />
           <e p="RoomPrefabsHolder.cs" t="Include" />
           <e p="RoomVariables.cs" t="Include" />
@@ -1195,6 +1181,9 @@
             <e p="Trap.cs" t="Include" />
             <e p="TrapPiece.cs" t="Include" />
           </e>
+          <e p="Wave.cs" t="Include" />
+          <e p="WaveSpawner.cs" t="Include" />
+          <e p="Waypoints.cs" t="Include" />
         </e>
         <e p="SplineMesh" t="Include">
           <e p="Doc.txt" t="Include" />

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wave1
   m_EditorClassIdentifier: 
   types:
-  - type: 15
+  - type: 2
     number: 2
-  - type: 17
+  - type: 0
     number: 2
-  - type: 16
+  - type: 4
     number: 1
   rate: 2

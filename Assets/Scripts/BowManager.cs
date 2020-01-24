@@ -9,15 +9,12 @@ public class BowManager : MonoBehaviour
     public float forceArrowMaxShoot = 0.5f;
     private float pourcentString;
     //public static BowManager Instance;
-    public GameObject arrowPrefab;
     public GameObject stringAttachPoint;
     public GameObject stringStartPoint;
     private Vector3 stringAttachPointBase;
     private Arrow currentSnapArrow;
     private bool bowLeftHand = false;
     AmbianceManager ambiance;
-    private OVRGrabbable hand;
-    public bool isLeft;
     public Vector3 rotOffSet;
     public float yHandOffset = 20;
     public float yHandOffsetPos;
@@ -31,22 +28,27 @@ public class BowManager : MonoBehaviour
     {
         ambiance = AmbianceManager.Instance;
         rotation = Vector3.zero;
-        hand = GetComponent<OVRGrabbable>();
     }
 
     private void Start()
     {
         Vector3 temp;
-        if (rotation == Vector3.zero)
-        {
-            Vector3 rotation = transform.GetChild(0).transform.localEulerAngles;
-        }
 
         temp = rotation;
         temp += rotOffSet;
-        temp.x += yHandOffset;
 
-        transform.GetChild(0).transform.localPosition += new Vector3(0.03f, yHandOffsetPos, 0);
+        if (PodManager.Instance.bowRightHand == this.gameObject)
+        {
+
+    transform.GetChild(0).transform.localPosition += new Vector3(yHandOffsetPos, 0, 0);
+            temp.x -= yHandOffset;
+        }
+        else
+        {
+            transform.GetChild(0).transform.localPosition += new Vector3(-yHandOffsetPos, 0, 0);
+            temp.x += yHandOffset;
+        }
+
         transform.GetChild(0).transform.localEulerAngles = temp;
     }
     void FixedUpdate()

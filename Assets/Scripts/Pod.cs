@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pod : MonoBehaviour
 {
     public GameObject prefabBow;
+    
 
     public SkinnedMeshRenderer render;
     public void activateRender()

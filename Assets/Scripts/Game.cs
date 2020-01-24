@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Game : Flow
 {
@@ -9,10 +7,8 @@ public class Game : Flow
     #region Singleton
     static private Game instance = null;
 
-    static public Game Instance
-    {
-        get
-        {
+    static public Game Instance {
+        get {
             return instance ?? (instance = new Game());
         }
     }
@@ -41,6 +37,8 @@ public class Game : Flow
     private GameVariables gameVariables;
     private MapVariables mapVariables;
     private bool sceneEnded;
+    private bool playerFixed = false;
+    private ushort frameCount = 0;
 
     override public void PreInitialize()
     {
@@ -74,9 +72,9 @@ public class Game : Flow
         towerManager.PreInitialize();
         trapManager.PreInitialize();
 
-        waveManager.PreInitialize();
         enemyManager.PreInitialize();
-        
+        waveManager.PreInitialize();
+
         podManager.PreInitialize();
         arrowManager.PreInitialize();
         projectileManager.PreInitialize();
@@ -97,9 +95,9 @@ public class Game : Flow
 
         towerManager.Initialize();
         trapManager.Initialize();
-
-        waveManager.Initialize();
+        
         enemyManager.Initialize();
+        waveManager.Initialize();
 
         podManager.Initialize();
         arrowManager.Initialize();
@@ -118,7 +116,8 @@ public class Game : Flow
 
     override public void Refresh()
     {
-        if (!sceneEnded) {
+        if (!sceneEnded)
+        {
             logicManager.Refresh();
             timeManager.Refresh();
 
@@ -128,8 +127,8 @@ public class Game : Flow
             towerManager.Refresh();
             trapManager.Refresh();
 
-            waveManager.Refresh();
             enemyManager.Refresh();
+            waveManager.Refresh();
 
             podManager.Refresh();
             arrowManager.Refresh();
@@ -142,7 +141,8 @@ public class Game : Flow
 
     override public void PhysicsRefresh()
     {
-        if (!sceneEnded) {
+        if (!sceneEnded)
+        {
             logicManager.PhysicsRefresh();
             timeManager.PhysicsRefresh();
 
@@ -151,9 +151,9 @@ public class Game : Flow
 
             towerManager.PhysicsRefresh();
             trapManager.PhysicsRefresh();
-
-            waveManager.PhysicsRefresh();
+            
             enemyManager.PhysicsRefresh();
+            waveManager.PhysicsRefresh();
 
             podManager.PhysicsRefresh();
             arrowManager.PhysicsRefresh();
@@ -176,9 +176,9 @@ public class Game : Flow
 
         towerManager.EndFlow();
         trapManager.EndFlow();
-
-        waveManager.EndFlow();
+        
         enemyManager.EndFlow();
+        waveManager.EndFlow();
 
         podManager.EndFlow();
         arrowManager.EndFlow();
@@ -192,11 +192,13 @@ public class Game : Flow
     }
 
 
-    private void PreInitializeMap() {
+    private void PreInitializeMap()
+    {
 
     }
 
-    private void InitializeMap() {
+    private void InitializeMap()
+    {
         //Create grid to place items
         InitGrid();
 
@@ -209,13 +211,32 @@ public class Game : Flow
         //Spawn items on map
         SpawnItemsOnGrid();
 
+        //Spawn player at position
+        SpawnPlayer();
+
     }
 
-    private void DestroyMapVariables() {
-        
+    private void DestroyMapVariables()
+    {
+
     }
 
-    private void InitGrid() {
+    private void SpawnPlayer()
+    {
+        //Spawn at position
+        this.playerManager.player.transform.position = this.mapVariables.playerSpawnPosition.position;
+        ToogleOffOVRController();
+
+    }
+
+    private void ToogleOffOVRController()
+    {
+        //Toggle off OVR Controller
+        this.playerManager.player.GetComponent<OVRPlayerController>().enabled = false;
+    }
+
+    private void InitGrid()
+    {
         //Init grids holder
         this.gameVariables.gridsHolder = new GameObject("GridsStuff");
 
@@ -260,7 +281,7 @@ public class Game : Flow
 
             //Create obj
             trapManager.CreateTrap(info.Value, tileCenter);
-        }    
+        }
     }
 
     private void StartEndPath(Vector2 startPath, Vector2 endPath)
@@ -276,7 +297,7 @@ public class Game : Flow
         foreach (Vector2 vec in GameVariables.instance.pathTilesCoords)
         {
             GameObject ob = GameObject.Instantiate(this.mapVariables.enemyPoint,
-                this.mapVariables.mapGrid.GetTileCenterFixed(this.mapVariables.mapGrid.GetTileCoords(vec)), 
+                this.mapVariables.mapGrid.GetTileCenterFixed(this.mapVariables.mapGrid.GetTileCoords(vec)),
                 Quaternion.identity,
                 enemyPoint.transform);
         }

@@ -133,6 +133,8 @@ public class Main : MonoBehaviour
         //Make sure this is called only once.
         if (currentSceneName != lastSceneName)
         {
+            grabbableObjects.Clear();
+            interactObjects.Clear();
             currentFlow.PreInitialize();
             currentFlow.Initialize();
             lastSceneName = currentSceneName;

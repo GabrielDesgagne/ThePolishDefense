@@ -319,8 +319,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820371469601522004}
-  - component: {fileID: 8631502682878536750}
-  - component: {fileID: 3393493020107879235}
   - component: {fileID: 3393493020107879238}
   m_Layer: 0
   m_Name: Golden Bow
@@ -346,45 +344,6 @@ Transform:
   m_Father: {fileID: 5056976486687856728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
---- !u!95 &8631502682878536750
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3393493020107879239}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: b6e5cec88ae59a0439d23e8f73fb0de2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3393493020107879235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3393493020107879239}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0a7293a4c1a7345bd4b74cd78f3c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forceArrowMaxShoot: 0
-  arrowPrefab: {fileID: 0}
-  stringAttachPoint: {fileID: 0}
-  stringStartPoint: {fileID: 0}
-  isLeft: 0
-  rotOffSet: {x: 0, y: 0, z: 0}
-  yHandOffset: 20
-  yHandOffsetPos: 0
 --- !u!65 &3393493020107879238
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -659,14 +618,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceArrowMaxShoot: 0.4
-  arrowPrefab: {fileID: 6707968921799252298, guid: 053165441ed346e458ef94c6ec26a187,
-    type: 3}
   stringAttachPoint: {fileID: 392632965561251327}
   stringStartPoint: {fileID: 5056976485281503451}
-  isLeft: 0
   rotOffSet: {x: 0, y: 90, z: -90}
   yHandOffset: 20
-  yHandOffsetPos: 0.035
+  yHandOffsetPos: -0.06
 --- !u!54 &5056976486687856709
 Rigidbody:
   m_ObjectHideFlags: 0
