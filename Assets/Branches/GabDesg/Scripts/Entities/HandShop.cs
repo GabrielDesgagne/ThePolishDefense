@@ -17,6 +17,8 @@ public class HandShop
     private TowerPiece towerInfo;
     private TrapPiece trapInfo;
 
+    private AmbianceManager ambianceManager;
+
     private GameObject objHolder;
 
     public HandShop(HandType type)
@@ -32,6 +34,7 @@ public class HandShop
 
     public bool GrabObj(GameObject obj, TowerPiece type)
     {
+        ambianceManager = AmbianceManager.Instance;
         bool objCanBeGrabbed = false;
         if (this.objInHand == null)
         {
@@ -44,11 +47,12 @@ public class HandShop
         }
         else
             Debug.Log("Theres already an object in " + this.Type.ToString() + " hand...");
-
+        ambianceManager.grabSound();
         return objCanBeGrabbed;
     }
     public bool GrabObj(GameObject obj, TrapPiece type)
     {
+        ambianceManager = AmbianceManager.Instance;
         bool objCanBeGrabbed = false;
         if (this.objInHand == null)
         {
@@ -61,7 +65,7 @@ public class HandShop
         }
         else
             Debug.Log("Theres already an object in " + this.Type.ToString() + " hand...");
-
+        ambianceManager.grabSound();
         return objCanBeGrabbed;
     }
 
@@ -85,15 +89,15 @@ public class HandShop
     {
         //Instantiate obj (prefab held in ShopManager)
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.towerSpawnInfo[type.currentType].ghostPrefab, this.objHolder.transform);
-//         this.objGhost.GetComponent<Collider>().enabled = false;
-//         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
+        //         this.objGhost.GetComponent<Collider>().enabled = false;
+        //         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void CreateGhostItem(TrapPiece type)
     {
         //Instantiate obj
         this.objGhost = GameObject.Instantiate<GameObject>(shopManager.trapSpawnInfo[type.currentType].ghostPrefab, this.objHolder.transform);
-//         this.objGhost.GetComponent<Collider>().enabled = false;
-//         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
+        //         this.objGhost.GetComponent<Collider>().enabled = false;
+        //         this.objGhost.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void UpdateTileSelected()
@@ -176,6 +180,7 @@ public class HandShop
 
     public void SetHitPointOnBoard(Vector3? hitPoint)
     {
+        ambianceManager = AmbianceManager.Instance;
         this.hitPointOnBoard = hitPoint;
 
         if (this.objInHand != null && this.objGhost != null)
@@ -228,6 +233,7 @@ public class HandShop
 
             }
         }
+        ambianceManager.tileSounds();
     }
 
     private bool ObjCanGoOnTileType(TileType tileType, TowerType towerType)
@@ -261,7 +267,7 @@ public class HandShop
     {
         bool tileIsEmpty = true;
         //Check if tile is saved in MapPck
-       TileInfo tileInfo = shopManager.Map.GetRowColumn(tileCoords);
+        TileInfo tileInfo = shopManager.Map.GetRowColumn(tileCoords);
         if (mapPck.TileTowerInfos.ContainsKey(new Vector2(tileInfo.Row, tileInfo.Column)) || mapPck.TileTrapInfos.ContainsKey(tileCoords))
             tileIsEmpty = false;
         return tileIsEmpty;

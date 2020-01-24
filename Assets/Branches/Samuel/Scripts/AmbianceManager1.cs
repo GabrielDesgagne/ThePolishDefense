@@ -146,5 +146,16 @@ public class AmbianceManager : Flow
         sfx.clip = sounds[soundTypes.ENEMY_DEAD];
         sfx.Play();
     }
+        public void tileSounds()
+    {
+        sfx.clip = sounds[soundTypes.TILE];
+        sfx.Play();
+    }
 
+    public void grabSound()
+    {
+        sfx.clip = sounds[soundTypes.GRAB];
+        sfx.Play();
+    }
 }
+

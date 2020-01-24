@@ -86,11 +86,11 @@ public class BowManager : MonoBehaviour
     }
     private void Fire()
     {
-        ambiance.BowSounds();
         currentSnapArrow.Fired((forceArrowMaxShoot * pourcentString) / 100f);
 
         stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition;
 
+        ambiance.BowSounds();
         currentSnapArrow = null;
     }
 }
