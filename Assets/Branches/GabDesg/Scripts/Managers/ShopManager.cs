@@ -223,7 +223,6 @@ public class ShopManager : Flow {
         //Spawn turret
         GameObject obj = GameObject.Instantiate<GameObject>(this.towerSpawnInfo[type].objPrefab, this.shopItemsHolder.transform);
         obj.transform.position = spawnPosition;
-        obj.GetComponent<Rigidbody>().useGravity = false;
     }
 
     private void SpawnTrapInShop(TrapType type) {
