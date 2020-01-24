@@ -133,17 +133,17 @@ public class Room : Flow
     {
         sceneEnded = true;
 
-        playerManager.EndFlow();
+        //playerManager.EndFlow();
 
-        timeManager.EndFlow();
+        //timeManager.EndFlow();
 
-        inputManager.EndFlow();
-        grabbableManager.EndFlow();
+        //inputManager.EndFlow();
+        //grabbableManager.EndFlow();
 
         shopManager.EndFlow();
 
-        podManager.EndFlow();
-        arrowManager.EndFlow();
+       // podManager.EndFlow();
+       // arrowManager.EndFlow();
 
         DestroyRoomVariables();
     }
