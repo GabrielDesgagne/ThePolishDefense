@@ -18,7 +18,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
     - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
     timeBetweenWaves: 5
-  - numLevel: 0
+  - numLevel: 1
     waves:
     - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
     - {fileID: 11400000, guid: 9cf4d6b00823a154b84934648bb5494d, type: 2}
