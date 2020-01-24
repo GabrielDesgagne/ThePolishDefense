@@ -1508,9 +1508,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dcb4e4f21eae44881d035cadd153a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 15
+  startSpeed: 7
   speed: 0
-  startHealth: 710.4
+  startHealth: 100
   value: 50
   healthBar: {fileID: 2502272327305094623}
   isDead: 0
@@ -1523,6 +1523,7 @@ MonoBehaviour:
   canEnter: 0
   stateDuration: 1.8
   MaxStateDuration: 1.8
+  type: 0
 --- !u!114 &8353673247606283943
 MonoBehaviour:
   m_ObjectHideFlags: 0

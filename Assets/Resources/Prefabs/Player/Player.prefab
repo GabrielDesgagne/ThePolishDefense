@@ -682,7 +682,7 @@ MonoBehaviour:
   initialCurrency: 100
   initialHp: 10
   startingLevel: 0
-  damage: 75
+  damage: 100
 --- !u!1 &5232227960490691861
 GameObject:
   m_ObjectHideFlags: 0

@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 4033908571705767894}
   - component: {fileID: -3345583881120220832}
   m_Layer: 9
-  m_Name: HEAVY_1
+  m_Name: SIMPLE_1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1083,9 +1083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dcb4e4f21eae44881d035cadd153a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 10
+  startSpeed: 5
   speed: 0
-  startHealth: 100
+  startHealth: 150
   value: 50
   healthBar: {fileID: 2202348899461809888}
   isDead: 0
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   canEnter: 0
   stateDuration: 1.8
   MaxStateDuration: 1.8
-  ableToEnter: 0
+  type: 0
 --- !u!114 &-7824005677042863476
 MonoBehaviour:
   m_ObjectHideFlags: 0
