@@ -70,7 +70,7 @@ public class Door : MonoBehaviour
         {
             
             Enemy e = other.gameObject.GetComponent<Enemy>();
-            e.canEnter = false;
+            //e.canEnter = false;
         }
 
     }

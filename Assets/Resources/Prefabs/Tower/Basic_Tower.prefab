@@ -6111,7 +6111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerDamage: 5
-  TowerRange: 50
+  TowerRange: 30
   TowerAttackCooldown: 2
 --- !u!136 &8762749109286354539
 CapsuleCollider:

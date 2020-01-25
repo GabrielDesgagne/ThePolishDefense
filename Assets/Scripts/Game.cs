@@ -302,5 +302,6 @@ public class Game : Flow
                 enemyPoint.transform);
         }
         EnemyManager.Instance.SetPoints(enemyPoint.transform);
+        GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Player/TeleportPoint"), enemyPoint.transform.GetChild(enemyPoint.transform.childCount - 1).transform.position, Quaternion.identity);
     }
 }

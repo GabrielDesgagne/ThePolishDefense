@@ -19,4 +19,8 @@ MonoBehaviour:
     number: 1
   - type: 3
     number: 3
+  - type: 4
+    number: 1
+  - type: 5
+    number: 1
   rate: 0.5

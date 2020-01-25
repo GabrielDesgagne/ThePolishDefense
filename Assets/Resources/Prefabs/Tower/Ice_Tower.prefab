@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &-6772886796938903610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 684533517539377938}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5705755414400656924}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5705755414400656924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5066859414755239182, guid: fc2edb7a01488764f8e0a4e969ed69f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 684533517539377938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: -6772886796938903610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4511048863153740262}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &-1987192291756665743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 684533517539377938}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4511048863153740262}
+  m_Layer: 0
+  m_Name: ForestBanner_Blue (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4511048863153740262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 684533517539377938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: -1987192291756665743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5705755414400656924}
+  m_Father: {fileID: 2928704805793380170}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550008960197820514
 GameObject:
   m_ObjectHideFlags: 0
@@ -9598,7 +9660,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.08, z: 0.1}
   m_Children:
   - {fileID: 3785613946245352043}
-  - {fileID: 5705755414400656924}
+  - {fileID: 4511048863153740262}
   - {fileID: 5356810660610283570}
   - {fileID: 1113895958926867493}
   - {fileID: 7980382939968366778}
@@ -9626,7 +9688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerDamage: 5
-  TowerRange: 50
+  TowerRange: 30
   TowerAttackCooldown: 3
 --- !u!1001 &129102284100484362
 PrefabInstance:
@@ -9768,12 +9830,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2edb7a01488764f8e0a4e969ed69f7, type: 3}
---- !u!4 &5705755414400656924 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5066859414755239182, guid: fc2edb7a01488764f8e0a4e969ed69f7,
-    type: 3}
-  m_PrefabInstance: {fileID: 684533517539377938}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &879948621347637541
 PrefabInstance:
   m_ObjectHideFlags: 0

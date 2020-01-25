@@ -26,7 +26,7 @@ public class MapInfoPck
 
     public void AddTower(Vector2 tileCoord, TowerType type)
     {
-        if (this.TileTrapInfos.ContainsKey(tileCoord))
+        if (this.TileTowerInfos.ContainsKey(tileCoord))
             Debug.Log("Tile coords is already saved... U shouldnt be able to place an item here (FIX CODE)");
         else
             this.TileTowerInfos.Add(tileCoord, type);

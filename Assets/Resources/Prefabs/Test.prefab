@@ -560,7 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a60218974bbd74d91db536c12e4d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAngle: 90
+  maxAngle: 100
   openDoor: 0
   doorLeft: {fileID: 759676958018909382}
   doorRight: {fileID: 7880463580891691620}
@@ -1088,7 +1088,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3224391072570707086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 208.21213, y: -42.62704, z: 1150.1624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1098,7 +1098,7 @@ Transform:
   - {fileID: 2715949104948722137}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &3493534176485162756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6926426460785845406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.079996, y: -1.1999989, z: -6.0500183}
+  m_LocalPosition: {x: -14.08, y: -1.1999989, z: -6.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6411906447640047142}

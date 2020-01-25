@@ -316,11 +316,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 10
   speed: 0
-  startHealth: 100
+  startHealth: 1000
   value: 50
   healthBar: {fileID: 6113527007743111601}
   isDead: 0
-  audioEnnemi: {fileID: 0}
   soundDead: {fileID: 8300000, guid: 4e105e19406554b42b02f867a6544a89, type: 3}
   uiDiedEffectPrefabs: {fileID: 2479430923811739813, guid: 20c182a05638c4b4e987c3bd4aa8cbae,
     type: 3}
@@ -329,6 +328,7 @@ MonoBehaviour:
   canEnter: 0
   stateDuration: 1.8
   MaxStateDuration: 1.8
+  type: 0
 --- !u!114 &-2343399965721994053
 MonoBehaviour:
   m_ObjectHideFlags: 0

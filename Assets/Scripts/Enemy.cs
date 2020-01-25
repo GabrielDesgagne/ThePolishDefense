@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
 
 
     private Animator anim;
-    public GameObject audioEnnemi;
+    //public GameObject audioEnnemi;
     public AudioClip soundDead;
     private EnemyMovement mvt;
     private AudioSource dead;
@@ -62,15 +62,7 @@ public class Enemy : MonoBehaviour
         isHittable = true;
         canEnter = false;
     }
-    private void Update()
-    {
-        //for test the take damage function. we can delete it after
-        if (Input.GetKeyDown(KeyCode.A)/*&&isHittable*/)
-        {
-            TakeDamage(50);
-        }
-        //
-    }
+   
     public void Refresh()
     {
 
@@ -104,11 +96,16 @@ public class Enemy : MonoBehaviour
                     isHittable = false;
                     WaveSpawner.EnemiesAlive--;
                     enemyManager.EnemyDied(this);
+                    Destroy(gameObject);
                     return;
                 }
 
                 waypointIndex++;
                 target = enemyManager.waypoints[waypointIndex];
+            }
+            if (Vector3.Distance(transform.position, MapVariables.instance.enemyStart.transform.position) > 0.3f && !canEnter)
+            {
+                isHittable = true;
             }
         }
     }

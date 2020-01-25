@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   types:
   - type: 0
-    number: 1
+    number: 10
   - type: 3
-    number: 3
+    number: 13
+  - type: 1
+    number: 8
+  - type: 2
+    number: 20
+  - type: 4
+    number: 1
+  - type: 5
+    number: 1
   rate: 0.5
